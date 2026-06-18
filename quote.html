@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get an instant quote — Rexa Insurance Broking</title>
+<meta name="description" content="Build your cover in three steps and see an indicative annual premium update live. An IRDA-licensed Rexa advisor confirms the final quote.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,560;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>Rexa</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="general.html">General Insurance</a>
+      <a href="life.html">Life & Benefits</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-ghost">Talk to us</a>
+      <a href="quote.html" class="btn btn-primary active">Get a quote</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap reveal">
+    <div class="crumbs"><a href="index.html">Home</a> / Get a quote</div>
+    <span class="eyebrow" style="margin-top:1rem">Instant estimate</span>
+    <h1>Build your cover, see the price live</h1>
+    <p class="lead">Pick what you want to protect, tell us a little about your business, and watch an indicative annual premium update as you go. A licensed Rexa advisor confirms the final figure.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:clamp(2rem,4vw,3rem)">
+  <div class="wrap quote-wrap">
+
+    <!-- WIZARD -->
+    <div class="wizard" id="wizard">
+      <div class="wz-progress">
+        <span class="pip"><i></i></span>
+        <span class="pip"><i></i></span>
+        <span class="pip"><i></i></span>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="wz-step active">
+        <div class="wz-stepnum">Step 1 of 3</div>
+        <h2>What do you want to cover?</h2>
+        <p class="hint">Select one or more. You can fine-tune amounts in the next step.</p>
+        <div class="opt-grid" id="optProducts"></div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="wz-step">
+        <div class="wz-stepnum">Step 2 of 3</div>
+        <h2>Tell us about your business</h2>
+        <p class="hint">These inputs shape your indicative premium on the right.</p>
+
+        <div class="field">
+          <label for="fIndustry">Industry</label>
+          <select id="fIndustry"></select>
+        </div>
+
+        <div class="range-row">
+          <div class="rlab"><b>Team size</b><span class="rval" id="fTeamV">25 people</span></div>
+          <input type="range" id="fTeam" min="1" max="500" step="1" value="25">
+        </div>
+
+        <div class="range-row">
+          <div class="rlab"><b>Sum insured / cover</b><span class="rval" id="fSumV">₹50 L</span></div>
+          <input type="range" id="fSum" min="5" max="1000" step="5" value="50">
+        </div>
+
+        <div class="range-row">
+          <div class="rlab"><b>Claim-free years</b><span class="rval" id="fClaimV">3 years</span></div>
+          <input type="range" id="fClaim" min="0" max="5" step="1" value="3">
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="wz-step">
+        <div class="wz-stepnum">Step 3 of 3</div>
+        <h2>Where should we send it?</h2>
+        <p class="hint">We'll lock in your indicative estimate and have an advisor confirm the details.</p>
+        <div class="field"><label for="q_name">Full name *</label><input id="q_name" type="text" placeholder="Your name"></div>
+        <div class="field"><label for="q_company">Company</label><input id="q_company" type="text" placeholder="Company name"></div>
+        <div class="field"><label for="q_email">Work email *</label><input id="q_email" type="email" placeholder="you@company.com"></div>
+        <div class="field"><label for="q_phone">Phone</label><input id="q_phone" type="tel" placeholder="+91"></div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="wz-step result" id="wzResult">
+        <div class="big-tick">✓</div>
+        <h2>You're all set, <span id="resName">there</span>!</h2>
+        <p class="hint" style="margin:.6rem auto 0;max-width:40ch">Your indicative annual premium for <b id="resProducts">your cover</b> is</p>
+        <div style="font-family:var(--serif);font-size:clamp(2.4rem,7vw,3.4rem);color:var(--brand);font-weight:600;margin:.4rem 0" id="resAmt">₹—</div>
+        <div class="ref">Reference: <b id="resRef">RX-000000</b></div>
+        <p class="hint" style="margin:1.4rem auto 0;max-width:44ch">A licensed Rexa advisor will call within one business day to confirm cover and finalise your quote.</p>
+        <div style="margin-top:1.6rem;display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap">
+          <a href="index.html" class="btn btn-primary">Back to home</a>
+          <button class="btn btn-ghost" id="wzRestart">Start over</button>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="wz-nav">
+        <button class="btn btn-ghost" id="wzBack">← Back</button>
+        <button class="btn btn-primary" id="wzNext">Continue <span class="arr">→</span></button>
+      </div>
+    </div>
+
+    <!-- LIVE ESTIMATE -->
+    <aside class="estimate" id="estimate"></aside>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html"><span class="mark"></span>Rexa</a>
+        <p>A platform that deals in multifarious insurance categories — General Insurance & Life Insurance — for Indian businesses and their people.</p>
+        <div class="lic">IRDA Broking License No: 611 · Direct Broker (Life & General)</div>
+      </div>
+      <div><h4>General</h4><a href="general.html">Property</a><a href="general.html">Liability</a><a href="general.html">Marine</a><a href="general.html">Motor</a></div>
+      <div><h4>Life & People</h4><a href="life.html">Group Health</a><a href="life.html">Group Term Life</a><a href="life.html">Personal Accident</a><a href="life.html">Employee Benefits</a></div>
+      <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="quote.html">Get a quote</a><a href="about.html#partners">Partners</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Rexa Insurance Broking Services. All rights reserved.</span>
+      <span>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai 600017 · 044 4867 8884</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

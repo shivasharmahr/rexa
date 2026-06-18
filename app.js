@@ -1,0 +1,231 @@
+/* ===========================================================
+   REXA — site interactions
+   =========================================================== */
+
+// Mobile nav toggle
+document.addEventListener('click', e => {
+  if (e.target.closest('.nav-toggle')) {
+    document.querySelector('.nav-links')?.classList.toggle('open');
+  }
+});
+
+// Scroll reveal
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Simple contact form (demo)
+function handleQuote(e){
+  e.preventDefault();
+  const f = e.target;
+  const msg = f.querySelector('.form-msg');
+  if(msg){ msg.textContent = "Thanks — a Rexa advisor will reach out within one business day."; msg.style.display='block'; }
+  f.reset();
+  toast('Request sent. We’ll be in touch shortly.');
+}
+
+// Toast helper
+function toast(text){
+  let t = document.querySelector('.toast');
+  if(!t){ t = document.createElement('div'); t.className='toast'; document.body.appendChild(t); }
+  t.textContent = text;
+  requestAnimationFrame(()=> t.classList.add('show'));
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=> t.classList.remove('show'), 3200);
+}
+
+/* ===========================================================
+   QUOTE WIZARD
+   A live, interactive multi-step flow with indicative pricing.
+   Indicative only — not a binding quote.
+   =========================================================== */
+(function quoteWizard(){
+  const root = document.getElementById('wizard');
+  if(!root) return;
+
+  // --- Product catalogue: base rate is annual premium per ₹1 of sum insured (very rough, illustrative) ---
+  const PRODUCTS = {
+    property: { label:'Property & Asset',   icon:'\u{1F3E2}', desc:'Fire, all-risk, burglary', rate:0.0011, min:6000 },
+    liability:{ label:'Liability',           icon:'\u{2696}\u{FE0F}', desc:'D&O, indemnity, cyber', rate:0.0016, min:9000 },
+    marine:   { label:'Marine & Transit',    icon:'\u{1F6A2}', desc:'Cargo, hull, logistics', rate:0.0009, min:5000 },
+    motor:    { label:'Motor & Fleet',       icon:'\u{1F699}', desc:'Cars, trucks, fleets', rate:0.0028, min:4000 },
+    health:   { label:'Group Health',        icon:'\u{1F3E5}', desc:'Mediclaim for your team', rate:0.0000, min:0, perHead:5200 },
+    life:     { label:'Group Life & PA',     icon:'\u{1F465}', desc:'Term life & accident', rate:0.0000, min:0, perHead:1400 },
+  };
+
+  // --- Industry risk multipliers ---
+  const INDUSTRIES = {
+    'Technology / SaaS':0.9, 'Retail & FMCG':1.0, 'Manufacturing':1.25, 'Construction':1.45,
+    'Healthcare':1.15, 'Logistics & Transport':1.3, 'Hospitality':1.1, 'Energy & Power':1.5,
+    'Financial Services':1.2, 'Education':0.85, 'Real Estate':1.05, 'Other':1.0
+  };
+
+  const state = {
+    step: 0,
+    products: new Set(),
+    industry: 'Technology / SaaS',
+    team: 25,
+    sumInsured: 50,   // in ₹ Lakh
+    claimYears: 3,    // claim-free years -> discount
+    name:'', company:'', email:'', phone:''
+  };
+
+  const fmtINR = n => '₹' + Math.round(n).toLocaleString('en-IN');
+  const lakh = l => l >= 100 ? (l/100).toFixed(l%100? 2:0)+' Cr' : l+' L';
+
+  // --- Pricing engine ---
+  function calc(){
+    const lines = [];
+    let gross = 0;
+    const indMult = INDUSTRIES[state.industry] || 1;
+    const sumRupees = state.sumInsured * 100000;
+
+    state.products.forEach(key => {
+      const p = PRODUCTS[key];
+      let prem;
+      if(p.perHead){
+        prem = p.perHead * state.team * indMult;
+      } else {
+        prem = Math.max(p.min, sumRupees * p.rate) * indMult;
+      }
+      gross += prem;
+      lines.push({ label:p.label, prem });
+    });
+
+    // Claim-free discount: up to 15%
+    const discPct = Math.min(state.claimYears * 0.05, 0.15);
+    const discount = gross * discPct;
+    const net = gross - discount;
+    const gst = net * 0.18;
+    const total = net + gst;
+    return { lines, gross, discount, discPct, gst, total };
+  }
+
+  // --- Render live estimate panel ---
+  function renderEstimate(){
+    const box = document.getElementById('estimate');
+    if(!box) return;
+    if(state.products.size === 0){
+      box.innerHTML = `<div class="e-lab">Your estimate</div>
+        <div class="e-amt">₹—</div>
+        <div class="e-empty">Pick what you want to cover to see a live indicative premium.</div>`;
+      return;
+    }
+    const r = calc();
+    const rows = r.lines.map(l => `<div class="e-row"><span>${l.label}</span><span>${fmtINR(l.prem)}</span></div>`).join('');
+    const disc = r.discount>0 ? `<div class="e-row"><span>Claim-free discount (${Math.round(r.discPct*100)}%)</span><span>−${fmtINR(r.discount)}</span></div>` : '';
+    box.innerHTML = `
+      <div class="e-lab">Indicative annual premium</div>
+      <div class="e-amt" id="eAmt">${fmtINR(r.total)}</div>
+      <div class="e-per">incl. 18% GST · ${state.industry}</div>
+      <div class="e-list">
+        ${rows}
+        ${disc}
+        <div class="e-row"><span>GST (18%)</span><span>${fmtINR(r.gst)}</span></div>
+        <div class="e-row" style="font-weight:700;color:#fff;border-bottom:none"><span>Total</span><span>${fmtINR(r.total)}</span></div>
+      </div>
+      <div class="e-note">Indicative figure generated from the details you entered. Final premium is confirmed by a licensed Rexa advisor after underwriting.</div>`;
+    const amt = document.getElementById('eAmt');
+    if(amt){ amt.animate([{opacity:.4,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:250,easing:'ease'}); }
+  }
+
+  // --- Step 1 markup: product picker ---
+  function buildProducts(){
+    const grid = root.querySelector('#optProducts');
+    grid.innerHTML = Object.entries(PRODUCTS).map(([k,p]) => `
+      <div class="opt" data-prod="${k}">
+        <span class="oic">${p.icon}</span>
+        <span><span class="otitle">${p.label}</span><span class="odesc">${p.desc}</span></span>
+        <span class="otick">✓</span>
+      </div>`).join('');
+    grid.querySelectorAll('.opt').forEach(o => o.addEventListener('click', () => {
+      const k = o.dataset.prod;
+      if(state.products.has(k)){ state.products.delete(k); o.classList.remove('sel'); }
+      else { state.products.add(k); o.classList.add('sel'); }
+      renderEstimate(); updateNav();
+    }));
+  }
+
+  // --- Step 2 markup: details ---
+  function buildDetails(){
+    const sel = root.querySelector('#fIndustry');
+    sel.innerHTML = Object.keys(INDUSTRIES).map(i => `<option ${i===state.industry?'selected':''}>${i}</option>`).join('');
+    sel.addEventListener('change', e => { state.industry = e.target.value; renderEstimate(); });
+
+    const team = root.querySelector('#fTeam'), teamV = root.querySelector('#fTeamV');
+    team.value = state.team; teamV.textContent = state.team + ' people';
+    team.addEventListener('input', e => { state.team = +e.target.value; teamV.textContent = state.team + ' people'; renderEstimate(); });
+
+    const si = root.querySelector('#fSum'), siV = root.querySelector('#fSumV');
+    si.value = state.sumInsured; siV.textContent = '₹' + lakh(state.sumInsured);
+    si.addEventListener('input', e => { state.sumInsured = +e.target.value; siV.textContent = '₹' + lakh(state.sumInsured); renderEstimate(); });
+
+    const cy = root.querySelector('#fClaim'), cyV = root.querySelector('#fClaimV');
+    cy.value = state.claimYears; cyV.textContent = state.claimYears + (state.claimYears===1?' year':' years');
+    cy.addEventListener('input', e => { state.claimYears = +e.target.value; cyV.textContent = state.claimYears + (state.claimYears===1?' year':' years'); renderEstimate(); });
+  }
+
+  // --- Step 3: contact fields bind ---
+  function bindContact(){
+    ['name','company','email','phone'].forEach(f => {
+      const el = root.querySelector('#q_'+f);
+      el.value = state[f];
+      el.addEventListener('input', e => { state[f] = e.target.value; updateNav(); });
+    });
+  }
+
+  // --- Navigation between steps ---
+  const steps = [...root.querySelectorAll('.wz-step')];
+  const pips = [...root.querySelectorAll('.wz-progress .pip')];
+
+  function canAdvance(){
+    if(state.step === 0) return state.products.size > 0;
+    if(state.step === 2) return state.name.trim() && /\S+@\S+\.\S+/.test(state.email);
+    return true;
+  }
+
+  function updateNav(){
+    const next = root.querySelector('#wzNext');
+    if(next) next.disabled = !canAdvance();
+  }
+
+  function show(i){
+    state.step = i;
+    steps.forEach((s,idx) => s.classList.toggle('active', idx===i));
+    pips.forEach((p,idx) => { p.classList.toggle('done', idx<i); p.classList.toggle('active', idx===i); });
+    const back = root.querySelector('#wzBack'), next = root.querySelector('#wzNext');
+    if(back) back.style.visibility = i===0 ? 'hidden' : 'visible';
+    if(next) next.textContent = i===2 ? 'Get my quote' : 'Continue';
+    updateNav();
+    root.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function finish(){
+    const r = calc();
+    const ref = 'RX-' + Math.floor(100000 + Math.random()*899999);
+    const res = root.querySelector('#wzResult');
+    res.querySelector('#resAmt').textContent = fmtINR(r.total);
+    res.querySelector('#resRef').textContent = ref;
+    res.querySelector('#resProducts').textContent = [...state.products].map(k=>PRODUCTS[k].label).join(', ');
+    res.querySelector('#resName').textContent = state.name.split(' ')[0] || 'there';
+    // hide controls, show result
+    steps.forEach(s => s.classList.remove('active'));
+    res.classList.add('active');
+    root.querySelector('.wz-nav').style.display = 'none';
+    pips.forEach(p => { p.classList.add('done'); p.classList.remove('active'); });
+    toast('Quote ready — reference ' + ref);
+  }
+
+  root.querySelector('#wzNext').addEventListener('click', () => {
+    if(!canAdvance()) return;
+    if(state.step < 2) show(state.step + 1);
+    else finish();
+  });
+  root.querySelector('#wzBack').addEventListener('click', () => { if(state.step>0) show(state.step-1); });
+  root.querySelector('#wzRestart')?.addEventListener('click', () => location.reload());
+
+  // init
+  buildProducts(); buildDetails(); bindContact();
+  renderEstimate(); show(0);
+})();
