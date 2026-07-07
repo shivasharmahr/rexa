@@ -3,29 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rexa Insurance Broking — Risk management, made clear</title>
-<meta name="description" content="Rexa Insurance Broking Services is an IRDA-licensed broker (No. 611) offering general and life insurance for businesses — property, liability, marine, motor and employee benefits, placed across India's leading insurers.">
+<title>Rexa Insurance Broking — Beyond Insurance. Building Resilience.</title>
+<meta name="description" content="Rexa Insurance Broking — your strategic insurance & risk partner. IRDA Licensed Broker No. 611. 500+ corporate clients, 100K+ lives covered, 98% client retention across India.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,560;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" href="assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 </head>
 <body>
+
+<!-- PROMO ANNOUNCEMENT BAR -->
+<div class="promo-bar" id="promoBar">
+  <div class="wrap promo-bar-inner">
+    <p class="promo-text">
+      <span class="promo-emoji">🌧️</span>
+      <strong>Monsoon offer:</strong> 10% off motor &amp; fleet cover + free roadside assistance this season.
+    </p>
+    <div class="promo-actions">
+      <button class="promo-cta" id="promoOpen" type="button">Today's offers <span class="arr">→</span></button>
+      <button class="promo-close" id="promoDismiss" type="button" aria-label="Dismiss offer">&times;</button>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="index.html"><span class="mark"></span>Rexa</a>
+    <a class="brand" href="index.html"><img src="assets/rexa-logo.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
     <nav class="nav-links">
       <a href="index.html" class="active">Home</a>
       <a href="general.html">General Insurance</a>
-      <a href="life.html">Life & Benefits</a>
+      <a href="life.html">Life &amp; Benefits</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
+      <a href="coverage.html" class="nav-coverage">Check Coverage</a>
     </nav>
     <div class="nav-cta">
       <a href="contact.html" class="btn btn-ghost">Talk to us</a>
-      <a href="quote.html" class="btn btn-primary">Get a quote</a>
+      <a href="quote.html" class="btn btn-primary">Get a quote <span class="arr">→</span></a>
     </div>
     <button class="nav-toggle" aria-label="Menu">☰</button>
   </div>
@@ -33,144 +51,803 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-glow-r"></div>
+  <div class="hero-glow-l"></div>
   <div class="wrap hero-grid">
+
+    <!-- Left: copy -->
     <div class="reveal">
-      <span class="eyebrow">IRDA Licensed Broker · No. 611</span>
-      <h1 class="display">Risk handled.<br>Clearly.</h1>
-      <p class="lead">Rexa pairs seasoned insurance advisors with a modern platform that makes coverage easy to choose, manage and claim — for your business and your people.</p>
+      <span class="hero-pill">
+        <span class="hp-dot"></span>
+        IRDA Licensed Broker · No. 611 · Est. 2017
+      </span>
+      <h1 class="display">More than<br>a broker.<br><span>Your risk<br>partner.</span></h1>
+      <p class="lead">At Rexa, we go beyond policy placement. We partner with organisations to optimise benefits, strengthen risk protection, and enhance the well-being of their people.</p>
       <div class="hero-cta">
-        <a href="quote.html" class="btn btn-primary">Get an instant estimate <span class="arr">→</span></a>
-        <a href="general.html" class="btn btn-ghost">Explore coverage</a>
+        <a href="contact.html" class="btn btn-primary btn-lg">Get a free review <span class="arr">→</span></a>
+        <a href="general.html" class="btn btn-ghost btn-lg">Explore coverage</a>
       </div>
-      <div class="hero-trust">
-        <div><div class="t-num">11+</div><div class="t-lab">Insurer partners</div></div>
-        <div><div class="t-num">17</div><div class="t-lab">Industries served</div></div>
-        <div><div class="t-num">24×7</div><div class="t-lab">Claims support</div></div>
-      </div>
-    </div>
-    <div class="hero-art reveal">
-      <div class="hero-blob"></div>
-      <div class="policy-card pc-main">
-        <div class="pc-head">
-          <span class="pc-badge">Active policy</span>
-          <span style="font-size:.8rem;color:var(--ink-soft)">#RXA-22910</span>
+      <!-- Social proof -->
+      <div class="hero-proof">
+        <div class="hp-avatars">
+          <img src="logos/yulu.bike.png" alt="" onerror="this.outerHTML='<span class=hp-av>Y</span>'">
+          <img src="logos/indo-mim.com.png" alt="" onerror="this.outerHTML='<span class=hp-av>I</span>'">
+          <img src="logos/indusschool.com.png" alt="" onerror="this.outerHTML='<span class=hp-av>N</span>'">
+          <span class="hp-av hp-more">+500</span>
         </div>
-        <div class="pc-cover">Property & Liability</div>
-        <div class="pc-row"><span class="k">Sum insured</span><span class="v">₹5.0 Cr</span></div>
-        <div class="pc-row"><span class="k">Premium</span><span class="v">₹84,200 / yr</span></div>
-        <div class="pc-row"><span class="k">Renewal</span><span class="v">12 Apr 2027</span></div>
-      </div>
-      <div class="policy-card pc-float">
-        <span class="ring">✓</span>
-        <span><small>Claim approved</small><strong>₹1,12,000 paid</strong></span>
+        <div class="hp-proof-text">
+          <div class="hp-stars">★★★★★</div>
+          <div class="hp-proof-sub">Trusted by <b>500+ organisations</b> across India</div>
+        </div>
       </div>
     </div>
+
+    <!-- Right: dashboard card -->
+    <div class="hero-art reveal">
+      <div class="dash-card">
+        <div class="dash-header">
+          <div>
+            <div class="dash-title">Risk Portfolio</div>
+            <div class="dash-sub">Rexa Managed · FY 2025–26</div>
+          </div>
+          <span class="dash-live">Live</span>
+        </div>
+
+        <!-- Premium growth chart -->
+        <div class="dash-chart">
+          <div class="dc-head">
+            <div>
+              <div class="dc-lab">Premium Managed</div>
+              <div class="dc-val">₹100 Cr+ <span class="dc-delta">▲ 24%</span></div>
+            </div>
+            <span class="dc-period">Last 6 yrs</span>
+          </div>
+          <div class="dc-bars">
+            <span style="--h:38%"></span>
+            <span style="--h:52%"></span>
+            <span style="--h:47%"></span>
+            <span style="--h:68%"></span>
+            <span style="--h:82%"></span>
+            <span class="dc-peak" style="--h:100%"></span>
+          </div>
+        </div>
+
+        <div class="dash-metrics">
+          <div class="dash-metric">
+            <div class="dm-num">100K+</div>
+            <div class="dm-lab">Lives Covered</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dm-num">500+</div>
+            <div class="dm-lab">Claims Resolved</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dm-num">50+</div>
+            <div class="dm-lab">Insurer Partners</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dm-num">98%</div>
+            <div class="dm-lab">Retention Rate</div>
+          </div>
+        </div>
+        <div class="dash-badges">
+          <span class="dbadge dbadge-navy">IRDA Licensed · No. 611</span>
+          <span class="dbadge dbadge-green">98% Retention</span>
+          <span class="dbadge dbadge-red">Est. 2017</span>
+        </div>
+      </div>
+
+      <!-- Floating: claim settled -->
+      <div class="dash-notif">
+        <span class="notif-tick">✓</span>
+        <div>
+          <div class="notif-title">Claim Settled</div>
+          <div class="notif-sub">₹8.4L approved · 3 business days</div>
+        </div>
+      </div>
+      <!-- Floating: rating chip -->
+      <div class="dash-chip">
+        <span class="dchip-ico">★</span>
+        <div>
+          <div class="dchip-num">A+ Service</div>
+          <div class="dchip-sub">98% renewal rate</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- LOGOS -->
+<!-- INSURER PARTNERS -->
 <section class="logos">
   <div class="wrap">
-    <p>Placing risk with India's leading insurers</p>
+    <p class="logos-label">Placing risk with India's leading insurers</p>
     <div class="logo-row">
-      <span>SBI General</span><span>Royal Sundaram</span><span>Bajaj Allianz</span>
-      <span>ICICI Lombard</span><span>HDFC Ergo</span><span>Tata AIG</span>
-      <span>Reliance</span><span>IFFCO Tokio</span><span>Oriental</span><span>Shriram</span>
+      <span>Bajaj Allianz</span>
+      <span>ICICI Lombard</span>
+      <span>HDFC Ergo</span>
+      <span>Tata AIG</span>
+      <span>SBI General</span>
+      <span>Royal Sundaram</span>
+      <span>New India Assurance</span>
+      <span>IFFCO Tokio</span>
+      <span>Reliance General</span>
+      <span>Oriental Insurance</span>
+      <span>Star Health</span>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="section">
+<!-- CORE OFFERINGS -->
+<section class="section offerings">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">What we cover</span>
-      <h2>One broker for every risk you carry</h2>
-      <p>From the assets on your balance sheet to the people on your team, we build coverage around how your business actually runs.</p>
+    <div class="offerings-head reveal">
+      <span class="eyebrow">Our Core Offerings</span>
+      <h2>Everything your business needs.<br>One trusted partner.</h2>
+      <p>From employee benefits to property protection — we cover every risk your organisation carries.</p>
     </div>
-    <div class="svc-grid">
-      <a href="general.html" class="svc reveal"><span class="ic">🏢</span><h3>Property Insurance</h3><p>Financial reimbursement to the owner of a structure — fire, all-risk, burglary and office packages.</p><span class="more">See plans <span class="arr">→</span></span></a>
-      <a href="general.html" class="svc reveal"><span class="ic">⚖️</span><h3>Liability Insurance</h3><p>Protects you from the risk of liabilities imposed by lawsuits and similar claims.</p><span class="more">See plans <span class="arr">→</span></span></a>
-      <a href="general.html" class="svc reveal"><span class="ic">🚢</span><h3>Marine Insurance</h3><p>Covers loss or damage of ships, cargo, terminals and any transport in between.</p><span class="more">See plans <span class="arr">→</span></span></a>
-      <a href="life.html" class="svc reveal"><span class="ic">👥</span><h3>Employee Benefits</h3><p>Perks offered to your employees in addition to salary — group health, life and more.</p><span class="more">See plans <span class="arr">→</span></span></a>
-      <a href="general.html" class="svc reveal"><span class="ic">🚗</span><h3>Motor Insurance</h3><p>Covers loss or damage caused to the automobile — single vehicle to full fleet.</p><span class="more">See plans <span class="arr">→</span></span></a>
-      <a href="quote.html" class="svc reveal"><span class="ic">🧮</span><h3>Instant Estimate</h3><p>Tell us what you're protecting and get an indicative premium in under a minute.</p><span class="more">Try the tool <span class="arr">→</span></span></a>
+    <div class="off-bento reveal">
+
+        <!-- Employee Benefits (feature) -->
+        <a class="off-card off-feature" data-accent="green" href="life.html" style="grid-area:emp">
+          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="off-copy">
+            <span class="off-tag">Most chosen</span>
+            <h3>Employee Benefits</h3>
+            <div class="off-chips">
+              <span>Group Health</span>
+              <span>Personal Accident</span>
+              <span>Term Life</span>
+              <span>Top-up &amp; Wellness</span>
+            </div>
+          </div>
+          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A friendly heart with a medical plus">
+            <g class="spark"><path d="M56 8 V18"/><path d="M36 15 l6 8"/><path d="M76 15 l-6 8"/></g>
+            <ellipse class="shadow" cx="56" cy="108" rx="22" ry="4.5"/>
+            <path class="st fillw" d="M56 100 C24 77 18 53 33 41 C43 33 53 38 56 49 C59 38 69 33 79 41 C94 53 88 77 56 100 Z"/>
+            <path class="glyph" d="M56 57 V77 M46 67 H66"/>
+          </svg>
+        </a>
+
+        <!-- Liability -->
+        <a class="off-card" data-accent="red" href="general.html" style="grid-area:lia">
+          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="off-copy">
+            <h3>Liability Solutions</h3>
+            <div class="off-chips">
+              <span>D&amp;O</span>
+              <span>Cyber</span>
+              <span>Indemnity</span>
+            </div>
+          </div>
+          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A shield deflecting a lightning bolt">
+            <g class="spark"><path d="M84 22 l7 -6"/><path d="M90 34 l9 -1"/></g>
+            <ellipse class="shadow" cx="54" cy="108" rx="22" ry="4.5"/>
+            <path class="st fillw" d="M54 40 L76 48 V66 C76 84 66 93 54 100 C42 93 32 84 32 66 V48 Z"/>
+            <circle class="eye" cx="47" cy="64" r="2.8"/>
+            <circle class="eye" cx="61" cy="64" r="2.8"/>
+            <path class="st" d="M47 74 q7 6 14 0"/>
+            <path class="bolt" d="M80 30 l-13 16 h7 l-6 15 15 -19 h-8 z"/>
+          </svg>
+        </a>
+
+        <!-- Property & Assets -->
+        <a class="off-card" data-accent="gold" href="general.html" style="grid-area:prop">
+          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="off-copy">
+            <h3>Property &amp; Assets</h3>
+            <div class="off-chips">
+              <span>Fire</span>
+              <span>Marine</span>
+              <span>Engineering</span>
+            </div>
+          </div>
+          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A house with a protective shield badge">
+            <g class="spark"><path d="M24 30 V20"/><path d="M14 40 l-9 -2"/></g>
+            <ellipse class="shadow" cx="56" cy="108" rx="24" ry="4.5"/>
+            <path class="st fillw" d="M30 60 L56 38 L82 60 V96 H30 Z"/>
+            <path class="st" d="M56 38 L56 30"/>
+            <circle class="eye" cx="46" cy="66" r="2.8"/>
+            <circle class="eye" cx="66" cy="66" r="2.8"/>
+            <path class="st" d="M46 76 q10 7 20 0"/>
+            <g class="badge">
+              <path class="st badge-shield" d="M74 66 l13 4.6 v9 c0 8-5.6 12.6-13 15.4 c-7.4-2.8-13-7.4-13-15.4 v-9 z"/>
+              <path class="badge-check" d="M68.5 80 l3.6 3.6 7-7.4" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+        </a>
+
+        <!-- Wellness (feature) -->
+        <a class="off-card off-feature" data-accent="teal" href="contact.html" style="grid-area:well">
+          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="off-copy">
+            <span class="off-tag">Beyond insurance</span>
+            <h3>Wellness &amp; Value Additions</h3>
+            <div class="off-chips">
+              <span>Health Camps</span>
+              <span>Telemedicine</span>
+              <span>24×7 Support</span>
+              <span>OHC</span>
+            </div>
+          </div>
+          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A heart with a smiling heartbeat line">
+            <g class="spark"><path d="M56 8 V18"/><path d="M36 15 l6 8"/><path d="M76 15 l-6 8"/></g>
+            <ellipse class="shadow" cx="56" cy="108" rx="22" ry="4.5"/>
+            <path class="st fillw" d="M56 100 C24 77 18 53 33 41 C43 33 53 38 56 49 C59 38 69 33 79 41 C94 53 88 77 56 100 Z"/>
+            <circle class="eye" cx="47" cy="58" r="2.8"/>
+            <circle class="eye" cx="65" cy="58" r="2.8"/>
+            <path class="glyph pulse" d="M36 74 H48 L52 66 L58 82 L63 72 L67 74 H76"/>
+          </svg>
+        </a>
+
     </div>
   </div>
 </section>
 
-<!-- WHY (alt) -->
-<section class="section alt">
+<!-- STATS BAND -->
+<section class="stats">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Why Rexa</span>
-      <h2>One stop solution for risk management</h2>
+    <div class="stat-band">
+      <div class="stat reveal">
+        <div class="n">500<em>+</em></div>
+        <div class="l">Corporate Clients Trust Us</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n">100K<em>+</em></div>
+        <div class="l">Lives Covered</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n">98<em>%</em></div>
+        <div class="l">Client Retention Rate</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n">₹100<em>Cr+</em></div>
+        <div class="l">Premium Managed</div>
+      </div>
     </div>
-    <div class="why-grid">
-      <div class="why reveal"><div class="why-no">01</div><h3>One stop for risk</h3><p>We map every exposure across your business and place it with the right insurer, at the right premium.</p></div>
-      <div class="why reveal"><div class="why-no">02</div><h3>Customised plans, best premium</h3><p>We negotiate across our insurer panel so you're never overpaying for cover you don't need.</p></div>
-      <div class="why reveal"><div class="why-no">03</div><h3>Quick claims</h3><p>When something goes wrong, our claims desk does the paperwork and chases the settlement.</p></div>
-      <div class="why reveal"><div class="why-no">04</div><h3>Available 24×7</h3><p>A named advisor plus round-the-clock support, because risk doesn't keep office hours.</p></div>
+  </div>
+</section>
+
+<!-- THE REXA DIFFERENCE -->
+<section class="section difference">
+  <div class="wrap">
+    <div class="diff-head reveal">
+      <span class="eyebrow">The Rexa Difference</span>
+      <h2>We don't just place policies.<br>We manage your risk.</h2>
+      <p>Our objective is not merely to place insurance. We aim to create long-term value by enhancing protection, improving experience, and optimising every rupee you spend.</p>
+    </div>
+    <div class="diff-grid">
+
+      <!-- Dedicated Service Model -->
+      <div class="diff-item reveal" data-accent="sky">
+        <div class="diff-chip">
+          <svg class="di-ill" viewBox="0 0 48 48" aria-hidden="true">
+            <path class="ln sig" d="M39 17 a6 6 0 0 1 0 14"/>
+            <path class="ln" d="M12.5 24 A11.5 11.5 0 0 1 35.5 24"/>
+            <circle class="ln" cx="24" cy="24" r="8.5"/>
+            <rect class="ln" x="9.5" y="23" width="5" height="9" rx="2.5"/>
+            <rect class="ln" x="33.5" y="23" width="5" height="9" rx="2.5"/>
+            <circle class="dot" cx="21" cy="23" r="1.3"/>
+            <circle class="dot" cx="27" cy="23" r="1.3"/>
+            <path class="ln" d="M20.5 27 q3.5 3 7 0"/>
+            <path class="ln accent" d="M35.5 32 v2.5 a5 5 0 0 1 -5 5 h-4.5"/>
+          </svg>
+        </div>
+        <h3>Dedicated Service Model</h3>
+        <p>Single point of contact for all your service needs — one team, total accountability.</p>
+      </div>
+
+      <!-- Claims Expertise -->
+      <div class="diff-item reveal" data-accent="teal">
+        <div class="diff-chip">
+          <svg class="di-ill" viewBox="0 0 48 48" aria-hidden="true">
+            <path class="ln accent speed" d="M4 17 h5"/>
+            <path class="ln accent speed" d="M2 23 h6"/>
+            <path class="ln accent speed" d="M4 29 h4"/>
+            <rect class="ln" x="13" y="8" width="21" height="32" rx="3"/>
+            <path class="ln soft" d="M18 17 h11 M18 23 h11 M18 29 h6"/>
+            <circle class="ln accent" cx="32" cy="33" r="8"/>
+            <path class="accent check" d="M28 33 l3 3 5.5-6"/>
+          </svg>
+        </div>
+        <h3>Claims Expertise</h3>
+        <p>End-to-end claims support with faster resolutions and strict TAT adherence.</p>
+      </div>
+
+      <!-- Employee Focus -->
+      <div class="diff-item reveal" data-accent="green">
+        <div class="diff-chip">
+          <svg class="di-ill" viewBox="0 0 48 48" aria-hidden="true">
+            <circle class="ln soft" cx="32" cy="22" r="5"/>
+            <path class="ln soft" d="M24 39 c0-7 16-7 16 0"/>
+            <circle class="ln" cx="18" cy="20" r="6.5"/>
+            <path class="ln" d="M7 39 c0-9 22-9 22 0"/>
+            <path class="accent heartpop" d="M34 8 c-2.4-2.4-6-.6-6 2.2 c0 2.8 6 6 6 6 c0 0 6-3.2 6-6 c0-2.8-3.6-4.6-6-2.2 z"/>
+          </svg>
+        </div>
+        <h3>Employee Focus</h3>
+        <p>Claim education, monthly awareness sessions and HR support to improve employee experience.</p>
+      </div>
+
+      <!-- Strategic Advisory -->
+      <div class="diff-item reveal" data-accent="gold">
+        <div class="diff-chip">
+          <svg class="di-ill" viewBox="0 0 48 48" aria-hidden="true">
+            <path class="ln axis" d="M11 9 v29 h28"/>
+            <rect class="ln bar b1" x="15" y="27" width="5" height="11" rx="1.5"/>
+            <rect class="ln bar b2" x="22.5" y="21" width="5" height="17" rx="1.5"/>
+            <rect class="ln bar b3" x="30" y="15" width="5" height="23" rx="1.5"/>
+            <path class="accent trend" d="M14 30 L21 24 L27 27 L35 16"/>
+            <path class="accent" d="M30.5 16 H36 V21.5"/>
+          </svg>
+        </div>
+        <h3>Strategic Advisory</h3>
+        <p>Policy benchmarking, gap analysis and cost optimisation across your entire portfolio.</p>
+      </div>
+
+      <!-- Prevention + Protection -->
+      <div class="diff-item reveal" data-accent="red">
+        <div class="diff-chip">
+          <svg class="di-ill" viewBox="0 0 48 48" aria-hidden="true">
+            <path class="accent drops" d="M15 11 v3"/>
+            <path class="accent drops d2" d="M24 6 v3"/>
+            <path class="accent drops d3" d="M33 11 v3"/>
+            <path class="ln fillsoft" d="M8 26 A16 12 0 0 1 40 26 Z"/>
+            <path class="ln" d="M24 26 v10"/>
+            <path class="ln" d="M24 36 a3.5 3.5 0 0 1 -7 0"/>
+          </svg>
+        </div>
+        <h3>Prevention + Protection</h3>
+        <p>A holistic approach — safety training, OHC, wellness programs to safeguard your people.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERING PROCESS -->
+<section class="section process">
+  <div class="wrap">
+    <div class="proc-head reveal">
+      <span class="eyebrow">How We Work</span>
+      <h2>Your risk, managed end-to-end</h2>
+      <p>A structured five-step process designed to deliver clarity, value, and continuity at every stage.</p>
+    </div>
+    <div class="proc-steps">
+      <div class="proc-step reveal">
+        <div class="proc-num">1</div>
+        <h3>Understand Your Needs</h3>
+        <p>Deep-dive into your business, assets, team, and existing coverage.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">2</div>
+        <h3>Review &amp; Analyse</h3>
+        <p>In-depth data analysis, gap identification, and benchmarking against market best practices.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">3</div>
+        <h3>Recommend Optimal Solutions</h3>
+        <p>Unbiased recommendations — coverage structure, insurer strategy, and cost optimisation.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">4</div>
+        <h3>Implement &amp; Support</h3>
+        <p>Market approach, negotiation with 50+ insurers, and smooth policy finalisation.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">5</div>
+        <h3>Continuous Review &amp; Value</h3>
+        <p>Post-renewal support, claims advocacy, utilisation reviews, and ongoing value addition.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- INDUSTRIES -->
-<section class="section">
+<section class="section industries">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="ind-head reveal">
       <span class="eyebrow">Sectors</span>
       <h2>Industries we know inside out</h2>
-      <p>Specialist underwriting knowledge across the sectors that carry the most complex risk.</p>
+      <p style="color:var(--ink-soft);margin-top:.8rem;font-size:1.05rem;">Specialist underwriting knowledge across the sectors that carry the most complex risk.</p>
     </div>
     <div class="ind-grid">
-      <div class="ind reveal"><span class="dot"></span>Aviation & Aerospace</div>
-      <div class="ind reveal"><span class="dot"></span>Chemical</div>
-      <div class="ind reveal"><span class="dot"></span>Media & Technology</div>
-      <div class="ind reveal"><span class="dot"></span>Construction</div>
-      <div class="ind reveal"><span class="dot"></span>Energy & Power</div>
-      <div class="ind reveal"><span class="dot"></span>Education</div>
-      <div class="ind reveal"><span class="dot"></span>Healthcare</div>
-      <div class="ind reveal"><span class="dot"></span>Hospitality</div>
-      <div class="ind reveal"><span class="dot"></span>Infrastructure</div>
-      <div class="ind reveal"><span class="dot"></span>Manufacturing</div>
-      <div class="ind reveal"><span class="dot"></span>Marine</div>
-      <div class="ind reveal"><span class="dot"></span>Mining</div>
-      <div class="ind reveal"><span class="dot"></span>Public Entity</div>
-      <div class="ind reveal"><span class="dot"></span>Real Estate</div>
-      <div class="ind reveal"><span class="dot"></span>Retail & F&B</div>
-      <div class="ind reveal"><span class="dot"></span>Sports & Entertainment</div>
-      <div class="ind reveal"><span class="dot"></span>Logistics</div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 21h18M4 21V11l5 3V11l5 3V8l5 3v10"/><path d="M8 21v-3M13 21v-3"/>
+          </svg>
+        </span>
+        <span class="ind-label">Manufacturing</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8" y="8" width="8" height="8" rx="1"/><path d="M11 4v4M13 4v4M11 16v4M13 16v4M4 11h4M4 13h4M16 11h4M16 13h4"/>
+          </svg>
+        </span>
+        <span class="ind-label">Technology &amp; IT</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 18h18"/><path d="M5 18a7 7 0 0 1 14 0"/><path d="M10 8.5V6a1.5 1.5 0 0 1 3 0v2.5"/>
+          </svg>
+        </span>
+        <span class="ind-label">Construction</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>
+          </svg>
+        </span>
+        <span class="ind-label">Healthcare</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-5 9 5"/><path d="M4 9h16"/><path d="M6 9v8M10 9v8M14 9v8M18 9v8"/><path d="M3 21h18M4 17h16"/>
+          </svg>
+        </span>
+        <span class="ind-label">Government &amp; Public Sector</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h4"/>
+          </svg>
+        </span>
+        <span class="ind-label">Banking &amp; Financial Services</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 4 2 9l10 5 10-5-10-5Z"/><path d="M6 11v5c0 .9 2.7 2.2 6 2.2s6-1.3 6-2.2v-5"/><path d="M22 9v5"/>
+          </svg>
+        </span>
+        <span class="ind-label">Education</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 12v4"/>
+          </svg>
+        </span>
+        <span class="ind-label">Tourism &amp; Hospitality</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 7h10v9H3z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/>
+          </svg>
+        </span>
+        <span class="ind-label">Logistics &amp; Transport</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 8h14l-1 11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+          </svg>
+        </span>
+        <span class="ind-label">Retail &amp; FMCG</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
+          </svg>
+        </span>
+        <span class="ind-label">Energy &amp; Power</span>
+      </div>
+
+      <div class="ind-card reveal">
+        <span class="ind-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 21V8l7-4v17"/><path d="M10 21V11l8 3v7"/><path d="M3 21h18"/><path d="M6 12h1M6 16h1M14 15h1M14 18h1"/>
+          </svg>
+        </span>
+        <span class="ind-label">Real Estate</span>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section" style="background:var(--paper-2)">
+<!-- TOP CLIENTS -->
+<section class="section clients">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">How it works</span>
-      <h2>From exposure to covered in three steps</h2>
+    <div class="clients-head reveal">
+      <span class="eyebrow">Top Clients</span>
+      <h2>Trusted by 500+ companies across India</h2>
+      <p style="color:var(--ink-soft);margin-top:.8rem;font-size:1.05rem;max-width:52ch;margin-left:auto;margin-right:auto;">Industry leaders across manufacturing, IT, healthcare, education, and government sectors.</p>
     </div>
-    <div class="steps">
-      <div class="step reveal"><h3>We assess your risk</h3><p>A free audit of your assets, liabilities and team, with no obligation to buy.</p></div>
-      <div class="step reveal"><h3>We shop the market</h3><p>We compare cover across our insurer panel and bring you a clear recommendation.</p></div>
-      <div class="step reveal"><h3>We manage it for life</h3><p>Renewals, endorsements and claims, all handled by your dedicated advisor.</p></div>
+    <div class="client-logo-wall">
+
+      <!-- Logos: tries Clearbit first, falls back to styled initial -->
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/indusschool.com.png" alt="Indus International School"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>I</div>'">
+        </div>
+        <div class="clw-name">Indus International School</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <div class="clw-init">A</div>
+        </div>
+        <div class="clw-name">ANTTF</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <div class="clw-init">BC</div>
+        </div>
+        <div class="clw-name">Bangalore City Co-op Bank</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/ecom-ex.com.png" alt="ECOM"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>E</div>'">
+        </div>
+        <div class="clw-name">ECOM</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <div class="clw-init">CEI</div>
+        </div>
+        <div class="clw-name">CEI</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/kmfnandini.coop.png" alt="Nandini"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>N</div>'">
+        </div>
+        <div class="clw-name">Nandini</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/yulu.bike.png" alt="Yulu"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>Y</div>'">
+        </div>
+        <div class="clw-name">Yulu</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/asianet.co.in.png" alt="Asianet"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>AS</div>'">
+        </div>
+        <div class="clw-name">Asianet</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/dkms.org.png" alt="DKMS"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>DK</div>'">
+        </div>
+        <div class="clw-name">DKMS</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/chrysalishigh.com.png" alt="Chrysalis High"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>CH</div>'">
+        </div>
+        <div class="clw-name">Chrysalis High</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/intralox.com.png" alt="Intralox"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>IL</div>'">
+        </div>
+        <div class="clw-name">Intralox</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/indo-mim.com.png" alt="Indo-MIM"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>IM</div>'">
+        </div>
+        <div class="clw-name">Indo-MIM</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <div class="clw-init">BTC</div>
+        </div>
+        <div class="clw-name">Bangalore Turf Club Ltd</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/agilysys.com.png" alt="agilysys"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>AG</div>'">
+        </div>
+        <div class="clw-name">agilysys</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <div class="clw-init">NV</div>
+        </div>
+        <div class="clw-name">Navin's</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/quantratech.com.png" alt="QuantraTech"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>QT</div>'">
+        </div>
+        <div class="clw-name">QuantraTech</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/mobiveil.com.png" alt="Mobiveil"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>MV</div>'">
+        </div>
+        <div class="clw-name">Mobiveil</div>
+      </div>
+
+      <div class="clw-card reveal">
+        <div class="clw-img-wrap">
+          <img src="logos/finthrive.com.png" alt="FinThrive"
+               onerror="this.parentNode.innerHTML='<div class=clw-init>FT</div>'">
+        </div>
+        <div class="clw-name">FinThrive</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="wrap">
+    <div class="testi-head reveal">
+      <span class="eyebrow">Client Stories</span>
+      <h2>What our clients say</h2>
+      <p style="color:var(--ink-soft);margin-top:.8rem;font-size:1.05rem;max-width:54ch;margin-left:auto;margin-right:auto;">Real feedback from the businesses we protect every day.</p>
+      <div class="testi-rating">
+        <span class="tr-stars">★★★★★</span>
+        <span class="tr-score"><b>4.9</b><i>/5</i></span>
+        <span class="tr-text">average rating across <b>500+ organisations</b> · 98% retention</span>
+      </div>
+    </div>
+
+    <div class="testi-grid">
+
+      <!-- Featured — Yulu -->
+      <article class="testi-card testi-featured reveal">
+        <span class="tc-mark">“</span>
+        <div class="testi-stars">★★★★★</div>
+        <blockquote class="testi-quote">
+          Rexa completely transformed how we manage employee benefits for our gig workforce. Their team restructured our Group PA and Health cover — <mark>reducing our annual premium by 18%</mark> while actually improving coverage limits. The monthly orientation sessions for our riders have been invaluable, and their claims TAT is genuinely best-in-class.
+        </blockquote>
+        <div class="testi-metric">
+          <span class="tm-num">−18%</span>
+          <span class="tm-lab">annual premium — with higher coverage limits</span>
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">
+            <img class="testi-face" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Arora"
+                 loading="lazy"
+                 onerror="this.outerHTML='<div class=testi-face-fallback>RA</div>'">
+            <span class="testi-badge">
+              <img src="logos/yulu.bike.png" alt="Yulu"
+                   loading="lazy"
+                   onerror="this.outerHTML='<span>Y</span>'">
+            </span>
+          </div>
+          <div class="testi-meta">
+            <div class="testi-name">Rahul Arora <span class="testi-verified" title="Verified client">✓</span></div>
+            <div class="testi-role">Head of People Operations · <b>Yulu</b></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Supporting — Indo-MIM -->
+      <article class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote class="testi-quote">
+          When we had a major machinery breakdown at our Bengaluru facility, Rexa's claims team was on-site within 24 hours — they coordinated the surveyor, handled all paperwork, and got us <mark>₹1.4 Cr settled in just 11 working days</mark>. That experience justified every rupee of our broker relationship.
+        </blockquote>
+        <div class="testi-metric">
+          <span class="tm-num">₹1.4 Cr</span>
+          <span class="tm-lab">claim settled in 11 working days</span>
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">
+            <img class="testi-face" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Deepak Srinivasan"
+                 loading="lazy"
+                 onerror="this.outerHTML='<div class=testi-face-fallback>DS</div>'">
+            <span class="testi-badge">
+              <img src="logos/indo-mim.com.png" alt="Indo-MIM"
+                   loading="lazy"
+                   onerror="this.outerHTML='<span>I</span>'">
+            </span>
+          </div>
+          <div class="testi-meta">
+            <div class="testi-name">Deepak Srinivasan <span class="testi-verified" title="Verified client">✓</span></div>
+            <div class="testi-role">Chief Financial Officer · <b>Indo-MIM</b></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Supporting — Indus International School -->
+      <article class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote class="testi-quote">
+          Managing group health and property insurance for 600+ staff across campuses was a constant headache. Rexa set up centralised policy administration, runs monthly awareness sessions, and gives us a dedicated account manager who <mark>responds within the hour</mark>. They're a true extension of our HR team.
+        </blockquote>
+        <div class="testi-metric">
+          <span class="tm-num">&lt; 1 hr</span>
+          <span class="tm-lab">account-manager response · 600+ staff covered</span>
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">
+            <img class="testi-face" src="https://randomuser.me/api/portraits/men/52.jpg" alt="Arun Menon"
+                 loading="lazy"
+                 onerror="this.outerHTML='<div class=testi-face-fallback>AM</div>'">
+            <span class="testi-badge">
+              <img src="logos/indusschool.com.png" alt="Indus International School"
+                   loading="lazy"
+                   onerror="this.outerHTML='<span>I</span>'">
+            </span>
+          </div>
+          <div class="testi-meta">
+            <div class="testi-name">Arun Menon <span class="testi-verified" title="Verified client">✓</span></div>
+            <div class="testi-role">Director of Operations · <b>Indus Int'l School</b></div>
+          </div>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="section">
+<section class="cta-section">
   <div class="wrap">
-    <div class="cta-block reveal">
-      <div>
-        <h2>Insure your business with the right cover — not just any cover.</h2>
-        <p>Tell us what you're protecting. Get an indicative premium instantly, and a clear, comparable quote within one business day.</p>
+    <div class="cta-inner reveal">
+      <div class="cta-glow"></div>
+      <span class="eyebrow" style="justify-content:center;color:rgba(255,255,255,.5)">Let's Connect</span>
+      <h2>Let's build a safer, healthier &amp; better-protected future together.</h2>
+      <p>Reach out for a complimentary review of your current insurance programs. Our advisors will identify gaps, optimise costs, and recommend the right coverage — at no obligation.</p>
+      <div class="cta-btns">
+        <a href="contact.html" class="btn btn-white btn-lg">Get a free review <span class="arr">→</span></a>
+        <a href="quote.html" class="btn btn-outline-white btn-lg">Get an instant quote</a>
       </div>
-      <div class="cta-actions">
-        <a href="quote.html" class="btn btn-coral">Get a quote <span class="arr">→</span></a>
-        <a href="contact.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,.4);color:#fff">Book a 15-min call</a>
+      <div class="cta-contact">
+        <a href="tel:+919945509306">📞 +91 99455 09306</a>
+        <a href="tel:+919986969637">📞 +91 99869 69637</a>
+        <a href="mailto:corporate.blr@rexabroking.com">✉ corporate.blr@rexabroking.com</a>
       </div>
     </div>
   </div>
@@ -181,38 +858,66 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="brand" href="index.html"><span class="mark"></span>Rexa</a>
-        <p>A platform that deals in multifarious insurance categories — General Insurance & Life Insurance — for Indian businesses and their people.</p>
-        <div class="lic">IRDA Broking License No: 611 · Direct Broker (Life & General)</div>
+        <a class="brand" href="index.html"><img src="assets/rexa-logo.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
+        <div class="foot-tagline">Beyond Insurance. Building Resilience.</div>
+        <p>A strategic insurance &amp; risk partner for Indian businesses — protecting people, optimising benefits, and delivering confidence since 2017.</p>
+        <div class="lic">IRDA Broker License No. 611 · Direct Broker (Life &amp; General)</div>
       </div>
       <div>
-        <h4>General</h4>
-        <a href="general.html">Property</a>
-        <a href="general.html">Liability</a>
-        <a href="general.html">Marine</a>
-        <a href="general.html">Motor</a>
+        <h4>Corporate Products</h4>
+        <a href="general.html">Group Health Insurance</a>
+        <a href="general.html">Property Insurance</a>
+        <a href="general.html">Engineering Insurance</a>
+        <a href="general.html">Marine Insurance</a>
+        <a href="general.html">Liability Insurance</a>
+        <a href="general.html">Workmen Compensation</a>
       </div>
       <div>
-        <h4>Life & People</h4>
-        <a href="life.html">Group Health</a>
-        <a href="life.html">Group Term Life</a>
-        <a href="life.html">Personal Accident</a>
-        <a href="life.html">Employee Benefits</a>
+        <h4>Retail Products</h4>
+        <a href="life.html">Motor Insurance</a>
+        <a href="life.html">Health Insurance</a>
+        <a href="life.html">Travel Insurance</a>
+        <a href="life.html">Home Insurance</a>
+        <a href="life.html">Rooftop Solar Insurance</a>
+        <a href="life.html">Loan Protect Insurance</a>
       </div>
       <div>
-        <h4>Company</h4>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="quote.html">Get a quote</a>
-        <a href="about.html#partners">Partners</a>
+        <h4>Contact</h4>
+        <div class="foot-contact-list">
+          <div class="fci"><strong>Office</strong>Silver Software Tech Park, Ground Floor, Plot 23&amp;24, EPIP 1st Phase, KIADB, Whitefield, Bangalore – 560066</div>
+          <div class="fci"><strong>Phone</strong>+91 99455 09306 | +91 99869 69637</div>
+          <div class="fci"><strong>Email</strong>corporate.blr@rexabroking.com</div>
+          <div class="fci"><strong>Website</strong>www.rexabroking.com</div>
+        </div>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Rexa Insurance Broking Services. All rights reserved.</span>
-      <span>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai 600017 · 044 4867 8884</span>
+      <span>© 2026 Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</span>
+      <span>Protecting People. Optimising Benefits. Delivering Confidence.</span>
     </div>
   </div>
 </footer>
+
+<!-- PROMO MODAL -->
+<div class="promo-modal" id="promoModal" role="dialog" aria-modal="true" aria-labelledby="promoModalTitle" aria-hidden="true">
+  <div class="promo-modal-overlay" data-close></div>
+  <div class="promo-modal-card">
+    <button class="promo-modal-x" data-close type="button" aria-label="Close">&times;</button>
+    <span class="promo-badge">🌧️ Limited-time · Monsoon</span>
+    <h3 id="promoModalTitle">10% off motor &amp; fleet cover</h3>
+    <p class="promo-modal-sub">Plus <strong>free roadside assistance</strong> all monsoon — for cars, two-wheelers and commercial fleets.</p>
+    <ul class="promo-perks">
+      <li>10% off new motor &amp; fleet policies</li>
+      <li>Complimentary 24&times;7 roadside assistance</li>
+      <li>Priority monsoon-damage claims support</li>
+    </ul>
+    <div class="promo-modal-cta">
+      <a href="quote.html" class="btn btn-primary btn-lg">Claim this offer <span class="arr">→</span></a>
+      <a href="contact.html" class="btn btn-ghost">Talk to an advisor</a>
+    </div>
+    <p class="promo-fine">Valid this monsoon season · T&amp;C apply · Subject to insurer approval.</p>
+  </div>
+</div>
 
 <script src="app.js"></script>
 </body>
