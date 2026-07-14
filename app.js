@@ -9,11 +9,42 @@ document.addEventListener('click', e => {
   }
 });
 
-// Scroll reveal
+// Scroll reveal — stagger-grid children fire simultaneously so CSS delay staggers them
 const io = new IntersectionObserver((entries) => {
   entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Typewriter hero headline (R2)
+(function initTypewriter(){
+  const el = document.getElementById('hero-hl');
+  if(!el) return;
+  const lines = ['Risk handled.', 'Clearly.'];
+  const spans = [];
+  lines.forEach((text, i) => {
+    if(i > 0) el.appendChild(document.createElement('br'));
+    const s = document.createElement('span');
+    el.appendChild(s);
+    spans.push({ s, text });
+  });
+  const cursor = document.createElement('span');
+  cursor.className = 'tw-cursor';
+  el.appendChild(cursor);
+  let li = 0, ci = 0;
+  function tick(){
+    if(li >= spans.length){ return; }
+    const { s, text } = spans[li];
+    if(ci < text.length){
+      s.textContent += text[ci++];
+      setTimeout(tick, 55);
+    } else {
+      li++; ci = 0;
+      if(li < spans.length) setTimeout(tick, 280);
+      else setTimeout(() => cursor.remove(), 900);
+    }
+  }
+  setTimeout(tick, 200);
+})();
 
 // Simple contact form (demo)
 function handleQuote(e){
