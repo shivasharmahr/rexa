@@ -1443,6 +1443,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
 @keyframes rohBadgePop { 0%,100% { transform: scale(1) } 50% { transform: scale(1.14) } }
 
 .roh-teaser {
+  display: none;
   position: absolute; right: 92px; bottom: 68px; max-width: 220px; background: #fff;
   color: var(--ink); font-size: .84rem; font-weight: 500; padding: .7rem .9rem; border-radius: 14px;
   box-shadow: var(--shadow); opacity: 0; transform: translateY(6px); pointer-events: none;
