@@ -682,7 +682,7 @@ function toast(text){
         ${FACE}
         <div class="roh-mh-info">
           <div class="roh-mh-name">Raksha</div>
-          <div class="roh-mh-sub"><span class="dot"></span>Rexa Assistant · Here to help you find your way</div>
+          <div class="roh-mh-sub"><span class="dot"></span>Rexa Assistant · Here to give you suraksha</div>
         </div>
         <div class="roh-mh-actions">
           <button id="rohHome" aria-label="Start over" title="Start over">⌂</button>
