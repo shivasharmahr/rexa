@@ -719,36 +719,101 @@ body.modal-open { overflow: hidden }
 @media (max-width: 430px) { .ind-grid { grid-template-columns: 1fr } }
 
 /* ---- Client logo wall ---- */
-.clients { background: var(--paper-2) }
-.clients-head { text-align: center; margin-bottom: 2.6rem }
-.client-logo-wall {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; align-items: stretch;
+.clients { background: #fff }
+.clients-head { text-align: center; margin-bottom: 3.2rem }
+
+/* Featured Clients */
+.featured-clients {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 4rem;
 }
-.clw-card {
-  background: #fff; border: 1px solid var(--line); border-radius: 10px;
-  padding: 1.1rem .8rem; display: flex; flex-direction: column;
-  align-items: center; gap: .6rem; cursor: default;
-  transition: border-color .2s, box-shadow .2s;
+.fc-client {
+  background: linear-gradient(135deg, var(--paper-2) 0%, rgba(207,28,34,.04) 100%);
+  border: 1.5px solid var(--line); border-radius: 16px; padding: 2rem 1.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  transition: all .3s cubic-bezier(.4, 0, .2, 1);
+  position: relative; overflow: hidden;
 }
-.clw-card:hover { border-color: var(--navy); box-shadow: var(--shadow-sm) }
-.clw-img-wrap { height: 40px; display: flex; align-items: center; justify-content: center }
-.clw-card img {
-  max-height: 38px; max-width: 88px; width: auto; object-fit: contain;
-  filter: grayscale(100%); opacity: .55; transition: filter .25s, opacity .25s; display: block;
+.fc-client::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at top right, rgba(207,28,34,.1) 0%, transparent 70%);
+  opacity: 0; transition: opacity .3s;
+  pointer-events: none;
 }
-.clw-card:hover img { filter: grayscale(0%); opacity: 1 }
-.clw-init {
+.fc-client:hover {
+  border-color: var(--red); box-shadow: 0 8px 32px rgba(207,28,34,.15);
+  transform: translateY(-4px);
+}
+.fc-client:hover::before { opacity: 1 }
+.fc-client[data-accent="red"] { border-color: rgba(207,28,34,.2) }
+.fc-client[data-accent="teal"] { border-color: rgba(15,95,114,.2) }
+.fc-badge {
+  font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--red); background: rgba(207,28,34,.1); padding: .4rem 1rem; border-radius: 999px;
+}
+.fc-logo-wrap {
+  width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+.fc-client img {
+  max-height: 48px; max-width: 96px; width: auto; object-fit: contain;
+  filter: grayscale(80%); opacity: .8; transition: filter .25s, opacity .25s;
+}
+.fc-client:hover img { filter: grayscale(0%); opacity: 1 }
+.fc-init {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 900; color: var(--red); background: #fff;
+}
+.fc-name {
+  font-size: .95rem; font-weight: 700; color: var(--ink); text-align: center;
+}
+.fc-stat {
+  font-size: .8rem; color: var(--ink-soft); text-align: center;
+}
+
+/* Client Grid */
+.client-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem;
+}
+.cgrid-card {
+  background: #fff; border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 1.2rem .8rem; display: flex; flex-direction: column;
+  align-items: center; gap: .7rem; cursor: pointer;
+  transition: all .25s ease;
+  position: relative;
+}
+.cgrid-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 12px;
+  background: linear-gradient(135deg, rgba(207,28,34,.08) 0%, transparent 100%);
+  opacity: 0; transition: opacity .25s;
+}
+.cgrid-card:hover {
+  border-color: var(--red); box-shadow: 0 6px 20px rgba(207,28,34,.12);
+  transform: translateY(-3px);
+}
+.cgrid-card:hover::before { opacity: 1 }
+.cgrid-logo {
+  height: 44px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
+}
+.cgrid-card img {
+  max-height: 40px; max-width: 90px; width: auto; object-fit: contain;
+  filter: grayscale(100%); opacity: .6; transition: filter .3s, opacity .3s;
+}
+.cgrid-card:hover img { filter: grayscale(0%); opacity: 1 }
+.cgrid-init {
   width: 44px; height: 44px; border-radius: 10px;
-  background: var(--paper-3); font-size: 1.05rem; font-weight: 900;
+  background: var(--paper-3); font-size: 1rem; font-weight: 900;
   color: var(--ink-soft); display: flex; align-items: center; justify-content: center;
-  transition: background .2s, color .2s;
+  transition: all .3s;
 }
-.clw-card:hover .clw-init { background: var(--navy); color: #fff }
-.clw-name {
+.cgrid-card:hover .cgrid-init {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-hov) 100%);
+  color: #fff; box-shadow: 0 4px 16px rgba(207,28,34,.3);
+}
+.cgrid-name {
   font-size: .7rem; font-weight: 600; color: var(--ink-soft);
-  text-align: center; line-height: 1.3; transition: color .2s;
+  text-align: center; line-height: 1.2; transition: color .25s; position: relative; z-index: 1;
 }
-.clw-card:hover .clw-name { color: var(--navy) }
+.cgrid-card:hover .cgrid-name { color: var(--red) }
 
 /* ---- Testimonials ---- */
 .testimonials { background: #fff }
@@ -1634,11 +1699,19 @@ body.roh-open .roh-modal { transform: none; opacity: 1; }
 
 @media (max-width: 720px) {
   .roh-overlay { padding: 0; }
-  .roh-modal { width: 100%; height: 100%; border-radius: 0; }
+  .roh-modal { width: 100vw; height: 100vh; border-radius: 0; max-height: 100vh; max-width: 100vw; }
+  .roh-modal-body { max-height: calc(100vh - 140px); }
+  .roh-inputrow { flex-shrink: 0; }
   .roh-cards { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
-  #rohiniWidget { right: 16px; bottom: 16px; }
-  .roh-teaser { right: 8px; bottom: 78px; }
+  #rohiniWidget { right: 16px; bottom: 16px; width: 100%; }
+  .roh-teaser { right: 8px; bottom: 78px; max-width: calc(100vw - 120px); }
+  .roh-modal { width: 100vw; height: 100vh; }
+  .roh-modal-head { padding: 0.8rem 1rem; }
+  .roh-modal-body { padding: 1rem; max-height: calc(100vh - 130px); font-size: 0.95rem; }
+  .roh-inputrow { padding: 0.8rem 1rem; gap: 0.6rem; }
+  .roh-inputrow input { font-size: 16px; }
   .roh-cards { grid-template-columns: 1fr; }
+  .roh-bubble { font-size: 0.9rem; }
 }
