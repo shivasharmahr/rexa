@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /proposal-docs/
+Disallow: /assets/
+Disallow: /logos/
+
+Sitemap: https://www.rexabroking.com/sitemap.xml

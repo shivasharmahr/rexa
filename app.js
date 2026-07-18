@@ -613,7 +613,8 @@ function toast(text){
   }
 
   /* ---- Build widget markup ---- */
-  const FACE = '<span class="roh-face"><span class="roh-mouth"></span></span>';
+  const FACE = '<span class="roh-face"><img src="assets/raksha-avatar-face.png" alt="Raksha" class="roh-face-img"></span>';
+  const LAUNCHER_FIGURE = '<img src="assets/raksha-avatar.png" alt="Raksha" class="roh-launcher-img">';
   const wrap = document.createElement('div');
   wrap.id = 'rohiniWidget';
   const liveOffers = activeOffers();
@@ -623,8 +624,7 @@ function toast(text){
   wrap.innerHTML = `
     <button class="roh-teaser" id="rohTeaser">${teaserText}</button>
     <button class="roh-launcher" id="rohLauncher" aria-label="Ask Raksha">
-      ${FACE}
-      <span class="roh-launcher-ring"></span>
+      ${LAUNCHER_FIGURE}
       <span class="roh-launcher-dot"></span>
       ${liveOffers.length ? '<span class="roh-launcher-badge">🎁</span>' : ''}
     </button>`;

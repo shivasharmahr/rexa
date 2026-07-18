@@ -1385,64 +1385,65 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
    ROHINI — guided finder & assistant
    ========================================================= */
 
-/* ---- Face (shared by launcher + header avatar) ---- */
+/* ---- Face (shared by launcher + header avatar) — Raksha portrait ---- */
 .roh-face {
-  display: block; position: relative; border-radius: 50%; flex: none;
+  display: block; position: relative; border-radius: 50%; flex: none; overflow: hidden;
   background: radial-gradient(circle at 32% 28%, var(--brand-2), var(--navy) 62%, var(--navy-dark));
   box-shadow: inset 0 0 0 2px rgba(240,168,48,.4);
   animation: rohBob 3.4s ease-in-out infinite;
 }
-.roh-face::before, .roh-face::after { /* eyes */
-  content: ''; position: absolute; top: 42%; width: 8%; height: 8%;
-  background: #F4E9D0; border-radius: 50%;
-  animation: rohBlink 5s ease-in-out infinite;
-}
-.roh-face::before { left: 32%; }
-.roh-face::after  { left: 60%; }
-.roh-mouth {
-  position: absolute; left: 50%; bottom: 26%; width: 26%; height: 10%;
-  transform: translateX(-50%);
-  border-bottom: 2px solid var(--gold); border-radius: 0 0 12px 12px;
-  transition: height .18s ease, bottom .18s ease;
-}
-.roh-face.talking .roh-mouth { animation: rohTalk .32s ease-in-out infinite; }
+.roh-face-img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; }
+.roh-face.talking { box-shadow: inset 0 0 0 2px rgba(240,168,48,.4), 0 0 0 4px rgba(240,168,48,.28); animation: rohBob 3.4s ease-in-out infinite, rohTalkPulse 1s ease-in-out infinite; }
 @keyframes rohBob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-3px) } }
-@keyframes rohBlink { 0%,92%,100% { transform: scaleY(1) } 96% { transform: scaleY(.12) } }
-@keyframes rohTalk { 0%,100% { height: 10%; bottom: 26% } 50% { height: 18%; bottom: 22% } }
+@keyframes rohTalkPulse { 0%,100% { box-shadow: inset 0 0 0 2px rgba(240,168,48,.4), 0 0 0 4px rgba(240,168,48,.28) } 50% { box-shadow: inset 0 0 0 2px rgba(240,168,48,.4), 0 0 0 4px rgba(240,168,48,.05) } }
 
 /* ---- Floating launcher (entry point, present on every page) ---- */
 #rohiniWidget {
-  position: fixed; z-index: 9998; right: 24px; bottom: 24px; width: 380px; height: 90px;
+  position: fixed; z-index: 9998; right: 24px; bottom: 24px; width: 380px; height: 148px;
   pointer-events: none;
 }
 #rohiniWidget > * { pointer-events: auto; }
 .roh-launcher {
-  position: absolute; right: 0; bottom: 0; width: 64px; height: 64px; border-radius: 50%; border: none; cursor: pointer;
-  background: transparent; box-shadow: var(--shadow-dark); padding: 0;
+  position: absolute; right: 0; bottom: 0; width: 82px; border: none; cursor: pointer;
+  background: transparent; padding: 0; line-height: 0;
 }
-.roh-launcher .roh-face { width: 100%; height: 100%; }
-.roh-launcher .roh-mouth { border-color: var(--gold); }
-.roh-launcher-ring {
-  position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--gold);
-  opacity: .55; animation: rohPulse 2.6s ease-out infinite;
+/* Full head-to-hands figure, cut to her own silhouette (transparent PNG) —
+   no background block; the outline below hugs her actual shape, not a box. */
+.roh-launcher-img {
+  display: block; width: 100%; height: auto;
+  filter:
+    drop-shadow(0 0 3px var(--red)) drop-shadow(0 0 3px var(--red))
+    drop-shadow(0 5px 14px rgba(11,17,40,.38));
+  animation: rohLauncherBob 3.4s ease-in-out infinite, rohLauncherGlow 2.4s ease-in-out infinite;
 }
-@keyframes rohPulse { 0% { transform: scale(.86); opacity: .55 } 100% { transform: scale(1.24); opacity: 0 } }
+@keyframes rohLauncherBob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }
+@keyframes rohLauncherGlow {
+  0%,100% {
+    filter:
+      drop-shadow(0 0 3px var(--red)) drop-shadow(0 0 3px var(--red))
+      drop-shadow(0 5px 14px rgba(11,17,40,.38));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 7px var(--red)) drop-shadow(0 0 7px var(--red))
+      drop-shadow(0 5px 14px rgba(11,17,40,.38));
+  }
+}
 .roh-launcher-dot {
-  position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; border-radius: 50%;
-  background: var(--green); border: 2px solid #fff;
+  position: absolute; top: 8px; right: 4px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--green); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(11,17,40,.3);
 }
 .roh-launcher-badge {
-  position: absolute; top: -6px; left: -6px; min-width: 22px; height: 22px; padding: 0 4px;
+  position: absolute; top: 2px; left: -2px; min-width: 22px; height: 22px; padding: 0 4px;
   border-radius: 999px; background: var(--gold); color: var(--navy-dark);
   font-size: .72rem; line-height: 22px; text-align: center; font-weight: 700;
   border: 2px solid #fff; box-shadow: 0 2px 6px rgba(11,17,40,.3);
   animation: rohBadgePop 2.4s ease-in-out infinite;
 }
 @keyframes rohBadgePop { 0%,100% { transform: scale(1) } 50% { transform: scale(1.14) } }
-body.roh-open .roh-launcher-ring { display: none; }
 
 .roh-teaser {
-  position: absolute; right: 74px; bottom: 10px; max-width: 220px; background: #fff;
+  position: absolute; right: 92px; bottom: 68px; max-width: 220px; background: #fff;
   color: var(--ink); font-size: .84rem; font-weight: 500; padding: .7rem .9rem; border-radius: 14px;
   box-shadow: var(--shadow); opacity: 0; transform: translateY(6px); pointer-events: none;
   transition: opacity .3s, transform .3s; border: none; text-align: left; font-family: inherit;
