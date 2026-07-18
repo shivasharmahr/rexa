@@ -1287,6 +1287,48 @@ body.modal-open { overflow: hidden }
 .svc .arr { transition: transform .2s cubic-bezier(.4, 0, .2, 1) }
 .svc:hover .more .arr { transform: translateX(4px) }
 
+/* ---- Unique Liability Cards (.svc-liability) ---- */
+.svc-liability {
+  background: linear-gradient(135deg, rgba(207,28,34,.04) 0%, rgba(15,95,114,.03) 100%);
+  border-left: 4px solid var(--red); border-right: 1.5px solid var(--line);
+  border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line);
+  position: relative; padding-left: 1.6rem;
+}
+.svc-liability::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, var(--red) 0%, var(--red-hov) 50%, var(--navy) 100%);
+  transform: scaleY(0); transform-origin: top; transition: transform .4s cubic-bezier(.4, 0, .2, 1);
+}
+.svc-liability:hover {
+  background: linear-gradient(135deg, rgba(207,28,34,.1) 0%, rgba(15,95,114,.08) 100%);
+  border-left-color: var(--red); border-right-color: var(--red);
+  border-top-color: var(--red); border-bottom-color: var(--red);
+}
+.svc-liability:hover::before { transform: scaleY(1) }
+.svc-liability:hover::after {
+  content: ''; position: absolute; inset: 0; border-radius: 14px;
+  background: radial-gradient(circle at bottom left, rgba(207,28,34,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.svc-liability .num {
+  color: var(--red); opacity: 1; font-size: .85rem;
+  background: rgba(207,28,34,.1); padding: .5rem .8rem; border-radius: 6px;
+}
+.svc-liability h3 {
+  color: var(--navy); font-size: 1.35rem; font-weight: 800;
+  margin-top: 1rem; letter-spacing: -.03em;
+}
+.svc-liability p {
+  color: var(--ink-soft); font-size: .96rem; font-weight: 500;
+}
+.svc-liability .more {
+  color: var(--red); margin-top: 1.2rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .08em; font-size: .85rem;
+}
+.svc-liability:hover .more {
+  opacity: 1; transform: translateY(0);
+}
+
 /* ---- Steps (sub-page process) ---- */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; counter-reset: s }
 .step { position: relative; padding-top: 1.3rem; border-top: 2px solid var(--navy) }
