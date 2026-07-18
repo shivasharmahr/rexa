@@ -770,6 +770,15 @@ body.modal-open { overflow: hidden }
   font-size: .8rem; color: var(--ink-soft); text-align: center;
 }
 
+/* Featured clients scroll color effect */
+.fc-client {
+  --color-intensity: 0;
+}
+.fc-client img {
+  filter: grayscale(calc(100% - var(--color-intensity) * 100%)) opacity(calc(0.8 + var(--color-intensity) * 0.2));
+  transition: filter 0.1s ease-out, opacity 0.1s ease-out;
+}
+
 /* Client Grid */
 .client-grid {
   display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem;
@@ -814,6 +823,15 @@ body.modal-open { overflow: hidden }
   text-align: center; line-height: 1.2; transition: color .25s; position: relative; z-index: 1;
 }
 .cgrid-card:hover .cgrid-name { color: var(--red) }
+
+/* Scroll color effect */
+.cgrid-card {
+  --color-intensity: 0;
+}
+.cgrid-card img {
+  filter: grayscale(calc(100% - var(--color-intensity) * 100%)) opacity(calc(0.6 + var(--color-intensity) * 0.4));
+  transition: filter 0.1s ease-out, opacity 0.1s ease-out;
+}
 
 /* ---- Testimonials ---- */
 .testimonials { background: #fff }

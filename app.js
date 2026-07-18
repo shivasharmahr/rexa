@@ -15,6 +15,49 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+// Client logos glow on scroll — animated glow follows scroll position through the client grid
+(function logoGlowScroll(){
+  const clientGrid = document.querySelector('.client-grid');
+  const featuredClients = document.querySelector('.featured-clients');
+  if (!clientGrid && !featuredClients) return;
+
+  const allCards = [];
+  if (clientGrid) allCards.push(...clientGrid.querySelectorAll('.cgrid-card'));
+  if (featuredClients) allCards.push(...featuredClients.querySelectorAll('.fc-client'));
+
+  const clientSection = (clientGrid || featuredClients).closest('.clients');
+
+  window.addEventListener('scroll', () => {
+    const sectionRect = clientSection.getBoundingClientRect();
+    const sectionTop = sectionRect.top + window.scrollY;
+    const sectionHeight = sectionRect.height;
+    const scrollPos = window.scrollY;
+
+    // Only apply effect when scrolling through the client section
+    if (scrollPos < sectionTop - window.innerHeight || scrollPos > sectionTop + sectionHeight) {
+      allCards.forEach(card => card.style.setProperty('--color-intensity', '0'));
+      return;
+    }
+
+    allCards.forEach((card, index) => {
+      // Calculate position of each card
+      const cardRect = card.getBoundingClientRect();
+      const cardTop = cardRect.top + window.scrollY;
+      const cardCenter = cardTop + cardRect.height / 2;
+
+      // Distance from scroll center to card center
+      const scrollCenter = scrollPos + window.innerHeight / 2;
+      const distance = Math.abs(scrollCenter - cardCenter);
+      const maxDistance = window.innerHeight * 0.4;
+
+      // Color intensity based on proximity to scroll position (0 to 1)
+      const colorIntensity = Math.max(0, 1 - distance / maxDistance);
+
+      card.style.setProperty('--color-intensity', colorIntensity);
+    });
+  }, { passive: true });
+})();
+
 // Typewriter hero headline (R2) — characters type in on load, one line at a time.
 // .tw-measure (real text) reserves the correct height at any viewport/line-wrap;
 // it's hidden only once the animated overlay is ready, so there's never a gap.
