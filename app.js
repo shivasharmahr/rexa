@@ -835,7 +835,7 @@ function toast(text){
   }
 
   /* ---- Auto-open once the visitor has genuinely scrolled through the page ---- */
-  const SCROLL_TRIGGER = 0.5;
+  const SCROLL_TRIGGER = 0.4;
   let scrollArmed = true;
   window.addEventListener('scroll', () => {
     if (!scrollArmed) return;
