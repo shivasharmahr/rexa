@@ -2,250 +2,6 @@
    REXA — site interactions
    =========================================================== */
 
-/* ===========================================================
-   COVERAGE LOOKUP
-   Self-service policy verification tool.
-   Uses mock data; connect to real API by replacing POLICIES
-   and the lookupPolicy() call with a fetch() to your backend.
-   =========================================================== */
-(function coverageLookup() {
-  if (!document.getElementById('lookupPanel')) return;
-
-  /* ---- Mock policy database ---- */
-  const POLICIES = [
-    {
-      phone: '9876543210', dob: '1990-05-15',
-      name: 'Rajesh Kumar',
-      plan: 'Group Health Shield Plus',
-      policyNo: 'RXA-GHS-2024-8832',
-      insurer: 'HDFC Ergo',
-      sumInsured: '₹10,00,000',
-      premium: '₹8,400 / yr',
-      status: 'active',
-      validUntil: '2026-12-31',
-    },
-    {
-      phone: '9845001234', dob: '1985-11-22',
-      name: 'Priya Sharma',
-      plan: 'Group Personal Accident',
-      policyNo: 'RXA-GPA-2025-2241',
-      insurer: 'Bajaj Allianz',
-      sumInsured: '₹25,00,000',
-      premium: '₹3,200 / yr',
-      status: 'active',
-      validUntil: '2027-03-15',
-    },
-    {
-      phone: '9900112233', dob: '1978-07-04',
-      name: 'Suresh Nair',
-      plan: 'Property All-Risk Policy',
-      policyNo: 'RXA-PAR-2023-0419',
-      insurer: 'SBI General',
-      sumInsured: '₹5,00,00,000',
-      premium: '₹84,200 / yr',
-      status: 'expired',
-      validUntil: '2025-11-30',
-    },
-    {
-      phone: '8765432109', dob: '1992-03-18',
-      name: 'Ananya Krishnan',
-      plan: 'Group Term Life',
-      policyNo: 'RXA-GTL-2024-7710',
-      insurer: 'ICICI Lombard',
-      sumInsured: '₹50,00,000',
-      premium: '₹1,800 / yr',
-      status: 'lapsed',
-      validUntil: '2025-08-20',
-    },
-  ];
-
-  /* ---- Rate limiting (10 lookups / 5 min per browser) ---- */
-  function checkRateLimit() {
-    const KEY = 'rexa_lu_v1';
-    const WINDOW = 5 * 60 * 1000;
-    const MAX = 10;
-    const now = Date.now();
-    let log = [];
-    try { log = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e) {}
-    log = log.filter(t => now - t < WINDOW);
-    if (log.length >= MAX) {
-      const resetIn = Math.ceil((Math.min(...log) + WINDOW - now) / 60000);
-      return { ok: false, resetIn };
-    }
-    log.push(now);
-    try { localStorage.setItem(KEY, JSON.stringify(log)); } catch(e) {}
-    return { ok: true };
-  }
-
-  /* ---- Helpers ---- */
-  function fmtDate(iso) {
-    const [y, m, d] = iso.split('-');
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    return `${+d} ${months[+m - 1]} ${y}`;
-  }
-
-  function setErr(id, msg) { document.getElementById(id).textContent = msg; }
-  function clearErr(id)    { document.getElementById(id).textContent = ''; }
-
-  /* ---- Validation ---- */
-  function validate(mobile, dob) {
-    let ok = true;
-    clearErr('errMobile'); clearErr('errDOB');
-    if (!/^[6-9]\d{9}$/.test(mobile)) {
-      setErr('errMobile', 'Enter a valid 10-digit Indian mobile number (starts with 6–9).');
-      ok = false;
-    }
-    if (!dob) {
-      setErr('errDOB', 'Please enter your date of birth.');
-      ok = false;
-    } else {
-      const age = (Date.now() - new Date(dob)) / (1000 * 60 * 60 * 24 * 365.25);
-      if (age < 18) { setErr('errDOB', 'You must be at least 18 years old.'); ok = false; }
-    }
-    return ok;
-  }
-
-  /* ---- HTML renderers ---- */
-  function renderPolicy(p) {
-    const STATUS = {
-      active:  { label: 'Active',  cls: 'pr-badge-active',   valueColor: 'var(--green)' },
-      expired: { label: 'Expired', cls: 'pr-badge-expired',  valueColor: 'var(--ink-soft)' },
-      lapsed:  { label: 'Lapsed',  cls: 'pr-badge-lapsed',   valueColor: '#7A5500' },
-    };
-    const st = STATUS[p.status] || STATUS.active;
-
-    const ctaHtml = p.status === 'active'
-      ? `<a href="contact.html" class="btn btn-primary">Talk to your advisor <span class="arr">→</span></a>
-         <a href="quote.html" class="btn btn-ghost">Upgrade coverage</a>`
-      : `<a href="contact.html" class="btn btn-primary">${p.status === 'expired' ? 'Renew Now' : 'Reinstate Policy'} <span class="arr">→</span></a>
-         <a href="tel:+919945509306" class="btn btn-ghost">Call us</a>`;
-
-    return `
-      <div class="policy-result">
-        <div class="pr-header">
-          <span class="pr-badge ${st.cls}">${st.label}</span>
-          <span class="pr-num">${p.policyNo}</span>
-        </div>
-        <div class="pr-holder">${p.name}</div>
-        <div class="pr-plan">${p.plan} &middot; <span style="color:var(--ink-soft);font-weight:500">${p.insurer}</span></div>
-        <div class="pr-grid">
-          <div class="pr-item">
-            <div class="pr-label">Sum Insured</div>
-            <div class="pr-value">${p.sumInsured}</div>
-          </div>
-          <div class="pr-item">
-            <div class="pr-label">Annual Premium</div>
-            <div class="pr-value">${p.premium}</div>
-          </div>
-          <div class="pr-item">
-            <div class="pr-label">Policy Status</div>
-            <div class="pr-value" style="color:${st.valueColor}">${st.label}</div>
-          </div>
-          <div class="pr-item">
-            <div class="pr-label">Valid Until</div>
-            <div class="pr-value">${fmtDate(p.validUntil)}</div>
-          </div>
-        </div>
-        <div class="pr-footer">
-          ${ctaHtml}
-          <button class="btn btn-ghost" id="btnReset">Check another</button>
-        </div>
-      </div>`;
-  }
-
-  function renderNotFound() {
-    return `
-      <div class="not-found">
-        <div class="nf-icon">🔍</div>
-        <h3>No Policy Found</h3>
-        <p>We couldn't match those details to any policy in our system. Please check that you've used the mobile number registered at the time of purchase.</p>
-        <p>If you believe this is an error, contact our support team directly.</p>
-        <div class="nf-actions">
-          <a href="tel:+919945509306" class="btn btn-primary">Call +91 99455 09306 <span class="arr">→</span></a>
-          <button class="btn btn-ghost" id="btnReset">Try again</button>
-        </div>
-      </div>`;
-  }
-
-  function renderRateLimited(resetIn) {
-    return `
-      <div class="rate-limited">
-        <div class="rl-icon">⏱️</div>
-        <h3>Too Many Attempts</h3>
-        <p>You've made 10 lookup attempts in the past 5 minutes.</p>
-        <p>Please wait <strong>${resetIn} minute${resetIn !== 1 ? 's' : ''}</strong> before trying again, or call us directly.</p>
-        <div style="margin-top:1.5rem">
-          <a href="tel:+919945509306" class="btn btn-primary">Call +91 99455 09306</a>
-        </div>
-      </div>`;
-  }
-
-  /* ---- Wire up DOM ---- */
-  const mobileEl = document.getElementById('lMobile');
-  const dobEl    = document.getElementById('lDOB');
-  const btn      = document.getElementById('btnLookup');
-  const formDiv  = document.getElementById('lookupForm');
-  const resDiv   = document.getElementById('lookupResult');
-
-  // Cap DOB max at 18 years ago
-  const cap = new Date();
-  cap.setFullYear(cap.getFullYear() - 18);
-  dobEl.max = cap.toISOString().split('T')[0];
-
-  // Demo fill
-  document.getElementById('btnDemo')?.addEventListener('click', () => {
-    mobileEl.value = '9876543210';
-    dobEl.value    = '1990-05-15';
-    clearErr('errMobile'); clearErr('errDOB');
-    toast('Demo data filled — click Check My Coverage.');
-  });
-
-  // Enter-key shortcut
-  [mobileEl, dobEl].forEach(el => {
-    el.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
-  });
-
-  // Reset helper
-  function resetForm() {
-    formDiv.style.display = 'block';
-    resDiv.style.display  = 'none';
-    resDiv.innerHTML      = '';
-    mobileEl.value = ''; dobEl.value = '';
-    btn.disabled = false;
-    btn.innerHTML = 'Check My Coverage <span class="arr">→</span>';
-    mobileEl.focus();
-  }
-
-  // Main lookup
-  btn.addEventListener('click', () => {
-    const mobile = mobileEl.value.trim();
-    const dob    = dobEl.value;
-    if (!validate(mobile, dob)) return;
-
-    const rate = checkRateLimit();
-    if (!rate.ok) {
-      formDiv.style.display = 'none';
-      resDiv.style.display  = 'block';
-      resDiv.innerHTML = renderRateLimited(rate.resetIn);
-      return;
-    }
-
-    // Loading
-    btn.disabled = true;
-    btn.textContent = 'Checking…';
-
-    setTimeout(() => {
-      const policy = POLICIES.find(p => p.phone === mobile && p.dob === dob) || null;
-      formDiv.style.display = 'none';
-      resDiv.style.display  = 'block';
-      resDiv.innerHTML = policy ? renderPolicy(policy) : renderNotFound();
-      document.getElementById('btnReset')?.addEventListener('click', resetForm);
-      btn.disabled = false;
-      btn.innerHTML = 'Check My Coverage <span class="arr">→</span>';
-    }, 800);
-  });
-})();
-
 // Mobile nav toggle
 document.addEventListener('click', e => {
   if (e.target.closest('.nav-toggle')) {
@@ -253,11 +9,51 @@ document.addEventListener('click', e => {
   }
 });
 
-// Scroll reveal
+// Scroll reveal — stagger-grid children fire simultaneously so CSS delay staggers them
 const io = new IntersectionObserver((entries) => {
   entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Typewriter hero headline (R2) — characters type in on load, one line at a time.
+// .tw-measure (real text) reserves the correct height at any viewport/line-wrap;
+// it's hidden only once the animated overlay is ready, so there's never a gap.
+(function initTypewriter(){
+  const measure = document.querySelector('#hero-hl .tw-measure');
+  const el = document.getElementById('tw-visible');
+  if (!el || !measure) return;
+  el.setAttribute('aria-hidden', 'true');
+  const lines = [
+    { text: 'More than a broker.', accent: false },
+    { text: 'Your risk partner.', accent: true }
+  ];
+  const spans = [];
+  lines.forEach((line, i) => {
+    if (i > 0) el.appendChild(document.createElement('br'));
+    const s = document.createElement('span');
+    if (line.accent) s.className = 'accent';
+    el.appendChild(s);
+    spans.push({ s, text: line.text });
+  });
+  const cursor = document.createElement('span');
+  cursor.className = 'tw-cursor';
+  el.appendChild(cursor);
+  measure.style.visibility = 'hidden';
+  let li = 0, ci = 0;
+  function tick(){
+    if (li >= spans.length) return;
+    const { s, text } = spans[li];
+    if (ci < text.length) {
+      s.textContent += text[ci++];
+      setTimeout(tick, 55);
+    } else {
+      li++; ci = 0;
+      if (li < spans.length) setTimeout(tick, 280);
+      else setTimeout(() => cursor.remove(), 900);
+    }
+  }
+  setTimeout(tick, 200);
+})();
 
 // Promo announcement bar + offer modal
 (function promoOffer(){
@@ -292,15 +88,53 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   });
 })();
 
-// Simple contact form (demo)
-function handleQuote(e){
-  e.preventDefault();
-  const f = e.target;
-  const msg = f.querySelector('.form-msg');
-  if(msg){ msg.textContent = "Thanks — a Rexa advisor will reach out within one business day."; msg.style.display='block'; }
-  f.reset();
-  toast('Request sent. We’ll be in touch shortly.');
-}
+/* ---- Contact form -> email --------------------------------------------
+   Delivers submissions to Rexa's inbox via FormSubmit (formsubmit.co) —
+   a hosted form-to-email relay, so no backend server is needed.
+   One-time setup: the destination address (data-email on the form) must
+   click the confirmation link FormSubmit sends on the very first submit.
+   ------------------------------------------------------------------- */
+(function contactForm(){
+  const form = document.getElementById('contactForm');
+  if(!form) return;
+  const msg = form.querySelector('.form-msg');
+  const btn = form.querySelector('button[type="submit"]');
+  const endpoint = 'https://formsubmit.co/ajax/' + form.dataset.email;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    const original = btn.innerHTML;
+    btn.innerHTML = 'Sending…';
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      if (!res.ok) throw new Error('Request failed');
+
+      if (msg) {
+        msg.style.color = 'var(--brand)';
+        msg.textContent = "Thanks — a Rexa advisor will reach out within one business day.";
+        msg.style.display = 'block';
+      }
+      form.reset();
+      toast('Request sent. We’ll be in touch shortly.');
+    } catch (err) {
+      if (msg) {
+        msg.style.color = 'var(--red)';
+        msg.textContent = "Something went wrong sending your request — please call 044 4867 8884 or email info@rexabroking.com directly.";
+        msg.style.display = 'block';
+      }
+      toast('Could not send — please try again or call us.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
+  });
+})();
 
 // Toast helper
 function toast(text){
@@ -541,8 +375,7 @@ function toast(text){
         "Want me to line up a quote with the discount applied? A licensed Rexa advisor confirms the final premium after underwriting.",
       ],
       links: [
-        { href:'quote.html', label:'Claim 15% off — start a quote →' },
-        { href:'contact.html', label:'Talk to an advisor' },
+        { href:'contact.html', label:'Talk to an advisor →' },
       ],
     },
     {
@@ -559,8 +392,7 @@ function toast(text){
         "Shall I start a motor quote for you? It takes about two minutes.",
       ],
       links: [
-        { href:'quote.html', label:'Get my monsoon motor quote →' },
-        { href:'contact.html', label:'Talk to an advisor' },
+        { href:'contact.html', label:'Talk to an advisor →' },
       ],
     },
     {
@@ -577,8 +409,7 @@ function toast(text){
         "Want me to loop in a benefits advisor to size it for your team?",
       ],
       links: [
-        { href:'quote.html', label:'Estimate a boosted plan →' },
-        { href:'contact.html', label:'Talk to a benefits advisor' },
+        { href:'contact.html', label:'Talk to a benefits advisor →' },
       ],
     },
   ];
@@ -598,42 +429,13 @@ function toast(text){
   const TREE = {
     root: {
       crumb: 'Home',
-      bot: ["Hi, I'm Rea 👋 What are you trying to do today?"],
+      bot: ["Hi, I'm Raksha 👋 What are you trying to do today?"],
       options: [
-        { icon:'💰', label:'Get an insurance quote', hint:'Property, motor, health, life & more', to:'quote_type' },
         { icon:'📋', label:'File or track a claim', hint:'Health, motor, life & property claims', to:'claim_type' },
-        { icon:'🔍', label:'Check my policy coverage', hint:'Look up your policy status instantly', to:'coverage_info' },
         { icon:'🗂️', label:'Explore our products', hint:'See everything we cover', to:'products_menu' },
         { icon:'🏢', label:'About Rexa', hint:'Who we are & how we work', to:'about_rexa' },
         { icon:'🎧', label:'Talk to a human advisor', hint:'Call, email or message our team', to:'contact_advisor' },
       ],
-    },
-    quote_type: {
-      crumb: 'Get a quote', parent: 'root',
-      bot: 'Sure — what kind of cover are you looking for?',
-      options: [
-        { icon:'🏭', label:'Business / General insurance', hint:'Property, liability, marine, motor, cyber', to:'quote_general' },
-        { icon:'👥', label:'Life & employee benefits', hint:'Health, term life, personal accident', to:'quote_life' },
-        { icon:'🧭', label:'Not sure — recommend something', hint:'Get a free risk audit instead', to:'quote_audit' },
-      ],
-    },
-    quote_general: {
-      crumb: 'General insurance quote', parent: 'quote_type',
-      bot: 'For property, liability, marine, motor or cyber cover, our Quote Builder gives you an indicative annual premium in under two minutes — no waiting for a callback.',
-      links: [{ href:'quote.html', label:'Start my quote →' }],
-      options: [{ icon:'📦', label:'What does general insurance cover?', hint:'See the full list', to:'products_general' }],
-    },
-    quote_life: {
-      crumb: 'Life & benefits quote', parent: 'quote_type',
-      bot: "For group health, term life, personal accident or flexible benefits, let's size a plan for your team.",
-      links: [{ href:'quote.html', label:'Estimate my plan →' }],
-      options: [{ icon:'🎁', label:"What's included in benefits?", hint:'See the full kit', to:'products_life' }],
-    },
-    quote_audit: {
-      crumb: 'Free risk audit', parent: 'quote_type',
-      bot: 'No problem — start with a free risk audit. A Rexa advisor will map your exposures and recommend exactly the cover you need, no more and no less.',
-      links: [{ href:'contact.html', label:'Book a free risk audit →' }],
-      options: [],
     },
     claim_type: {
       crumb: 'File a claim', parent: 'root',
@@ -667,12 +469,6 @@ function toast(text){
       crumb: 'Property claim', parent: 'claim_type',
       bot: 'For property, fire, burglary or liability claims, report the loss as soon as it is safe to do so — early notice helps the surveyor assess damage accurately. Our claims desk handles the insurer coordination for you.',
       links: [{ href:TEL, label:'📞 Call the claims desk' }, { href:'contact.html', label:'Message our claims team →' }],
-      options: [],
-    },
-    coverage_info: {
-      crumb: 'Check coverage', parent: 'root',
-      bot: 'You can self-check your policy status any time — just enter your registered mobile number and date of birth on our Check Coverage page.',
-      links: [{ href:'coverage.html', label:'Check my coverage →' }],
       options: [],
     },
     products_menu: {
@@ -721,9 +517,7 @@ function toast(text){
       crumb: 'Search results', parent: 'root',
       bot: "I didn't quite catch that — but here's what I can help with right now:",
       options: [
-        { icon:'💰', label:'Get an insurance quote', to:'quote_type' },
         { icon:'📋', label:'File or track a claim', to:'claim_type' },
-        { icon:'🔍', label:'Check my policy coverage', to:'coverage_info' },
         { icon:'🎧', label:'Talk to a human advisor', to:'contact_advisor' },
       ],
     },
@@ -737,8 +531,7 @@ function toast(text){
     { to: 'claim_life',        words: ['life claim', 'death claim', 'nominee', 'personal accident claim'] },
     { to: 'claim_property',    words: ['property claim', 'fire claim', 'burglary claim', 'theft claim'] },
     { to: 'claim_type',        words: ['claim', 'file a claim', 'how to claim'] },
-    { to: 'coverage_info',     words: ['coverage', 'check my policy', 'policy status', 'is my policy active', 'check policy', 'renew'] },
-    { to: 'quote_type',        words: ['quote', 'premium', 'price', 'cost', 'how much'] },
+    { to: 'contact_advisor',   words: ['check my policy', 'policy status', 'is my policy active', 'check policy', 'renew'] },
     { to: 'products_life',     words: ['health insurance', 'life insurance', 'term life', 'employee benefit', 'group health', 'wellness', 'personal accident'] },
     { to: 'products_general',  words: ['general insurance', 'fire insurance', 'marine', 'motor insurance', 'liability', 'cyber insurance', 'property insurance'] },
     { to: 'products_menu',     words: ['product', 'what do you offer', 'what do you cover', 'services'] },
@@ -760,8 +553,8 @@ function toast(text){
       if (!live.length) {
         return {
           crumb: 'Offers', parent: 'root',
-          bot: ["No themed offers are running this week — but our advisors always negotiate the best available premium for you, every time.", "Want me to start a quote?"],
-          links: [{ href:'quote.html', label:'Get a quote →' }],
+          bot: ["No themed offers are running this week — but our advisors always negotiate the best available premium for you, every time.", "Want me to connect you with an advisor?"],
+          links: [{ href:'contact.html', label:'Talk to an advisor →' }],
           options: [],
         };
       }
@@ -779,7 +572,7 @@ function toast(text){
         return {
           crumb: 'Offer ended', parent: 'offers',
           bot: "Sorry — that offer has wrapped up. Here's what else we can do for you:",
-          links: [{ href:'quote.html', label:'Get a quote →' }],
+          links: [{ href:'contact.html', label:'Talk to an advisor →' }],
           options: [],
         };
       }
@@ -826,10 +619,10 @@ function toast(text){
   const liveOffers = activeOffers();
   const teaserText = liveOffers.length
     ? `🎉 Offer alert! ${liveOffers[0].teaser} Tap to see.`
-    : "Hi, I'm Rea 👋 Need help finding the right cover?";
+    : "Hi, I'm Raksha 👋 Need help finding the right cover?";
   wrap.innerHTML = `
     <button class="roh-teaser" id="rohTeaser">${teaserText}</button>
-    <button class="roh-launcher" id="rohLauncher" aria-label="Ask Rea">
+    <button class="roh-launcher" id="rohLauncher" aria-label="Ask Raksha">
       ${FACE}
       <span class="roh-launcher-ring"></span>
       <span class="roh-launcher-dot"></span>
@@ -841,11 +634,11 @@ function toast(text){
   overlay.className = 'roh-overlay';
   overlay.id = 'rohOverlay';
   overlay.innerHTML = `
-    <div class="roh-modal" role="dialog" aria-label="Rea — Rexa assistant">
+    <div class="roh-modal" role="dialog" aria-label="Raksha — Rexa assistant">
       <div class="roh-modal-head">
         ${FACE}
         <div class="roh-mh-info">
-          <div class="roh-mh-name">Rea</div>
+          <div class="roh-mh-name">Raksha</div>
           <div class="roh-mh-sub"><span class="dot"></span>Rexa Assistant · Here to help you find your way</div>
         </div>
         <div class="roh-mh-actions">
