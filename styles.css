@@ -1412,21 +1412,21 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
 .roh-launcher-img {
   display: block; width: 100%; height: auto;
   filter:
-    drop-shadow(0 0 2px rgba(220,53,69,.4))
-    drop-shadow(0 5px 14px rgba(11,17,40,.25));
+    drop-shadow(0 0 3px rgba(220,53,69,.6))
+    drop-shadow(0 5px 14px rgba(11,17,40,.3));
   animation: rohLauncherBob 3.4s ease-in-out infinite, rohLauncherGlow 2.4s ease-in-out infinite;
 }
 @keyframes rohLauncherBob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }
 @keyframes rohLauncherGlow {
   0%,100% {
     filter:
-      drop-shadow(0 0 2px rgba(220,53,69,.4))
-      drop-shadow(0 5px 14px rgba(11,17,40,.25));
+      drop-shadow(0 0 3px rgba(220,53,69,.6))
+      drop-shadow(0 5px 14px rgba(11,17,40,.3));
   }
   50% {
     filter:
-      drop-shadow(0 0 4px rgba(220,53,69,.5))
-      drop-shadow(0 5px 14px rgba(11,17,40,.25));
+      drop-shadow(0 0 6px rgba(220,53,69,.7))
+      drop-shadow(0 5px 14px rgba(11,17,40,.3));
   }
 }
 .roh-launcher-dot {
