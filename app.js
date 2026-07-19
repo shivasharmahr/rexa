@@ -26,8 +26,9 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   if (featuredClients) allCards.push(...featuredClients.querySelectorAll('.fc-client'));
 
   const clientSection = (clientGrid || featuredClients).closest('.clients');
+  let rafId = null;
 
-  window.addEventListener('scroll', () => {
+  function updateGlow() {
     const sectionRect = clientSection.getBoundingClientRect();
     const sectionTop = sectionRect.top + window.scrollY;
     const sectionHeight = sectionRect.height;
@@ -39,7 +40,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       return;
     }
 
-    allCards.forEach((card, index) => {
+    allCards.forEach((card) => {
       // Calculate position of each card
       const cardRect = card.getBoundingClientRect();
       const cardTop = cardRect.top + window.scrollY;
@@ -55,6 +56,12 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
       card.style.setProperty('--color-intensity', colorIntensity);
     });
+  }
+
+  window.addEventListener('scroll', () => {
+    // Throttle updates using requestAnimationFrame to prevent excessive calculations
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(updateGlow);
   }, { passive: true });
 })();
 
@@ -65,6 +72,10 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   const measure = document.querySelector('#hero-hl .tw-measure');
   const el = document.getElementById('tw-visible');
   if (!el || !measure) return;
+
+  // Respect prefers-reduced-motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   el.setAttribute('aria-hidden', 'true');
   const lines = [
     { text: 'More than a broker.', accent: false },
@@ -82,20 +93,28 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   cursor.className = 'tw-cursor';
   el.appendChild(cursor);
   measure.style.visibility = 'hidden';
+
+  if (prefersReducedMotion) {
+    // Show text instantly for accessibility
+    spans.forEach(({ s, text }) => s.textContent = text);
+    cursor.remove();
+    return;
+  }
+
   let li = 0, ci = 0;
   function tick(){
     if (li >= spans.length) return;
     const { s, text } = spans[li];
     if (ci < text.length) {
       s.textContent += text[ci++];
-      setTimeout(tick, 55);
+      setTimeout(tick, 90); // Increased from 55ms for better mobile performance
     } else {
       li++; ci = 0;
-      if (li < spans.length) setTimeout(tick, 280);
-      else setTimeout(() => cursor.remove(), 900);
+      if (li < spans.length) setTimeout(tick, 350); // Increased from 280ms
+      else setTimeout(() => cursor.remove(), 1200); // Increased from 900ms
     }
   }
-  setTimeout(tick, 200);
+  setTimeout(tick, 400); // Increased from 200ms
 })();
 
 // Promo announcement bar + offer modal
