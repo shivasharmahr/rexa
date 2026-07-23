@@ -11,7 +11,20 @@ document.addEventListener('click', e => {
 
 // Scroll reveal — stagger-grid children fire simultaneously so CSS delay staggers them
 const io = new IntersectionObserver((entries) => {
-  entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('in');
+      if (window.ScrollDebugger?.enabled) {
+        console.log(`[REVEAL] Element visible at ${(en.intersectionRatio * 100).toFixed(0)}%`, {
+          element: en.target.className,
+          top: en.boundingClientRect.top,
+          bottom: en.boundingClientRect.bottom,
+          inViewport: en.boundingClientRect.top < window.innerHeight,
+        });
+      }
+      io.unobserve(en.target);
+    }
+  });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
@@ -29,6 +42,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   let rafId = null;
 
   function updateGlow() {
+    const startTime = performance.now();
     const sectionRect = clientSection.getBoundingClientRect();
     const sectionTop = sectionRect.top + window.scrollY;
     const sectionHeight = sectionRect.height;
@@ -56,6 +70,15 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
       card.style.setProperty('--color-intensity', colorIntensity);
     });
+
+    if (window.ScrollDebugger?.enabled) {
+      const endTime = performance.now();
+      console.log(`[GLOW_PERFORMANCE] ${(endTime - startTime).toFixed(2)}ms`, {
+        cardsProcessed: allCards.length,
+        scrollPosition: scrollPos.toFixed(0),
+        inClientSection: scrollPos >= sectionTop - window.innerHeight && scrollPos <= sectionTop + sectionHeight,
+      });
+    }
   }
 
   window.addEventListener('scroll', () => {
@@ -102,16 +125,32 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   }
 
   let li = 0, ci = 0;
+  const typewriterStart = performance.now();
+
   function tick(){
     if (li >= spans.length) return;
     const { s, text } = spans[li];
     if (ci < text.length) {
       s.textContent += text[ci++];
+      const elapsed = performance.now() - typewriterStart;
+      if (window.ScrollDebugger?.enabled && (ci === 1 || ci % 5 === 0)) {
+        console.log(`[TYPEWRITER] Char ${ci} of ${text.length} at ${elapsed.toFixed(0)}ms`);
+      }
       setTimeout(tick, 90); // Increased from 55ms for better mobile performance
     } else {
       li++; ci = 0;
-      if (li < spans.length) setTimeout(tick, 350); // Increased from 280ms
-      else setTimeout(() => cursor.remove(), 1200); // Increased from 900ms
+      if (li < spans.length) {
+        if (window.ScrollDebugger?.enabled) {
+          console.log(`[TYPEWRITER] Line ${li} complete`);
+        }
+        setTimeout(tick, 350); // Increased from 280ms
+      } else {
+        if (window.ScrollDebugger?.enabled) {
+          const totalTime = performance.now() - typewriterStart;
+          console.log(`[TYPEWRITER] Complete in ${totalTime.toFixed(0)}ms`);
+        }
+        setTimeout(() => cursor.remove(), 1200); // Increased from 900ms
+      }
     }
   }
   setTimeout(tick, 400); // Increased from 200ms
