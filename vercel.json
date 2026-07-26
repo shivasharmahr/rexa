@@ -1,21 +1,4 @@
 {
   "name": "rexa-contact-api",
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/contact.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1",
-      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  "version": 2
 }
