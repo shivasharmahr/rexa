@@ -165,7 +165,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
   try {
     // Get reCAPTCHA token (skip on localhost for testing)
     let token = '';
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '0.0.0.0' || window.location.hostname.startsWith('192.168');
 
     console.log('🌐 Hostname:', window.location.hostname);
     console.log('🔍 Is localhost?', isLocalhost);
@@ -189,7 +189,8 @@ document.getElementById('contactForm').addEventListener('submit', async function
       // Get reCAPTCHA token
       try {
         console.log('📡 Calling grecaptcha.execute()...');
-        token = await grecaptcha.execute('6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7', { action: 'submit' });
+        const siteKey = window.__RECAPTCHA_SITE_KEY__ || '6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7';
+        token = await grecaptcha.execute(siteKey, { action: 'submit' });
         console.log('✓ Got reCAPTCHA token:', token?.substring(0, 20) + '...');
         if (!token) {
           throw new Error('Failed to get reCAPTCHA token.');
