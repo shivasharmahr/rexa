@@ -13,5 +13,5 @@
       "dest": "/api/contact.js",
       "methods": ["POST", "OPTIONS"]
     }
-  ],
+  ]
 }
