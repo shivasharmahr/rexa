@@ -210,7 +210,8 @@ document.getElementById('contactForm').addEventListener('submit', async function
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      throw new Error('Please enter a valid email address');
+      console.warn('⚠️ Invalid email format:', data.email);
+      throw new Error('Please check your email address and try again');
     }
 
     // Send to backend
@@ -225,7 +226,8 @@ document.getElementById('contactForm').addEventListener('submit', async function
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.message || 'Failed to send message');
+      console.error('❌ API error:', response.status, result);
+      throw new Error(result.message || 'Failed to send message. Please try again.');
     }
 
     // Success
@@ -235,7 +237,12 @@ document.getElementById('contactForm').addEventListener('submit', async function
     this.reset();
 
   } catch (error) {
-    formMessage.textContent = '✗ ' + (error.message || 'Error sending message. Please try again.');
+    console.error('📋 Contact form error:', error);
+
+    // Show friendly error message instead of technical details
+    const friendlyMessage = 'We couldn\'t send your message right now. Please reach out directly:\n📞 +91 9945 509 306\n📧 corporate.blr@rexabroking.com\n\nOr try again in a moment.';
+
+    formMessage.innerHTML = '✗ Something went wrong. Please contact us directly:<br><strong>📞 +91 9945 509 306</strong><br><strong>📧 corporate.blr@rexabroking.com</strong><br><br>Our team will be happy to help!';
     formMessage.style.color = '#CF1C22';
     formMessage.style.display = 'block';
   } finally {
