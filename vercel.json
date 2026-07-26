@@ -14,16 +14,4 @@
       "methods": ["POST", "OPTIONS"]
     }
   ],
-  "env": {
-    "PORT": "3000",
-    "NODE_ENV": "production",
-    "RECAPTCHA_SECRET_KEY": "@recaptcha_secret_key",
-    "RECAPTCHA_SITE_KEY": "@recaptcha_site_key",
-    "EMAIL_USER": "@email_user",
-    "EMAIL_PASSWORD": "@email_password",
-    "EMAIL_HOST": "@email_host",
-    "EMAIL_PORT": "@email_port",
-    "ADMIN_EMAIL": "@admin_email",
-    "CORS_ORIGIN": "@cors_origin"
-  }
 }
