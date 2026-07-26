@@ -143,7 +143,7 @@
 <!-- NAV -->
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="index.html"><img src="assets/rexa-logo.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
+    <a class="brand" href="index.html"><img src="assets/rexa-logo-transparent.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
     <nav class="nav-links">
       <a href="index.html" class="active">Home</a>
       <a href="general.html">General Insurance</a>
@@ -171,25 +171,30 @@
         IRDA Licensed Broker · No. 611 · Est. 2017
       </span>
       <h1 id="hero-hl" class="display">
-        <span class="tw-measure">More than a broker.<br><span class="accent">Your risk partner.</span></span>
-        <span class="tw-visible" id="tw-visible"></span>
+        <span class="tw-static" id="tw-static">More than a<br>broker.</span><br>
+        <span class="tw-line2">
+          <span class="tw-measure accent">Your risk<br>partner.</span>
+          <span class="tw-visible" id="tw-visible"></span>
+        </span>
       </h1>
-      <p class="lead">At Rexa, we go beyond policy placement. We partner with organisations to optimise benefits, strengthen risk protection, and enhance the well-being of their people.</p>
-      <div class="hero-cta">
-        <a href="contact.html" class="btn btn-primary btn-lg">Get a free review <span class="arr">→</span></a>
-        <a href="general.html" class="btn btn-ghost btn-lg">Explore coverage</a>
-      </div>
-      <!-- Social proof -->
-      <div class="hero-proof">
-        <div class="hp-avatars">
-          <img src="logos/yulu.bike.png" alt="Yulu bike-sharing company logo" onerror="this.outerHTML='<span class=hp-av>Y</span>'">
-          <img src="logos/indo-mim.com.png" alt="Indo-MIM engineering company logo" onerror="this.outerHTML='<span class=hp-av>I</span>'">
-          <img src="logos/indusschool.com.png" alt="Indus International School logo" onerror="this.outerHTML='<span class=hp-av>N</span>'">
-          <span class="hp-av hp-more">+500</span>
+      <div class="hero-followup" id="hero-followup">
+        <p class="lead">At Rexa, we go beyond policy placement. We partner with organisations to optimise benefits, strengthen risk protection, and enhance the well-being of their people.</p>
+        <div class="hero-cta">
+          <a href="contact.html" class="btn btn-primary btn-lg">Get a free review <span class="arr">→</span></a>
+          <a href="general.html" class="btn btn-ghost btn-lg">Explore coverage</a>
         </div>
-        <div class="hp-proof-text">
-          <div class="hp-stars">★★★★★</div>
-          <div class="hp-proof-sub">Trusted by <b>500+ organisations</b> across India</div>
+        <!-- Social proof -->
+        <div class="hero-proof">
+          <div class="hp-avatars">
+            <img src="logos/yulu.bike.png" alt="Yulu bike-sharing company logo" onerror="this.outerHTML='<span class=hp-av>Y</span>'">
+            <img src="logos/indo-mim.com.png" alt="Indo-MIM engineering company logo" onerror="this.outerHTML='<span class=hp-av>I</span>'">
+            <img src="logos/indusschool.com.png" alt="Indus International School logo" onerror="this.outerHTML='<span class=hp-av>N</span>'">
+            <span class="hp-av hp-more">+500</span>
+          </div>
+          <div class="hp-proof-text">
+            <div class="hp-stars">★★★★★</div>
+            <div class="hp-proof-sub">Trusted by <b>500+ organisations</b> across India</div>
+          </div>
         </div>
       </div>
     </div>
@@ -380,7 +385,37 @@
           </svg>
         </a>
 
+        <!-- Retail (feature, matches the Wellness card treatment) -->
+        <a class="off-card off-feature" data-accent="violet" href="life.html" style="grid-area:retail">
+          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="off-copy">
+            <span class="off-tag">Individuals &amp; families</span>
+            <h3>Retail</h3>
+            <div class="off-chips">
+              <span>Health Insurance</span>
+              <span>Motor Insurance</span>
+              <span>Travel Insurance</span>
+              <span>Home Insurance</span>
+              <span>Personal Accident</span>
+            </div>
+          </div>
+          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A friendly storefront with a scalloped awning">
+            <g class="spark"><path d="M56 8 V18"/><path d="M36 15 l6 8"/><path d="M76 15 l-6 8"/></g>
+            <ellipse class="shadow" cx="56" cy="108" rx="26" ry="4.5"/>
+            <path class="st fillw" d="M30 52 H82 V96 H30 Z"/>
+            <path class="st fillw" d="M25 52 L32 30 H80 L87 52 Z"/>
+            <path class="st" d="M25 52 C25 56 29.5 59 35 59 C40.5 59 45 56 45 52 C45 56 49.5 59 55 59 C60.5 59 65 56 65 52 C65 56 69.5 59 75 59 C80.5 59 85 56 85 52"/>
+            <circle class="eye" cx="46" cy="70" r="2.8"/>
+            <circle class="eye" cx="66" cy="70" r="2.8"/>
+            <path class="st" d="M46 80 q10 7 20 0"/>
+            <path class="st fillw" d="M48 96 V80 H64 V96"/>
+          </svg>
+        </a>
+
     </div>
+
   </div>
 </section>
 
@@ -862,87 +897,56 @@
 
     <div class="testi-grid">
 
-      <!-- Featured — Yulu -->
+      <!-- Yulu - Akshay Jain - Featured -->
       <article class="testi-card testi-featured reveal">
-        <span class="tc-mark">“</span>
-        <div class="testi-stars">★★★★★</div>
-        <blockquote class="testi-quote">
-          Rexa completely transformed how we manage employee benefits for our gig workforce. Their team restructured our Group PA and Health cover — <mark>reducing our annual premium by 18%</mark> while actually improving coverage limits. The monthly orientation sessions for our riders have been invaluable, and their claims TAT is genuinely best-in-class.
-        </blockquote>
-        <div class="testi-metric">
-          <span class="tm-num">−18%</span>
-          <span class="tm-lab">annual premium — with higher coverage limits</span>
+        <div class="testi-header">
+          <div class="testi-stars">★★★★★</div>
         </div>
-        <div class="testi-author">
+        <blockquote class="testi-quote">
+          Rexa has consistently provided proactive service, practical advice, and seamless support throughout our insurance journey.
+        </blockquote>
+        <div class="testi-footer">
           <div class="testi-avatar">
-            <img class="testi-face" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Arora"
-                 loading="lazy"
-                 onerror="this.outerHTML='<div class=testi-face-fallback>RA</div>'">
-            <span class="testi-badge">
-              <img src="logos/yulu.bike.png" alt="Yulu"
-                   loading="lazy"
-                   onerror="this.outerHTML='<span>Y</span>'">
-            </span>
+            <div class="avatar-circle">AJ</div>
+            <div class="avatar-badge">Y</div>
           </div>
-          <div class="testi-meta">
-            <div class="testi-name">Rahul Arora <span class="testi-verified" title="Verified client">✓</span></div>
-            <div class="testi-role">Head of People Operations · <b>Yulu</b></div>
+          <div class="testi-info">
+            <div class="testi-name">Akshay Jain <span class="testi-verified">✓</span></div>
+            <div class="testi-role">Yulu</div>
           </div>
         </div>
       </article>
 
-      <!-- Supporting — Indo-MIM -->
+      <!-- Chrysalis High -->
       <article class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
         <blockquote class="testi-quote">
-          When we had a major machinery breakdown at our Bengaluru facility, Rexa's claims team was on-site within 24 hours — they coordinated the surveyor, handled all paperwork, and got us <mark>₹1.4 Cr settled in just 11 working days</mark>. That experience justified every rupee of our broker relationship.
+          Rexa's proactive approach, strong sense of ownership, and commitment to delivering practical insurance solutions have made them a trusted extension of our team.
         </blockquote>
-        <div class="testi-metric">
-          <span class="tm-num">₹1.4 Cr</span>
-          <span class="tm-lab">claim settled in 11 working days</span>
-        </div>
-        <div class="testi-author">
+        <div class="testi-footer">
           <div class="testi-avatar">
-            <img class="testi-face" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Deepak Srinivasan"
-                 loading="lazy"
-                 onerror="this.outerHTML='<div class=testi-face-fallback>DS</div>'">
-            <span class="testi-badge">
-              <img src="logos/indo-mim.com.png" alt="Indo-MIM"
-                   loading="lazy"
-                   onerror="this.outerHTML='<span>I</span>'">
-            </span>
+            <div class="avatar-circle">K</div>
           </div>
-          <div class="testi-meta">
-            <div class="testi-name">Deepak Srinivasan <span class="testi-verified" title="Verified client">✓</span></div>
-            <div class="testi-role">Chief Financial Officer · <b>Indo-MIM</b></div>
+          <div class="testi-info">
+            <div class="testi-name">Kashinath <span class="testi-verified">✓</span></div>
+            <div class="testi-role">CFO · <b>Chrysalis High</b></div>
           </div>
         </div>
       </article>
 
-      <!-- Supporting — Indus International School -->
+      <!-- SAI 360 -->
       <article class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
         <blockquote class="testi-quote">
-          Managing group health and property insurance for 600+ staff across campuses was a constant headache. Rexa set up centralised policy administration, runs monthly awareness sessions, and gives us a dedicated account manager who <mark>responds within the hour</mark>. They're a true extension of our HR team.
+          Rexa has earned our confidence through consistent execution, transparent communication, and a genuine commitment to our success.
         </blockquote>
-        <div class="testi-metric">
-          <span class="tm-num">&lt; 1 hr</span>
-          <span class="tm-lab">account-manager response · 600+ staff covered</span>
-        </div>
-        <div class="testi-author">
+        <div class="testi-footer">
           <div class="testi-avatar">
-            <img class="testi-face" src="https://randomuser.me/api/portraits/men/52.jpg" alt="Arun Menon"
-                 loading="lazy"
-                 onerror="this.outerHTML='<div class=testi-face-fallback>AM</div>'">
-            <span class="testi-badge">
-              <img src="logos/indusschool.com.png" alt="Indus International School"
-                   loading="lazy"
-                   onerror="this.outerHTML='<span>I</span>'">
-            </span>
+            <div class="avatar-circle">A</div>
           </div>
-          <div class="testi-meta">
-            <div class="testi-name">Arun Menon <span class="testi-verified" title="Verified client">✓</span></div>
-            <div class="testi-role">Director of Operations · <b>Indus Int'l School</b></div>
+          <div class="testi-info">
+            <div class="testi-name">Aneesha <span class="testi-verified">✓</span></div>
+            <div class="testi-role">SAI 360</div>
           </div>
         </div>
       </article>
@@ -976,7 +980,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="brand" href="index.html"><img src="assets/rexa-logo.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
+        <a class="brand" href="index.html"><img src="assets/rexa-logo-white.png" alt="Rexa Insurance Broking" class="brand-logo foot-logo"></a>
         <div class="foot-tagline">Beyond Insurance. Building Resilience.</div>
         <p>A strategic insurance &amp; risk partner for Indian businesses — protecting people, optimising benefits, and delivering confidence since 2017.</p>
         <div class="lic">IRDA Broker License No. 611 · Direct Broker (Life &amp; General)</div>
@@ -1011,8 +1015,9 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</span>
+      <span>© <span class="copy-year">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</span>
       <span>Protecting People. Optimising Benefits. Delivering Confidence.</span>
+      <div class="foot-legal-links"><a href="privacy.html">Privacy Policy</a><span class="sep">·</span><a href="terms.html">Terms of Use</a><span class="sep">·</span><a href="grievance.html">Grievance Redressal</a></div>
     </div>
   </div>
 </footer>

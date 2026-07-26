@@ -2,6 +2,11 @@
    REXA — site interactions
    =========================================================== */
 
+// Footer copyright year — always current, no manual updates needed
+document.querySelectorAll('.copy-year').forEach(el => {
+  el.textContent = new Date().getFullYear();
+});
+
 // Mobile nav toggle
 document.addEventListener('click', e => {
   if (e.target.closest('.nav-toggle')) {
@@ -28,70 +33,53 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// Client logos glow on scroll — animated glow follows scroll position through the client grid
-(function logoGlowScroll(){
+// Industry cards highlight on scroll — same visual as :hover, triggered as each
+// card passes through the vertical center band of the viewport
+(function industryCardsHighlight(){
+  const cards = document.querySelectorAll('.ind-card');
+  if (!cards.length) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => en.target.classList.toggle('is-active', en.isIntersecting));
+  }, { rootMargin: '-42% 0px -42% 0px' });
+
+  cards.forEach(card => io.observe(card));
+})();
+
+// Client logos gain colour as they scroll into view, then stay coloured —
+// each card/logo turns from grayscale to full colour once, the first time it
+// crosses into the viewport, cascading left-to-right within a row via a CSS
+// transition-delay (see .cgrid-card / .fc-client rules in styles.css).
+(function logoColorReveal(){
   const clientGrid = document.querySelector('.client-grid');
   const featuredClients = document.querySelector('.featured-clients');
   if (!clientGrid && !featuredClients) return;
 
-  const allCards = [];
-  if (clientGrid) allCards.push(...clientGrid.querySelectorAll('.cgrid-card'));
-  if (featuredClients) allCards.push(...featuredClients.querySelectorAll('.fc-client'));
-
-  const clientSection = (clientGrid || featuredClients).closest('.clients');
-  let rafId = null;
-
-  function updateGlow() {
-    const startTime = performance.now();
-    const sectionRect = clientSection.getBoundingClientRect();
-    const sectionTop = sectionRect.top + window.scrollY;
-    const sectionHeight = sectionRect.height;
-    const scrollPos = window.scrollY;
-
-    // Only apply effect when scrolling through the client section
-    if (scrollPos < sectionTop - window.innerHeight || scrollPos > sectionTop + sectionHeight) {
-      allCards.forEach(card => card.style.setProperty('--color-intensity', '0'));
-      return;
-    }
-
-    allCards.forEach((card) => {
-      // Calculate position of each card
-      const cardRect = card.getBoundingClientRect();
-      const cardTop = cardRect.top + window.scrollY;
-      const cardCenter = cardTop + cardRect.height / 2;
-
-      // Distance from scroll center to card center
-      const scrollCenter = scrollPos + window.innerHeight / 2;
-      const distance = Math.abs(scrollCenter - cardCenter);
-      const maxDistance = window.innerHeight * 0.4;
-
-      // Color intensity based on proximity to scroll position (0 to 1)
-      const colorIntensity = Math.max(0, 1 - distance / maxDistance);
-
-      card.style.setProperty('--color-intensity', colorIntensity);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('logo-in');
+        io.unobserve(en.target);
+      }
     });
+  }, { threshold: 0.35 });
 
-    if (window.ScrollDebugger?.enabled) {
-      const endTime = performance.now();
-      console.log(`[GLOW_PERFORMANCE] ${(endTime - startTime).toFixed(2)}ms`, {
-        cardsProcessed: allCards.length,
-        scrollPosition: scrollPos.toFixed(0),
-        inClientSection: scrollPos >= sectionTop - window.innerHeight && scrollPos <= sectionTop + sectionHeight,
-      });
-    }
-  }
-
-  window.addEventListener('scroll', () => {
-    // Throttle updates using requestAnimationFrame to prevent excessive calculations
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(updateGlow);
-  }, { passive: true });
+  clientGrid?.querySelectorAll('.cgrid-card').forEach(card => io.observe(card));
+  if (featuredClients) io.observe(featuredClients);
 })();
 
-// Typewriter hero headline (R2) — characters type in on load, one line at a time.
-// .tw-measure (real text) reserves the correct height at any viewport/line-wrap;
-// it's hidden only once the animated overlay is ready, so there's never a gap.
+// Hero headline (R2) — "More than a / broker." is static and fades/rises in
+// on load; "Your risk / partner." then types in, one line at a time. Both
+// halves use fixed, hardcoded line breaks (not natural word-wrap) so the
+// headline reads as the same four lines on every viewport, not just
+// whichever ones happen to fit a given column width. .tw-measure (real text)
+// reserves the correct height for the typed half; it's hidden only once the
+// animated overlay is ready, so there's never a gap.
 (function initTypewriter(){
+  const staticLine = document.getElementById('tw-static');
   const measure = document.querySelector('#hero-hl .tw-measure');
   const el = document.getElementById('tw-visible');
   if (!el || !measure) return;
@@ -100,29 +88,32 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   el.setAttribute('aria-hidden', 'true');
-  const lines = [
-    { text: 'More than a broker.', accent: false },
-    { text: 'Your risk partner.', accent: true }
-  ];
+
+  const lineTexts = ['Your risk', 'partner.'];
   const spans = [];
-  lines.forEach((line, i) => {
+  lineTexts.forEach((text, i) => {
     if (i > 0) el.appendChild(document.createElement('br'));
     const s = document.createElement('span');
-    if (line.accent) s.className = 'accent';
+    s.className = 'accent';
     el.appendChild(s);
-    spans.push({ s, text: line.text });
+    spans.push({ s, text });
   });
-  const cursor = document.createElement('span');
-  cursor.className = 'tw-cursor';
-  el.appendChild(cursor);
   measure.style.visibility = 'hidden';
+
+  // Lead paragraph, CTAs and social proof stay hidden until the headline
+  // is fully typed, then fade in together (staggered via CSS).
+  const followup = document.getElementById('hero-followup');
+  function revealFollowup() { followup?.classList.add('in'); }
 
   if (prefersReducedMotion) {
     // Show text instantly for accessibility
+    staticLine?.classList.add('in');
     spans.forEach(({ s, text }) => s.textContent = text);
-    cursor.remove();
+    revealFollowup();
     return;
   }
+
+  staticLine?.classList.add('in');
 
   let li = 0, ci = 0;
   const typewriterStart = performance.now();
@@ -136,24 +127,24 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       if (window.ScrollDebugger?.enabled && (ci === 1 || ci % 5 === 0)) {
         console.log(`[TYPEWRITER] Char ${ci} of ${text.length} at ${elapsed.toFixed(0)}ms`);
       }
-      setTimeout(tick, 90); // Increased from 55ms for better mobile performance
+      setTimeout(tick, 45);
     } else {
       li++; ci = 0;
       if (li < spans.length) {
         if (window.ScrollDebugger?.enabled) {
           console.log(`[TYPEWRITER] Line ${li} complete`);
         }
-        setTimeout(tick, 350); // Increased from 280ms
+        setTimeout(tick, 180);
       } else {
         if (window.ScrollDebugger?.enabled) {
           const totalTime = performance.now() - typewriterStart;
           console.log(`[TYPEWRITER] Complete in ${totalTime.toFixed(0)}ms`);
         }
-        setTimeout(() => cursor.remove(), 1200); // Increased from 900ms
+        revealFollowup();
       }
     }
   }
-  setTimeout(tick, 400); // Increased from 200ms
+  setTimeout(tick, 400);
 })();
 
 // Promo announcement bar + offer modal
@@ -189,53 +180,11 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   });
 })();
 
-/* ---- Contact form -> email --------------------------------------------
-   Delivers submissions to Rexa's inbox via FormSubmit (formsubmit.co) —
-   a hosted form-to-email relay, so no backend server is needed.
-   One-time setup: the destination address (data-email on the form) must
-   click the confirmation link FormSubmit sends on the very first submit.
+/* ---- Contact form -> API backend ----------------------------------------
+   Now handled by contact.html with reCAPTCHA v3 bot protection.
+   Form submission is intercepted in contact.html with complete
+   validation, sanitization, rate limiting, and email sending.
    ------------------------------------------------------------------- */
-(function contactForm(){
-  const form = document.getElementById('contactForm');
-  if(!form) return;
-  const msg = form.querySelector('.form-msg');
-  const btn = form.querySelector('button[type="submit"]');
-  const endpoint = 'https://formsubmit.co/ajax/' + form.dataset.email;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-    const original = btn.innerHTML;
-    btn.innerHTML = 'Sending…';
-
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form))),
-      });
-      if (!res.ok) throw new Error('Request failed');
-
-      if (msg) {
-        msg.style.color = 'var(--brand)';
-        msg.textContent = "Thanks — a Rexa advisor will reach out within one business day.";
-        msg.style.display = 'block';
-      }
-      form.reset();
-      toast('Request sent. We’ll be in touch shortly.');
-    } catch (err) {
-      if (msg) {
-        msg.style.color = 'var(--red)';
-        msg.textContent = "Something went wrong sending your request — please call 044 4867 8884 or email info@rexabroking.com directly.";
-        msg.style.display = 'block';
-      }
-      toast('Could not send — please try again or call us.');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = original;
-    }
-  });
-})();
 
 // Toast helper
 function toast(text){

@@ -16,6 +16,20 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
+<script src="https://www.google.com/recaptcha/api.js" onload="onRecaptchaLoad()" async defer></script>
+<script>
+  function onRecaptchaLoad() {
+    console.log('reCAPTCHA loaded successfully');
+    window.recaptchaReady = true;
+  }
+  // Timeout fallback
+  setTimeout(() => {
+    if (window.grecaptcha && !window.recaptchaReady) {
+      window.recaptchaReady = true;
+      console.log('reCAPTCHA available via timeout');
+    }
+  }, 2000);
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,8 +59,8 @@
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Customer Support",
-    "telephone": "+91-4448678884",
-    "email": "info@rexabroking.com",
+    "telephone": "+91-9945509306",
+    "email": "corporate.blr@rexabroking.com",
     "areaServed": "IN"
   }
 }
@@ -56,7 +70,7 @@
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="index.html"><img src="assets/rexa-logo.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
+    <a class="brand" href="index.html"><img src="assets/rexa-logo-transparent.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="general.html">General Insurance</a>
@@ -83,29 +97,30 @@
 <section class="section" id="form">
   <div class="wrap contact-grid">
     <div class="reveal">
-      <form id="contactForm" data-email="info@rexabroking.com">
-        <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" required placeholder="Your name"></div>
+      <form id="contactForm">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" required placeholder="Your name" minlength="2"></div>
         <div class="field"><label for="company">Company</label><input id="company" name="company" type="text" placeholder="Company name"></div>
         <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" required placeholder="you@company.com"></div>
         <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="+91"></div>
         <div class="field"><label for="interest">What are you looking for?</label>
-          <select id="interest" name="interest">
-            <option>General insurance</option>
-            <option>Life insurance</option>
-            <option>Employee benefits</option>
-            <option>Renewing an existing policy</option>
-            <option>Help with a claim</option>
+          <select id="interest" name="interest" required>
+            <option value="">Select an option</option>
+            <option value="general-insurance">General insurance</option>
+            <option value="life-insurance">Life insurance</option>
+            <option value="employee-benefits">Employee benefits</option>
+            <option value="renewal">Renewing an existing policy</option>
+            <option value="claim">Help with a claim</option>
           </select>
         </div>
-        <div class="field"><label for="msg">Anything we should know?</label><textarea id="msg" name="message" rows="4" placeholder="Team size, assets, current cover…"></textarea></div>
-        <input type="hidden" name="_subject" value="New enquiry — Rexa website contact form">
-        <button type="submit" class="btn btn-primary">Send request <span class="arr">→</span></button>
-        <p class="form-msg" style="display:none;margin-top:1rem;font-weight:600"></p>
+        <div class="field"><label for="msg">Anything we should know?</label><textarea id="msg" name="message" rows="4" placeholder="Team size, assets, current cover…" minlength="10"></textarea></div>
+        <input type="hidden" id="recaptchaToken" name="recaptchaToken">
+        <button type="submit" id="submitBtn" class="btn btn-primary">Send request <span class="arr">→</span></button>
+        <p class="form-msg" id="formMessage" style="display:none;margin-top:1rem;font-weight:600"></p>
       </form>
     </div>
     <div class="contact-info reveal">
-      <div class="ci-card"><div class="ci-lab">Call us</div><div class="ci-val">044 – 4867 8884</div></div>
-      <div class="ci-card"><div class="ci-lab">Email</div><div class="ci-val">info@rexabroking.com</div></div>
+      <div class="ci-card"><div class="ci-lab">Call us</div><div class="ci-val">+91 9945 509 306</div></div>
+      <div class="ci-card"><div class="ci-lab">Email</div><div class="ci-val">corporate.blr@rexabroking.com</div></div>
       <div class="ci-card"><div class="ci-lab">Head Office (Chennai)</div><div class="ci-val">G4, Swathi Court, 22/43 Vijayaraghava Road,<br>T Nagar, Chennai – 600017</div></div>
       <div class="ci-card"><div class="ci-lab">Branch (Bangalore)</div><div class="ci-val">Silver Software Tech Park, Ground Floor,<br>Plot 23&24, EPIP 1st Phase, Whitefield,<br>Bangalore – 560066</div></div>
       <div class="ci-card" style="background:var(--brand);border-color:var(--brand)">
@@ -120,7 +135,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="brand" href="index.html"><img src="assets/rexa-logo.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
+        <a class="brand" href="index.html"><img src="assets/rexa-logo-white.png" alt="Rexa Insurance Broking" class="brand-logo foot-logo"></a>
         <p>A platform that deals in multifarious insurance categories — General Insurance & Life Insurance — for Indian businesses and their people.</p>
         <div class="lic">IRDA Broking License No: 611 · Direct Broker (Life & General)</div>
       </div>
@@ -129,12 +144,106 @@
       <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Rexa Insurance Broking Services. All rights reserved.</span>
+      <span>© <span class="copy-year">2026</span> Rexa Insurance Broking Services. All rights reserved.</span>
       <span>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai 600017 · 044 4867 8884</span>
+      <div class="foot-legal-links"><a href="privacy.html">Privacy Policy</a><span class="sep">·</span><a href="terms.html">Terms of Use</a><span class="sep">·</span><a href="grievance.html">Grievance Redressal</a></div>
     </div>
   </div>
 </footer>
 
 <script src="app.js"></script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const submitBtn = document.getElementById('submitBtn');
+  const formMessage = document.getElementById('formMessage');
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  formMessage.style.display = 'none';
+
+  try {
+    // Get reCAPTCHA token (skip on localhost for testing)
+    let token = '';
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+    console.log('🌐 Hostname:', window.location.hostname);
+    console.log('🔍 Is localhost?', isLocalhost);
+
+    if (isLocalhost) {
+      console.log('✓ Localhost detected - using test token');
+      token = 'test_token_localhost';
+    } else {
+      // Wait for reCAPTCHA to load if not ready
+      if (!window.grecaptcha) {
+        for (let i = 0; i < 30; i++) {
+          if (window.grecaptcha) break;
+          await new Promise(r => setTimeout(r, 100));
+        }
+      }
+
+      if (!window.grecaptcha) {
+        throw new Error('reCAPTCHA is not loaded. Please refresh the page.');
+      }
+
+      // Get reCAPTCHA token
+      try {
+        console.log('📡 Calling grecaptcha.execute()...');
+        token = await grecaptcha.execute('6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7', { action: 'submit' });
+        console.log('✓ Got reCAPTCHA token:', token?.substring(0, 20) + '...');
+        if (!token) {
+          throw new Error('Failed to get reCAPTCHA token.');
+        }
+      } catch (captchaError) {
+        console.error('❌ reCAPTCHA error:', captchaError);
+        throw new Error('reCAPTCHA verification failed. Please refresh the page and try again.');
+      }
+    }
+
+    document.getElementById('recaptchaToken').value = token;
+
+    // Prepare form data
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      throw new Error('Please enter a valid email address');
+    }
+
+    // Send to backend
+    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? `http://${window.location.hostname}:3000/api/contact`
+      : '/api/contact';
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || 'Failed to send message');
+    }
+
+    // Success
+    formMessage.textContent = '✓ Message sent successfully! We\'ll get back to you within 24 hours.';
+    formMessage.style.color = '#0EA472';
+    formMessage.style.display = 'block';
+    this.reset();
+
+  } catch (error) {
+    formMessage.textContent = '✗ ' + (error.message || 'Error sending message. Please try again.');
+    formMessage.style.color = '#CF1C22';
+    formMessage.style.display = 'block';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send request →';
+  }
+});
+</script>
 </body>
 </html>
