@@ -213,9 +213,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
     }
 
     // Send to backend
-    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? `http://${window.location.hostname}:3000/api/contact`
-      : '/api/contact';
+    const apiUrl = '/api/contact';
 
     const response = await fetch(apiUrl, {
       method: 'POST',
