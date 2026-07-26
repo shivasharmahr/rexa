@@ -126,13 +126,10 @@
 </head>
 <body>
 
-<!-- PROMO ANNOUNCEMENT BAR -->
-<div class="promo-bar" id="promoBar">
+<!-- PROMO ANNOUNCEMENT BAR (populated by app.js from offers.json) -->
+<div class="promo-bar" id="promoBar" style="display:none;">
   <div class="wrap promo-bar-inner">
-    <p class="promo-text">
-      <span class="promo-emoji">🌧️</span>
-      <strong>Monsoon offer:</strong> 10% off motor &amp; fleet cover + free roadside assistance this season.
-    </p>
+    <p class="promo-text" id="promoBarText"></p>
     <div class="promo-actions">
       <button class="promo-cta" id="promoOpen" type="button">Today's offers <span class="arr">→</span></button>
       <button class="promo-close" id="promoDismiss" type="button" aria-label="Dismiss offer">&times;</button>
@@ -1007,10 +1004,9 @@
         <h4>Contact</h4>
         <div class="foot-contact-list">
           <div class="fci"><strong>Head Office (Chennai)</strong>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017</div>
-          <div class="fci"><strong>Branch (Bangalore)</strong>Silver Software Tech Park, Ground Floor, Plot 23&amp;24, EPIP 1st Phase, KIADB, Whitefield, Bangalore – 560066</div>
+          <div class="fci"><strong>Branch (Bangalore)</strong>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039</div>
           <div class="fci"><strong>Phone</strong>+91 44 4867 8884 | +91 99455 09306</div>
           <div class="fci"><strong>Email</strong>corporate.blr@rexabroking.com</div>
-          <div class="fci"><strong>Website</strong>www.rexabroking.com</div>
         </div>
       </div>
     </div>
@@ -1023,25 +1019,6 @@
 </footer>
 
 <!-- PROMO MODAL -->
-<div class="promo-modal" id="promoModal" role="dialog" aria-modal="true" aria-labelledby="promoModalTitle" aria-hidden="true">
-  <div class="promo-modal-overlay" data-close></div>
-  <div class="promo-modal-card">
-    <button class="promo-modal-x" data-close type="button" aria-label="Close">&times;</button>
-    <span class="promo-badge">🌧️ Limited-time · Monsoon</span>
-    <h3 id="promoModalTitle">10% off motor &amp; fleet cover</h3>
-    <p class="promo-modal-sub">Plus <strong>free roadside assistance</strong> all monsoon — for cars, two-wheelers and commercial fleets.</p>
-    <ul class="promo-perks">
-      <li>10% off new motor &amp; fleet policies</li>
-      <li>Complimentary 24&times;7 roadside assistance</li>
-      <li>Priority monsoon-damage claims support</li>
-    </ul>
-    <div class="promo-modal-cta">
-      <a href="quote.html" class="btn btn-primary btn-lg">Claim this offer <span class="arr">→</span></a>
-      <a href="contact.html" class="btn btn-ghost">Talk to an advisor</a>
-    </div>
-    <p class="promo-fine">Valid this monsoon season · T&amp;C apply · Subject to insurer approval.</p>
-  </div>
-</div>
 
 <script src="app.js"></script>
 </body>
