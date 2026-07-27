@@ -1568,6 +1568,25 @@ body.modal-open { overflow: hidden }
 .ci-card .ci-val { font-size: 1.05rem; margin-top: .4rem; font-weight: 500 }
 .ci-card .ci-val a { color: inherit; text-decoration: none; transition: opacity .2s }
 .ci-card .ci-val a:hover { opacity: .7 }
+
+/* Contact Info Layout */
+.contact-info { display: grid; gap: 2.5rem }
+.contact-section { }
+.contact-section h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin: 0 0 0.8rem 0 }
+.contact-address { font-size: 0.95rem; color: var(--ink); margin: 0 0 1.2rem 0; line-height: 1.6 }
+.contact-details { display: grid; gap: 1rem }
+.detail-group { }
+.detail-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); display: block; margin-bottom: 0.4rem }
+.detail-value { font-size: 0.95rem; color: var(--ink); line-height: 1.6 }
+.detail-value a { color: var(--brand); text-decoration: none; font-weight: 500; transition: opacity .2s }
+.detail-value a:hover { opacity: .7 }
+
+@media (max-width: 640px) {
+  .contact-info { gap: 1.8rem }
+  .contact-section h3 { font-size: 1rem }
+  .contact-address { font-size: 0.9rem }
+  .detail-value { font-size: 0.9rem }
+}
 .form-msg { display: none; margin-top: 1rem; font-size: .92rem; color: var(--green); font-weight: 600 }
 
 @media (max-width: 640px) {
