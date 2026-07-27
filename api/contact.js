@@ -116,7 +116,7 @@ const sendConfirmationEmail = async (contactData) => {
       <li><strong>Email:</strong> ${validator.escape(contactData.email)}</li>
       <li><strong>Interest:</strong> ${validator.escape(contactData.interest)}</li>
     </ul>
-    <p>In the meantime, feel free to explore our services or reach out to our team directly at corporate.blr@rexabroking.com or +91 9945 509 306.</p>
+    <p>In the meantime, feel free to explore our services or reach out to our team directly at info@rexabroking.com or +91 9945 509 306.</p>
     <p>Best regards,<br>The Rexa Team</p>
   `;
 
