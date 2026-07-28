@@ -31,14 +31,6 @@ router.post('/', validateContactForm, async (req, res) => {
   try {
     const { recaptchaToken } = req.body;
 
-    // TODO: Remove this bypass once reCAPTCHA domain propagation completes
-    console.log('📝 Contact form submitted:', {
-      name: req.body.name,
-      email: req.body.email,
-      interest: req.body.interest,
-      messageLength: req.body.message?.length
-    });
-
     const recaptchaResult = process.env.NODE_ENV === 'development'
       ? { success: true, score: 0.9 }
       : await verifyRecaptcha(recaptchaToken);
