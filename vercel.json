@@ -1,4 +1,13 @@
 {
   "name": "rexa-contact-api",
-  "version": 2
+  "version": 2,
+  "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/general", "destination": "/general.html" },
+    { "source": "/life", "destination": "/life.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/grievance", "destination": "/grievance.html" }
+  ]
 }
