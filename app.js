@@ -44,7 +44,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(en => en.target.classList.toggle('is-active', en.isIntersecting));
-  }, { rootMargin: '-42% 0px -42% 0px' });
+  }, { rootMargin: '-30% 0px -50% 0px' });
 
   cards.forEach(card => io.observe(card));
 })();
