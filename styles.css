@@ -1267,6 +1267,17 @@ body.modal-open { overflow: hidden }
 .fcc-item a { color: #F0A830; text-decoration: none; font-weight: 500 }
 .fcc-item a:hover { opacity: 0.8 }
 
+.contact-sidebar { display: grid; gap: 1.5rem; max-width: 320px }
+.cs-item h4 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: var(--ink); margin-bottom: 0.6rem; letter-spacing: 0.05em }
+.cs-item p { margin: 0.3rem 0; font-size: 0.95rem }
+.cs-item a { color: var(--brand); text-decoration: none; font-weight: 500 }
+.cs-item a:hover { opacity: 0.7 }
+
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr }
+  .contact-sidebar { max-width: 100% }
+}
+
 .foot-bottom {
   display: flex; justify-content: space-between; flex-wrap: wrap;
   gap: .8rem; padding-top: 1.5rem; font-size: .78rem; color: rgba(255,255,255,.35);
