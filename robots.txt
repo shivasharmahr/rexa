@@ -1,7 +1,10 @@
+# Allow all crawlers to index the site
 User-agent: *
 Allow: /
-Disallow: /proposal-docs/
-Disallow: /assets/
-Disallow: /logos/
 
+# Disallow private/admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
 Sitemap: https://www.rexabroking.com/sitemap.xml
