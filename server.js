@@ -14,7 +14,13 @@ const PORT = process.env.PORT || 3000;
 initializeEmailService();
 
 // Security middleware
-app.use(helmet());
+app.use(helmet({
+  permissionsPolicy: {
+    geolocation: ['(self)'],
+    camera: [],
+    microphone: []
+  }
+}));
 
 // CORS configuration
 const corsOptions = {
