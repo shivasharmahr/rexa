@@ -62,33 +62,27 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/contact', (req, res) => {
-  res.sendFile(path.join(__dirname, 'contact.html'));
-});
+// Handle both with and without trailing slashes
+app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, 'contact.html')));
+app.get('/contact/', (req, res) => res.sendFile(path.join(__dirname, 'contact.html')));
 
-app.get('/general', (req, res) => {
-  res.sendFile(path.join(__dirname, 'general.html'));
-});
+app.get('/general', (req, res) => res.sendFile(path.join(__dirname, 'general.html')));
+app.get('/general/', (req, res) => res.sendFile(path.join(__dirname, 'general.html')));
 
-app.get('/life', (req, res) => {
-  res.sendFile(path.join(__dirname, 'life.html'));
-});
+app.get('/life', (req, res) => res.sendFile(path.join(__dirname, 'life.html')));
+app.get('/life/', (req, res) => res.sendFile(path.join(__dirname, 'life.html')));
 
-app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'about.html'));
-});
+app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
+app.get('/about/', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
 
-app.get('/privacy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'privacy.html'));
-});
+app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, 'privacy.html')));
+app.get('/privacy/', (req, res) => res.sendFile(path.join(__dirname, 'privacy.html')));
 
-app.get('/terms', (req, res) => {
-  res.sendFile(path.join(__dirname, 'terms.html'));
-});
+app.get('/terms', (req, res) => res.sendFile(path.join(__dirname, 'terms.html')));
+app.get('/terms/', (req, res) => res.sendFile(path.join(__dirname, 'terms.html')));
 
-app.get('/grievance', (req, res) => {
-  res.sendFile(path.join(__dirname, 'grievance.html'));
-});
+app.get('/grievance', (req, res) => res.sendFile(path.join(__dirname, 'grievance.html')));
+app.get('/grievance/', (req, res) => res.sendFile(path.join(__dirname, 'grievance.html')));
 
 // Contact form API with rate limiting
 app.use('/api/contact', contactRateLimiter, contactRoutes);
