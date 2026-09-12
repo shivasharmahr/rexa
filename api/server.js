@@ -11,8 +11,9 @@ const contactRoutes = require('./routes/contact');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Determine if we're in production
-const baseDir = process.cwd();
+// Determine the correct base directory
+// In Vercel serverless, __dirname is /var/task/api, so we need to go up one level
+const baseDir = process.env.VERCEL ? path.join(__dirname, '..') : process.cwd();
 
 // Initialize email service
 initializeEmailService();
@@ -67,7 +68,7 @@ app.get('/:page.html', (req, res) => {
 
 // Routes for HTML pages (clean URLs without .html)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(baseDir, 'index.html'));
 });
 
 // Helper function to serve HTML files
