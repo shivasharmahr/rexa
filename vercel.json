@@ -1,7 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm install",
-  "outputDirectory": ".",
   "env": {
     "NODE_ENV": "production"
   },
@@ -12,22 +11,6 @@
     }
   },
   "routes": [
-    {
-      "src": "^/api/(.*)",
-      "dest": "api/server.js"
-    },
-    {
-      "src": "/app\\.js$",
-      "dest": "app.js"
-    },
-    {
-      "src": "/(static|assets|logos)/(.*)$",
-      "dest": "/$1/$2"
-    },
-    {
-      "src": "/(.*\\.(html|css|png|jpg|jpeg|gif|svg|webp|ico|json|xml|txt|woff|woff2|ttf|eot))$",
-      "dest": "$1"
-    },
     {
       "src": "/(.*)",
       "dest": "api/server.js"
