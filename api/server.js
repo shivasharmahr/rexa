@@ -12,8 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Determine the correct base directory
-// In Vercel serverless, __dirname is /var/task/api, so we need to go up one level
-const baseDir = process.env.VERCEL ? path.resolve(__dirname, '..') : process.cwd();
+const baseDir = path.resolve(__dirname, '..');
 
 // Initialize email service
 initializeEmailService();
