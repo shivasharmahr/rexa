@@ -13,7 +13,9 @@ const PORT = process.env.PORT || 3000;
 
 // Determine if we're in production
 const isProduction = process.env.NODE_ENV === 'production';
+const baseDir = process.cwd();
 console.log(`🚀 Starting server in ${isProduction ? 'PRODUCTION' : 'DEVELOPMENT'} mode`);
+console.log(`📁 Working directory: ${baseDir}`);
 
 // Initialize email service
 initializeEmailService();
@@ -54,7 +56,7 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ limit: '10kb', extended: true }));
 
 // Serve static files (CSS, images, logos, robots.txt, sitemap.xml, etc.)
-const staticPath = path.join(__dirname, '.');
+const staticPath = path.join(baseDir, '.');
 app.use(express.static(staticPath));
 console.log(`✓ Static files served from: ${staticPath}`);
 
@@ -73,27 +75,45 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Handle both with and without trailing slashes
-app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, 'contact.html')));
-app.get('/contact/', (req, res) => res.sendFile(path.join(__dirname, 'contact.html')));
+// Helper function to serve HTML files
+const serveFile = (filename) => {
+  return (req, res) => {
+    const filepath = path.join(baseDir, filename);
+    console.log(`[${req.method}] ${req.path} -> ${filepath}`);
 
-app.get('/general', (req, res) => res.sendFile(path.join(__dirname, 'general.html')));
-app.get('/general/', (req, res) => res.sendFile(path.join(__dirname, 'general.html')));
+    // Check if file exists
+    if (!fs.existsSync(filepath)) {
+      console.error(`❌ File not found: ${filepath}`);
+      console.error(`📂 Available files in ${baseDir}:`, fs.readdirSync(baseDir).filter(f => f.endsWith('.html')));
+      return res.status(404).send(`File not found: ${filename}`);
+    }
 
-app.get('/life', (req, res) => res.sendFile(path.join(__dirname, 'life.html')));
-app.get('/life/', (req, res) => res.sendFile(path.join(__dirname, 'life.html')));
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.sendFile(filepath);
+  };
+};
 
-app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
-app.get('/about/', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
+// Routes - handle both with and without trailing slashes
+app.get('/contact', serveFile('contact.html'));
+app.get('/contact/', serveFile('contact.html'));
 
-app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, 'privacy.html')));
-app.get('/privacy/', (req, res) => res.sendFile(path.join(__dirname, 'privacy.html')));
+app.get('/general', serveFile('general.html'));
+app.get('/general/', serveFile('general.html'));
 
-app.get('/terms', (req, res) => res.sendFile(path.join(__dirname, 'terms.html')));
-app.get('/terms/', (req, res) => res.sendFile(path.join(__dirname, 'terms.html')));
+app.get('/life', serveFile('life.html'));
+app.get('/life/', serveFile('life.html'));
 
-app.get('/grievance', (req, res) => res.sendFile(path.join(__dirname, 'grievance.html')));
-app.get('/grievance/', (req, res) => res.sendFile(path.join(__dirname, 'grievance.html')));
+app.get('/about', serveFile('about.html'));
+app.get('/about/', serveFile('about.html'));
+
+app.get('/privacy', serveFile('privacy.html'));
+app.get('/privacy/', serveFile('privacy.html'));
+
+app.get('/terms', serveFile('terms.html'));
+app.get('/terms/', serveFile('terms.html'));
+
+app.get('/grievance', serveFile('grievance.html'));
+app.get('/grievance/', serveFile('grievance.html'));
 
 // Contact form API with rate limiting
 app.use('/api/contact', contactRateLimiter, contactRoutes);
