@@ -1,6 +1,11 @@
 {
   "name": "rexa-contact-api",
   "version": 2,
+  "functions": {
+    "api/server.js": {
+      "includeFiles": "{*.html,*.css,*.js,assets/**,logos/**,robots.txt,sitemap.xml}"
+    }
+  },
   "routes": [
     {
       "src": "/(.*\\.html)$",
