@@ -12,10 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Determine if we're in production
-const isProduction = process.env.NODE_ENV === 'production';
 const baseDir = process.cwd();
-console.log(`🚀 Starting server in ${isProduction ? 'PRODUCTION' : 'DEVELOPMENT'} mode`);
-console.log(`📁 Working directory: ${baseDir}`);
 
 // Initialize email service
 initializeEmailService();
@@ -56,9 +53,7 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ limit: '10kb', extended: true }));
 
 // Serve static files (CSS, images, logos, robots.txt, sitemap.xml, etc.)
-const staticPath = path.join(baseDir, '.');
-app.use(express.static(staticPath));
-console.log(`✓ Static files served from: ${staticPath}`);
+app.use(express.static(baseDir));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -79,13 +74,12 @@ app.get('/', (req, res) => {
 const serveFile = (filename) => {
   return (req, res) => {
     const filepath = path.join(baseDir, filename);
-    console.log(`[${req.method}] ${req.path} -> ${filepath}`);
 
-    // Check if file exists
     if (!fs.existsSync(filepath)) {
-      console.error(`❌ File not found: ${filepath}`);
-      console.error(`📂 Available files in ${baseDir}:`, fs.readdirSync(baseDir).filter(f => f.endsWith('.html')));
-      return res.status(404).send(`File not found: ${filename}`);
+      return res.status(404).json({
+        success: false,
+        message: 'Page not found'
+      });
     }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -128,16 +122,15 @@ app.use((req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
   res.status(500).json({
     success: false,
     message: 'Internal server error'
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`✓ Rexa Contact API server running on port ${PORT}`);
-  console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`✓ CORS: localhost + ${process.env.CORS_ORIGIN || 'https://www.rexabroking.com'}`);
-});
+// Export for Vercel serverless functions
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  app.listen(PORT);
+}

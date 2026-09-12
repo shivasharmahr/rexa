@@ -424,14 +424,11 @@ async function initOffers() {
   try {
     const r = await fetch('offers.json');
     OFFERS = await r.json();
-    console.log('✓ Offers loaded from offers.json', OFFERS.length);
   } catch (e) {
     try {
       const offersEnv = window.__OFFERS_CONFIG__ || '[]';
       OFFERS = JSON.parse(offersEnv);
-      console.log('✓ Offers loaded from environment variable', OFFERS.length);
     } catch (err) {
-      console.error('Failed to load offers:', err);
       OFFERS = [];
     }
   }
