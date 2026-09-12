@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
 const helmet = require('helmet');
 const { contactRateLimiter } = require('./middleware/rateLimit');
@@ -9,6 +10,10 @@ const contactRoutes = require('./routes/contact');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Determine if we're in production
+const isProduction = process.env.NODE_ENV === 'production';
+console.log(`🚀 Starting server in ${isProduction ? 'PRODUCTION' : 'DEVELOPMENT'} mode`);
 
 // Initialize email service
 initializeEmailService();
