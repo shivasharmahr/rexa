@@ -43,7 +43,9 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ limit: '10kb', extended: true }));
 
 // Serve static files (CSS, images, logos, robots.txt, sitemap.xml, etc.)
-app.use(express.static(path.join(__dirname, '.')));
+const staticPath = path.join(__dirname, '.');
+app.use(express.static(staticPath));
+console.log(`✓ Static files served from: ${staticPath}`);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
