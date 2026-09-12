@@ -1,7 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm install",
-  "outputDirectory": ".",
   "env": {
     "NODE_ENV": "production"
   },
@@ -12,6 +11,25 @@
     }
   },
   "routes": [
+    {
+      "src": "/(.*\\.html)$",
+      "dest": "$1"
+    },
+    {
+      "src": "/(.*\\.css)$",
+      "dest": "$1"
+    },
+    {
+      "src": "/(.*\\.js)$",
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      },
+      "dest": "$1"
+    },
+    {
+      "src": "/(.*\\.(jpg|jpeg|png|gif|svg|webp|ico|json|xml|txt))$",
+      "dest": "$1"
+    },
     {
       "src": "^/api/(.*)",
       "dest": "api/server.js"
