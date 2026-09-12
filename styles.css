@@ -1687,7 +1687,7 @@ body.modal-open { overflow: hidden }
   position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--paper-2);
 }
 .team-photo img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 15%;
+  width: 100%; height: 120%; object-fit: cover; object-position: center 30%;
   display: block; transition: transform .6s cubic-bezier(.22,1,.36,1);
 }
 .team-card:hover .team-photo img { transform: scale(1.05) }
@@ -1698,6 +1698,66 @@ body.modal-open { overflow: hidden }
 .team-photo-fallback span {
   font-size: 2.4rem; font-weight: 900; letter-spacing: -.02em; color: #fff; opacity: .92;
 }
+.team-photo-badge {
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, #0F5F72 0%, #137282 100%);
+}
+.badge-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+  display: grid; place-items: center;
+  font-size: 2rem; font-weight: 900; color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(15, 95, 114, 0.37);
+}
+.team-card-text {
+  display: flex; align-items: center; justify-content: center;
+  min-height: auto; padding: 2rem;
+}
+.team-card-text .team-info {
+  padding: 0; text-align: center; flex: 1;
+}
+.team-card-text .team-name {
+  font-size: 1.3rem; margin-bottom: .4rem;
+}
+.team-card-text .team-role {
+  margin-bottom: .8rem;
+}
+.team-card-text .team-exp {
+  margin-bottom: .6rem;
+}
+.team-card-text .team-prev {
+  border: none; padding: 0; margin: 0;
+}
+
+/* Founder Card */
+.founder-card {
+  margin-top: 3rem; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(207, 28, 34, 0.08) 0%, rgba(15, 95, 114, 0.05) 100%);
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 0;
+  display: flex;
+}
+.founder-accent {
+  width: 5px; background: linear-gradient(180deg, var(--red) 0%, var(--teal) 100%);
+  flex-shrink: 0;
+}
+.founder-content {
+  flex: 1; padding: 2rem;
+}
+.founder-name {
+  font-size: 1.3rem; font-weight: 800; color: var(--navy);
+  margin: 0 0 .4rem 0;
+}
+.founder-role {
+  font-size: .9rem; font-weight: 700; color: var(--red);
+  letter-spacing: .05em; text-transform: uppercase;
+  margin: 0 0 .8rem 0;
+}
+.founder-info {
+  font-size: .9rem; color: var(--ink-soft);
+  margin: .3rem 0;
+}
 .team-info { flex: 1; min-width: 0; padding: 1.6rem 1.8rem 1.8rem }
 .team-name { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: .2rem }
 .team-role { font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin-bottom: .9rem }
@@ -1707,6 +1767,33 @@ body.modal-open { overflow: hidden }
   font-size: .8rem; color: var(--ink-soft); line-height: 1.55;
   padding-top: .8rem; margin-top: .1rem; border-top: 1px solid var(--line);
 }
+.team-read-more {
+  margin-top: 1rem; padding: .5rem 1rem; background: var(--navy); color: #fff;
+  border: none; border-radius: var(--r); font-size: .85rem; font-weight: 600;
+  cursor: pointer; transition: background .3s;
+}
+.team-read-more:hover { background: var(--navy-2) }
+
+/* Bio Modal */
+.bio-modal {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,.6); z-index: 1000; align-items: center; justify-content: center;
+  padding: 2rem;
+}
+.bio-modal.open { display: flex }
+.bio-modal-content {
+  background: #fff; border-radius: var(--r-lg); max-width: 700px; width: 100%;
+  max-height: 80vh; overflow-y: auto; position: relative; padding: 2.4rem;
+}
+.bio-modal-close {
+  position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+  font-size: 1.8rem; cursor: pointer; color: var(--ink-soft);
+}
+.bio-modal-close:hover { color: var(--navy) }
+.bio-content h2 { font-size: 1.8rem; margin-bottom: .5rem; color: var(--navy) }
+.bio-role { font-size: .9rem; font-weight: 700; color: var(--red); margin-bottom: 1.2rem }
+.bio-content p { font-size: .95rem; line-height: 1.7; color: var(--ink); margin-bottom: 1rem }
+.bio-content p:last-child { margin-bottom: 0 }
 
 /* ---- CTA block (sub-pages) ---- */
 .cta-block {

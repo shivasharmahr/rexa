@@ -838,3 +838,40 @@ function initRohini() {
 
 // Initialize Raksha
 initOffers();
+
+// Bio Modal functionality
+(function initBioModal() {
+  const modal = document.getElementById('bioModal');
+  if (!modal) return;
+
+  const closeBtn = modal.querySelector('.bio-modal-close');
+  const readMoreButtons = document.querySelectorAll('.team-read-more');
+
+  const openBio = (bioId) => {
+    document.querySelectorAll('.bio-content').forEach(el => el.style.display = 'none');
+    const bioContent = document.getElementById('bio' + bioId);
+    if (bioContent) {
+      bioContent.style.display = 'block';
+      modal.classList.add('open');
+    }
+  };
+
+  const closeBio = () => {
+    modal.classList.remove('open');
+  };
+
+  readMoreButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const bioId = btn.closest('[data-bio]')?.getAttribute('data-bio');
+      if (bioId === 'manish') openBio('Manish');
+      if (bioId === 'sathya') openBio('Sathya');
+    });
+  });
+
+  closeBtn.addEventListener('click', closeBio);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeBio();
+  });
+})();

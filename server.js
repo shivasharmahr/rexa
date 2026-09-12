@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const { contactRateLimiter } = require('./middleware/rateLimit');
@@ -41,9 +42,50 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ limit: '10kb', extended: true }));
 
+// Serve static files (CSS, images, logos, robots.txt, sitemap.xml, etc.)
+app.use(express.static(path.join(__dirname, '.')));
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Redirect .html requests to clean URLs
+app.get('/:page.html', (req, res) => {
+  res.redirect(301, `/${req.params.page}`);
+});
+
+// Routes for HTML pages (clean URLs without .html)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/contact', (req, res) => {
+  res.sendFile(path.join(__dirname, 'contact.html'));
+});
+
+app.get('/general', (req, res) => {
+  res.sendFile(path.join(__dirname, 'general.html'));
+});
+
+app.get('/life', (req, res) => {
+  res.sendFile(path.join(__dirname, 'life.html'));
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+
+app.get('/privacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'privacy.html'));
+});
+
+app.get('/terms', (req, res) => {
+  res.sendFile(path.join(__dirname, 'terms.html'));
+});
+
+app.get('/grievance', (req, res) => {
+  res.sendFile(path.join(__dirname, 'grievance.html'));
 });
 
 // Contact form API with rate limiting
