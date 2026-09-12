@@ -1,4 +1,30 @@
 {
   "name": "rexa-contact-api",
-  "version": 2
+  "version": 2,
+  "routes": [
+    {
+      "src": "/(.*\\.html)$",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*\\.css)$",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*\\.js)$",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|webp|ico|json|xml|txt|woff|woff2|ttf|eot))$",
+      "dest": "/$1"
+    },
+    {
+      "src": "^/api/(.*)",
+      "dest": "api/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "api/server.js"
+    }
+  ]
 }
