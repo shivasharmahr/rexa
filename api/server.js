@@ -117,6 +117,9 @@ app.get('/general/', serveFile('general.html'));
 app.get('/corporate-risk', serveFile('corporate-risk.html'));
 app.get('/corporate-risk/', serveFile('corporate-risk.html'));
 
+app.get('/employee-benefits', serveFile('employee-benefits.html'));
+app.get('/employee-benefits/', serveFile('employee-benefits.html'));
+
 app.get('/life', serveFile('life.html'));
 app.get('/life/', serveFile('life.html'));
 
