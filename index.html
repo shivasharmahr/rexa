@@ -93,8 +93,8 @@
 
     /* --- The Rexa Method (Scrollytelling) --- */
     .sticky-container { position: relative; }
-    .step-text { opacity: 0.3; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .step-text.is-active { opacity: 1; transform: translateY(0); }
+    .step-text { opacity: 0.3; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.5s ease; }
+    .step-text.is-active { opacity: 1; transform: translateY(0); border-color: #E61C24; }
 
     .text-rexa-red { color: #E61C24; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -603,33 +603,33 @@
                     </div>
                 </div>
 
-                <div class="w-full md:w-2/3 pb-32" id="scrolly-container">
+                <div class="w-full md:w-2/3" id="scrolly-container">
 
-                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="0">
+                    <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-12" data-index="0">
                         <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 1</div>
                         <h3 class="text-3xl font-bold text-rexa-navy mb-4">Understand Your Needs</h3>
                         <p class="text-lg text-rexa-textMuted leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
                     </div>
 
-                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="1">
+                    <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-12" data-index="1">
                         <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 2</div>
                         <h3 class="text-3xl font-bold text-rexa-navy mb-4">Review &amp; Analyse</h3>
                         <p class="text-lg text-rexa-textMuted leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
                     </div>
 
-                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="2">
+                    <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-12" data-index="2">
                         <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 3</div>
                         <h3 class="text-3xl font-bold text-rexa-navy mb-4">Recommend Optimal Solutions</h3>
                         <p class="text-lg text-rexa-textMuted leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
                     </div>
 
-                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="3">
+                    <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-12" data-index="3">
                         <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 4</div>
                         <h3 class="text-3xl font-bold text-rexa-navy mb-4">Implement &amp; Support</h3>
                         <p class="text-lg text-rexa-textMuted leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
                     </div>
 
-                    <div class="step-text min-h-[20vh] flex flex-col justify-center" data-index="4">
+                    <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-12" data-index="4">
                         <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 5</div>
                         <h3 class="text-3xl font-bold text-rexa-navy mb-4">Continuous Review &amp; Value</h3>
                         <p class="text-lg text-rexa-textMuted leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
@@ -795,7 +795,7 @@
                         }
                     }
                 });
-            }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+            }, { root: null, rootMargin: '-49% 0px -49% 0px', threshold: 0 });
 
             steps.forEach(step => observer.observe(step));
         });
