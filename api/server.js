@@ -23,6 +23,26 @@ app.use(helmet({
     geolocation: ['(self)'],
     camera: [],
     microphone: []
+  },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      // 'unsafe-inline' is needed because pages are served as static HTML
+      // (no templating/nonce support); cdn.tailwindcss.com powers the
+      // Tailwind-based homepage, which generates its CSS via this script.
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com'],
+      // helmet defaults this to 'none', which silently breaks onclick="" and
+      // the onerror="" logo-fallback handlers used throughout every page.
+      scriptSrcAttr: ["'unsafe-inline'"],
+      styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
+      fontSrc: ["'self'", 'https:', 'data:'],
+      imgSrc: ["'self'", 'data:'],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      frameAncestors: ["'self'"],
+      upgradeInsecureRequests: []
+    }
   }
 }));
 
