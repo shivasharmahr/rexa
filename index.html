@@ -112,6 +112,15 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* --- Hero stat card: cycles one metric at a time --- */
+    .hero-stat-item {
+        position: absolute; inset: 0;
+        opacity: 0; transform: translateY(8px);
+        transition: opacity .5s ease, transform .5s ease;
+        pointer-events: none;
+    }
+    .hero-stat-item[data-active="true"] { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
     /* --- Mobile nav panel --- */
     #mobileMenu { display: none; }
     #mobileMenu.open { display: block; }
@@ -320,22 +329,28 @@
                             <span class="text-xs font-semibold text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full whitespace-nowrap">Last 6 yrs</span>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <p class="text-2xl font-black text-rexa-navy">100K+</p>
+                        <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 relative overflow-hidden" style="min-height:96px" id="heroStatCard">
+                            <div class="hero-stat-item" data-active="true">
+                                <p class="text-3xl font-black text-rexa-navy">100K+</p>
                                 <p class="text-xs text-rexa-textMuted mt-1">Lives Covered</p>
                             </div>
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <p class="text-2xl font-black text-rexa-navy">500+</p>
+                            <div class="hero-stat-item">
+                                <p class="text-3xl font-black text-rexa-navy">500+</p>
                                 <p class="text-xs text-rexa-textMuted mt-1">Claims Resolved</p>
                             </div>
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <p class="text-2xl font-black text-rexa-navy">50+</p>
+                            <div class="hero-stat-item">
+                                <p class="text-3xl font-black text-rexa-navy">50+</p>
                                 <p class="text-xs text-rexa-textMuted mt-1">Insurer Partners</p>
                             </div>
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <p class="text-2xl font-black text-rexa-navy">98%</p>
+                            <div class="hero-stat-item">
+                                <p class="text-3xl font-black text-rexa-navy">98%</p>
                                 <p class="text-xs text-rexa-textMuted mt-1">Retention Rate</p>
+                            </div>
+                            <div class="flex gap-1.5 absolute bottom-4 right-6" id="heroStatDots">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rexa-red"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
                             </div>
                         </div>
                     </div>
@@ -776,6 +791,24 @@
 
     <script>
         document.getElementById('copyYear').textContent = new Date().getFullYear();
+
+        // --- Hero stat card: cycles one metric at a time, looping forever ---
+        (function heroStatCycle() {
+            const items = Array.from(document.querySelectorAll('#heroStatCard .hero-stat-item'));
+            const dots = Array.from(document.querySelectorAll('#heroStatDots span'));
+            if (!items.length) return;
+            let i = 0;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) return; // leave the first stat showing, no motion
+
+            setInterval(() => {
+                items[i].removeAttribute('data-active');
+                dots[i]?.classList.replace('bg-rexa-red', 'bg-gray-300');
+                i = (i + 1) % items.length;
+                items[i].setAttribute('data-active', 'true');
+                dots[i]?.classList.replace('bg-gray-300', 'bg-rexa-red');
+            }, 2500);
+        })();
 
         // --- Navbar scroll effect ---
         const navbar = document.getElementById('navbar');
