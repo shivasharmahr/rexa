@@ -688,66 +688,56 @@
         </div>
     </section>
 
-    <section class="py-24 bg-rexa-grayBg border-y border-gray-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-sm font-bold text-rexa-red tracking-widest uppercase">How We Work</span>
-                <h2 class="text-4xl font-serif font-bold text-rexa-navy mt-2 mb-4">The Rexa Method.</h2>
-                <p class="text-rexa-textMuted text-lg max-w-xl mx-auto">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
+    <section id="method-section" class="bg-rexa-grayBg border-y border-gray-200 relative md:h-[250vh]">
+        <div class="md:sticky md:top-0 md:h-screen flex flex-col justify-center md:overflow-hidden w-full py-16 md:py-0">
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-16 w-full">
+                <div class="max-w-3xl">
+                    <span class="text-sm font-bold text-rexa-red tracking-widest uppercase block mb-4">How We Work</span>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-rexa-navy mb-6 leading-tight">The Rexa Method.</h2>
+                    <p class="text-rexa-textMuted text-lg md:text-xl leading-relaxed">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
+                </div>
             </div>
 
-            <!-- Compact connected timeline: fully static, normal document
-                 flow, sized to exactly what its content needs — no sticky
-                 column, no scroll-tracking JS, so there's nothing left that
-                 can produce empty space. -->
-            <div class="relative">
-                <div class="absolute left-7 top-2 bottom-2 w-0.5 bg-gray-200"></div>
+            <!-- Desktop (md+): JS translates this on the X axis as the user
+                 scrolls vertically through the md:h-[250vh] pinned section
+                 above, so 5 wide phase cards fit into a compact sticky
+                 viewport instead of stacking down the page. Mobile: no
+                 pinning/scroll-jack at all — this is just a normal
+                 horizontally-swipeable row (overflow-x-auto). -->
+            <div class="w-full relative overflow-x-auto md:overflow-visible hide-scrollbar">
+                <div id="method-track" class="flex gap-8 md:gap-12 w-max px-4 sm:px-6 lg:px-8 xl:pl-[calc((100vw-80rem)/2+2rem)] xl:pr-[calc((100vw-80rem)/2+2rem)] md:will-change-transform">
 
-                <div class="space-y-10">
-                    <div class="relative flex gap-6 items-start">
-                        <div class="w-14 h-14 rounded-2xl bg-rexa-red text-white flex items-center justify-center text-xl flex-none z-10 shadow-lg shadow-rexa-red/25"><i class="fas fa-magnifying-glass-chart"></i></div>
-                        <div class="pt-2">
-                            <div class="text-rexa-red font-bold text-xs mb-1 uppercase tracking-widest">Phase 1</div>
-                            <h3 class="text-xl font-bold text-rexa-navy mb-2">Understand Your Needs</h3>
-                            <p class="text-rexa-textMuted leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
-                        </div>
+                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
+                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">01</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Understand Your Needs</h3>
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
                     </div>
 
-                    <div class="relative flex gap-6 items-start">
-                        <div class="w-14 h-14 rounded-2xl bg-rexa-red text-white flex items-center justify-center text-xl flex-none z-10 shadow-lg shadow-rexa-red/25"><i class="fas fa-chart-line"></i></div>
-                        <div class="pt-2">
-                            <div class="text-rexa-red font-bold text-xs mb-1 uppercase tracking-widest">Phase 2</div>
-                            <h3 class="text-xl font-bold text-rexa-navy mb-2">Review &amp; Analyse</h3>
-                            <p class="text-rexa-textMuted leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
-                        </div>
+                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
+                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">02</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Review &amp; Analyse</h3>
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
                     </div>
 
-                    <div class="relative flex gap-6 items-start">
-                        <div class="w-14 h-14 rounded-2xl bg-rexa-red text-white flex items-center justify-center text-xl flex-none z-10 shadow-lg shadow-rexa-red/25"><i class="fas fa-lightbulb"></i></div>
-                        <div class="pt-2">
-                            <div class="text-rexa-red font-bold text-xs mb-1 uppercase tracking-widest">Phase 3</div>
-                            <h3 class="text-xl font-bold text-rexa-navy mb-2">Recommend Optimal Solutions</h3>
-                            <p class="text-rexa-textMuted leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
-                        </div>
+                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
+                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">03</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Recommend Optimal Solutions</h3>
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
                     </div>
 
-                    <div class="relative flex gap-6 items-start">
-                        <div class="w-14 h-14 rounded-2xl bg-rexa-red text-white flex items-center justify-center text-xl flex-none z-10 shadow-lg shadow-rexa-red/25"><i class="fas fa-handshake"></i></div>
-                        <div class="pt-2">
-                            <div class="text-rexa-red font-bold text-xs mb-1 uppercase tracking-widest">Phase 4</div>
-                            <h3 class="text-xl font-bold text-rexa-navy mb-2">Implement &amp; Support</h3>
-                            <p class="text-rexa-textMuted leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
-                        </div>
+                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
+                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">04</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Implement &amp; Support</h3>
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
                     </div>
 
-                    <div class="relative flex gap-6 items-start">
-                        <div class="w-14 h-14 rounded-2xl bg-rexa-red text-white flex items-center justify-center text-xl flex-none z-10 shadow-lg shadow-rexa-red/25"><i class="fas fa-arrows-rotate"></i></div>
-                        <div class="pt-2">
-                            <div class="text-rexa-red font-bold text-xs mb-1 uppercase tracking-widest">Phase 5</div>
-                            <h3 class="text-xl font-bold text-rexa-navy mb-2">Continuous Review &amp; Value</h3>
-                            <p class="text-rexa-textMuted leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
-                        </div>
+                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
+                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">05</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Continuous Review &amp; Value</h3>
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -912,6 +902,42 @@
                 items[i].setAttribute('data-active', 'true');
                 dots[i]?.classList.replace('bg-gray-300', 'bg-rexa-red');
             }, 2500);
+        })();
+
+        // --- The Rexa Method: vertical-scroll-driven horizontal track ---
+        // Desktop only (md+, matches the md:h-[250vh] pinning in the CSS).
+        // As the user scrolls down through #method-section's extra height,
+        // #method-track is translated left so its 5 wide cards sweep across
+        // the pinned viewport instead of stacking down the page. Mobile
+        // gets no JS at all here — the track is just a native
+        // horizontally-swipeable row (overflow-x-auto in the markup).
+        (function methodHorizontalScroll() {
+            const section = document.getElementById('method-section');
+            const track = document.getElementById('method-track');
+            if (!section || !track) return;
+
+            const isDesktop = () => window.innerWidth >= 768;
+            let ticking = false;
+
+            function update() {
+                if (!isDesktop()) { track.style.transform = ''; return; }
+                const rect = section.getBoundingClientRect();
+                const scrollable = section.offsetHeight - window.innerHeight;
+                if (scrollable <= 0) { track.style.transform = ''; return; }
+                const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+                const maxTranslate = Math.max(0, track.scrollWidth - window.innerWidth);
+                track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+            }
+
+            function onScroll() {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => { update(); ticking = false; });
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', update);
+            update();
         })();
 
         // --- Navbar scroll effect ---
