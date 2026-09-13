@@ -708,26 +708,36 @@
                  in a slim row, no scrolling/blur/transform needed to see
                  them. Clicking one just swaps the plain text detail below —
                  that's the entire interaction. -->
-            <div id="methodStepper" class="flex flex-wrap justify-center gap-x-2 gap-y-4 mb-10">
-                <button class="method-step-btn is-active flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="0">
-                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">1</span>
-                    <span class="step-label text-sm font-semibold transition-colors">Understand</span>
+            <div class="flex items-center justify-center gap-3 mb-10">
+                <button id="methodPrev" type="button" aria-label="Previous phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
+                    <i class="fas fa-chevron-left text-xs"></i>
                 </button>
-                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="1">
-                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">2</span>
-                    <span class="step-label text-sm font-semibold transition-colors">Review</span>
-                </button>
-                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="2">
-                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">3</span>
-                    <span class="step-label text-sm font-semibold transition-colors">Recommend</span>
-                </button>
-                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="3">
-                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">4</span>
-                    <span class="step-label text-sm font-semibold transition-colors">Implement</span>
-                </button>
-                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="4">
-                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">5</span>
-                    <span class="step-label text-sm font-semibold transition-colors">Continuous Review</span>
+
+                <div id="methodStepper" class="flex flex-wrap justify-center gap-x-2 gap-y-4">
+                    <button class="method-step-btn is-active flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="0">
+                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">1</span>
+                        <span class="step-label text-sm font-semibold transition-colors">Understand</span>
+                    </button>
+                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="1">
+                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">2</span>
+                        <span class="step-label text-sm font-semibold transition-colors">Review</span>
+                    </button>
+                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="2">
+                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">3</span>
+                        <span class="step-label text-sm font-semibold transition-colors">Recommend</span>
+                    </button>
+                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="3">
+                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">4</span>
+                        <span class="step-label text-sm font-semibold transition-colors">Implement</span>
+                    </button>
+                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="4">
+                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">5</span>
+                        <span class="step-label text-sm font-semibold transition-colors">Continuous Review</span>
+                    </button>
+                </div>
+
+                <button id="methodNext" type="button" aria-label="Next phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
+                    <i class="fas fa-chevron-right text-xs"></i>
                 </button>
             </div>
 
@@ -917,20 +927,43 @@
             }, 2500);
         })();
 
-        // --- The Rexa Method: minimal click-to-reveal stepper ---
-        // No scroll listeners, no transforms — clicking a step button just
-        // toggles which .method-detail block is shown and which button
-        // carries .is-active. That's the entire interaction.
+        // --- The Rexa Method: click-to-reveal stepper with auto-advance ---
+        // Still no scroll listeners/transforms — just a timer that swaps
+        // which .method-detail is shown, plus prev/next buttons and the
+        // step pills, all doing the same thing: goTo(index). Any manual
+        // interaction resets the auto-advance timer so it doesn't fight
+        // the user (standard carousel behavior).
         (function methodStepper() {
             const buttons = Array.from(document.querySelectorAll('.method-step-btn'));
             const details = Array.from(document.querySelectorAll('.method-detail'));
+            const prevBtn = document.getElementById('methodPrev');
+            const nextBtn = document.getElementById('methodNext');
             if (!buttons.length) return;
 
-            buttons.forEach((btn) => btn.addEventListener('click', () => {
-                const step = btn.dataset.step;
-                buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
-                details.forEach((d) => d.classList.toggle('hidden', d.dataset.step !== step));
-            }));
+            let current = 0;
+            let timer = null;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function goTo(index) {
+                current = (index + buttons.length) % buttons.length;
+                buttons.forEach((b, i) => b.classList.toggle('is-active', i === current));
+                details.forEach((d) => d.classList.toggle('hidden', Number(d.dataset.step) !== current));
+            }
+
+            function startAuto() {
+                if (prefersReducedMotion) return;
+                timer = setInterval(() => goTo(current + 1), 5000);
+            }
+            function resetAuto() {
+                clearInterval(timer);
+                startAuto();
+            }
+
+            buttons.forEach((btn, i) => btn.addEventListener('click', () => { goTo(i); resetAuto(); }));
+            prevBtn?.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+            nextBtn?.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+
+            startAuto();
         })();
 
         // --- Navbar scroll effect ---
