@@ -110,6 +110,14 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* --- Rexa Method: minimal click-to-reveal stepper --- */
+    .method-step-btn { background: #fff; }
+    .method-step-btn .step-num { background: #F1F5F9; color: #64748B; }
+    .method-step-btn .step-label { color: #64748B; }
+    .method-step-btn.is-active { border-color: #E61C24; background: #FEF2F2; }
+    .method-step-btn.is-active .step-num { background: #E61C24; color: #fff; }
+    .method-step-btn.is-active .step-label { color: #0A1128; }
+
     /* --- Hero stat card: cycles one metric at a time --- */
     .hero-stat-item {
         position: absolute; inset: 0;
@@ -688,56 +696,61 @@
         </div>
     </section>
 
-    <section id="method-section" class="bg-rexa-grayBg border-y border-gray-200 relative md:h-[250vh]">
-        <div class="md:sticky md:top-0 md:h-screen flex flex-col justify-center md:overflow-hidden w-full py-16 md:py-0">
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-16 w-full">
-                <div class="max-w-3xl">
-                    <span class="text-sm font-bold text-rexa-red tracking-widest uppercase block mb-4">How We Work</span>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-rexa-navy mb-6 leading-tight">The Rexa Method.</h2>
-                    <p class="text-rexa-textMuted text-lg md:text-xl leading-relaxed">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
-                </div>
+    <section class="py-24 bg-rexa-grayBg border-y border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="text-sm font-bold text-rexa-red tracking-widest uppercase">How We Work</span>
+                <h2 class="text-4xl font-serif font-bold text-rexa-navy mt-2 mb-4">The Rexa Method.</h2>
+                <p class="text-rexa-textMuted text-lg max-w-xl mx-auto">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
             </div>
 
-            <!-- Desktop (md+): JS translates this on the X axis as the user
-                 scrolls vertically through the md:h-[250vh] pinned section
-                 above, so 5 wide phase cards fit into a compact sticky
-                 viewport instead of stacking down the page. Mobile: no
-                 pinning/scroll-jack at all — this is just a normal
-                 horizontally-swipeable row (overflow-x-auto). -->
-            <div class="w-full relative overflow-x-auto md:overflow-visible hide-scrollbar">
-                <div id="method-track" class="flex gap-8 md:gap-12 w-max px-4 sm:px-6 lg:px-8 xl:pl-[calc((100vw-80rem)/2+2rem)] xl:pr-[calc((100vw-80rem)/2+2rem)] md:will-change-transform">
+            <!-- Minimal click-to-reveal stepper: all 5 steps visible at once
+                 in a slim row, no scrolling/blur/transform needed to see
+                 them. Clicking one just swaps the plain text detail below —
+                 that's the entire interaction. -->
+            <div id="methodStepper" class="flex flex-wrap justify-center gap-x-2 gap-y-4 mb-10">
+                <button class="method-step-btn is-active flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="0">
+                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">1</span>
+                    <span class="step-label text-sm font-semibold transition-colors">Understand</span>
+                </button>
+                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="1">
+                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">2</span>
+                    <span class="step-label text-sm font-semibold transition-colors">Review</span>
+                </button>
+                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="2">
+                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">3</span>
+                    <span class="step-label text-sm font-semibold transition-colors">Recommend</span>
+                </button>
+                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="3">
+                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">4</span>
+                    <span class="step-label text-sm font-semibold transition-colors">Implement</span>
+                </button>
+                <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="4">
+                    <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">5</span>
+                    <span class="step-label text-sm font-semibold transition-colors">Continuous Review</span>
+                </button>
+            </div>
 
-                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
-                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">01</div>
-                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Understand Your Needs</h3>
-                        <p class="text-rexa-textMuted text-lg leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
-                    </div>
-
-                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
-                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">02</div>
-                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Review &amp; Analyse</h3>
-                        <p class="text-rexa-textMuted text-lg leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
-                    </div>
-
-                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
-                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">03</div>
-                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Recommend Optimal Solutions</h3>
-                        <p class="text-rexa-textMuted text-lg leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
-                    </div>
-
-                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
-                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">04</div>
-                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Implement &amp; Support</h3>
-                        <p class="text-rexa-textMuted text-lg leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
-                    </div>
-
-                    <div class="flex-none w-[85vw] sm:w-[350px] md:w-[400px] border-t-2 border-gray-300 pt-8 relative group hover:border-rexa-red transition-colors duration-500 mt-12">
-                        <div class="absolute -top-[28px] left-0 bg-rexa-grayBg pr-6 text-5xl font-sans font-black text-gray-200 group-hover:text-rexa-red/20 group-hover:-translate-y-1 transition-all duration-500">05</div>
-                        <h3 class="text-2xl font-bold text-rexa-navy mb-4 group-hover:text-rexa-red transition-colors duration-300">Continuous Review &amp; Value</h3>
-                        <p class="text-rexa-textMuted text-lg leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
-                    </div>
-
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-soft p-8 md:p-10">
+                <div class="method-detail" data-step="0">
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Understand Your Needs</h3>
+                    <p class="text-rexa-textMuted text-lg leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
+                </div>
+                <div class="method-detail hidden" data-step="1">
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Review &amp; Analyse</h3>
+                    <p class="text-rexa-textMuted text-lg leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
+                </div>
+                <div class="method-detail hidden" data-step="2">
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Recommend Optimal Solutions</h3>
+                    <p class="text-rexa-textMuted text-lg leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
+                </div>
+                <div class="method-detail hidden" data-step="3">
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Implement &amp; Support</h3>
+                    <p class="text-rexa-textMuted text-lg leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
+                </div>
+                <div class="method-detail hidden" data-step="4">
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Continuous Review &amp; Value</h3>
+                    <p class="text-rexa-textMuted text-lg leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
                 </div>
             </div>
         </div>
@@ -904,40 +917,20 @@
             }, 2500);
         })();
 
-        // --- The Rexa Method: vertical-scroll-driven horizontal track ---
-        // Desktop only (md+, matches the md:h-[250vh] pinning in the CSS).
-        // As the user scrolls down through #method-section's extra height,
-        // #method-track is translated left so its 5 wide cards sweep across
-        // the pinned viewport instead of stacking down the page. Mobile
-        // gets no JS at all here — the track is just a native
-        // horizontally-swipeable row (overflow-x-auto in the markup).
-        (function methodHorizontalScroll() {
-            const section = document.getElementById('method-section');
-            const track = document.getElementById('method-track');
-            if (!section || !track) return;
+        // --- The Rexa Method: minimal click-to-reveal stepper ---
+        // No scroll listeners, no transforms — clicking a step button just
+        // toggles which .method-detail block is shown and which button
+        // carries .is-active. That's the entire interaction.
+        (function methodStepper() {
+            const buttons = Array.from(document.querySelectorAll('.method-step-btn'));
+            const details = Array.from(document.querySelectorAll('.method-detail'));
+            if (!buttons.length) return;
 
-            const isDesktop = () => window.innerWidth >= 768;
-            let ticking = false;
-
-            function update() {
-                if (!isDesktop()) { track.style.transform = ''; return; }
-                const rect = section.getBoundingClientRect();
-                const scrollable = section.offsetHeight - window.innerHeight;
-                if (scrollable <= 0) { track.style.transform = ''; return; }
-                const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
-                const maxTranslate = Math.max(0, track.scrollWidth - window.innerWidth);
-                track.style.transform = `translateX(-${progress * maxTranslate}px)`;
-            }
-
-            function onScroll() {
-                if (ticking) return;
-                ticking = true;
-                requestAnimationFrame(() => { update(); ticking = false; });
-            }
-
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', update);
-            update();
+            buttons.forEach((btn) => btn.addEventListener('click', () => {
+                const step = btn.dataset.step;
+                buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+                details.forEach((d) => d.classList.toggle('hidden', d.dataset.step !== step));
+            }));
         })();
 
         // --- Navbar scroll effect ---
