@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness & Value Additions — Rexa Insurance Broking</title>
+<meta name="description" content="Occupational Health Centres, ambulance services, health camps and mental wellness programmes that reduce claims and absenteeism — beyond insurance, from Rexa Insurance Broking.">
+<meta property="og:title" content="Wellness & Value Additions — Rexa Insurance Broking">
+<meta property="og:description" content="True risk management starts before the claim — OHC, ambulance, health camps and mental wellness, designed by Rexa.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.rexabroking.com/wellness-and-value">
+<link rel="canonical" href="https://www.rexabroking.com/wellness-and-value">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+
+<!-- Tailwind CSS (this page runs standalone, same as the homepage) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts: Inter (Sans). Serif headers fall back to system Palatino/Georgia. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    rexa: {
+                        navy: '#0A1128',
+                        red: '#E61C24',
+                        redHover: '#CC1820',
+                        white: '#FFFFFF',
+                        offWhite: '#FAFAFA',
+                        grayLight: '#F1F5F9',
+                        textMuted: '#64748B'
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    serif: ['Palatino', 'Georgia', 'serif'],
+                },
+                boxShadow: {
+                    'soft': '0 10px 40px -10px rgba(0,0,0,0.05)',
+                    'hover': '0 20px 40px -10px rgba(10, 17, 40, 0.1)',
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+    body { background-color: #FAFAFA; color: #0A1128; overflow-x: hidden; }
+
+    /* Wellness section gradient — same red/navy accent language as every other page */
+    .bg-wellness-gradient {
+        background: radial-gradient(circle at top right, rgba(230, 28, 36, 0.05), transparent 40%),
+                    radial-gradient(circle at top left, rgba(10, 17, 40, 0.04), transparent 40%),
+                    radial-gradient(circle at bottom right, rgba(10, 17, 40, 0.03), transparent 50%);
+    }
+
+    .bento-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .bento-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px -10px rgba(10, 17, 40, 0.1);
+        border-color: rgba(230, 28, 36, 0.2);
+    }
+
+    @keyframes float-slow {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+        100% { transform: translateY(0px); }
+    }
+    .animate-float { animation: float-slow 6s ease-in-out infinite; }
+
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+
+    #mobileMenu { display: none; }
+    #mobileMenu.open { display: block; }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.rexabroking.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Wellness & Value", "item": "https://www.rexabroking.com/wellness-and-value" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Corporate Wellness & Value-Added Health Services",
+  "provider": {
+    "@type": "Organization",
+    "name": "Rexa Insurance Broking Services",
+    "url": "https://www.rexabroking.com"
+  },
+  "areaServed": { "@type": "Country", "name": "India" },
+  "description": "Occupational Health Centres, ambulance services, health camps and mental wellness programmes that complement corporate insurance and reduce claims and absenteeism.",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Wellness & Value Additions",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Occupational Health Centers" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ambulance Services" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Health Camps" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mental Wellness Programs" } }
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do wellness programs cost extra on top of the insurance premium?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the scale. Standard health check-up camps and basic mental wellness sessions can often be negotiated directly into your Group Mediclaim (GMC) base premium by our advisors as value-adds. Dedicated OHC setups or dedicated 24/7 ambulance retainers may incur specialized vendor fees, which we negotiate on your behalf."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an Occupational Health Center (OHC)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An OHC is a physical medical facility set up inside your corporate campus or manufacturing plant. Under specific factory acts, large manufacturing units are legally mandated to have an OHC. Rexa helps design the infrastructure, source the medical equipment, and provide certified staff for preventive care and screenings."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body class="antialiased selection:bg-rexa-red selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="flex-shrink-0 cursor-pointer">
+                    <span class="text-3xl font-sans font-extrabold tracking-tighter text-rexa-navy">RE<span class="text-rexa-red relative -mx-0.5">X</span>A</span>
+                </a>
+
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/corporate-risk" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Corporate Risk</a>
+                    <a href="/employee-benefits" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Employee Benefits</a>
+                    <a href="/wellness-and-value" class="text-sm font-semibold text-rexa-red border-b-2 border-rexa-red pb-1">Wellness &amp; Value</a>
+                    <a href="/#offerings-wellness" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Retail</a>
+                    <a href="/about" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">About Us</a>
+                </div>
+
+                <div class="hidden md:flex items-center">
+                    <a href="/contact" class="px-5 py-2.5 rounded-full border-2 border-rexa-navy text-rexa-navy text-sm font-bold hover:bg-rexa-navy hover:text-white transition-all">
+                        Talk to an Advisor
+                    </a>
+                </div>
+
+                <button id="mobileMenuBtn" class="md:hidden text-rexa-navy text-xl p-2" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden bg-white border-t border-gray-100 px-4 pb-6 pt-2">
+            <div class="flex flex-col space-y-1">
+                <a href="/corporate-risk" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Corporate Risk</a>
+                <a href="/employee-benefits" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Employee Benefits</a>
+                <a href="/wellness-and-value" class="py-3 text-sm font-semibold text-rexa-red border-b border-gray-50">Wellness &amp; Value</a>
+                <a href="/#offerings-wellness" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Retail</a>
+                <a href="/about" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">About Us</a>
+                <a href="/contact" class="mt-4 text-center px-5 py-3 rounded-full bg-rexa-navy text-white text-sm font-medium">Talk to an Advisor</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white">
+        <div class="absolute inset-0 bg-wellness-gradient"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-xs font-bold text-rexa-red mb-6 uppercase tracking-wider">
+                        <i class="fas fa-leaf"></i> Proactive Health Management
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-rexa-navy leading-[1.1] mb-6">
+                        True Risk Management Starts <span class="text-rexa-red">Before the Claim.</span>
+                    </h1>
+                    <p class="text-lg text-rexa-textMuted mb-8 leading-relaxed max-w-lg">
+                        Insurance is a safety net, but wellness is the foundation. Comprehensive support services that complement your insurance and enhance employee well-being, reducing long-term absenteeism.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#upgrade-plan" class="px-8 py-3.5 bg-rexa-red text-white rounded-full font-bold shadow-lg shadow-rexa-red/20 hover:bg-rexa-redHover transition-all flex items-center justify-center gap-2">
+                            Integrate Wellness Today <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative h-[400px] lg:h-[500px] w-full flex items-center justify-center">
+                    <div class="absolute bottom-12 w-[80%] h-48 bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl relative flex flex-col items-center justify-center overflow-hidden">
+
+                        <div class="absolute bottom-0 w-full h-24 opacity-30 flex items-end justify-between px-8 pb-4">
+                            <div class="w-4 bg-rexa-navy/40 rounded-t-sm" style="height: 40%"></div>
+                            <div class="w-4 bg-rexa-navy/40 rounded-t-sm" style="height: 60%"></div>
+                            <div class="w-4 bg-rexa-navy/40 rounded-t-sm" style="height: 45%"></div>
+                            <div class="w-4 bg-rexa-navy/40 rounded-t-sm" style="height: 80%"></div>
+                            <div class="w-4 bg-rexa-navy/40 rounded-t-sm" style="height: 55%"></div>
+                            <div class="w-4 bg-rexa-red rounded-t-sm" style="height: 90%"></div>
+                            <div class="w-4 bg-rexa-navy/40 rounded-t-sm" style="height: 30%"></div>
+                        </div>
+
+                        <div class="w-20 h-20 bg-red-50 rounded-2xl flex items-center justify-center shadow-inner z-10 border border-red-100">
+                            <i class="fas fa-heartbeat text-4xl text-rexa-red animate-pulse"></i>
+                        </div>
+                        <p class="text-sm font-bold text-rexa-navy mt-4 z-10">Corporate Health Score: <span class="text-rexa-red">92%</span></p>
+                    </div>
+
+                    <div class="absolute top-1/4 left-0 transform -translate-y-1/2 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-hover border border-gray-100 z-20 flex items-center gap-3 animate-float" style="animation-delay: 0.2s;">
+                        <div class="w-10 h-10 rounded-full bg-red-50 text-rexa-red flex items-center justify-center text-lg"><i class="fas fa-ambulance"></i></div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Emergency</p>
+                            <p class="text-xs font-bold text-rexa-navy">Ambulance Dispatched</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-1/3 right-0 transform -translate-y-1/2 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-hover border border-gray-100 z-20 flex items-center gap-3 animate-float" style="animation-delay: 1.2s;">
+                        <div class="w-10 h-10 rounded-full bg-gray-50 text-rexa-navy flex items-center justify-center text-lg"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">On-Site Camp</p>
+                            <p class="text-xs font-bold text-rexa-navy">Annual Screening Booked</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-rexa-offWhite border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold text-rexa-red tracking-widest uppercase mb-3">Beyond Insurance</h2>
+                <h3 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-4">Wellness &amp; Value Additions</h3>
+                <p class="text-rexa-textMuted text-lg max-w-2xl mx-auto">Comprehensive support services that complement your insurance and enhance employee well-being.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="bento-card bg-white p-10 rounded-3xl border border-gray-100 shadow-soft h-full flex flex-col group relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-gray-50 text-rexa-navy rounded-2xl flex items-center justify-center text-2xl group-hover:bg-rexa-red group-hover:text-white transition-colors duration-300">
+                            <i class="fas fa-clinic-medical"></i>
+                        </div>
+                        <div class="text-xl font-serif font-bold text-gray-200">/ 01</div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-4">Occupational Health Centers</h3>
+                    <p class="text-rexa-textMuted leading-relaxed flex-grow">On-site or partner occupational health centers for preventive care, health screenings and employee wellness.</p>
+                    <a href="/contact" class="mt-8 pt-6 border-t border-gray-50 flex items-center text-sm font-semibold text-rexa-navy group-hover:text-rexa-red transition-colors">
+                        Learn more about OHC setup <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="bento-card bg-white p-10 rounded-3xl border border-gray-100 shadow-soft h-full flex flex-col group relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-gray-50 text-rexa-navy rounded-2xl flex items-center justify-center text-2xl group-hover:bg-rexa-red group-hover:text-white transition-colors duration-300">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <div class="text-xl font-serif font-bold text-gray-200">/ 02</div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-4">Ambulance Services</h3>
+                    <p class="text-rexa-textMuted leading-relaxed flex-grow">24×7 emergency ambulance services for rapid medical response and safe transportation to hospitals.</p>
+                    <a href="/contact" class="mt-8 pt-6 border-t border-gray-50 flex items-center text-sm font-semibold text-rexa-navy group-hover:text-rexa-red transition-colors">
+                        Explore emergency protocols <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="bento-card bg-white p-10 rounded-3xl border border-gray-100 shadow-soft h-full flex flex-col group relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-gray-50 text-rexa-navy rounded-2xl flex items-center justify-center text-2xl group-hover:bg-rexa-red group-hover:text-white transition-colors duration-300">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="text-xl font-serif font-bold text-gray-200">/ 03</div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-4">Health Camps</h3>
+                    <p class="text-rexa-textMuted leading-relaxed flex-grow">Regular health awareness campaigns and medical camps to promote preventive health and screenings.</p>
+                    <a href="/contact" class="mt-8 pt-6 border-t border-gray-50 flex items-center text-sm font-semibold text-rexa-navy group-hover:text-rexa-red transition-colors">
+                        Schedule an on-site camp <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="bento-card bg-white p-10 rounded-3xl border border-gray-100 shadow-soft h-full flex flex-col group relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-gray-50 text-rexa-navy rounded-2xl flex items-center justify-center text-2xl group-hover:bg-rexa-red group-hover:text-white transition-colors duration-300">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="text-xl font-serif font-bold text-gray-200">/ 04</div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-rexa-navy mb-4">Mental Wellness Programs</h3>
+                    <p class="text-rexa-textMuted leading-relaxed flex-grow">Counseling, stress management and mental health support services for employee well-being and resilience.</p>
+                    <a href="/contact" class="mt-8 pt-6 border-t border-gray-50 flex items-center text-sm font-semibold text-rexa-navy group-hover:text-rexa-red transition-colors">
+                        View counseling resources <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+
+                <div class="w-full md:w-1/2">
+                    <div class="bg-rexa-offWhite rounded-3xl p-8 shadow-inner border border-gray-100 relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-rexa-red/10 rounded-full blur-2xl"></div>
+
+                        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-6">The ROI of Preventive Care</h3>
+
+                        <div class="space-y-6 relative z-10">
+                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                                <div class="flex justify-between items-end mb-2">
+                                    <span class="text-sm font-semibold text-rexa-navy">Minor Ailment Claims</span>
+                                    <span class="text-lg font-bold text-rexa-red">↓ 28%</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-2">
+                                    <div class="bg-rexa-red h-2 rounded-full" style="width: 72%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2">Driven by regular health screenings and early diagnosis</p>
+                            </div>
+
+                            <div class="p-5 bg-white rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-rexa-red"><i class="fas fa-chart-line"></i></div>
+                                    <div>
+                                        <p class="text-sm font-bold text-rexa-navy">Corporate Claim Ratio</p>
+                                        <p class="text-xs text-rexa-textMuted">Optimized at renewal</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-400 line-through">115%</p>
+                                    <p class="text-xl font-black text-rexa-navy">82%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2">
+                    <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-rexa-navy mb-6">Healthier teams mean cheaper insurance renewals.</h2>
+                    <p class="text-lg text-rexa-textMuted leading-relaxed mb-8">
+                        When employees lack access to preventive care and wellness support, minor issues escalate into expensive hospitalizations. By integrating health camps and mental wellness programs, Rexa helps you control medical costs at the source.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start text-sm text-rexa-textMuted"><i class="fas fa-check-circle text-rexa-red mt-1 mr-3 text-lg"></i> <strong>Reduced Absenteeism:</strong> Preventive care and resilience training keeps your workforce active.</li>
+                        <li class="flex items-start text-sm text-rexa-textMuted"><i class="fas fa-check-circle text-rexa-red mt-1 mr-3 text-lg"></i> <strong>Premium Optimization:</strong> Lowering the frequency of minor claims drastically improves your negotiation power with insurers.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-rexa-offWhite border-b border-gray-100">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-serif font-bold text-rexa-navy mb-4">Frequently Asked Questions</h2>
+                <p class="text-rexa-textMuted">Common inquiries regarding corporate wellness integration.</p>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group bg-white border border-gray-200 rounded-2xl cursor-pointer shadow-sm">
+                    <summary class="flex justify-between items-center font-bold text-rexa-navy p-6">
+                        <span>Do wellness programs cost extra on top of the insurance premium?</span>
+                        <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down text-rexa-red"></i></span>
+                    </summary>
+                    <div class="text-rexa-textMuted text-sm px-6 pb-6 leading-relaxed border-t border-gray-50 pt-4 mt-2">
+                        It depends on the scale. Standard health check-up camps and basic mental wellness sessions can often be negotiated directly into your Group Mediclaim (GMC) base premium by our advisors as value-adds. Dedicated OHC setups or dedicated 24/7 ambulance retainers may incur specialized vendor fees, which we negotiate on your behalf.
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl cursor-pointer shadow-sm">
+                    <summary class="flex justify-between items-center font-bold text-rexa-navy p-6">
+                        <span>What is an Occupational Health Center (OHC)?</span>
+                        <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down text-rexa-red"></i></span>
+                    </summary>
+                    <div class="text-rexa-textMuted text-sm px-6 pb-6 leading-relaxed border-t border-gray-50 pt-4 mt-2">
+                        An OHC is a physical medical facility set up inside your corporate campus or manufacturing plant. Under specific factory acts, large manufacturing units are legally mandated to have an OHC. Rexa helps design the infrastructure, source the medical equipment, and provide certified staff for preventive care and screenings.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section id="upgrade-plan" class="py-24 bg-white relative overflow-hidden scroll-mt-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-6">Upgrade your employee experience.</h2>
+            <p class="text-rexa-textMuted text-lg mb-10 max-w-2xl mx-auto">Let our specialists audit your current benefits and seamlessly integrate a wellness program that saves you money and keeps your team healthy.</p>
+
+            <form id="wellnessForm" class="bg-white p-8 rounded-3xl shadow-hover border border-gray-100 max-w-xl mx-auto text-left">
+                <div class="mb-6">
+                    <label for="interestArea" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">1. Area of Interest</label>
+                    <select id="interestArea" class="w-full bg-gray-50 border border-gray-200 text-rexa-navy text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rexa-red/20 focus:border-rexa-red transition-all">
+                        <option>Organize an on-site Health Camp</option>
+                        <option>Set up an Occupational Health Center (OHC)</option>
+                        <option>Implement Mental Wellness Programs</option>
+                        <option>Integrate Emergency Ambulance Services</option>
+                        <option>General Wellness Consultation</option>
+                    </select>
+                </div>
+                <div class="mb-8">
+                    <label for="hrEmail" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">2. HR Work Email Address</label>
+                    <input id="hrEmail" type="email" placeholder="hr@company.com" class="w-full bg-gray-50 border border-gray-200 text-rexa-navy text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rexa-red/20 focus:border-rexa-red transition-all">
+                </div>
+                <button type="submit" class="w-full bg-rexa-red text-white font-bold py-4 rounded-xl shadow-lg shadow-rexa-red/20 hover:bg-rexa-redHover transition-all flex justify-center items-center gap-2">
+                    Consult a Wellness Expert <i class="fas fa-arrow-right"></i>
+                </button>
+                <p class="text-xs text-gray-400 mt-4"><i class="fas fa-lock mr-1"></i> Your data is securely encrypted.</p>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-rexa-navy pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-1">
+                    <div class="text-2xl font-sans font-extrabold tracking-tighter text-white mb-4">
+                        RE<span class="text-rexa-red relative -mx-0.5">X</span>A
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Your Risk. Our Responsibility.<br>A strategic risk partner for Indian businesses.</p>
+                    <div class="text-xs font-bold text-slate-500 border border-slate-700 inline-block px-3 py-1.5 rounded">
+                        IRDA Broker No. 611
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 font-serif text-sm">Hubs</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Corporate Risk</a></li>
+                        <li><a href="/employee-benefits" class="hover:text-rexa-red transition-colors">Employee Benefits</a></li>
+                        <li><a href="/wellness-and-value" class="hover:text-rexa-red transition-colors text-rexa-red">Wellness &amp; Value</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-white font-bold mb-4 font-serif text-sm">Chennai (HQ)</h4>
+                        <p class="text-sm text-slate-400 mb-1">G4, Swathi Court, T Nagar</p>
+                        <p class="text-sm text-slate-400">Chennai – 600017</p>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">24x7 Claims Helpline</h4>
+                        <a href="tel:+917009670090" class="text-lg text-rexa-red font-bold">7009 670 090</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-xs">© <span id="copyYear">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</p>
+                <div class="flex space-x-6 text-xs text-slate-400">
+                    <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/terms" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="/grievance" class="hover:text-white transition-colors">Grievance Redressal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('copyYear').textContent = new Date().getFullYear();
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm');
+                navbar.classList.replace('bg-white/90', 'bg-white/95');
+            } else {
+                navbar.classList.remove('shadow-sm');
+                navbar.classList.replace('bg-white/95', 'bg-white/90');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            mobileBtn.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }));
+
+        // Wellness consult form -> routes through to the real contact form
+        // (this page has no backend of its own to receive the lead yet)
+        document.getElementById('wellnessForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = encodeURIComponent(document.getElementById('hrEmail').value || '');
+            window.location.href = `/contact?interest=employee-benefits&email=${email}`;
+        });
+    </script>
+</body>
+</html>
