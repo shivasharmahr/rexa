@@ -97,11 +97,12 @@
        other step fades almost out of view until it becomes the neighbour. */
     .sticky-container { position: relative; }
     .step-text {
-        opacity: 0.08; transform: scale(0.96);
+        opacity: 0; transform: scale(0.96);
         transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+        pointer-events: none;
     }
     .step-text.is-adjacent { opacity: 0.35; transform: scale(0.98); }
-    .step-text.is-active { opacity: 1; transform: scale(1); border-color: #E61C24; }
+    .step-text.is-active { opacity: 1; transform: scale(1); border-color: #E61C24; pointer-events: auto; }
 
     .text-rexa-red { color: #E61C24; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
