@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rexa Insurance Broking — Beyond Insurance. Building Resilience.</title>
 <meta name="description" content="Rexa Insurance Broking — your strategic insurance & risk partner. IRDA Licensed Broker No. 611. 500+ corporate clients, 100K+ lives covered, 98% client retention across India.">
 <meta property="og:title" content="Rexa Insurance Broking — Beyond Insurance. Building Resilience.">
@@ -13,12 +13,98 @@
 <meta name="twitter:title" content="Rexa Insurance Broking">
 <meta name="twitter:description" content="Strategic insurance & risk partner for Indian businesses">
 <link rel="canonical" href="https://www.rexabroking.com/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
+
+<!-- Tailwind CSS (this page only — other pages remain on styles.css) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- FontAwesome for standard icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts: Inter (sans for UI). Serif headers fall back to system Palatino/Georgia. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    rexa: {
+                        navy: '#0A1128',
+                        red: '#E61C24',
+                        redHover: '#CC1820',
+                        grayBg: '#F8FAFC',
+                        softGray: '#F1F5F9',
+                        textMuted: '#64748B'
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    serif: ['Palatino', 'Georgia', 'serif'],
+                },
+                boxShadow: {
+                    'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                    'floating': '0 20px 50px -20px rgba(10, 17, 40, 0.15)',
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+    body { background-color: #FFFFFF; color: #0A1128; overflow-x: hidden; }
+
+    /* --- Marquee (seamless: two identical sets, shift by exactly one set's width) --- */
+    .marquee-container {
+        display: flex; overflow: hidden; user-select: none;
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    .marquee-content {
+        display: flex; flex-shrink: 0; align-items: center;
+        width: max-content;
+        animation: scroll 70s linear infinite;
+    }
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .marquee-content { animation: none; overflow-x: auto; }
+    }
+
+    /* --- Tab System --- */
+    .tab-btn { position: relative; transition: all 0.3s ease; }
+    .tab-btn::after {
+        content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+        width: 0; height: 2px; background-color: #E61C24; transition: width 0.3s ease;
+    }
+    .tab-btn.active { color: #0A1128; font-weight: 600; }
+    .tab-btn.active::after { width: 100%; }
+    .tab-content { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+    .tab-content.active { display: grid; opacity: 1; }
+
+    /* --- Bento Box Hover --- */
+    .bento-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; }
+    .bento-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(10, 17, 40, 0.1); }
+
+    /* --- The Rexa Method (Scrollytelling) --- */
+    .sticky-container { position: relative; }
+    .step-text { opacity: 0.3; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .step-text.is-active { opacity: 1; transform: translateY(0); }
+
+    .text-rexa-red { color: #E61C24; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* --- Mobile nav panel --- */
+    #mobileMenu { display: none; }
+    #mobileMenu.open { display: block; }
+</style>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -129,874 +215,590 @@
   "@type": "EmergencyService",
   "name": "Rexa Insurance Claims Helpline",
   "description": "24×7 toll-free insurance claims support line for policyholders",
-  "areaServed": {
-    "@type": "Country",
-    "name": "India"
-  },
+  "areaServed": { "@type": "Country", "name": "India" },
   "telephone": "+91-7009670090",
   "availableLanguage": ["en", "hi"],
-  "serviceOperator": {
-    "@type": "Organization",
-    "name": "Rexa Insurance Broking Services"
-  },
+  "serviceOperator": { "@type": "Organization", "name": "Rexa Insurance Broking Services" },
   "hoursAvailable": "24/7",
-  "offeredBy": {
-    "@type": "Organization",
-    "name": "Rexa Insurance Broking Services",
-    "url": "https://www.rexabroking.com"
-  }
+  "offeredBy": { "@type": "Organization", "name": "Rexa Insurance Broking Services", "url": "https://www.rexabroking.com" }
 }
 </script>
 </head>
-<body>
+<body class="antialiased selection:bg-rexa-red selection:text-white">
 
-<!-- PROMO ANNOUNCEMENT BAR (populated by app.js from offers.json) -->
-<div class="promo-bar" id="promoBar" style="display:none;">
-  <div class="wrap promo-bar-inner">
-    <p class="promo-text" id="promoBarText"></p>
-    <div class="promo-actions">
-      <button class="promo-cta" id="promoOpen" type="button">Today's offers <span class="arr">→</span></button>
-      <button class="promo-close" id="promoDismiss" type="button" aria-label="Dismiss offer">&times;</button>
-    </div>
-  </div>
-</div>
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="flex-shrink-0 cursor-pointer">
+                    <span class="text-3xl font-sans font-extrabold tracking-tighter text-rexa-navy">RE<span class="text-rexa-red relative -mx-0.5">X</span>A</span>
+                </a>
 
-<!-- NAV -->
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="/"><img src="assets/rexa-logo-transparent.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
-    <nav class="nav-links">
-      <a href="/general">Corporate Risk</a>
-      <a href="/life">Employee Benefits</a>
-      <a href="/#solutions-wellness">Wellness &amp; Value</a>
-      <a href="/#solutions-retail">Retail</a>
-      <a href="/about">About Us</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="/contact" class="btn btn-ghost">Talk to an Advisor</a>
-    </div>
-    <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div>
-</header>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/general" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Corporate Risk</a>
+                    <a href="/life" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Employee Benefits</a>
+                    <a href="#offerings-wellness" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Wellness &amp; Value</a>
+                    <a href="#offerings-wellness" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Retail</a>
+                    <a href="/about" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">About Us</a>
+                </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow-r"></div>
-  <div class="hero-glow-l"></div>
-  <div class="wrap hero-grid">
+                <div class="hidden md:flex items-center">
+                    <a href="/contact" class="px-5 py-2.5 rounded-full border border-rexa-navy text-rexa-navy text-sm font-medium hover:bg-rexa-navy hover:text-white transition-all">
+                        Talk to an Advisor
+                    </a>
+                </div>
 
-    <!-- Left: copy -->
-    <div class="reveal">
-      <span class="hero-pill">
-        <span class="hp-dot"></span>
-        IRDA Licensed Broker · No. 611 · Est. 2017
-      </span>
-      <h1 id="hero-hl" class="display">
-        <span class="tw-static" id="tw-static">More than a<br>broker.</span><br>
-        <span class="tw-line2">
-          <span class="tw-measure accent">Your risk<br>partner.</span>
-          <span class="tw-visible" id="tw-visible"></span>
-        </span>
-      </h1>
-      <div class="hero-followup" id="hero-followup">
-        <p class="lead">At Rexa, we go beyond policy placement. We partner with organisations to optimise benefits, strengthen risk protection, and enhance the well-being of their people.</p>
-        <div class="hero-cta">
-          <a href="/contact" class="btn btn-primary btn-lg">Get a free review <span class="arr">→</span></a>
-          <a href="/general" class="btn btn-ghost btn-lg">Explore coverage</a>
-        </div>
-        <!-- Social proof -->
-        <div class="hero-proof">
-          <div class="hp-avatars">
-            <img src="logos/yulu.bike.png" alt="Yulu bike-sharing company logo" onerror="this.outerHTML='<span class=hp-av>Y</span>'">
-            <img src="logos/indo-mim.com.png" alt="Indo-MIM engineering company logo" onerror="this.outerHTML='<span class=hp-av>I</span>'">
-            <img src="logos/indusschool.com.png" alt="Indus International School logo" onerror="this.outerHTML='<span class=hp-av>N</span>'">
-            <img src="logos/bangalorecitycoopbank.png" alt="Bangalore City Co-op Bank logo" onerror="this.outerHTML='<span class=hp-av>B</span>'">
-            <span class="hp-av hp-more">+500</span>
-          </div>
-          <div class="hp-proof-text">
-            <div class="hp-stars">★★★★★</div>
-            <div class="hp-proof-sub"><b>4.9/5</b> average rating from the businesses we protect</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: dashboard card -->
-    <div class="hero-art reveal">
-      <div class="dash-card">
-        <div class="dash-header">
-          <div>
-            <div class="dash-title">Risk Portfolio</div>
-            <div class="dash-sub">Rexa Managed · FY 2025–26</div>
-          </div>
-          <span class="dash-live">Live</span>
-        </div>
-
-        <!-- Premium growth chart -->
-        <div class="dash-chart">
-          <div class="dc-head">
-            <div>
-              <div class="dc-lab">Premium Managed</div>
-              <div class="dc-val">₹100 Cr+ <span class="dc-delta">▲ 24%</span></div>
+                <button id="mobileMenuBtn" class="md:hidden text-rexa-navy text-xl p-2" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <span class="dc-period">Last 6 yrs</span>
-          </div>
-          <div class="dc-bars">
-            <span style="--h:38%"></span>
-            <span style="--h:52%"></span>
-            <span style="--h:47%"></span>
-            <span style="--h:68%"></span>
-            <span style="--h:82%"></span>
-            <span class="dc-peak" style="--h:100%"></span>
-          </div>
         </div>
 
-        <div class="dash-metrics">
-          <div class="dash-metric">
-            <div class="dm-num">100K+</div>
-            <div class="dm-lab">Lives Covered</div>
-          </div>
-          <div class="dash-metric">
-            <div class="dm-num">500+</div>
-            <div class="dm-lab">Claims Resolved</div>
-          </div>
-          <div class="dash-metric">
-            <div class="dm-num">50+</div>
-            <div class="dm-lab">Insurer Partners</div>
-          </div>
-          <div class="dash-metric">
-            <div class="dm-num">98%</div>
-            <div class="dm-lab">Retention Rate</div>
-          </div>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden bg-white border-t border-gray-100 px-4 pb-6 pt-2">
+            <div class="flex flex-col space-y-1">
+                <a href="/general" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Corporate Risk</a>
+                <a href="/life" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Employee Benefits</a>
+                <a href="#offerings-wellness" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Wellness &amp; Value</a>
+                <a href="#offerings-wellness" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Retail</a>
+                <a href="/about" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">About Us</a>
+                <a href="/contact" class="mt-4 text-center px-5 py-3 rounded-full bg-rexa-navy text-white text-sm font-medium">Talk to an Advisor</a>
+            </div>
         </div>
-        <div class="dash-badges">
-          <span class="dbadge dbadge-navy">IRDA Licensed · No. 611</span>
-          <span class="dbadge dbadge-green">98% Retention</span>
-          <span class="dbadge dbadge-red">Est. 2017</span>
+    </nav>
+
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden relative">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+                <div class="max-w-xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rexa-grayBg border border-gray-200 text-xs font-bold text-rexa-navy mb-6 uppercase tracking-wider">
+                        IRDA Licensed Broker No. 611
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-serif font-bold text-rexa-navy leading-tight mb-6">
+                        Risk moves fast.<br>Your protection should too.
+                    </h1>
+                    <p class="text-lg text-rexa-textMuted mb-8 leading-relaxed">
+                        The modern insurance platform for growing Indian businesses. We combine custom underwriting with dedicated support to optimize benefits, secure physical assets, and keep your teams healthy.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                        <a href="/contact" class="px-8 py-3.5 bg-rexa-red text-white rounded-full font-medium shadow-lg shadow-rexa-red/30 hover:bg-rexa-redHover hover:shadow-rexa-red/40 transition-all flex items-center gap-2">
+                            Audit My Current Policy <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
+                        <a href="#offerings" class="px-6 py-3.5 text-rexa-navy font-medium hover:text-rexa-red transition-colors text-sm">
+                            Explore coverage index
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative h-[400px] md:h-[500px] w-full bg-rexa-grayBg rounded-3xl border border-gray-100 flex items-center justify-center overflow-hidden shadow-floating">
+                    <div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100"></div>
+                    <div class="relative z-10 text-center p-8">
+                        <div class="w-24 h-24 mx-auto bg-white rounded-2xl shadow-xl flex items-center justify-center mb-6 border border-gray-100 animate-bounce" style="animation-duration: 3s;">
+                            <i class="fas fa-shield-alt text-4xl text-rexa-red"></i>
+                        </div>
+                        <div class="bg-white/80 backdrop-blur-sm px-6 py-4 rounded-xl shadow-sm border border-gray-100 inline-block">
+                            <p class="text-xs font-bold text-rexa-textMuted uppercase tracking-wider mb-1">Active Coverage</p>
+                            <p class="text-xl font-bold text-rexa-navy">₹100 Cr+ Protected</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] border border-blue-50 rounded-full"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] border border-blue-50 rounded-full"></div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Floating: claim settled -->
-      <div class="dash-notif">
-        <span class="notif-tick">✓</span>
-        <div>
-          <div class="notif-title">Claim Settled</div>
-          <div class="notif-sub">₹2.1L approved · Group Health</div>
+    <section class="py-12 bg-rexa-softGray border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+            <p class="text-center text-xs font-bold text-rexa-textMuted uppercase tracking-widest">Trusted by 500+ Organisations Across India</p>
         </div>
-      </div>
-      <!-- Floating: rating chip -->
-      <div class="dash-chip">
-        <span class="dchip-ico">★</span>
-        <div>
-          <div class="dchip-num">A+ Service</div>
-          <div class="dchip-sub">98% renewal rate</div>
+        <div class="marquee-container">
+            <div class="marquee-content items-center">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/yulu.bike.png" alt="Yulu" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Yulu</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/indo-mim.com.png" alt="Indo-MIM" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Indo-MIM</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/indusschool.com.png" alt="Indus International School" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Indus Int&apos;l School</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/bangalorecitycoopbank.png" alt="Bangalore City Co-operative Bank" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Bangalore City Co-op Bank</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/asianet.co.in.png" alt="Asianet" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Asianet</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/finthrive.com.png" alt="FinThrive" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>FinThrive</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/nttftrg.com.png" alt="NTTF" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>NTTF</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/ecom-ex.com.png" alt="ECOM" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>ECOM</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/kmfnandini.coop.png" alt="Nandini" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Nandini</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/dkms.org.png" alt="DKMS" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>DKMS</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/chrysalishigh.com.png" alt="Chrysalis High" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Chrysalis High</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/intralox.com.png" alt="Intralox" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Intralox</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/bangalore-turf-club.avif" alt="Bangalore Turf Club" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Bangalore Turf Club</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/agilysys.com.png" alt="agilysys" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>agilysys</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/navins.png" alt="Navin's" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Navin&apos;s</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/quantratech.com.png" alt="QuantraTech" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>QuantraTech</div>'">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/mobiveil.com.png" alt="Mobiveil" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Mobiveil</div>'">
+                <!-- duplicate set for seamless loop -->
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/yulu.bike.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/indo-mim.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/indusschool.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/bangalorecitycoopbank.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/asianet.co.in.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/finthrive.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/nttftrg.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/ecom-ex.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/kmfnandini.coop.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/dkms.org.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/chrysalishigh.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/intralox.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/bangalore-turf-club.avif" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/agilysys.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/navins.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/quantratech.com.png" onerror="this.remove()">
+                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/mobiveil.com.png" onerror="this.remove()">
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-  </div>
-</section>
+    <section id="offerings" class="py-24 bg-white relative scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-4">Everything your business needs.</h2>
+                <p class="text-rexa-textMuted text-lg max-w-2xl mx-auto">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
+            </div>
 
-<!-- TRUST MARQUEE -->
-<section class="marquee-section">
-  <div class="wrap">
-    <p class="marquee-label">Trusted by 500+ organisations across India</p>
-  </div>
-  <div class="marquee-viewport">
-    <div class="marquee-track">
-      <img src="logos/yulu.bike.png" alt="Yulu" onerror="this.outerHTML='<span class=mq-init>YULU</span>'">
-      <img src="logos/indo-mim.com.png" alt="Indo-MIM" onerror="this.outerHTML='<span class=mq-init>INDO-MIM</span>'">
-      <img src="logos/indusschool.com.png" alt="Indus International School" onerror="this.outerHTML='<span class=mq-init>INDUS SCHOOL</span>'">
-      <img src="logos/bangalorecitycoopbank.png" alt="Bangalore City Co-operative Bank" onerror="this.outerHTML='<span class=mq-init>BANGALORE CITY BANK</span>'">
-      <img src="logos/asianet.co.in.png" alt="Asianet" onerror="this.outerHTML='<span class=mq-init>ASIANET</span>'">
-      <img src="logos/finthrive.com.png" alt="FinThrive" onerror="this.outerHTML='<span class=mq-init>FINTHRIVE</span>'">
-      <img src="logos/nttftrg.com.png" alt="NTTF" onerror="this.outerHTML='<span class=mq-init>NTTF</span>'">
-      <img src="logos/ecom-ex.com.png" alt="ECOM" onerror="this.outerHTML='<span class=mq-init>ECOM</span>'">
-      <img src="logos/kmfnandini.coop.png" alt="Nandini" onerror="this.outerHTML='<span class=mq-init>NANDINI</span>'">
-      <img src="logos/dkms.org.png" alt="DKMS" onerror="this.outerHTML='<span class=mq-init>DKMS</span>'">
-      <img src="logos/chrysalishigh.com.png" alt="Chrysalis High" onerror="this.outerHTML='<span class=mq-init>CHRYSALIS HIGH</span>'">
-      <img src="logos/intralox.com.png" alt="Intralox" onerror="this.outerHTML='<span class=mq-init>INTRALOX</span>'">
-      <img src="logos/bangalore-turf-club.avif" alt="Bangalore Turf Club" onerror="this.outerHTML='<span class=mq-init>BANGALORE TURF CLUB</span>'">
-      <img src="logos/agilysys.com.png" alt="agilysys" onerror="this.outerHTML='<span class=mq-init>AGILYSYS</span>'">
-      <img src="logos/navins.png" alt="Navin's" onerror="this.outerHTML='<span class=mq-init>NAVIN\'S</span>'">
-      <img src="logos/quantratech.com.png" alt="QuantraTech" onerror="this.outerHTML='<span class=mq-init>QUANTRATECH</span>'">
-      <img src="logos/mobiveil.com.png" alt="Mobiveil" onerror="this.outerHTML='<span class=mq-init>MOBIVEIL</span>'">
-      <!-- duplicate set for seamless infinite loop -->
-      <img src="logos/yulu.bike.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>YULU</span>'">
-      <img src="logos/indo-mim.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>INDO-MIM</span>'">
-      <img src="logos/indusschool.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>INDUS SCHOOL</span>'">
-      <img src="logos/bangalorecitycoopbank.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>BANGALORE CITY BANK</span>'">
-      <img src="logos/asianet.co.in.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>ASIANET</span>'">
-      <img src="logos/finthrive.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>FINTHRIVE</span>'">
-      <img src="logos/nttftrg.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>NTTF</span>'">
-      <img src="logos/ecom-ex.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>ECOM</span>'">
-      <img src="logos/kmfnandini.coop.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>NANDINI</span>'">
-      <img src="logos/dkms.org.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>DKMS</span>'">
-      <img src="logos/chrysalishigh.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>CHRYSALIS HIGH</span>'">
-      <img src="logos/intralox.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>INTRALOX</span>'">
-      <img src="logos/bangalore-turf-club.avif" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>BANGALORE TURF CLUB</span>'">
-      <img src="logos/agilysys.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>AGILYSYS</span>'">
-      <img src="logos/navins.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>NAVIN\'S</span>'">
-      <img src="logos/quantratech.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>QUANTRATECH</span>'">
-      <img src="logos/mobiveil.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>MOBIVEIL</span>'">
-    </div>
-  </div>
-</section>
+            <div class="flex justify-center border-b border-gray-200 mb-12 overflow-x-auto hide-scrollbar">
+                <div class="flex space-x-8 px-4">
+                    <button onclick="switchTab('corp-tab')" id="btn-corp-tab" class="tab-btn active pb-4 text-rexa-textMuted hover:text-rexa-navy text-sm font-medium whitespace-nowrap">
+                        <i class="fas fa-building mr-2"></i> Corporate Cover
+                    </button>
+                    <button onclick="switchTab('benefits-tab')" id="btn-benefits-tab" class="tab-btn pb-4 text-rexa-textMuted hover:text-rexa-navy text-sm font-medium whitespace-nowrap">
+                        <i class="fas fa-users mr-2"></i> Employee Benefits
+                    </button>
+                    <button onclick="switchTab('wellness-tab')" id="btn-wellness-tab" class="tab-btn pb-4 text-rexa-textMuted hover:text-rexa-navy text-sm font-medium whitespace-nowrap">
+                        <i class="fas fa-heartbeat mr-2"></i> Wellness &amp; Retail
+                    </button>
+                </div>
+            </div>
 
-<!-- INTERACTIVE SOLUTION MATRIX -->
-<section class="section offerings" id="solutions">
-  <div class="wrap">
-    <div class="offerings-head reveal">
-      <span class="eyebrow">Our Core Offerings</span>
-      <h2>Everything your business needs.<br>One trusted partner.</h2>
-      <p>From boardroom risk to the employees you protect — one platform, one team, every policy.</p>
-    </div>
+            <!-- TAB 1: Corporate Cover -->
+            <div id="corp-tab" class="tab-content active grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Cyber &amp; Liability</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Protect your board, digital infrastructure, and balance sheet from ransomware and regulatory threats.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Directors &amp; Officers (D&amp;O)</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Cyber Liability</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Professional Indemnity</li>
+                    </ul>
+                    <a href="/general" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Explore Liability <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
 
-    <div class="matrix-tabs" role="tablist">
-      <button class="matrix-tab active" type="button" data-tab="corporate" role="tab" aria-selected="true">Corporate Cover</button>
-      <button class="matrix-tab" type="button" data-tab="benefits" role="tab" aria-selected="false">Employee Benefits</button>
-      <button class="matrix-tab" type="button" data-tab="wellness" role="tab" aria-selected="false">Wellness &amp; Retail</button>
-    </div>
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Property &amp; Assets</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Ironclad safeguards for your physical infrastructure, machinery, and global supply chains against unforeseen perils.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Fire &amp; Special Perils</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Marine &amp; Transit</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Business Interruption</li>
+                    </ul>
+                    <a href="/general" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Explore Property <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
 
-    <!-- Corporate Cover -->
-    <div class="matrix-panel active reveal" data-panel="corporate">
-      <div class="matrix-grid">
-        <a class="matrix-card" href="/general">
-          <div class="matrix-ic mi-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="8" rx="1.5"/><rect x="4" y="13" width="16" height="8" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg>
-          </div>
-          <h3>Cyber &amp; Liability</h3>
-          <p>Protect your board, digital infrastructure, and balance sheet from ransomware and regulatory threats.</p>
-          <ul class="matrix-list">
-            <li>Directors &amp; Officers (D&amp;O)</li>
-            <li>Cyber Liability</li>
-            <li>Professional Indemnity</li>
-          </ul>
-          <span class="matrix-explore">Explore Liability <span class="arr">→</span></span>
-        </a>
-        <a class="matrix-card" href="/general">
-          <div class="matrix-ic mi-gold">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M4 21V11l5 3V11l5 3V8l5 3v10"/><path d="M8 21v-3M13 21v-3"/></svg>
-          </div>
-          <h3>Property &amp; Assets</h3>
-          <p>Ironclad safeguards for your physical infrastructure, machinery, and supply chains.</p>
-          <ul class="matrix-list">
-            <li>Fire &amp; Special Perils</li>
-            <li>Marine &amp; Transit</li>
-            <li>Business Interruption</li>
-          </ul>
-          <span class="matrix-explore">Explore Property <span class="arr">→</span></span>
-        </a>
-        <a class="matrix-card" href="/general">
-          <div class="matrix-ic mi-red">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 8.4 9 10 5.2-1.6 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/></svg>
-          </div>
-          <h3>Engineering Risk</h3>
-          <p>Comprehensive coverage for complex construction, erection, and machinery breakdown.</p>
-          <ul class="matrix-list">
-            <li>Contractor's All Risk</li>
-            <li>Erection All Risk</li>
-            <li>Machinery Breakdown</li>
-          </ul>
-          <span class="matrix-explore">Explore Engineering <span class="arr">→</span></span>
-        </a>
-      </div>
-    </div>
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Engineering Risk</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Comprehensive coverage for complex construction, erection, and machinery breakdown scenarios.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Contractor's All Risk</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Erection All Risk</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Machinery Breakdown</li>
+                    </ul>
+                    <a href="/general" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Explore Engineering <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
 
-    <!-- Employee Benefits -->
-    <div class="matrix-panel" data-panel="benefits">
-      <div class="matrix-grid">
-        <a class="matrix-card" href="/life">
-          <span class="matrix-badge">Most Chosen</span>
-          <div class="matrix-ic mi-green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 8.6c0 5-8.8 10.4-8.8 10.4S3.2 13.6 3.2 8.6a4.6 4.6 0 0 1 8.8-2 4.6 4.6 0 0 1 8.8 2Z"/><path d="M8 11h2l1.5-2.5L13 13l1.2-2H16"/></svg>
-          </div>
-          <h3>Group Health (GMC)</h3>
-          <p>Flexible, cost-optimised health cover your employees actually use without HR chasing paperwork.</p>
-          <ul class="matrix-list">
-            <li>Day-1 pre-existing cover</li>
-            <li>Maternity &amp; dependents</li>
-          </ul>
-          <span class="matrix-explore">Design a health plan <span class="arr">→</span></span>
-        </a>
-        <a class="matrix-card" href="/life">
-          <div class="matrix-ic mi-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 8.4 9 10 5.2-1.6 9-5 9-10V6l-9-4Z"/></svg>
-          </div>
-          <h3>Personal Accident (GPA)</h3>
-          <p>Worldwide, 24×7 protection for your employees against accidental death or disability.</p>
-          <ul class="matrix-list">
-            <li>Global coverage</li>
-            <li>Income replacement</li>
-          </ul>
-          <span class="matrix-explore">Explore GPA <span class="arr">→</span></span>
-        </a>
-        <a class="matrix-card" href="/life">
-          <div class="matrix-ic mi-gold">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9L5.7 21l1.7-7-5.4-4.7 7.1-.6L12 2Z"/></svg>
-          </div>
-          <h3>Term Life &amp; Super Top-Ups</h3>
-          <p>Financial security for employees' families, plus top-up layers over the base sum insured.</p>
-          <ul class="matrix-list">
-            <li>Group Term Life (GTL)</li>
-            <li>Corporate super top-ups</li>
-          </ul>
-          <span class="matrix-explore">Explore Term Life <span class="arr">→</span></span>
-        </a>
-      </div>
-    </div>
+            <!-- TAB 2: Employee Benefits -->
+            <div id="benefits-tab" class="tab-content grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="inline-flex items-center gap-2 px-2 py-1 rounded bg-rexa-red/10 text-[10px] font-bold text-rexa-red uppercase tracking-widest mb-4 w-fit">
+                        Most Chosen
+                    </div>
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Group Health (GMC)</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Attract and retain top talent with flexible, cost-optimized health programs designed for the modern workforce.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Day-1 Pre-existing Cover</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Maternity &amp; Dependents</li>
+                    </ul>
+                    <a href="/life" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Design a Health Plan <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
 
-    <!-- Wellness & Retail -->
-    <div class="matrix-panel" data-panel="wellness">
-      <div class="matrix-grid">
-        <a class="matrix-card" href="/contact">
-          <div class="matrix-ic mi-teal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 18h.01M9 6h6M9 10h6M9 14h4"/></svg>
-          </div>
-          <h3>Telemedicine &amp; Health Camps</h3>
-          <p>A proactive approach to health management that reduces overall claims and absenteeism.</p>
-          <ul class="matrix-list">
-            <li>On-demand doctor access</li>
-            <li>On-site wellness camps</li>
-          </ul>
-          <span class="matrix-explore">Discover wellness programmes <span class="arr">→</span></span>
-        </a>
-        <a class="matrix-card" href="/contact">
-          <div class="matrix-ic mi-violet">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h.01M15 12h.01"/><path d="M8 20v-2a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v2"/><circle cx="12" cy="8" r="5"/></svg>
-          </div>
-          <h3>Occupational Health (OHC)</h3>
-          <p>Compliance-ready health checks and monitoring for manufacturing and industrial teams.</p>
-          <ul class="matrix-list">
-            <li>On-site OHC setup</li>
-            <li>Regulatory compliance</li>
-          </ul>
-          <span class="matrix-explore">Explore OHC <span class="arr">→</span></span>
-        </a>
-        <a class="matrix-card" href="/life">
-          <div class="matrix-ic mi-red">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-          </div>
-          <h3>Retail Personal Covers</h3>
-          <p>Protection for your personal life and assets — kept separate from your business programme.</p>
-          <ul class="matrix-list">
-            <li>Health &amp; motor insurance</li>
-            <li>Travel &amp; home insurance</li>
-          </ul>
-          <span class="matrix-explore">Enter retail portal <span class="arr">→</span></span>
-        </a>
-      </div>
-    </div>
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Personal Accident (GPA)</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Worldwide, 24x7 protection for your employees against accidental death or disability.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Global Coverage</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Income Replacement</li>
+                    </ul>
+                    <a href="/life" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Explore GPA <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
 
-  </div>
-</section>
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Term Life &amp; Top-Ups</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Provide absolute financial security to your employees' families with corporate term life policies.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Group Term Life (GTL)</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Corporate Super Top-Ups</li>
+                    </ul>
+                    <a href="/life" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Explore Term Life <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
 
-<!-- CLAIMS ADVANTAGE -->
-<section class="section claims-adv">
-  <div class="wrap claims-adv-grid">
-    <div class="claims-adv-head reveal">
-      <span class="eyebrow">The Claims Advantage</span>
-      <h2>We don't just place policies.<br>We enforce them.</h2>
-      <p>Insurance is only as good as the claim experience. Our dedicated in-house desk — a single point of contact for your account — fights for your maximum settlement and chases the insurer so your HR and finance teams don't have to.</p>
-      <div class="claims-stats">
-        <div class="claims-stat-card"><div class="n">3 Days</div><div class="l">Avg. Approval TAT</div></div>
-        <div class="claims-stat-card"><div class="n">96%</div><div class="l">Settlement Ratio</div></div>
-        <div class="claims-stat-card"><div class="n">24×7</div><div class="l">Dedicated Claims Desk</div></div>
-      </div>
-    </div>
-    <div class="reveal">
-      <div class="claim-mockup">
-        <div class="cm-head">
-          <div class="cm-title">Claim Tracker</div>
-          <div class="cm-id">#RXA-88421</div>
+            <!-- TAB 3: Wellness & Retail -->
+            <div id="wellness-tab" class="tab-content grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Wellness &amp; Value Additions</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 leading-relaxed">A proactive approach to health management to reduce overall claims and absenteeism.</p>
+                    <div class="grid grid-cols-2 gap-3 mb-8">
+                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-video text-rexa-red"></i> Telemedicine</div>
+                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-campground text-rexa-red"></i> Health Camps</div>
+                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-clinic-medical text-rexa-red"></i> OHC Setup</div>
+                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-headset text-rexa-red"></i> 24x7 Support</div>
+                    </div>
+                    <a href="/contact" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Discover Wellness Programs <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Individuals &amp; Families</h3>
+                    <p class="text-rexa-textMuted text-sm mb-6 leading-relaxed">Comprehensive protection for your personal life, assets, and loved ones outside the corporate sphere.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Retail Health Insurance</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Motor &amp; Travel Insurance</li>
+                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Home Insurance</li>
+                    </ul>
+                    <a href="/life" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
+                        Enter Retail Portal <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
-        <div class="cm-row">
-          <div class="cm-ic cm-done">✓</div>
-          <div><div class="cm-label">Claim Intimated</div><div class="cm-sub">Day 1 · Documents submitted</div></div>
+    </section>
+
+    <section class="py-24 bg-rexa-navy relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="x-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 0 0 L 40 40 M 40 0 L 0 40" stroke="#FFFFFF" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#x-pattern)" />
+            </svg>
         </div>
-        <div class="cm-row">
-          <div class="cm-ic cm-done">✓</div>
-          <div><div class="cm-label">Under Review</div><div class="cm-sub">Day 2 · Rexa desk followed up with insurer</div></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-6">We don't just place policies. <span class="text-rexa-red">We enforce them.</span></h2>
+                    <p class="text-lg text-slate-300 mb-10 leading-relaxed font-light">
+                        Insurance is only as good as the claim experience. Our dedicated in-house team fights for your maximum settlement, ensuring strict adherence to Turn-Around-Times (TAT). We handle the paperwork so your HR and Finance teams don't have to.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 mb-10">
+                        <div class="border-l-2 border-rexa-red pl-4">
+                            <div class="text-3xl font-bold text-white font-sans mb-1">3 Days</div>
+                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Avg. Approval TAT</div>
+                        </div>
+                        <div class="border-l-2 border-rexa-red pl-4">
+                            <div class="text-3xl font-bold text-white font-sans mb-1">98%</div>
+                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Settlement Ratio</div>
+                        </div>
+                    </div>
+
+                    <a href="/contact" class="inline-flex items-center gap-2 bg-rexa-red text-white px-8 py-3.5 rounded-full font-medium shadow-lg shadow-rexa-red/20 hover:bg-rexa-redHover transition-all">
+                        Report an Emergency Claim <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="relative h-[400px]">
+                    <div class="absolute top-0 right-0 w-64 bg-white rounded-2xl p-5 shadow-2xl z-20 animate-pulse" style="animation-duration: 4s;">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm"><i class="fas fa-check"></i></div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-500">Claim Status</p>
+                                <p class="text-sm font-bold text-rexa-navy">Approved</p>
+                            </div>
+                        </div>
+                        <p class="text-2xl font-bold text-rexa-navy">₹8,40,000</p>
+                        <p class="text-xs text-gray-400 mt-1">Settled in 3 business days</p>
+                    </div>
+
+                    <div class="absolute bottom-10 left-0 w-72 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl z-10">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-rexa-red/20 text-rexa-red flex items-center justify-center text-lg"><i class="fas fa-user-shield"></i></div>
+                            <div>
+                                <p class="text-sm font-bold text-white">Dedicated Manager</p>
+                                <p class="text-xs text-slate-300">Single point of contact</p>
+                            </div>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-2 mb-2">
+                            <div class="bg-rexa-red h-2 rounded-full w-[98%]"></div>
+                        </div>
+                        <p class="text-xs text-slate-300 text-right">98% Client Retention</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="cm-row">
-          <div class="cm-ic cm-pend">●</div>
-          <div><div class="cm-label">Approved</div><div class="cm-sub">Day 3 · Settlement processed</div></div>
+    </section>
+
+    <section class="py-24 bg-rexa-grayBg border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row gap-16 relative items-start">
+
+                <div class="w-full md:w-1/3 md:sticky md:top-32 z-10 pt-10">
+                    <h2 class="text-4xl font-serif font-bold text-rexa-navy mb-4">The Rexa Method.</h2>
+                    <p class="text-rexa-textMuted text-lg mb-8">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
+
+                    <div class="hidden md:flex flex-col gap-8 absolute -right-8 top-16 h-full">
+                        <div class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-0"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-1"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-2"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-3"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-4"></div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-2/3 pb-32" id="scrolly-container">
+
+                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="0">
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 1</div>
+                        <h3 class="text-3xl font-bold text-rexa-navy mb-4">Understand Your Needs</h3>
+                        <p class="text-lg text-rexa-textMuted leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
+                    </div>
+
+                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="1">
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 2</div>
+                        <h3 class="text-3xl font-bold text-rexa-navy mb-4">Review &amp; Analyse</h3>
+                        <p class="text-lg text-rexa-textMuted leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
+                    </div>
+
+                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="2">
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 3</div>
+                        <h3 class="text-3xl font-bold text-rexa-navy mb-4">Recommend Optimal Solutions</h3>
+                        <p class="text-lg text-rexa-textMuted leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
+                    </div>
+
+                    <div class="step-text min-h-[40vh] flex flex-col justify-center" data-index="3">
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 4</div>
+                        <h3 class="text-3xl font-bold text-rexa-navy mb-4">Implement &amp; Support</h3>
+                        <p class="text-lg text-rexa-textMuted leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
+                    </div>
+
+                    <div class="step-text min-h-[20vh] flex flex-col justify-center" data-index="4">
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 5</div>
+                        <h3 class="text-3xl font-bold text-rexa-navy mb-4">Continuous Review &amp; Value</h3>
+                        <p class="text-lg text-rexa-textMuted leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <div class="cm-amount">
-          <span class="cm-amount-lab">Amount Approved</span>
-          <span class="cm-amount-val">₹8.4L</span>
+    </section>
+
+    <section class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-4">Let's build a safer future together.</h2>
+            <p class="text-rexa-textMuted text-lg mb-12">Select your objective to connect with the right specialist advisory team.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-soft hover:shadow-xl transition-shadow group">
+                    <div class="w-12 h-12 bg-gray-50 text-rexa-navy rounded-full flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-navy group-hover:text-white transition-colors">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-2">Finance &amp; Procurement</h3>
+                    <p class="text-rexa-textMuted text-sm mb-8 h-10">Upload your existing corporate policies for a free, confidential gap analysis and premium benchmark.</p>
+                    <a href="/contact" class="inline-flex items-center gap-2 text-rexa-red font-bold group-hover:text-rexa-redHover">
+                        Request Gap Analysis <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-soft hover:shadow-xl transition-shadow group">
+                    <div class="w-12 h-12 bg-gray-50 text-rexa-navy rounded-full flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-navy group-hover:text-white transition-colors">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-rexa-navy mb-2">HR &amp; People Leaders</h3>
+                    <p class="text-rexa-textMuted text-sm mb-8 h-10">Design a flexible health and wellness program that attracts talent and eliminates admin work.</p>
+                    <a href="/contact" class="inline-flex items-center gap-2 text-rexa-red font-bold group-hover:text-rexa-redHover">
+                        Design My Plan <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- THE REXA METHOD -->
-<section class="section">
-  <div class="wrap method-grid">
-    <div class="method-sticky reveal">
-      <span class="eyebrow">How We Work</span>
-      <h2>The Rexa Method.</h2>
-    </div>
-    <div class="method-steps">
-      <div class="method-step reveal">
-        <div class="method-num">1</div>
-        <div><h3>Understand</h3><p>Deep-dive into your business, assets, team, and existing coverage.</p></div>
-      </div>
-      <div class="method-step reveal">
-        <div class="method-num">2</div>
-        <div><h3>Analyse</h3><p>In-depth data analysis, gap identification, and benchmarking against market best practices.</p></div>
-      </div>
-      <div class="method-step reveal">
-        <div class="method-num">3</div>
-        <div><h3>Recommend</h3><p>Unbiased recommendations covering structure, insurer strategy, and cost optimisation.</p></div>
-      </div>
-      <div class="method-step reveal">
-        <div class="method-num">4</div>
-        <div><h3>Implement</h3><p>Market approach, negotiation with 50+ insurers, and smooth policy finalisation.</p></div>
-      </div>
-      <div class="method-step reveal">
-        <div class="method-num">5</div>
-        <div><h3>Review</h3><p>Post-renewal support, claims advocacy, utilisation reviews, and continuous value addition.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
+    <footer class="bg-rexa-navy pt-20 pb-10 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <div class="text-3xl font-sans font-extrabold tracking-tighter text-white mb-4">
+                        RE<span class="text-rexa-red relative -mx-0.5">X</span>A
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Your Risk. Our Responsibility.<br>A strategic risk partner for growing Indian businesses.</p>
+                    <div class="text-xs font-bold text-slate-500 border border-slate-700 inline-block px-3 py-1.5 rounded">
+                        IRDA Broker License No. 611
+                    </div>
+                </div>
 
-<!-- INDUSTRIES -->
-<section class="section industries">
-  <div class="wrap">
-    <div class="ind-head reveal">
-      <span class="eyebrow">Sectors</span>
-      <h2>Industries we know inside out</h2>
-      <p style="color:var(--ink-soft);margin-top:.8rem;font-size:1.05rem;">Specialist underwriting knowledge across the sectors that carry the most complex risk.</p>
-    </div>
-    <div class="ind-grid">
+                <div>
+                    <h4 class="text-white font-bold mb-4 font-serif">Popular Covers</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="/life" class="hover:text-rexa-red transition-colors">Group Health (GMC)</a></li>
+                        <li><a href="/general" class="hover:text-rexa-red transition-colors">Directors &amp; Officers</a></li>
+                        <li><a href="/general" class="hover:text-rexa-red transition-colors">Cyber Liability</a></li>
+                        <li><a href="/general" class="hover:text-rexa-red transition-colors">Fire &amp; Assets</a></li>
+                    </ul>
+                </div>
 
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 21h18M4 21V11l5 3V11l5 3V8l5 3v10"/><path d="M8 21v-3M13 21v-3"/>
-          </svg>
-        </span>
-        <span class="ind-label">Manufacturing</span>
-      </div>
+                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-white font-bold mb-4 font-serif">Chennai (HQ)</h4>
+                        <p class="text-sm text-slate-400 mb-1">G4, Swathi Court, T Nagar</p>
+                        <p class="text-sm text-slate-400">Chennai – 600017</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4 font-serif">Bengaluru</h4>
+                        <p class="text-sm text-slate-400 mb-1">409, ITI Layout, Nayanda Halli</p>
+                        <p class="text-sm text-slate-400">Bengaluru – 560039</p>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">Email Us</h4>
+                        <a href="mailto:info@rexabroking.com" class="text-sm text-white hover:text-rexa-red">info@rexabroking.com</a>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">24x7 Claims Helpline</h4>
+                        <a href="tel:+917009670090" class="text-lg text-rexa-red font-bold">7009 670 090</a>
+                    </div>
+                </div>
+            </div>
 
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="8" y="8" width="8" height="8" rx="1"/><path d="M11 4v4M13 4v4M11 16v4M13 16v4M4 11h4M4 13h4M16 11h4M16 13h4"/>
-          </svg>
-        </span>
-        <span class="ind-label">Technology &amp; IT</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 18h18"/><path d="M5 18a7 7 0 0 1 14 0"/><path d="M10 8.5V6a1.5 1.5 0 0 1 3 0v2.5"/>
-          </svg>
-        </span>
-        <span class="ind-label">Construction</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>
-          </svg>
-        </span>
-        <span class="ind-label">Healthcare</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 9l9-5 9 5"/><path d="M4 9h16"/><path d="M6 9v8M10 9v8M14 9v8M18 9v8"/><path d="M3 21h18M4 17h16"/>
-          </svg>
-        </span>
-        <span class="ind-label">Government &amp; Public Sector</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h4"/>
-          </svg>
-        </span>
-        <span class="ind-label">Banking &amp; Financial Services</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 4 2 9l10 5 10-5-10-5Z"/><path d="M6 11v5c0 .9 2.7 2.2 6 2.2s6-1.3 6-2.2v-5"/><path d="M22 9v5"/>
-          </svg>
-        </span>
-        <span class="ind-label">Education</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 12v4"/>
-          </svg>
-        </span>
-        <span class="ind-label">Tourism &amp; Hospitality</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 7h10v9H3z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/>
-          </svg>
-        </span>
-        <span class="ind-label">Logistics &amp; Transport</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 8h14l-1 11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>
-          </svg>
-        </span>
-        <span class="ind-label">Retail &amp; FMCG</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
-          </svg>
-        </span>
-        <span class="ind-label">Energy &amp; Power</span>
-      </div>
-
-      <div class="ind-card reveal">
-        <span class="ind-ic">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 21V8l7-4v17"/><path d="M10 21V11l8 3v7"/><path d="M3 21h18"/><path d="M6 12h1M6 16h1M14 15h1M14 18h1"/>
-          </svg>
-        </span>
-        <span class="ind-label">Real Estate</span>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- TOP CLIENTS -->
-<section class="section clients">
-  <div class="wrap">
-    <div class="clients-head reveal">
-      <span class="eyebrow">Trusted Partners</span>
-      <h2>Some of the names behind the numbers</h2>
-      <p style="color:var(--ink-soft);margin-top:.8rem;font-size:1.05rem;max-width:56ch;margin-left:auto;margin-right:auto;">From startups to enterprises — across 17+ industries. These leaders rely on us to protect what matters.</p>
-    </div>
-
-    <!-- Featured Clients Carousel -->
-    <div class="featured-clients reveal">
-      <div class="fc-client fc-featured" data-accent="navy">
-        <div class="fc-badge">Industry Leader</div>
-        <div class="fc-logo-wrap">
-          <img src="logos/yulu.bike.png" alt="Yulu" onerror="this.outerHTML='<div class=fc-init>Y</div>'">
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-xs">© <span id="copyYear">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</p>
+                <div class="flex space-x-6 text-xs text-slate-400">
+                    <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/terms" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="/grievance" class="hover:text-white transition-colors">Grievance Redressal</a>
+                </div>
+            </div>
         </div>
-        <div class="fc-name">Yulu</div>
-        <div class="fc-stat">1000+ riders protected</div>
-      </div>
-      <div class="fc-client" data-accent="red">
-        <div class="fc-logo-wrap">
-          <img src="logos/indo-mim.com.png" alt="Indo-MIM" onerror="this.outerHTML='<div class=fc-init>IM</div>'">
-        </div>
-        <div class="fc-name">Indo-MIM</div>
-        <div class="fc-stat">₹100Cr+ assets protected</div>
-      </div>
-      <div class="fc-client" data-accent="teal">
-        <div class="fc-logo-wrap">
-          <img src="logos/indusschool.com.png" alt="Indus International School" onerror="this.outerHTML='<div class=fc-init>I</div>'">
-        </div>
-        <div class="fc-name">Indus Int'l School</div>
-        <div class="fc-stat">600+ staff covered</div>
-      </div>
-    </div>
+    </footer>
 
-    <!-- Client Grid -->
-    <div class="client-grid">
+    <script>
+        document.getElementById('copyYear').textContent = new Date().getFullYear();
 
-      <!-- Logos: tries Clearbit first, falls back to styled initial -->
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/nttftrg.com.png" alt="NTTF" onerror="this.outerHTML='<div class=cgrid-init>N</div>'">
-        </div>
-        <div class="cgrid-name">NTTF</div>
-      </div>
+        // --- Navbar scroll effect ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm');
+                navbar.classList.replace('bg-white/90', 'bg-white');
+            } else {
+                navbar.classList.remove('shadow-sm');
+                navbar.classList.replace('bg-white', 'bg-white/90');
+            }
+        });
 
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/bangalorecitycoopbank.png" alt="Bangalore City Co-operative Bank" onerror="this.outerHTML='<div class=cgrid-init>BC</div>'">
-        </div>
-        <div class="cgrid-name">Bangalore City Co-op Bank</div>
-      </div>
+        // --- Mobile menu toggle ---
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            mobileBtn.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }));
 
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/ecom-ex.com.png" alt="ECOM logistics company logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>E</div>'">
-        </div>
-        <div class="cgrid-name">ECOM</div>
-      </div>
+        // --- Tab switching logic for Offerings ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
 
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/kmfnandini.coop.png" alt="Nandini dairy cooperative logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>N</div>'">
-        </div>
-        <div class="cgrid-name">Nandini</div>
-      </div>
+        // Deep link support: /#offerings-wellness (used by nav's Wellness & Value / Retail links)
+        if (window.location.hash === '#offerings-wellness') {
+            switchTab('wellness-tab');
+            document.getElementById('offerings')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/asianet.co.in.png" alt="Asianet media company logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>AS</div>'">
-        </div>
-        <div class="cgrid-name">Asianet</div>
-      </div>
+        // --- Intersection Observer for scrollytelling ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = document.querySelectorAll('.step-text');
+            const dots = document.querySelectorAll('.step-dot');
 
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/dkms.org.png" alt="DKMS stem cell organization logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>DK</div>'">
-        </div>
-        <div class="cgrid-name">DKMS</div>
-      </div>
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = entry.target.getAttribute('data-index');
+                        steps.forEach(step => step.classList.remove('is-active'));
+                        entry.target.classList.add('is-active');
 
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/chrysalishigh.com.png" alt="Chrysalis High school logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>CH</div>'">
-        </div>
-        <div class="cgrid-name">Chrysalis High</div>
-      </div>
+                        if (dots.length > 0) {
+                            dots.forEach(dot => {
+                                dot.classList.replace('bg-rexa-red', 'bg-gray-300');
+                                dot.style.transform = 'scale(1)';
+                            });
+                            const activeDot = document.getElementById(`dot-${index}`);
+                            if (activeDot) {
+                                activeDot.classList.replace('bg-gray-300', 'bg-rexa-red');
+                                activeDot.style.transform = 'scale(1.5)';
+                            }
+                        }
+                    }
+                });
+            }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
 
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/intralox.com.png" alt="Intralox conveyor systems logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>IL</div>'">
-        </div>
-        <div class="cgrid-name">Intralox</div>
-      </div>
-
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/indo-mim.com.png" alt="Indo-MIM precision engineering company client"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>IM</div>'">
-        </div>
-        <div class="cgrid-name">Indo-MIM</div>
-      </div>
-
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/bangalore-turf-club.avif" alt="Bangalore Turf Club Ltd" onerror="this.parentNode.innerHTML='<div class=cgrid-init>BTC</div>'">
-        </div>
-        <div class="cgrid-name">Bangalore Turf Club Ltd</div>
-      </div>
-
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/agilysys.com.png" alt="agilysys hospitality software company logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>AG</div>'">
-        </div>
-        <div class="cgrid-name">agilysys</div>
-      </div>
-
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/navins.png" alt="Navin's" onerror="this.parentNode.innerHTML='<div class=cgrid-init>NV</div>'">
-        </div>
-        <div class="cgrid-name">Navin's</div>
-      </div>
-
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/quantratech.com.png" alt="QuantraTech technology solutions company logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>QT</div>'">
-        </div>
-        <div class="cgrid-name">QuantraTech</div>
-      </div>
-
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/mobiveil.com.png" alt="Mobiveil payment solutions company logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>MV</div>'">
-        </div>
-        <div class="cgrid-name">Mobiveil</div>
-      </div>
-
-      <div class="cgrid-card reveal">
-        <div class="cgrid-logo">
-          <img src="logos/finthrive.com.png" alt="FinThrive financial services company logo"
-               onerror="this.parentNode.innerHTML='<div class=cgrid-init>FT</div>'">
-        </div>
-        <div class="cgrid-name">FinThrive</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section testimonials">
-  <div class="wrap">
-    <div class="testi-head reveal">
-      <span class="eyebrow">Client Stories</span>
-      <h2>What our clients say</h2>
-      <p style="color:var(--ink-soft);margin-top:.8rem;font-size:1.05rem;max-width:54ch;margin-left:auto;margin-right:auto;">Real feedback from the businesses we protect every day.</p>
-      <div class="testi-rating">
-        <span class="tr-stars">★★★★★</span>
-        <span class="tr-score"><b>4.9</b><i>/5</i></span>
-        <span class="tr-text">based on feedback from the businesses we protect</span>
-      </div>
-    </div>
-
-    <div class="testi-grid">
-
-      <!-- Yulu - Akshay Jain - Featured -->
-      <article class="testi-card testi-featured reveal">
-        <div class="testi-header">
-          <div class="testi-stars">★★★★★</div>
-        </div>
-        <blockquote class="testi-quote">
-          Rexa has consistently provided proactive service, practical advice, and seamless support throughout our insurance journey.
-        </blockquote>
-        <div class="testi-footer">
-          <div class="testi-avatar">
-            <div class="avatar-circle">AJ</div>
-            <div class="avatar-badge">Y</div>
-          </div>
-          <div class="testi-info">
-            <div class="testi-name">Akshay Jain <span class="testi-verified">✓</span></div>
-            <div class="testi-role">Yulu</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Chrysalis High -->
-      <article class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <blockquote class="testi-quote">
-          Rexa's proactive approach, strong sense of ownership, and commitment to delivering practical insurance solutions have made them a trusted extension of our team.
-        </blockquote>
-        <div class="testi-footer">
-          <div class="testi-avatar">
-            <div class="avatar-circle">K</div>
-          </div>
-          <div class="testi-info">
-            <div class="testi-name">Kashinath <span class="testi-verified">✓</span></div>
-            <div class="testi-role">CFO · <b>Chrysalis High</b></div>
-          </div>
-        </div>
-      </article>
-
-      <!-- SAI 360 -->
-      <article class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <blockquote class="testi-quote">
-          Rexa has earned our confidence through consistent execution, transparent communication, and a genuine commitment to our success.
-        </blockquote>
-        <div class="testi-footer">
-          <div class="testi-avatar">
-            <div class="avatar-circle">A</div>
-          </div>
-          <div class="testi-info">
-            <div class="testi-name">Anisha <span class="testi-verified">✓</span></div>
-            <div class="testi-role">SAI 360</div>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- SEGMENTED EXIT ARCHITECTURE -->
-<section class="section">
-  <div class="wrap">
-    <div class="exit-arch reveal">
-      <div class="exit-head">
-        <span class="eyebrow" style="justify-content:center">Let's Talk</span>
-        <h2>Let's build a safer, healthier future together.</h2>
-      </div>
-      <div class="exit-grid">
-        <div class="exit-card">
-          <span class="exit-eyebrow">For Finance &amp; Founders</span>
-          <h3>Benchmark my current premiums.</h3>
-          <p>Upload your existing corporate policies for a free, confidential audit by our underwriting team.</p>
-          <a href="/contact" class="btn btn-navy">Request Gap Analysis <span class="arr">→</span></a>
-        </div>
-        <div class="exit-card">
-          <span class="exit-eyebrow">For HR Leaders</span>
-          <h3>Upgrade my employee benefits.</h3>
-          <p>Design a flexible health and wellness programme that attracts top talent and eliminates HR admin work.</p>
-          <a href="/contact" class="btn btn-primary">Design My Plan <span class="arr">→</span></a>
-        </div>
-      </div>
-      <div class="exit-contact">
-        <a href="tel:+919945509306">📞 +91 99455 09306</a>
-        <a href="tel:+919986969637">📞 +91 99869 69637</a>
-        <a href="mailto:info@rexabroking.com">✉ info@rexabroking.com</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="/"><img src="assets/rexa-logo-white.png" alt="Rexa Insurance Broking" class="brand-logo foot-logo"></a>
-        <div class="foot-tagline">Beyond Insurance. Building Resilience.</div>
-        <p>A strategic insurance &amp; risk partner for Indian businesses — protecting people, optimising benefits, and delivering confidence since 2017.</p>
-        <div class="lic">IRDA Broker License No. 611 · Direct Broker (Life &amp; General)</div>
-      </div>
-      <div>
-        <h4>Corporate Products</h4>
-        <a href="/general">Group Health Insurance</a>
-        <a href="/general">Property Insurance</a>
-        <a href="/general">Engineering Insurance</a>
-        <a href="/general">Marine Insurance</a>
-        <a href="/general">Liability Insurance</a>
-        <a href="/general">Workmen Compensation</a>
-      </div>
-      <div>
-        <h4>Retail Products</h4>
-        <a href="/life">Motor Insurance</a>
-        <a href="/life">Health Insurance</a>
-        <a href="/life">Travel Insurance</a>
-        <a href="/life">Home Insurance</a>
-        <a href="/life">Rooftop Solar Insurance</a>
-        <a href="/life">Loan Protect Insurance</a>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <div class="foot-contact">
-          <div class="fcc-item"><strong>Head Office (Chennai)</strong><br>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017<br><a href="tel:+914448678884">+91 44 4867 8884</a>  <a href="tel:+917540071535">+91 7540 071535</a></div>
-          <div class="fcc-item"><strong>Branch (Bangalore)</strong><br>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039<br><a href="tel:+919986969637">+91 9986 969637</a>  <a href="tel:+919945509306">+91 9945 509306</a></div>
-          <div class="fcc-item"><strong>Email</strong><br><a href="mailto:info@rexabroking.com">info@rexabroking.com</a></div>
-          <div class="fcc-item"><strong>Claims Helpline (IVR)</strong><br>24×7 toll-free<br><a href="tel:+917009670090">7009670090</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="foot-bottom">
-      <span>© <span class="copy-year">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</span>
-      <div class="foot-legal-links"><a href="/privacy">Privacy Policy</a><span class="sep">·</span><a href="/terms">Terms of Use</a><span class="sep">·</span><a href="/grievance">Grievance Redressal</a></div>
-    </div>
-  </div>
-</footer>
-
-<!-- PROMO MODAL -->
-
-<script src="app.js"></script>
+            steps.forEach(step => observer.observe(step));
+        });
+    </script>
 </body>
 </html>
