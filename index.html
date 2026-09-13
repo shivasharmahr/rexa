@@ -92,22 +92,11 @@
     .bento-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; }
     .bento-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(10, 17, 40, 0.1); }
 
-    /* --- The Rexa Method (picker-style stepper) ---
-       Desktop: #methodWindow is a fixed-height, overflow-hidden crop; the
-       five steps live in #methodTrack, which JS slides via translateY so
-       the active step centers in the window. Non-adjacent steps are
-       simply cropped outside the window (no reserved blank space) —
-       that's what actually fixes the "gap" look, not opacity alone.
-       Mobile: no window/track positioning at all — steps stack normally,
-       fully visible, no wheel-jacking (see the media query below). */
-    .step-text {
-        transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
-    }
-    @media (min-width: 768px) {
-        .step-text { opacity: 0; transform: scale(0.96); pointer-events: none; }
-        .step-text.is-adjacent { opacity: 0.35; transform: scale(0.98); }
-        .step-text.is-active { opacity: 1; transform: scale(1); border-color: #E61C24; pointer-events: auto; }
-    }
+    /* --- The Rexa Method: plain stacked cards, normal document flow.
+       All 5 are always fully visible; only the border/dot highlight
+       changes as you scroll past each one (via IntersectionObserver). */
+    .step-text { transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    .step-text.is-active { border-color: #E61C24; box-shadow: 0 10px 30px -10px rgba(10,17,40,.12); }
 
     .text-rexa-red { color: #E61C24; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -657,67 +646,113 @@
 
     <section class="py-24 bg-rexa-grayBg border-y border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Scroll spacer: its height (beyond the sticky content's own height)
-                 is what page-scroll distance drives phase progression through.
-                 Desktop only — mobile falls back to a normal static stack. -->
-            <div class="relative md:h-[300vh]" id="methodScrollArea">
-                <div class="flex flex-col md:flex-row gap-16 md:sticky md:top-32 items-center">
+            <!-- Simple, robust layout: normal document flow throughout. The
+                 label column is sticky against the *natural* height of the
+                 5 stacked cards beside it (no artificial spacer height, no
+                 cropping/windowing) — so there's never any blank space this
+                 doesn't need. An IntersectionObserver just toggles which
+                 card is highlighted as you scroll past it. -->
+            <div class="flex flex-col md:flex-row gap-16 items-start">
 
-                    <div class="w-full md:w-1/3 z-10">
-                        <h2 class="text-4xl font-serif font-bold text-rexa-navy mb-4">The Rexa Method.</h2>
-                        <p class="text-rexa-textMuted text-lg mb-8">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
+                <div class="w-full md:w-1/3 md:sticky md:top-32">
+                    <h2 class="text-4xl font-serif font-bold text-rexa-navy mb-4">The Rexa Method.</h2>
+                    <p class="text-rexa-textMuted text-lg mb-8">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
 
-                        <div class="hidden md:flex flex-col gap-8 absolute -right-8 top-1/2 -translate-y-1/2">
-                            <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-0" aria-label="Phase 1"></button>
-                            <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-1" aria-label="Phase 2"></button>
-                            <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-2" aria-label="Phase 3"></button>
-                            <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-3" aria-label="Phase 4"></button>
-                            <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-4" aria-label="Phase 5"></button>
-                        </div>
+                    <div class="hidden md:flex flex-col gap-3">
+                        <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-0" aria-label="Phase 1"></button>
+                        <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-1" aria-label="Phase 2"></button>
+                        <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-2" aria-label="Phase 3"></button>
+                        <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-3" aria-label="Phase 4"></button>
+                        <button class="w-2 h-2 rounded-full bg-gray-300 step-dot transition-colors duration-300" id="dot-4" aria-label="Phase 5"></button>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-2/3 flex flex-col gap-6">
+
+                    <div class="step-text bg-white rounded-2xl border-l-4 border-transparent shadow-sm p-8" data-index="0">
+                        <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-magnifying-glass-chart"></i></div>
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 1</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-3">Understand Your Needs</h3>
+                        <p class="text-rexa-textMuted leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
                     </div>
 
-                    <div class="w-full md:w-2/3 relative md:h-[440px] md:overflow-hidden" id="methodWindow">
-                        <!-- fade masks over the crop edges, desktop only -->
-                        <div class="hidden md:block pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-rexa-grayBg to-transparent z-10"></div>
-                        <div class="hidden md:block pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-rexa-grayBg to-transparent z-10"></div>
+                    <div class="step-text bg-white rounded-2xl border-l-4 border-transparent shadow-sm p-8" data-index="1">
+                        <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-chart-line"></i></div>
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 2</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-3">Review &amp; Analyse</h3>
+                        <p class="text-rexa-textMuted leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
+                    </div>
 
-                        <div class="md:absolute md:inset-x-0 md:top-0" id="methodTrack">
+                    <div class="step-text bg-white rounded-2xl border-l-4 border-transparent shadow-sm p-8" data-index="2">
+                        <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-lightbulb"></i></div>
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 3</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-3">Recommend Optimal Solutions</h3>
+                        <p class="text-rexa-textMuted leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
+                    </div>
 
-                            <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-8" data-index="0">
-                                <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-magnifying-glass-chart"></i></div>
-                                <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 1</div>
-                                <h3 class="text-3xl font-bold text-rexa-navy mb-4">Understand Your Needs</h3>
-                                <p class="text-lg text-rexa-textMuted leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
-                            </div>
+                    <div class="step-text bg-white rounded-2xl border-l-4 border-transparent shadow-sm p-8" data-index="3">
+                        <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-handshake"></i></div>
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 4</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-3">Implement &amp; Support</h3>
+                        <p class="text-rexa-textMuted leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
+                    </div>
 
-                            <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-8" data-index="1">
-                                <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-chart-line"></i></div>
-                                <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 2</div>
-                                <h3 class="text-3xl font-bold text-rexa-navy mb-4">Review &amp; Analyse</h3>
-                                <p class="text-lg text-rexa-textMuted leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
-                            </div>
+                    <div class="step-text bg-white rounded-2xl border-l-4 border-transparent shadow-sm p-8" data-index="4">
+                        <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-arrows-rotate"></i></div>
+                        <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 5</div>
+                        <h3 class="text-2xl font-bold text-rexa-navy mb-3">Continuous Review &amp; Value</h3>
+                        <p class="text-rexa-textMuted leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
+                    </div>
 
-                            <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-8" data-index="2">
-                                <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-lightbulb"></i></div>
-                                <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 3</div>
-                                <h3 class="text-3xl font-bold text-rexa-navy mb-4">Recommend Optimal Solutions</h3>
-                                <p class="text-lg text-rexa-textMuted leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
-                            </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                            <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-8" data-index="3">
-                                <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-handshake"></i></div>
-                                <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 4</div>
-                                <h3 class="text-3xl font-bold text-rexa-navy mb-4">Implement &amp; Support</h3>
-                                <p class="text-lg text-rexa-textMuted leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
-                            </div>
+    <section class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold text-rexa-red tracking-widest uppercase mb-3">Client Stories</h2>
+                <h3 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-4">Don't just take our word for it.</h3>
+                <div class="flex items-center justify-center gap-2 text-sm text-rexa-textMuted">
+                    <span class="text-yellow-400 tracking-widest">★★★★★</span>
+                    <span><b class="text-rexa-navy">4.9/5</b> based on feedback from the businesses we protect</span>
+                </div>
+            </div>
 
-                            <div class="step-text border-l-4 border-transparent pl-6 -ml-6 py-8" data-index="4">
-                                <div class="w-14 h-14 rounded-2xl bg-red-50 text-rexa-red flex items-center justify-center text-2xl mb-4"><i class="fas fa-arrows-rotate"></i></div>
-                                <div class="text-rexa-red font-bold text-sm mb-2 uppercase tracking-widest">Phase 5</div>
-                                <h3 class="text-3xl font-bold text-rexa-navy mb-4">Continuous Review &amp; Value</h3>
-                                <p class="text-lg text-rexa-textMuted leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-rexa-offWhite rounded-3xl p-8 border border-gray-100">
+                    <div class="text-yellow-400 mb-4 tracking-widest">★★★★★</div>
+                    <blockquote class="text-rexa-navy font-medium leading-relaxed mb-6">"Rexa has consistently provided proactive service, practical advice, and seamless support throughout our insurance journey."</blockquote>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-rexa-navy text-white flex items-center justify-center font-bold text-sm flex-none">AJ</div>
+                        <div>
+                            <p class="text-sm font-bold text-rexa-navy">Akshay Jain <i class="fas fa-circle-check text-rexa-red text-xs ml-0.5"></i></p>
+                            <p class="text-xs text-rexa-textMuted">Yulu</p>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="bg-rexa-offWhite rounded-3xl p-8 border border-gray-100">
+                    <div class="text-yellow-400 mb-4 tracking-widest">★★★★★</div>
+                    <blockquote class="text-rexa-navy font-medium leading-relaxed mb-6">"Rexa's proactive approach, strong sense of ownership, and commitment to delivering practical insurance solutions have made them a trusted extension of our team."</blockquote>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-rexa-navy text-white flex items-center justify-center font-bold text-sm flex-none">K</div>
+                        <div>
+                            <p class="text-sm font-bold text-rexa-navy">Kashinath <i class="fas fa-circle-check text-rexa-red text-xs ml-0.5"></i></p>
+                            <p class="text-xs text-rexa-textMuted">CFO &middot; Chrysalis High</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-rexa-offWhite rounded-3xl p-8 border border-gray-100">
+                    <div class="text-yellow-400 mb-4 tracking-widest">★★★★★</div>
+                    <blockquote class="text-rexa-navy font-medium leading-relaxed mb-6">"Rexa has earned our confidence through consistent execution, transparent communication, and a genuine commitment to our success."</blockquote>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-rexa-navy text-white flex items-center justify-center font-bold text-sm flex-none">A</div>
+                        <div>
+                            <p class="text-sm font-bold text-rexa-navy">Anisha <i class="fas fa-circle-check text-rexa-red text-xs ml-0.5"></i></p>
+                            <p class="text-xs text-rexa-textMuted">SAI 360</p>
                         </div>
                     </div>
                 </div>
@@ -873,95 +908,38 @@
             document.getElementById('offerings')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // --- The Rexa Method: windowed picker stepper ---
-        // Desktop: #methodWindow is a fixed-height crop; #methodTrack holds
-        // all 5 steps and gets translateY'd so the active one centers in
-        // the window. Non-adjacent steps are cropped outside the window's
-        // bounds entirely (not just dimmed), which is what avoids the
-        // blank-gap look — there's no reserved empty space inside the
-        // visible area, they're simply off past its top/bottom edge.
-        // Advancing is driven by normal page scroll: #methodScrollArea is a
-        // tall spacer (md:h-[300vh]) and the two-column content is
-        // md:sticky, so it stays pinned in view while that extra height
-        // scrolls past underneath. activeIndex is derived from how far the
-        // page has scrolled through that spacer. Dots jump directly to a
-        // phase by scrolling the page to the matching offset. Mobile skips
-        // all of this — steps stack and show normally, see the
-        // max-width:767px media query in <style>, and the spacer has no
-        // explicit height there so there's nothing extra to scroll through.
+        // --- The Rexa Method: simple scroll-highlight, no cropping/windowing ---
+        // All 5 cards are always visible in normal document flow. Whichever
+        // one crosses the vertical center of the viewport gets a red-border
+        // highlight and lights up the matching dot. Dots click-scroll to
+        // their card. No artificial spacer height, so there's never any
+        // blank space beyond what the 5 real cards actually take up.
         document.addEventListener('DOMContentLoaded', () => {
             const steps = Array.from(document.querySelectorAll('.step-text'));
             const dots = Array.from(document.querySelectorAll('.step-dot'));
-            const scrollArea = document.getElementById('methodScrollArea');
-            const windowEl = document.getElementById('methodWindow');
-            const track = document.getElementById('methodTrack');
-            if (!steps.length || !scrollArea || !windowEl || !track) return;
+            if (!steps.length) return;
 
-            const isDesktop = () => window.innerWidth >= 768;
-            let activeIndex = 0;
-            let ticking = false;
-
-            function render() {
-                steps.forEach((step, i) => {
-                    const distance = Math.abs(i - activeIndex);
-                    step.classList.toggle('is-active', distance === 0);
-                    step.classList.toggle('is-adjacent', distance === 1);
-                });
-                dots.forEach((dot, i) => {
-                    const isActive = i === activeIndex;
+            function setActive(i) {
+                steps.forEach((step, idx) => step.classList.toggle('is-active', idx === i));
+                dots.forEach((dot, idx) => {
+                    const isActive = idx === i;
                     dot.classList.toggle('bg-rexa-red', isActive);
                     dot.classList.toggle('bg-gray-300', !isActive);
                     dot.style.transform = isActive ? 'scale(1.5)' : 'scale(1)';
                 });
-
-                if (isDesktop()) {
-                    const activeStep = steps[activeIndex];
-                    const stepCenter = activeStep.offsetTop + activeStep.offsetHeight / 2;
-                    track.style.transform = `translateY(${windowEl.clientHeight / 2 - stepCenter}px)`;
-                } else {
-                    track.style.transform = '';
-                }
             }
 
-            function indexFromScroll() {
-                if (!isDesktop()) return 0;
-                const rect = scrollArea.getBoundingClientRect();
-                const travelable = scrollArea.offsetHeight - windowEl.offsetHeight;
-                if (travelable <= 0) return 0;
-                // rect.top is how far the spacer's own top is from the viewport
-                // top; it's negative once we've scrolled past it. Progress is
-                // how much of the "extra" scrollable height we've covered.
-                const progress = Math.min(1, Math.max(0, -rect.top / travelable));
-                return Math.min(steps.length - 1, Math.floor(progress * steps.length));
-            }
-
-            function onScroll() {
-                if (ticking) return;
-                ticking = true;
-                requestAnimationFrame(() => {
-                    const next = indexFromScroll();
-                    if (next !== activeIndex) {
-                        activeIndex = next;
-                        render();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActive(steps.indexOf(entry.target));
                     }
-                    ticking = false;
                 });
-            }
-
-            // Double rAF: wait for Tailwind's CDN runtime to finish injecting
-            // its generated CSS and for layout to settle before the first
-            // offsetTop/offsetHeight measurement, otherwise the initial
-            // centering can be computed against pre-Tailwind (unstyled) sizes.
-            requestAnimationFrame(() => requestAnimationFrame(() => { activeIndex = indexFromScroll(); render(); }));
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', () => { activeIndex = indexFromScroll(); render(); });
+            }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+            steps.forEach((step) => observer.observe(step));
 
             dots.forEach((dot, i) => dot.addEventListener('click', () => {
-                if (!isDesktop()) return;
-                const travelable = scrollArea.offsetHeight - windowEl.offsetHeight;
-                const targetProgress = (i + 0.5) / steps.length;
-                const areaTop = scrollArea.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({ top: areaTop + targetProgress * travelable, behavior: 'smooth' });
+                steps[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }));
         });
     </script>
