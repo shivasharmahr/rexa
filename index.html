@@ -110,10 +110,6 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* --- Rexa Method: minimal click-to-reveal stepper --- */
-    .method-step-btn { background: #F1F5F9; color: #64748B; }
-    .method-step-btn.is-active { background: #E61C24; color: #fff; border-color: #E61C24; }
-
     /* --- Hero stat card: cycles one metric at a time --- */
     .hero-stat-item {
         position: absolute; inset: 0;
@@ -693,56 +689,68 @@
     </section>
 
     <section class="py-24 bg-rexa-grayBg border-y border-gray-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-14">
-                <span class="text-sm font-bold text-rexa-red tracking-widest uppercase">How We Work</span>
-                <h2 class="text-4xl font-serif font-bold text-rexa-navy mt-2 mb-4">The Rexa Method.</h2>
-                <p class="text-rexa-textMuted text-lg max-w-xl mx-auto">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 md:mb-20">
+                <span class="text-sm font-bold text-rexa-red tracking-widest uppercase block mb-4">How We Work</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-rexa-navy mb-6 leading-tight">The Rexa Method.</h2>
+                <p class="text-rexa-textMuted text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
             </div>
 
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-soft p-8 md:p-10 mb-10">
-                <div class="method-detail" data-step="0">
-                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Understand Your Needs</h3>
-                    <p class="text-rexa-textMuted text-lg leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
-                </div>
-                <div class="method-detail hidden" data-step="1">
-                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Review &amp; Analyse</h3>
-                    <p class="text-rexa-textMuted text-lg leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
-                </div>
-                <div class="method-detail hidden" data-step="2">
-                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Recommend Optimal Solutions</h3>
-                    <p class="text-rexa-textMuted text-lg leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
-                </div>
-                <div class="method-detail hidden" data-step="3">
-                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Implement &amp; Support</h3>
-                    <p class="text-rexa-textMuted text-lg leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
-                </div>
-                <div class="method-detail hidden" data-step="4">
-                    <h3 class="text-2xl font-bold text-rexa-navy mb-3">Continuous Review &amp; Value</h3>
-                    <p class="text-rexa-textMuted text-lg leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
-                </div>
-            </div>
+            <!-- Fully static — no JS, no interaction of any kind. Every
+                 phase is always visible; the border/title only turn red
+                 on :hover as a light touch, not required to read anything. -->
+            <div class="border-t border-gray-200">
 
-            <!-- Minimal click-to-reveal stepper: all 5 steps visible at once
-                 in a slim row, no scrolling/blur/transform needed to see
-                 them. Clicking one just swaps the plain text detail above —
-                 that's the entire interaction. -->
-            <div class="flex items-center justify-center gap-3">
-                <button id="methodPrev" type="button" aria-label="Previous phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
-                    <i class="fas fa-chevron-left text-xs"></i>
-                </button>
-
-                <div id="methodStepper" class="flex flex-nowrap justify-center gap-3">
-                    <button class="method-step-btn is-active w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="0" aria-label="Phase 1: Understand Your Needs">1</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="1" aria-label="Phase 2: Review & Analyse">2</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="2" aria-label="Phase 3: Recommend Optimal Solutions">3</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="3" aria-label="Phase 4: Implement & Support">4</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="4" aria-label="Phase 5: Continuous Review & Value">5</button>
+                <div class="py-8 md:py-10 border-b border-gray-200 flex flex-col md:flex-row gap-4 md:gap-12 group hover:border-rexa-red transition-colors duration-300">
+                    <div class="md:w-1/3 flex flex-col justify-start pt-1">
+                        <span class="text-rexa-red font-bold tracking-widest text-xs uppercase mb-2">Phase 01</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-rexa-navy group-hover:text-rexa-red transition-colors duration-300">Understand Your Needs</h3>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
+                    </div>
                 </div>
 
-                <button id="methodNext" type="button" aria-label="Next phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
-                    <i class="fas fa-chevron-right text-xs"></i>
-                </button>
+                <div class="py-8 md:py-10 border-b border-gray-200 flex flex-col md:flex-row gap-4 md:gap-12 group hover:border-rexa-red transition-colors duration-300">
+                    <div class="md:w-1/3 flex flex-col justify-start pt-1">
+                        <span class="text-rexa-red font-bold tracking-widest text-xs uppercase mb-2">Phase 02</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-rexa-navy group-hover:text-rexa-red transition-colors duration-300">Review &amp; Analyse</h3>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">Our underwriting team conducts in-depth data analysis, identifies hidden exclusions in your current policies, and benchmarks your premiums against market best practices.</p>
+                    </div>
+                </div>
+
+                <div class="py-8 md:py-10 border-b border-gray-200 flex flex-col md:flex-row gap-4 md:gap-12 group hover:border-rexa-red transition-colors duration-300">
+                    <div class="md:w-1/3 flex flex-col justify-start pt-1">
+                        <span class="text-rexa-red font-bold tracking-widest text-xs uppercase mb-2">Phase 03</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-rexa-navy group-hover:text-rexa-red transition-colors duration-300">Recommend Solutions</h3>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">We present unbiased recommendations. We outline the ideal coverage structure, our insurer negotiation strategy, and clear paths for immediate cost optimization.</p>
+                    </div>
+                </div>
+
+                <div class="py-8 md:py-10 border-b border-gray-200 flex flex-col md:flex-row gap-4 md:gap-12 group hover:border-rexa-red transition-colors duration-300">
+                    <div class="md:w-1/3 flex flex-col justify-start pt-1">
+                        <span class="text-rexa-red font-bold tracking-widest text-xs uppercase mb-2">Phase 04</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-rexa-navy group-hover:text-rexa-red transition-colors duration-300">Implement &amp; Support</h3>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">We take your risk to market, negotiating hard with 50+ leading insurers. We handle the paperwork, ensuring a smooth policy finalization and digital onboarding for your team.</p>
+                    </div>
+                </div>
+
+                <div class="py-8 md:py-10 border-b border-gray-200 flex flex-col md:flex-row gap-4 md:gap-12 group hover:border-rexa-red transition-colors duration-300">
+                    <div class="md:w-1/3 flex flex-col justify-start pt-1">
+                        <span class="text-rexa-red font-bold tracking-widest text-xs uppercase mb-2">Phase 05</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-rexa-navy group-hover:text-rexa-red transition-colors duration-300">Continuous Review</h3>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-rexa-textMuted text-lg leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -906,45 +914,6 @@
                 items[i].setAttribute('data-active', 'true');
                 dots[i]?.classList.replace('bg-gray-300', 'bg-rexa-red');
             }, 2500);
-        })();
-
-        // --- The Rexa Method: click-to-reveal stepper with auto-advance ---
-        // Still no scroll listeners/transforms — just a timer that swaps
-        // which .method-detail is shown, plus prev/next buttons and the
-        // step pills, all doing the same thing: goTo(index). Any manual
-        // interaction resets the auto-advance timer so it doesn't fight
-        // the user (standard carousel behavior).
-        (function methodStepper() {
-            const buttons = Array.from(document.querySelectorAll('.method-step-btn'));
-            const details = Array.from(document.querySelectorAll('.method-detail'));
-            const prevBtn = document.getElementById('methodPrev');
-            const nextBtn = document.getElementById('methodNext');
-            if (!buttons.length) return;
-
-            let current = 0;
-            let timer = null;
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            function goTo(index) {
-                current = (index + buttons.length) % buttons.length;
-                buttons.forEach((b, i) => b.classList.toggle('is-active', i === current));
-                details.forEach((d) => d.classList.toggle('hidden', Number(d.dataset.step) !== current));
-            }
-
-            function startAuto() {
-                if (prefersReducedMotion) return;
-                timer = setInterval(() => goTo(current + 1), 5000);
-            }
-            function resetAuto() {
-                clearInterval(timer);
-                startAuto();
-            }
-
-            buttons.forEach((btn, i) => btn.addEventListener('click', () => { goTo(i); resetAuto(); }));
-            prevBtn?.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
-            nextBtn?.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
-
-            startAuto();
         })();
 
         // --- Navbar scroll effect ---
