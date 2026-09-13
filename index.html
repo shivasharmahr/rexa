@@ -91,10 +91,17 @@
     .bento-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; }
     .bento-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(10, 17, 40, 0.1); }
 
-    /* --- The Rexa Method (Scrollytelling) --- */
+    /* --- The Rexa Method (Scrollytelling) ---
+       Picker-style: only the active (centered) step is fully visible.
+       Its immediate neighbour above/below is dimmed but readable; every
+       other step fades almost out of view until it becomes the neighbour. */
     .sticky-container { position: relative; }
-    .step-text { opacity: 0.3; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.5s ease; }
-    .step-text.is-active { opacity: 1; transform: translateY(0); border-color: #E61C24; }
+    .step-text {
+        opacity: 0.08; transform: scale(0.96);
+        transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+    }
+    .step-text.is-adjacent { opacity: 0.35; transform: scale(0.98); }
+    .step-text.is-active { opacity: 1; transform: scale(1); border-color: #E61C24; }
 
     .text-rexa-red { color: #E61C24; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -771,28 +778,40 @@
         }
 
         // --- Intersection Observer for scrollytelling ---
+        // Picker-style: whichever step crosses the viewport's vertical
+        // center becomes "active" (full opacity). Its immediate neighbour
+        // (one index above/below) is marked "adjacent" (dimmed but
+        // readable); everything two or more steps away fades almost out
+        // of view. Distance is recomputed from a single activeIndex on
+        // every change, not from the observer's own isIntersecting flags,
+        // so exactly one step is ever fully active.
         document.addEventListener('DOMContentLoaded', () => {
-            const steps = document.querySelectorAll('.step-text');
+            const steps = Array.from(document.querySelectorAll('.step-text'));
             const dots = document.querySelectorAll('.step-dot');
+            if (!steps.length) return;
+
+            let activeIndex = 0;
+
+            function render() {
+                steps.forEach((step, i) => {
+                    const distance = Math.abs(i - activeIndex);
+                    step.classList.toggle('is-active', distance === 0);
+                    step.classList.toggle('is-adjacent', distance === 1);
+                });
+                dots.forEach((dot, i) => {
+                    const isActive = i === activeIndex;
+                    dot.classList.toggle('bg-rexa-red', isActive);
+                    dot.classList.toggle('bg-gray-300', !isActive);
+                    dot.style.transform = isActive ? 'scale(1.5)' : 'scale(1)';
+                });
+            }
+            render();
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const index = entry.target.getAttribute('data-index');
-                        steps.forEach(step => step.classList.remove('is-active'));
-                        entry.target.classList.add('is-active');
-
-                        if (dots.length > 0) {
-                            dots.forEach(dot => {
-                                dot.classList.replace('bg-rexa-red', 'bg-gray-300');
-                                dot.style.transform = 'scale(1)';
-                            });
-                            const activeDot = document.getElementById(`dot-${index}`);
-                            if (activeDot) {
-                                activeDot.classList.replace('bg-gray-300', 'bg-rexa-red');
-                                activeDot.style.transform = 'scale(1.5)';
-                            }
-                        }
+                        activeIndex = Number(entry.target.getAttribute('data-index'));
+                        render();
                     }
                 });
             }, { root: null, rootMargin: '-49% 0px -49% 0px', threshold: 0 });
