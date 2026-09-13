@@ -77,16 +77,30 @@
         .marquee-content { animation: none; overflow-x: auto; }
     }
 
-    /* --- Tab System --- */
-    .tab-btn { position: relative; transition: all 0.3s ease; }
-    .tab-btn::after {
-        content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
-        width: 0; height: 2px; background-color: #E61C24; transition: width 0.3s ease;
+    /* --- Offerings: sticky scroll-spy nav + blur-focus content sections --- */
+    .content-section {
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                    filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-origin: center center;
+        will-change: transform, opacity, filter;
     }
-    .tab-btn.active { color: #0A1128; font-weight: 600; }
-    .tab-btn.active::after { width: 100%; }
-    .tab-content { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
-    .tab-content.active { display: grid; opacity: 1; }
+    .content-section:not(.is-active) {
+        opacity: 0.3; filter: blur(4px); transform: scale(0.96);
+        pointer-events: none;
+    }
+    @media (max-width: 767px) {
+        .content-section:not(.is-active) { opacity: 0.5; filter: blur(2px); transform: scale(0.98); }
+    }
+
+    .desktop-nav-item.is-active .nav-indicator { border-color: #E61C24; }
+    .desktop-nav-item.is-active .nav-dot { background-color: #E61C24; }
+    .desktop-nav-item.is-active .nav-title { color: #0A1128; opacity: 1; }
+    .desktop-nav-item.is-active .nav-desc { color: #64748B; opacity: 1; }
+    .desktop-nav-item:not(.is-active) .nav-indicator { border-color: #E2E8F0; }
+    .desktop-nav-item:not(.is-active) .nav-dot { background-color: transparent; }
+    .desktop-nav-item:not(.is-active) .nav-title { color: #94A3B8; opacity: 0.7; }
+    .desktop-nav-item:not(.is-active) .nav-desc { color: #CBD5E1; opacity: 0.6; }
 
     /* --- Bento Box Hover --- */
     .bento-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; }
@@ -407,165 +421,201 @@
         </div>
     </section>
 
-    <section id="offerings" class="py-24 bg-white relative scroll-mt-20">
+    <section id="offerings" class="pt-24 pb-32 bg-white relative scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-4">Everything your business needs.</h2>
-                <p class="text-rexa-textMuted text-lg max-w-2xl mx-auto">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
-            </div>
+            <div class="flex flex-col md:flex-row gap-12 items-start relative">
 
-            <div class="flex justify-center border-b border-gray-200 mb-12 overflow-x-auto hide-scrollbar">
-                <div class="flex space-x-8 px-4">
-                    <button onclick="switchTab('corp-tab')" id="btn-corp-tab" class="tab-btn active pb-4 text-rexa-textMuted hover:text-rexa-navy text-sm font-medium whitespace-nowrap">
-                        <i class="fas fa-building mr-2"></i> Corporate Cover
-                    </button>
-                    <button onclick="switchTab('benefits-tab')" id="btn-benefits-tab" class="tab-btn pb-4 text-rexa-textMuted hover:text-rexa-navy text-sm font-medium whitespace-nowrap">
-                        <i class="fas fa-users mr-2"></i> Employee Benefits
-                    </button>
-                    <button onclick="switchTab('wellness-tab')" id="btn-wellness-tab" class="tab-btn pb-4 text-rexa-textMuted hover:text-rexa-navy text-sm font-medium whitespace-nowrap">
-                        <i class="fas fa-heartbeat mr-2"></i> Wellness &amp; Retail
-                    </button>
+                <!-- Sticky left scroll-spy nav -->
+                <div class="w-full md:w-[35%] md:sticky md:top-[140px] z-10">
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-rexa-navy mb-4 leading-[1.1] max-w-[280px]">Everything your business needs.</h2>
+                    <p class="text-rexa-textMuted mb-12 max-w-xs">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
+
+                    <div class="hidden md:block relative pl-1">
+                        <div class="absolute left-[13px] top-4 bottom-8 w-[1px] bg-gray-200 -z-10"></div>
+
+                        <div class="space-y-10">
+                            <a href="#section-corp" class="desktop-nav-item is-active flex items-start gap-6 group transition-all duration-300" data-target="section-corp">
+                                <div class="nav-indicator mt-1 w-[26px] h-[26px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
+                                    <div class="nav-dot w-2 h-2 rounded-full transition-all duration-300"></div>
+                                </div>
+                                <div>
+                                    <h4 class="nav-title text-xl font-bold transition-all duration-300">Corporate Cover</h4>
+                                    <p class="nav-desc text-xs mt-1 font-medium transition-all duration-300">Liability, Property &amp; Engineering</p>
+                                </div>
+                            </a>
+
+                            <a href="#section-benefits" class="desktop-nav-item flex items-start gap-6 group transition-all duration-300" data-target="section-benefits">
+                                <div class="nav-indicator mt-1 w-[26px] h-[26px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
+                                    <div class="nav-dot w-2 h-2 rounded-full transition-all duration-300"></div>
+                                </div>
+                                <div>
+                                    <h4 class="nav-title text-xl font-bold transition-all duration-300">Employee Benefits</h4>
+                                    <p class="nav-desc text-xs mt-1 font-medium transition-all duration-300">Health, Accident &amp; Term Life</p>
+                                </div>
+                            </a>
+
+                            <a href="#section-wellness" class="desktop-nav-item flex items-start gap-6 group transition-all duration-300" data-target="section-wellness">
+                                <div class="nav-indicator mt-1 w-[26px] h-[26px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
+                                    <div class="nav-dot w-2 h-2 rounded-full transition-all duration-300"></div>
+                                </div>
+                                <div>
+                                    <h4 class="nav-title text-xl font-bold transition-all duration-300">Wellness &amp; Retail</h4>
+                                    <p class="nav-desc text-xs mt-1 font-medium transition-all duration-300">Proactive Health &amp; Personal Cover</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: stacked content sections, blurred when not the active one -->
+                <div class="w-full md:w-[65%] flex flex-col gap-16">
+
+                    <div id="section-corp" class="content-section is-active scroll-mt-[180px]">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                            <a href="/corporate-risk" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2">
+                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Cyber &amp; Liability</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed max-w-2xl">Protect your board, digital infrastructure, and balance sheet from ransomware and regulatory threats.</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-y-4 mb-8">
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Directors &amp; Officers (D&amp;O)</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Cyber Liability</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Prof. Indemnity</li>
+                                </ul>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Explore Liability <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+
+                            <a href="/corporate-risk" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Property &amp; Assets</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Ironclad safeguards for your physical infrastructure, machinery, and global supply chains against unforeseen perils.</p>
+                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Fire &amp; Special Perils</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Marine &amp; Transit</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Business Interruption</li>
+                                </ul>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Explore Property <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+
+                            <a href="/corporate-risk" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <i class="fas fa-hard-hat"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Engineering Risk</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Comprehensive coverage for complex construction, erection, and machinery breakdown scenarios.</p>
+                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Contractor's All Risk</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Erection All Risk</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Machinery Breakdown</li>
+                                </ul>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Explore Engineering <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="section-benefits" class="content-section scroll-mt-[180px]">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                            <a href="/employee-benefits" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2">
+                                <div class="flex flex-wrap items-center gap-3 mb-6">
+                                    <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <span class="inline-block px-2.5 py-1 rounded bg-red-50 text-[10px] font-bold text-rexa-red uppercase tracking-widest border border-red-100">Most Chosen</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Group Health (GMC)</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed max-w-2xl">Attract and retain top talent with flexible, cost-optimized health programs designed for the modern workforce.</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 mb-8">
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Day-1 Pre-existing Cover</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Maternity &amp; Dependents</li>
+                                </ul>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Design a Health Plan <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+
+                            <a href="/employee-benefits" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Personal Accident (GPA)</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Worldwide, 24x7 protection for your employees against accidental death or disability.</p>
+                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Global Coverage</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Income Replacement</li>
+                                </ul>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Explore GPA <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+
+                            <a href="/employee-benefits" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Term Life &amp; Top-Ups</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Provide absolute financial security to your employees' families with corporate term life policies.</p>
+                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Group Term Life (GTL)</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Corporate Super Top-Ups</li>
+                                </ul>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Explore Term Life <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="section-wellness" class="content-section scroll-mt-[180px]">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                            <a href="/wellness-and-value" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <i class="fas fa-stethoscope"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Wellness &amp; Value Additions</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">A proactive approach to health management to reduce overall claims and absenteeism.</p>
+                                <div class="grid grid-cols-2 gap-3 mb-8">
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-video text-rexa-red"></i> Telemedicine</div>
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-campground text-rexa-red"></i> Health Camps</div>
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-clinic-medical text-rexa-red"></i> OHC Setup</div>
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-headset text-rexa-red"></i> 24x7 Support</div>
+                                </div>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Discover Wellness Programs <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+
+                            <a href="/retail-insurance" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
+                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-rexa-navy mb-3">Individuals &amp; Families</h3>
+                                <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Comprehensive protection for your personal life, assets, and loved ones outside the corporate sphere.</p>
+                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Retail Health Insurance</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Motor &amp; Travel Insurance</li>
+                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Home Insurance</li>
+                                </ul>
+                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                    Enter Retail Portal <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-            <!-- TAB 1: Corporate Cover -->
-            <div id="corp-tab" class="tab-content active grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Cyber &amp; Liability</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Protect your board, digital infrastructure, and balance sheet from ransomware and regulatory threats.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Directors &amp; Officers (D&amp;O)</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Cyber Liability</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Professional Indemnity</li>
-                    </ul>
-                    <a href="/corporate-risk" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Explore Liability <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Property &amp; Assets</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Ironclad safeguards for your physical infrastructure, machinery, and global supply chains against unforeseen perils.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Fire &amp; Special Perils</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Marine &amp; Transit</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Business Interruption</li>
-                    </ul>
-                    <a href="/corporate-risk" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Explore Property <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-hard-hat"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Engineering Risk</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Comprehensive coverage for complex construction, erection, and machinery breakdown scenarios.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Contractor's All Risk</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Erection All Risk</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Machinery Breakdown</li>
-                    </ul>
-                    <a href="/corporate-risk" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Explore Engineering <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- TAB 2: Employee Benefits -->
-            <div id="benefits-tab" class="tab-content grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="inline-flex items-center gap-2 px-2 py-1 rounded bg-rexa-red/10 text-[10px] font-bold text-rexa-red uppercase tracking-widest mb-4 w-fit">
-                        Most Chosen
-                    </div>
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Group Health (GMC)</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Attract and retain top talent with flexible, cost-optimized health programs designed for the modern workforce.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Day-1 Pre-existing Cover</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Maternity &amp; Dependents</li>
-                    </ul>
-                    <a href="/employee-benefits" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Design a Health Plan <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Personal Accident (GPA)</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Worldwide, 24x7 protection for your employees against accidental death or disability.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Global Coverage</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Income Replacement</li>
-                    </ul>
-                    <a href="/employee-benefits" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Explore GPA <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Term Life &amp; Top-Ups</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Provide absolute financial security to your employees' families with corporate term life policies.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Group Term Life (GTL)</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Corporate Super Top-Ups</li>
-                    </ul>
-                    <a href="/employee-benefits" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Explore Term Life <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- TAB 3: Wellness & Retail -->
-            <div id="wellness-tab" class="tab-content grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Wellness &amp; Value Additions</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 leading-relaxed">A proactive approach to health management to reduce overall claims and absenteeism.</p>
-                    <div class="grid grid-cols-2 gap-3 mb-8">
-                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-video text-rexa-red"></i> Telemedicine</div>
-                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-campground text-rexa-red"></i> Health Camps</div>
-                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-clinic-medical text-rexa-red"></i> OHC Setup</div>
-                        <div class="bg-rexa-grayBg p-3 rounded-lg text-xs font-semibold text-rexa-navy flex items-center gap-2"><i class="fas fa-headset text-rexa-red"></i> 24x7 Support</div>
-                    </div>
-                    <a href="/wellness-and-value" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Discover Wellness Programs <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="bento-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                    <div class="w-14 h-14 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-rexa-navy mb-3">Individuals &amp; Families</h3>
-                    <p class="text-rexa-textMuted text-sm mb-6 leading-relaxed">Comprehensive protection for your personal life, assets, and loved ones outside the corporate sphere.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Retail Health Insurance</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Motor &amp; Travel Insurance</li>
-                        <li class="flex items-center text-sm font-medium text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-3 text-xs"></i> Home Insurance</li>
-                    </ul>
-                    <a href="/retail-insurance" class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto">
-                        Enter Retail Portal <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                    </a>
-                </div>
-            </div>
-
         </div>
     </section>
 
@@ -888,20 +938,30 @@
             mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
         }));
 
-        // --- Tab switching logic for Offerings ---
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            document.getElementById('btn-' + tabId).classList.add('active');
-        }
+        // --- Offerings: sticky scroll-spy nav ---
+        // As each stacked content section (#section-corp/benefits/wellness)
+        // crosses the trigger band, it gets full focus (.is-active removes
+        // the blur/scale/opacity applied to inactive ones) and the matching
+        // left-nav item lights up to match.
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.content-section');
+            const navItems = document.querySelectorAll('.desktop-nav-item');
+            if (!sections.length) return;
 
-        // Deep link support: /#offerings-wellness (used by nav's Wellness & Value / Retail links)
-        if (window.location.hash === '#offerings-wellness') {
-            switchTab('wellness-tab');
-            document.getElementById('offerings')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const activeId = entry.target.id;
+                        sections.forEach((sec) => sec.classList.remove('is-active'));
+                        navItems.forEach((nav) => nav.classList.remove('is-active'));
+                        entry.target.classList.add('is-active');
+                        document.querySelector(`.desktop-nav-item[data-target="${activeId}"]`)?.classList.add('is-active');
+                    }
+                });
+            }, { root: null, rootMargin: '-25% 0px -40% 0px', threshold: 0 });
 
+            sections.forEach((sec) => observer.observe(sec));
+        });
     </script>
 </body>
 </html>
