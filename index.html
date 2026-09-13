@@ -700,29 +700,7 @@
                 <p class="text-rexa-textMuted text-lg max-w-xl mx-auto">A structured, audited process designed to deliver clarity and cost optimization at every stage of your risk lifecycle.</p>
             </div>
 
-            <!-- Minimal click-to-reveal stepper: all 5 steps visible at once
-                 in a slim row, no scrolling/blur/transform needed to see
-                 them. Clicking one just swaps the plain text detail below —
-                 that's the entire interaction. -->
-            <div class="flex items-center justify-center gap-3 mb-10">
-                <button id="methodPrev" type="button" aria-label="Previous phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
-                    <i class="fas fa-chevron-left text-xs"></i>
-                </button>
-
-                <div id="methodStepper" class="flex flex-nowrap justify-center gap-3">
-                    <button class="method-step-btn is-active w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="0" aria-label="Phase 1: Understand Your Needs">1</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="1" aria-label="Phase 2: Review & Analyse">2</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="2" aria-label="Phase 3: Recommend Optimal Solutions">3</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="3" aria-label="Phase 4: Implement & Support">4</button>
-                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="4" aria-label="Phase 5: Continuous Review & Value">5</button>
-                </div>
-
-                <button id="methodNext" type="button" aria-label="Next phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
-                    <i class="fas fa-chevron-right text-xs"></i>
-                </button>
-            </div>
-
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-soft p-8 md:p-10">
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-soft p-8 md:p-10 mb-10">
                 <div class="method-detail" data-step="0">
                     <h3 class="text-2xl font-bold text-rexa-navy mb-3">Understand Your Needs</h3>
                     <p class="text-rexa-textMuted text-lg leading-relaxed">We don't sell off-the-shelf policies. We begin with a deep-dive into your business model, physical assets, employee demographics, and existing coverage limits.</p>
@@ -743,6 +721,28 @@
                     <h3 class="text-2xl font-bold text-rexa-navy mb-3">Continuous Review &amp; Value</h3>
                     <p class="text-rexa-textMuted text-lg leading-relaxed">Our job starts after the policy is placed. We provide year-round claims advocacy, quarterly utilization reviews, and deploy wellness camps to keep your teams healthy.</p>
                 </div>
+            </div>
+
+            <!-- Minimal click-to-reveal stepper: all 5 steps visible at once
+                 in a slim row, no scrolling/blur/transform needed to see
+                 them. Clicking one just swaps the plain text detail above —
+                 that's the entire interaction. -->
+            <div class="flex items-center justify-center gap-3">
+                <button id="methodPrev" type="button" aria-label="Previous phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
+                    <i class="fas fa-chevron-left text-xs"></i>
+                </button>
+
+                <div id="methodStepper" class="flex flex-nowrap justify-center gap-3">
+                    <button class="method-step-btn is-active w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="0" aria-label="Phase 1: Understand Your Needs">1</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="1" aria-label="Phase 2: Review & Analyse">2</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="2" aria-label="Phase 3: Recommend Optimal Solutions">3</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="3" aria-label="Phase 4: Implement & Support">4</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="4" aria-label="Phase 5: Continuous Review & Value">5</button>
+                </div>
+
+                <button id="methodNext" type="button" aria-label="Next phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
+                    <i class="fas fa-chevron-right text-xs"></i>
+                </button>
             </div>
         </div>
     </section>
