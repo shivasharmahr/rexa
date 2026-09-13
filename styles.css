@@ -2380,7 +2380,7 @@ body.roh-open .roh-modal { transform: none; opacity: 1; }
 }
 .marquee-track {
   display: flex; align-items: center; gap: 4.2rem; width: max-content;
-  animation: marqueeScroll 34s linear infinite;
+  animation: marqueeScroll 96s linear infinite;
 }
 .marquee-track img {
   height: 30px; width: auto; max-width: 130px; object-fit: contain;
@@ -2436,8 +2436,21 @@ body.roh-open .roh-modal { transform: none; opacity: 1; }
 .matrix-ic.mi-green { background: linear-gradient(135deg, #0EA472, #4FCB9C) }
 .matrix-ic.mi-teal { background: linear-gradient(135deg, #0F5F72, #26A0BA) }
 .matrix-ic.mi-violet { background: linear-gradient(135deg, #6C4BD1, #9A7EF0) }
+.matrix-badge {
+  display: inline-flex; font-size: .64rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--red); background: rgba(207,28,34,.08);
+  padding: .3rem .65rem; border-radius: 999px; margin-bottom: .9rem;
+}
 .matrix-card h3 { font-size: 1.2rem; margin-bottom: .55rem; color: var(--navy) }
 .matrix-card p { color: var(--ink-soft); font-size: .94rem; line-height: 1.6 }
+.matrix-list { list-style: none; margin: 1.1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: .55rem }
+.matrix-list li { font-size: .85rem; color: var(--navy); font-weight: 600; display: flex; align-items: center; gap: .55rem }
+.matrix-list li::before { content: "✓"; color: var(--red); font-weight: 800; flex: none }
+.matrix-explore {
+  display: inline-flex; align-items: center; gap: .4rem; margin-top: 1.4rem;
+  font-size: .84rem; font-weight: 700; color: var(--navy);
+}
+.matrix-card:hover .matrix-explore { color: var(--red) }
 @media (max-width: 860px) { .matrix-grid { grid-template-columns: 1fr } }
 
 /* =========================================================
@@ -2544,4 +2557,13 @@ body.roh-open .roh-modal { transform: none; opacity: 1; }
 }
 .exit-card h3 { font-size: 1.4rem; color: var(--navy); margin-bottom: .7rem; line-height: 1.3 }
 .exit-card p { color: var(--ink-soft); font-size: .96rem; line-height: 1.6; margin-bottom: 1.5rem }
+.exit-contact {
+  margin-top: 2.4rem; display: flex; justify-content: center;
+  gap: 2rem; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 1.8rem;
+}
+.exit-contact a {
+  font-size: .9rem; color: var(--ink-soft); transition: color .15s;
+  display: flex; align-items: center; gap: .4rem;
+}
+.exit-contact a:hover { color: var(--navy) }
 @media (max-width: 760px) { .exit-grid { grid-template-columns: 1fr } }
