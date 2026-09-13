@@ -114,6 +114,9 @@ app.get('/contact/', serveFile('contact.html'));
 app.get('/general', serveFile('general.html'));
 app.get('/general/', serveFile('general.html'));
 
+app.get('/corporate-risk', serveFile('corporate-risk.html'));
+app.get('/corporate-risk/', serveFile('corporate-risk.html'));
+
 app.get('/life', serveFile('life.html'));
 app.get('/life/', serveFile('life.html'));
 
