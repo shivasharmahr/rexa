@@ -123,6 +123,9 @@ app.get('/employee-benefits/', serveFile('employee-benefits.html'));
 app.get('/wellness-and-value', serveFile('wellness-and-value.html'));
 app.get('/wellness-and-value/', serveFile('wellness-and-value.html'));
 
+app.get('/retail-insurance', serveFile('retail-insurance.html'));
+app.get('/retail-insurance/', serveFile('retail-insurance.html'));
+
 app.get('/life', serveFile('life.html'));
 app.get('/life/', serveFile('life.html'));
 
