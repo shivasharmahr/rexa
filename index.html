@@ -166,14 +166,14 @@
   <div class="wrap nav-inner">
     <a class="brand" href="/"><img src="assets/rexa-logo-transparent.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
     <nav class="nav-links">
-      <a href="/" class="active">Home</a>
-      <a href="/general">General Insurance</a>
-      <a href="/life">Life &amp; Benefits</a>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
+      <a href="/general">Corporate Risk</a>
+      <a href="/life">Employee Benefits</a>
+      <a href="/#solutions-wellness">Wellness &amp; Value</a>
+      <a href="/#solutions-retail">Retail</a>
+      <a href="/about">About Us</a>
     </nav>
     <div class="nav-cta">
-      <a href="/contact" class="btn btn-primary">Talk to us</a>
+      <a href="/contact" class="btn btn-ghost">Talk to an Advisor</a>
     </div>
     <button class="nav-toggle" aria-label="Menu">☰</button>
   </div>
@@ -297,169 +297,164 @@
   </div>
 </section>
 
-<!-- CORE OFFERINGS -->
-<section class="section offerings">
+<!-- TRUST MARQUEE -->
+<section class="marquee-section">
+  <div class="wrap">
+    <p class="marquee-label">Trusted by 500+ organisations across India</p>
+  </div>
+  <div class="marquee-viewport">
+    <div class="marquee-track">
+      <img src="logos/yulu.bike.png" alt="Yulu" onerror="this.outerHTML='<span class=mq-init>YULU</span>'">
+      <img src="logos/indo-mim.com.png" alt="Indo-MIM" onerror="this.outerHTML='<span class=mq-init>INDO-MIM</span>'">
+      <img src="logos/indusschool.com.png" alt="Indus International School" onerror="this.outerHTML='<span class=mq-init>INDUS SCHOOL</span>'">
+      <img src="logos/bangalorecitycoopbank.png" alt="Bangalore City Co-operative Bank" onerror="this.outerHTML='<span class=mq-init>BANGALORE CITY BANK</span>'">
+      <img src="logos/asianet.co.in.png" alt="Asianet" onerror="this.outerHTML='<span class=mq-init>ASIANET</span>'">
+      <img src="logos/finthrive.com.png" alt="FinThrive" onerror="this.outerHTML='<span class=mq-init>FINTHRIVE</span>'">
+      <!-- duplicate set for seamless infinite loop -->
+      <img src="logos/yulu.bike.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>YULU</span>'">
+      <img src="logos/indo-mim.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>INDO-MIM</span>'">
+      <img src="logos/indusschool.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>INDUS SCHOOL</span>'">
+      <img src="logos/bangalorecitycoopbank.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>BANGALORE CITY BANK</span>'">
+      <img src="logos/asianet.co.in.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>ASIANET</span>'">
+      <img src="logos/finthrive.com.png" alt="" aria-hidden="true" onerror="this.outerHTML='<span class=mq-init>FINTHRIVE</span>'">
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE SOLUTION MATRIX -->
+<section class="section offerings" id="solutions">
   <div class="wrap">
     <div class="offerings-head reveal">
       <span class="eyebrow">Our Core Offerings</span>
       <h2>Everything your business needs.<br>One trusted partner.</h2>
-      <p>From employee benefits to property protection — we cover every risk your organisation carries.</p>
+      <p>From boardroom risk to the employees you protect — one platform, one team, every policy.</p>
     </div>
-    <div class="off-bento reveal">
 
-        <!-- Employee Benefits (feature) -->
-        <a class="off-card off-feature" data-accent="green" href="/life" style="grid-area:emp">
-          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="off-copy">
-            <span class="off-tag">Most chosen</span>
-            <h3>Employee Benefits</h3>
-            <div class="off-chips">
-              <span>Group Health</span>
-              <span>Personal Accident</span>
-              <span>Term Life</span>
-              <span>Top-up &amp; Wellness</span>
-            </div>
+    <div class="matrix-tabs" role="tablist">
+      <button class="matrix-tab active" type="button" data-tab="corporate" role="tab" aria-selected="true">Corporate Cover</button>
+      <button class="matrix-tab" type="button" data-tab="benefits" role="tab" aria-selected="false">Employee Benefits</button>
+      <button class="matrix-tab" type="button" data-tab="wellness" role="tab" aria-selected="false">Wellness &amp; Retail</button>
+    </div>
+
+    <!-- Corporate Cover -->
+    <div class="matrix-panel active reveal" data-panel="corporate">
+      <div class="matrix-grid">
+        <a class="matrix-card" href="/general">
+          <div class="matrix-ic mi-navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="8" rx="1.5"/><rect x="4" y="13" width="16" height="8" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg>
           </div>
-          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A friendly heart with a medical plus">
-            <g class="spark"><path d="M56 8 V18"/><path d="M36 15 l6 8"/><path d="M76 15 l-6 8"/></g>
-            <ellipse class="shadow" cx="56" cy="108" rx="22" ry="4.5"/>
-            <path class="st fillw" d="M56 100 C24 77 18 53 33 41 C43 33 53 38 56 49 C59 38 69 33 79 41 C94 53 88 77 56 100 Z"/>
-            <path class="glyph" d="M56 57 V77 M46 67 H66"/>
-          </svg>
+          <h3>Cyber &amp; Liability</h3>
+          <p>Protect your board, digital infrastructure, and balance sheet from ransomware and regulatory threats. Includes D&amp;O and Professional Indemnity.</p>
         </a>
-
-        <!-- Liability -->
-        <a class="off-card" data-accent="red" href="/general" style="grid-area:lia">
-          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="off-copy">
-            <h3>Liability Solutions</h3>
-            <div class="off-chips">
-              <span>D&amp;O</span>
-              <span>Cyber</span>
-              <span>Indemnity</span>
-            </div>
+        <a class="matrix-card" href="/general">
+          <div class="matrix-ic mi-gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M4 21V11l5 3V11l5 3V8l5 3v10"/><path d="M8 21v-3M13 21v-3"/></svg>
           </div>
-          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A shield deflecting a lightning bolt">
-            <g class="spark"><path d="M84 22 l7 -6"/><path d="M90 34 l9 -1"/></g>
-            <ellipse class="shadow" cx="54" cy="108" rx="22" ry="4.5"/>
-            <path class="st fillw" d="M54 40 L76 48 V66 C76 84 66 93 54 100 C42 93 32 84 32 66 V48 Z"/>
-            <circle class="eye" cx="47" cy="64" r="2.8"/>
-            <circle class="eye" cx="61" cy="64" r="2.8"/>
-            <path class="st" d="M47 74 q7 6 14 0"/>
-            <path class="bolt" d="M80 30 l-13 16 h7 l-6 15 15 -19 h-8 z"/>
-          </svg>
+          <h3>Property &amp; Assets</h3>
+          <p>Ironclad safeguards for your physical infrastructure, machinery, and global supply chains against fire and transit perils.</p>
         </a>
-
-        <!-- Property & Assets -->
-        <a class="off-card" data-accent="gold" href="/general" style="grid-area:prop">
-          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="off-copy">
-            <h3>Property &amp; Assets</h3>
-            <div class="off-chips">
-              <span>Fire</span>
-              <span>Marine</span>
-              <span>Engineering</span>
-            </div>
+        <a class="matrix-card" href="/general">
+          <div class="matrix-ic mi-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 8.4 9 10 5.2-1.6 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/></svg>
           </div>
-          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A house with a protective shield badge">
-            <g class="spark"><path d="M24 30 V20"/><path d="M14 40 l-9 -2"/></g>
-            <ellipse class="shadow" cx="56" cy="108" rx="24" ry="4.5"/>
-            <path class="st fillw" d="M30 60 L56 38 L82 60 V96 H30 Z"/>
-            <path class="st" d="M56 38 L56 30"/>
-            <circle class="eye" cx="46" cy="66" r="2.8"/>
-            <circle class="eye" cx="66" cy="66" r="2.8"/>
-            <path class="st" d="M46 76 q10 7 20 0"/>
-            <g class="badge">
-              <path class="st badge-shield" d="M74 66 l13 4.6 v9 c0 8-5.6 12.6-13 15.4 c-7.4-2.8-13-7.4-13-15.4 v-9 z"/>
-              <path class="badge-check" d="M68.5 80 l3.6 3.6 7-7.4" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </g>
-          </svg>
+          <h3>Engineering Risk</h3>
+          <p>Comprehensive coverage for complex construction, erection, and machinery breakdown.</p>
         </a>
+      </div>
+    </div>
 
-        <!-- Wellness (feature) -->
-        <a class="off-card off-feature" data-accent="teal" href="/contact" style="grid-area:well">
-          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="off-copy">
-            <span class="off-tag">Beyond insurance</span>
-            <h3>Wellness &amp; Value Additions</h3>
-            <div class="off-chips">
-              <span>Health Camps</span>
-              <span>Telemedicine</span>
-              <span>24×7 Support</span>
-              <span>OHC</span>
-            </div>
+    <!-- Employee Benefits -->
+    <div class="matrix-panel" data-panel="benefits">
+      <div class="matrix-grid">
+        <a class="matrix-card" href="/life">
+          <div class="matrix-ic mi-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 8.6c0 5-8.8 10.4-8.8 10.4S3.2 13.6 3.2 8.6a4.6 4.6 0 0 1 8.8-2 4.6 4.6 0 0 1 8.8 2Z"/><path d="M8 11h2l1.5-2.5L13 13l1.2-2H16"/></svg>
           </div>
-          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A heart with a smiling heartbeat line">
-            <g class="spark"><path d="M56 8 V18"/><path d="M36 15 l6 8"/><path d="M76 15 l-6 8"/></g>
-            <ellipse class="shadow" cx="56" cy="108" rx="22" ry="4.5"/>
-            <path class="st fillw" d="M56 100 C24 77 18 53 33 41 C43 33 53 38 56 49 C59 38 69 33 79 41 C94 53 88 77 56 100 Z"/>
-            <circle class="eye" cx="47" cy="58" r="2.8"/>
-            <circle class="eye" cx="65" cy="58" r="2.8"/>
-            <path class="glyph pulse" d="M36 74 H48 L52 66 L58 82 L63 72 L67 74 H76"/>
-          </svg>
+          <h3>Group Health (GMC)</h3>
+          <p>Day-1 coverage, maternity, and cashless hospitalisation your employees can actually use without HR chasing paperwork.</p>
         </a>
-
-        <!-- Retail (feature, matches the Wellness card treatment) -->
-        <a class="off-card off-feature" data-accent="violet" href="/life" style="grid-area:retail">
-          <svg class="off-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17 L17 7 M9 7 H17 V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="off-copy">
-            <span class="off-tag">Individuals &amp; families</span>
-            <h3>Retail</h3>
-            <div class="off-chips">
-              <span>Health Insurance</span>
-              <span>Motor Insurance</span>
-              <span>Travel Insurance</span>
-              <span>Home Insurance</span>
-              <span>Personal Accident</span>
-            </div>
+        <a class="matrix-card" href="/life">
+          <div class="matrix-ic mi-navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 8.4 9 10 5.2-1.6 9-5 9-10V6l-9-4Z"/></svg>
           </div>
-          <svg class="off-mascot" viewBox="0 0 112 116" role="img" aria-label="A friendly storefront with a scalloped awning">
-            <g class="spark"><path d="M56 8 V18"/><path d="M36 15 l6 8"/><path d="M76 15 l-6 8"/></g>
-            <ellipse class="shadow" cx="56" cy="108" rx="26" ry="4.5"/>
-            <path class="st fillw" d="M30 52 H82 V96 H30 Z"/>
-            <path class="st fillw" d="M25 52 L32 30 H80 L87 52 Z"/>
-            <path class="st" d="M25 52 C25 56 29.5 59 35 59 C40.5 59 45 56 45 52 C45 56 49.5 59 55 59 C60.5 59 65 56 65 52 C65 56 69.5 59 75 59 C80.5 59 85 56 85 52"/>
-            <circle class="eye" cx="46" cy="70" r="2.8"/>
-            <circle class="eye" cx="66" cy="70" r="2.8"/>
-            <path class="st" d="M46 80 q10 7 20 0"/>
-            <path class="st fillw" d="M48 96 V80 H64 V96"/>
-          </svg>
+          <h3>Personal Accident (GPA)</h3>
+          <p>Financial protection for your team against accidental death and disability, on and off the job.</p>
         </a>
+        <a class="matrix-card" href="/life">
+          <div class="matrix-ic mi-gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9L5.7 21l1.7-7-5.4-4.7 7.1-.6L12 2Z"/></svg>
+          </div>
+          <h3>Term Life &amp; Super Top-Ups</h3>
+          <p>Baseline life cover plus affordable top-up layers so high-value claims never blow past the base sum insured.</p>
+        </a>
+      </div>
+    </div>
 
+    <!-- Wellness & Retail -->
+    <div class="matrix-panel" data-panel="wellness">
+      <div class="matrix-grid">
+        <a class="matrix-card" href="/contact">
+          <div class="matrix-ic mi-teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 18h.01M9 6h6M9 10h6M9 14h4"/></svg>
+          </div>
+          <h3>Telemedicine &amp; Health Camps</h3>
+          <p>On-demand doctor access and on-site wellness camps that keep small issues from becoming big claims.</p>
+        </a>
+        <a class="matrix-card" href="/contact">
+          <div class="matrix-ic mi-violet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h.01M15 12h.01"/><path d="M8 20v-2a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v2"/><circle cx="12" cy="8" r="5"/></svg>
+          </div>
+          <h3>Occupational Health (OHC)</h3>
+          <p>Compliance-ready occupational health checks and monitoring for manufacturing and industrial teams.</p>
+        </a>
+        <a class="matrix-card" href="/life">
+          <div class="matrix-ic mi-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          </div>
+          <h3>Retail Personal Covers</h3>
+          <p>Health, motor, travel and home insurance for individuals and families — kept separate from your business programme.</p>
+        </a>
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- STATS BAND -->
-<section class="stats">
-  <div class="wrap">
-    <div class="stat-band">
-      <div class="stat reveal">
-        <div class="n">500<em>+</em></div>
-        <div class="l">Corporate Clients Trust Us</div>
+<!-- CLAIMS ADVANTAGE -->
+<section class="section claims-adv">
+  <div class="wrap claims-adv-grid">
+    <div class="claims-adv-head reveal">
+      <span class="eyebrow">The Claims Advantage</span>
+      <h2>We don't just place policies.<br>We enforce them.</h2>
+      <p>Insurance is only as good as the claim experience. Our dedicated in-house team fights for your maximum settlement, ensuring strict adherence to turnaround times.</p>
+      <div class="claims-stats">
+        <div class="claims-stat-card"><div class="n">98%</div><div class="l">Client Retention Rate</div></div>
+        <div class="claims-stat-card"><div class="n">500+</div><div class="l">Claims Resolved Annually</div></div>
+        <div class="claims-stat-card"><div class="n">₹100Cr+</div><div class="l">Premium Managed</div></div>
       </div>
-      <div class="stat reveal">
-        <div class="n">100K<em>+</em></div>
-        <div class="l">Lives Covered</div>
-      </div>
-      <div class="stat reveal">
-        <div class="n">98<em>%</em></div>
-        <div class="l">Client Retention Rate</div>
-      </div>
-      <div class="stat reveal">
-        <div class="n">₹100<em>Cr+</em></div>
-        <div class="l">Premium Managed</div>
+    </div>
+    <div class="reveal">
+      <div class="claim-mockup">
+        <div class="cm-head">
+          <div class="cm-title">Claim Tracker</div>
+          <div class="cm-id">#RXA-88421</div>
+        </div>
+        <div class="cm-row">
+          <div class="cm-ic cm-done">✓</div>
+          <div><div class="cm-label">Claim Intimated</div><div class="cm-sub">Day 1 · Documents submitted</div></div>
+        </div>
+        <div class="cm-row">
+          <div class="cm-ic cm-done">✓</div>
+          <div><div class="cm-label">Under Review</div><div class="cm-sub">Day 2 · Rexa desk followed up with insurer</div></div>
+        </div>
+        <div class="cm-row">
+          <div class="cm-ic cm-pend">●</div>
+          <div><div class="cm-label">Approved</div><div class="cm-sub">Day 3 · Settlement processed</div></div>
+        </div>
+        <div class="cm-amount">
+          <span class="cm-amount-lab">Amount Approved</span>
+          <span class="cm-amount-val">₹8.4L</span>
+        </div>
       </div>
     </div>
   </div>
@@ -562,39 +557,33 @@
   </div>
 </section>
 
-<!-- PARTNERING PROCESS -->
-<section class="section process">
-  <div class="wrap">
-    <div class="proc-head reveal">
+<!-- THE REXA METHOD -->
+<section class="section">
+  <div class="wrap method-grid">
+    <div class="method-sticky reveal">
       <span class="eyebrow">How We Work</span>
-      <h2>Your risk, managed end-to-end</h2>
-      <p>A structured five-step process designed to deliver clarity, value, and continuity at every stage.</p>
+      <h2>The Rexa Method.</h2>
     </div>
-    <div class="proc-steps">
-      <div class="proc-step reveal">
-        <div class="proc-num">1</div>
-        <h3>Understand Your Needs</h3>
-        <p>Deep-dive into your business, assets, team, and existing coverage.</p>
+    <div class="method-steps">
+      <div class="method-step reveal">
+        <div class="method-num">1</div>
+        <div><h3>Understand</h3><p>Deep-dive into your business, assets, team, and existing coverage.</p></div>
       </div>
-      <div class="proc-step reveal">
-        <div class="proc-num">2</div>
-        <h3>Review &amp; Analyse</h3>
-        <p>In-depth data analysis, gap identification, and benchmarking against market best practices.</p>
+      <div class="method-step reveal">
+        <div class="method-num">2</div>
+        <div><h3>Analyse</h3><p>In-depth data analysis, gap identification, and benchmarking against market best practices.</p></div>
       </div>
-      <div class="proc-step reveal">
-        <div class="proc-num">3</div>
-        <h3>Recommend Optimal Solutions</h3>
-        <p>Unbiased recommendations — coverage structure, insurer strategy, and cost optimisation.</p>
+      <div class="method-step reveal">
+        <div class="method-num">3</div>
+        <div><h3>Recommend</h3><p>Unbiased recommendations covering structure, insurer strategy, and cost optimisation.</p></div>
       </div>
-      <div class="proc-step reveal">
-        <div class="proc-num">4</div>
-        <h3>Implement &amp; Support</h3>
-        <p>Market approach, negotiation with 50+ insurers, and smooth policy finalisation.</p>
+      <div class="method-step reveal">
+        <div class="method-num">4</div>
+        <div><h3>Implement</h3><p>Market approach, negotiation with 50+ insurers, and smooth policy finalisation.</p></div>
       </div>
-      <div class="proc-step reveal">
-        <div class="proc-num">5</div>
-        <h3>Continuous Review &amp; Value</h3>
-        <p>Post-renewal support, claims advocacy, utilisation reviews, and ongoing value addition.</p>
+      <div class="method-step reveal">
+        <div class="method-num">5</div>
+        <div><h3>Review</h3><p>Post-renewal support, claims advocacy, utilisation reviews, and continuous value addition.</p></div>
       </div>
     </div>
   </div>
@@ -951,6 +940,32 @@
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTED EXIT ARCHITECTURE -->
+<section class="section">
+  <div class="wrap">
+    <div class="exit-arch reveal">
+      <div class="exit-head">
+        <span class="eyebrow" style="justify-content:center">Let's Talk</span>
+        <h2>Let's build a safer, healthier future together.</h2>
+      </div>
+      <div class="exit-grid">
+        <div class="exit-card">
+          <span class="exit-eyebrow">For Finance &amp; Founders</span>
+          <h3>Benchmark my current premiums.</h3>
+          <p>Upload your existing corporate policies for a free, confidential audit by our underwriting team.</p>
+          <a href="/contact" class="btn btn-navy">Request Gap Analysis <span class="arr">→</span></a>
+        </div>
+        <div class="exit-card">
+          <span class="exit-eyebrow">For HR Leaders</span>
+          <h3>Upgrade my employee benefits.</h3>
+          <p>Design a flexible health and wellness programme that attracts top talent and eliminates HR admin work.</p>
+          <a href="/contact" class="btn btn-primary">Design My Plan <span class="arr">→</span></a>
+        </div>
+      </div>
     </div>
   </div>
 </section>

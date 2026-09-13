@@ -33,6 +33,31 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+// Interactive Solution Matrix — tabbed panels (Corporate / Benefits / Wellness & Retail)
+(function solutionMatrix(){
+  const tabs = document.querySelectorAll('.matrix-tab');
+  const panels = document.querySelectorAll('.matrix-panel');
+  if (!tabs.length) return;
+
+  function activate(name) {
+    tabs.forEach(t => {
+      const on = t.dataset.tab === name;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => activate(tab.dataset.tab)));
+
+  // Deep link support: /#solutions-wellness, /#solutions-retail, /#solutions-benefits, /#solutions-corporate
+  const hash = window.location.hash.replace('#solutions-', '');
+  if (['corporate', 'benefits', 'wellness', 'retail'].includes(hash)) {
+    activate(hash === 'retail' ? 'wellness' : hash);
+    document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+})();
+
 // Industry cards highlight on scroll — same visual as :hover, triggered as each
 // card passes through the vertical center band of the viewport
 (function industryCardsHighlight(){
