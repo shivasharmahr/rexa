@@ -111,12 +111,8 @@
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* --- Rexa Method: minimal click-to-reveal stepper --- */
-    .method-step-btn { background: #fff; }
-    .method-step-btn .step-num { background: #F1F5F9; color: #64748B; }
-    .method-step-btn .step-label { color: #64748B; }
-    .method-step-btn.is-active { border-color: #E61C24; background: #FEF2F2; }
-    .method-step-btn.is-active .step-num { background: #E61C24; color: #fff; }
-    .method-step-btn.is-active .step-label { color: #0A1128; }
+    .method-step-btn { background: #F1F5F9; color: #64748B; }
+    .method-step-btn.is-active { background: #E61C24; color: #fff; border-color: #E61C24; }
 
     /* --- Hero stat card: cycles one metric at a time --- */
     .hero-stat-item {
@@ -713,27 +709,12 @@
                     <i class="fas fa-chevron-left text-xs"></i>
                 </button>
 
-                <div id="methodStepper" class="flex flex-wrap justify-center gap-x-2 gap-y-4">
-                    <button class="method-step-btn is-active flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="0">
-                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">1</span>
-                        <span class="step-label text-sm font-semibold transition-colors">Understand</span>
-                    </button>
-                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="1">
-                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">2</span>
-                        <span class="step-label text-sm font-semibold transition-colors">Review</span>
-                    </button>
-                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="2">
-                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">3</span>
-                        <span class="step-label text-sm font-semibold transition-colors">Recommend</span>
-                    </button>
-                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="3">
-                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">4</span>
-                        <span class="step-label text-sm font-semibold transition-colors">Implement</span>
-                    </button>
-                    <button class="method-step-btn flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 transition-colors" data-step="4">
-                        <span class="step-num flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold transition-colors">5</span>
-                        <span class="step-label text-sm font-semibold transition-colors">Continuous Review</span>
-                    </button>
+                <div id="methodStepper" class="flex flex-nowrap justify-center gap-3">
+                    <button class="method-step-btn is-active w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="0" aria-label="Phase 1: Understand Your Needs">1</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="1" aria-label="Phase 2: Review & Analyse">2</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="2" aria-label="Phase 3: Recommend Optimal Solutions">3</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="3" aria-label="Phase 4: Implement & Support">4</button>
+                    <button class="method-step-btn w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-sm font-bold transition-colors flex-none" data-step="4" aria-label="Phase 5: Continuous Review & Value">5</button>
                 </div>
 
                 <button id="methodNext" type="button" aria-label="Next phase" class="flex-none w-9 h-9 rounded-full border border-gray-200 bg-white text-rexa-textMuted hover:border-rexa-red hover:text-rexa-red transition-colors flex items-center justify-center">
