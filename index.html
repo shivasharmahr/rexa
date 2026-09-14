@@ -55,7 +55,7 @@
 </script>
 
 <style>
-    html { overflow-x: hidden; scroll-snap-type: y proximity; scroll-behavior: smooth; }
+    html { overflow-x: hidden; scroll-behavior: smooth; }
     body { background-color: #FFFFFF; color: #0A1128; }
 
     /* --- Marquee (seamless: two identical sets, shift by exactly one set's width) --- */
@@ -78,19 +78,15 @@
     }
 
     /* --- Offerings: sticky rail with scroll-spy dot nav + reveal-on-scroll
-         cards. Each cluster snaps into full view as you scroll to it
-         (scroll-snap-align, proximity so it stays gentle rather than
-         trapping the scroll). The blur/dim focus effect only applies to
-         the 2nd and 3rd clusters (.blur-cycle) — the first one (Corporate
-         Cover) is what greets you on arrival, so it stays sharp at rest
-         and is never blurred, no transition needed on it either. --- */
-    .cluster { scroll-snap-align: start; }
+         cards. No scroll-snap — clusters scroll freely. The blur/dim focus
+         effect only applies to the 2nd and 3rd clusters (.blur-cycle) — the
+         first one (Corporate Cover) is what greets you on arrival, so it
+         stays sharp at rest and is never blurred. --- */
     .cluster.blur-cycle {
         transition: filter .9s cubic-bezier(0.16, 1, 0.3, 1), opacity .9s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .cluster.blur-cycle:not(.is-active) { filter: blur(3px); opacity: .5; }
     @media (prefers-reduced-motion: reduce) {
-        html { scroll-snap-type: none; }
         .cluster.blur-cycle { transition: none; }
         .cluster.blur-cycle:not(.is-active) { filter: none; opacity: 1; }
     }
