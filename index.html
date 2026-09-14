@@ -55,7 +55,7 @@
 </script>
 
 <style>
-    html { overflow-x: hidden; scroll-snap-type: y proximity; }
+    html { overflow-x: hidden; scroll-snap-type: y proximity; scroll-behavior: smooth; }
     body { background-color: #FFFFFF; color: #0A1128; }
 
     /* --- Marquee (seamless: two identical sets, shift by exactly one set's width) --- */
@@ -85,7 +85,7 @@
          the same scroll-spy that lights up the rail dot also toggles this. --- */
     .cluster {
         scroll-snap-align: start;
-        transition: filter .45s ease, opacity .45s ease;
+        transition: filter .7s cubic-bezier(0.22, 1, 0.36, 1), opacity .7s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .cluster:not(.is-active) { filter: blur(3px); opacity: .5; }
     @media (prefers-reduced-motion: reduce) {
