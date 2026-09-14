@@ -82,18 +82,10 @@
     }
 
     /* --- Offerings: sticky rail with scroll-spy dot nav + reveal-on-scroll
-         cards. No scroll-snap — clusters scroll freely. Just the blur/dim
-         focus effect (.blur-cycle, applied uniformly to all 3 clusters):
-         whichever one isn't current gets a slight blur, with a slow,
-         soft transition so the handoff between sections feels smooth. --- */
-    .cluster.blur-cycle {
-        transition: filter .9s cubic-bezier(0.16, 1, 0.3, 1), opacity .9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .cluster.blur-cycle:not(.is-active) { filter: blur(3px); opacity: .5; }
-    @media (prefers-reduced-motion: reduce) {
-        .cluster.blur-cycle { transition: none; }
-        .cluster.blur-cycle:not(.is-active) { filter: none; opacity: 1; }
-    }
+         cards. No scroll-snap, no blur — content stays at full opacity and
+         zero blur at all times so it's readable while scanning/scrolling
+         back and forth between sections. .is-active only drives which rail
+         dot is lit; it no longer touches the cluster content itself. --- */
 
     .railnav li::before {
         content: ""; position: absolute; left: 5px; top: 16px; bottom: -10px;
@@ -111,13 +103,24 @@
     .railnav .nav-desc { color: #CBD5E1; transition: color .35s ease; }
     .railnav li.is-active .nav-desc { color: #64748B; }
 
+    .railnav-pill { background: #fff; color: #64748B; border-color: #E5E7EB; }
+    .railnav-pill.is-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
     .cluster-swatch { background: var(--accent); }
     .cluster-eyebrow { color: var(--accent); }
     .offering-card {
+        position: relative;
         border-top: 3px solid var(--accent);
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
     }
     .offering-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(10, 17, 40, 0.1); }
+    /* Cards are plain <div>s now (not one giant <a>, which screen readers used
+       to read as a single unbroken block of icon+heading+paragraph+tags).
+       Only the "Explore X" line is a real, labeled link — this ::after
+       stretches it invisibly over the whole card so the card still reads as
+       "clickable" to the mouse, without the accessibility/text-selection
+       problems of wrapping everything in <a>. */
+    .card-link::after { content: ""; position: absolute; inset: 0; }
     .offering-icon {
         position: relative; overflow: hidden; color: var(--accent);
         background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, white), color-mix(in srgb, var(--accent) 6%, white));
@@ -359,15 +362,12 @@
                     <div class="relative z-10 bg-white rounded-2xl border border-gray-100 shadow-xl p-6">
                         <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
                             <div>
-                                <p class="text-sm font-bold text-rexa-navy">Risk Portfolio</p>
-                                <p class="text-xs text-rexa-textMuted mt-0.5">Rexa Managed &middot; FY 2025&ndash;26</p>
+                                <p class="text-sm font-bold text-rexa-navy">Rexa Impact</p>
+                                <p class="text-xs text-rexa-textMuted mt-0.5">Since 2017 &middot; IRDA Licensed No. 611</p>
                             </div>
-                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-green-600 bg-green-50 px-2.5 py-1 rounded-full">
-                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Live
-                            </span>
                         </div>
 
-                        <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start justify-between mb-6">
                             <div>
                                 <p class="text-xs font-bold text-rexa-textMuted uppercase tracking-wider">Premium Managed</p>
                                 <div class="flex items-baseline gap-2 mt-1">
@@ -376,15 +376,6 @@
                                 </div>
                             </div>
                             <span class="text-xs font-semibold text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full whitespace-nowrap">Last 6 yrs</span>
-                        </div>
-
-                        <div class="flex items-end justify-between gap-2 h-14 mb-6">
-                            <div class="flex-1 bg-rexa-navy/15 rounded-t" style="height:38%"></div>
-                            <div class="flex-1 bg-rexa-navy/15 rounded-t" style="height:52%"></div>
-                            <div class="flex-1 bg-rexa-navy/15 rounded-t" style="height:47%"></div>
-                            <div class="flex-1 bg-rexa-navy/15 rounded-t" style="height:68%"></div>
-                            <div class="flex-1 bg-rexa-navy/15 rounded-t" style="height:82%"></div>
-                            <div class="flex-1 bg-rexa-red rounded-t shadow-lg shadow-rexa-red/30" style="height:100%"></div>
                         </div>
 
                         <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 relative overflow-hidden" style="min-height:88px" id="heroStatCard">
@@ -509,19 +500,31 @@
                             <p class="nav-desc text-xs mt-1 font-medium">Proactive Health &amp; Personal Cover</p>
                         </li>
                     </ul>
+
+                    <!-- Mobile quick-jump: the dot-rail above is desktop-only, so
+                         without this a phone would just be a blind scroll past
+                         9 stacked cards. Sticky row of pills to jump straight
+                         to a category instead. -->
+                    <div class="railnav-mobile md:hidden sticky top-20 z-20 -mx-4 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+                        <div class="flex gap-2 overflow-x-auto hide-scrollbar">
+                            <button type="button" class="railnav-pill is-active flex-none px-4 py-2 rounded-full text-xs font-bold border transition-colors" data-target="cluster-corp" style="--accent:#0A1128">Corporate Cover</button>
+                            <button type="button" class="railnav-pill flex-none px-4 py-2 rounded-full text-xs font-bold border transition-colors" data-target="cluster-benefits" style="--accent:#E61C24">Employee Benefits</button>
+                            <button type="button" class="railnav-pill flex-none px-4 py-2 rounded-full text-xs font-bold border transition-colors" data-target="cluster-wellness" style="--accent:#B45309">Wellness &amp; Retail</button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right: clusters stay fully visible; cards fade/rise in on scroll -->
                 <div class="w-full md:w-[65%] flex flex-col gap-20">
 
-                    <div id="cluster-corp" class="cluster blur-cycle is-active scroll-mt-[180px]" style="--accent:#0A1128">
+                    <div id="cluster-corp" class="cluster is-active scroll-mt-[180px]" style="--accent:#0A1128">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="cluster-swatch w-2 h-2 rounded-full"></span>
                             <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Corporate Cover</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                            <a href="/corporate-risk" class="offering-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2" style="--accent:#6366F1">
+                            <div class="offering-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2" style="--accent:#6366F1">
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <circle cx="24" cy="8" r="2"/><circle cx="16" cy="16" r="2"/><circle cx="26" cy="21" r="2"/>
@@ -536,12 +539,12 @@
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Cyber Liability</span>
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Prof. Indemnity</span>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/corporate-risk" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Liability <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
 
-                            <a href="/corporate-risk" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#0EA5E9">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#0EA5E9">
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <rect x="18" y="4" width="5" height="5" rx="1"/><rect x="25" y="4" width="5" height="5" rx="1"/>
@@ -555,12 +558,12 @@
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Fire &amp; Special Perils</span>
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Marine &amp; Transit</span>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/corporate-risk" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Property <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
 
-                            <a href="/corporate-risk" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s; --accent:#475569">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s; --accent:#475569">
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <line x1="20" y1="2" x2="30" y2="12"/><line x1="16" y1="6" x2="26" y2="16"/><line x1="12" y1="10" x2="22" y2="20"/>
@@ -573,21 +576,21 @@
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Contractor's All Risk</span>
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Machinery Breakdown</span>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/corporate-risk" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Engineering <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
-                    <div id="cluster-benefits" class="cluster blur-cycle scroll-mt-[180px]" style="--accent:#E61C24">
+                    <div id="cluster-benefits" class="cluster scroll-mt-[180px]" style="--accent:#E61C24">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="cluster-swatch w-2 h-2 rounded-full"></span>
                             <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Employee Benefits</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                            <a href="/employee-benefits" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2" style="--delay:0s">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2" style="--delay:0s">
                                 <div class="flex flex-wrap items-center gap-3 mb-6">
                                     <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl">
                                         <svg class="bottom-0 left-0 w-full h-5 opacity-30" viewBox="0 0 56 16" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -603,12 +606,12 @@
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Day-1 Pre-existing Cover</span>
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Maternity &amp; Dependents</span>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/employee-benefits" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Design a Health Plan <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
 
-                            <a href="/employee-benefits" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#F97316">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#F97316">
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="inset-0 w-full h-full opacity-20" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1">
                                         <circle cx="28" cy="28" r="22"/><circle cx="28" cy="28" r="15"/>
@@ -621,12 +624,12 @@
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Global Coverage</span>
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Income Replacement</span>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/employee-benefits" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore GPA <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
 
-                            <a href="/employee-benefits" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s; --accent:#8B5CF6">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s; --accent:#8B5CF6">
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-30" viewBox="0 0 32 32" fill="currentColor">
                                         <path d="M22 4l1.2 2.6L26 8l-2.8 1.4L22 12l-1.2-2.6L18 8l2.8-1.4z"/>
@@ -640,21 +643,21 @@
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Group Term Life (GTL)</span>
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Corporate Super Top-Ups</span>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/employee-benefits" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Term Life <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
-                    <div id="cluster-wellness" class="cluster blur-cycle scroll-mt-[180px]" style="--accent:#B45309">
+                    <div id="cluster-wellness" class="cluster scroll-mt-[180px]" style="--accent:#B45309">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="cluster-swatch w-2 h-2 rounded-full"></span>
                             <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Wellness &amp; Retail</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                            <a href="/wellness-and-value" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:0s; --accent:#16A34A">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:0s; --accent:#16A34A">
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-bottom-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path d="M8 28C8 16 16 8 28 8"/><path d="M12 24C14 18 18 14 24 12"/>
@@ -669,12 +672,12 @@
                                     <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-clinic-medical text-rexa-red"></i> OHC Setup</div>
                                     <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-headset text-rexa-red"></i> 24x7 Support</div>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/wellness-and-value" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Discover Wellness Programs <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
 
-                            <a href="/retail-insurance" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#0D9488">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#0D9488">
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path d="M6 18L16 8l10 10"/><path d="M9 15v9h14v-9"/>
@@ -688,10 +691,10 @@
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Motor &amp; Travel</span>
                                     <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Home Insurance</span>
                                 </div>
-                                <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
+                                <a href="/retail-insurance" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Enter Retail Portal <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                                </span>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -963,7 +966,10 @@
         // prefers reduced motion).
         document.addEventListener('DOMContentLoaded', () => {
             const clusters = document.querySelectorAll('.cluster');
-            const railItems = document.querySelectorAll('.railnav li');
+            // Desktop dot-rail <li>s and the mobile pill row share the same
+            // data-target/click-to-jump/scroll-spy behavior, just different
+            // markup and visual treatment for their respective breakpoints.
+            const railItems = document.querySelectorAll('.railnav li, .railnav-pill');
             if (clusters.length) {
                 railItems.forEach((item) => {
                     item.addEventListener('click', () => {
@@ -978,7 +984,7 @@
                             const activeId = entry.target.id;
                             railItems.forEach((item) => item.classList.remove('is-active'));
                             clusters.forEach((cluster) => cluster.classList.remove('is-active'));
-                            document.querySelector(`.railnav li[data-target="${activeId}"]`)?.classList.add('is-active');
+                            document.querySelectorAll(`[data-target="${activeId}"]`).forEach((item) => item.classList.add('is-active'));
                             entry.target.classList.add('is-active');
                         }
                     });
