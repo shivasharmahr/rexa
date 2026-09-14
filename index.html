@@ -55,7 +55,7 @@
 </script>
 
 <style>
-    html { overflow-x: hidden; }
+    html { overflow-x: hidden; scroll-snap-type: y proximity; }
     body { background-color: #FFFFFF; color: #0A1128; }
 
     /* --- Marquee (seamless: two identical sets, shift by exactly one set's width) --- */
@@ -78,9 +78,22 @@
     }
 
     /* --- Offerings: sticky rail with scroll-spy dot nav + reveal-on-scroll
-         cards. Unlike the previous version, content is never blurred/scaled
-         out — clusters stay fully visible and interactive at all times;
-         only the rail's active dot changes as you scroll past each one. --- */
+         cards. Each cluster snaps into full view as you scroll to it
+         (scroll-snap-align, proximity so it stays gentle rather than
+         trapping the scroll), and whichever cluster ISN'T the current one
+         gets a slight blur/dim so attention stays on what's in focus —
+         the same scroll-spy that lights up the rail dot also toggles this. --- */
+    .cluster {
+        scroll-snap-align: start;
+        transition: filter .45s ease, opacity .45s ease;
+    }
+    .cluster:not(.is-active) { filter: blur(3px); opacity: .5; }
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-snap-type: none; }
+        .cluster { transition: none; }
+        .cluster:not(.is-active) { filter: none; opacity: 1; }
+    }
+
     .railnav li::before {
         content: ""; position: absolute; left: 5px; top: 16px; bottom: -10px;
         width: 2px; background: #E5E7EB;
@@ -500,7 +513,7 @@
                 <!-- Right: clusters stay fully visible; cards fade/rise in on scroll -->
                 <div class="w-full md:w-[65%] flex flex-col gap-20">
 
-                    <div id="cluster-corp" class="cluster scroll-mt-[180px]" style="--accent:#0A1128">
+                    <div id="cluster-corp" class="cluster is-active scroll-mt-[180px]" style="--accent:#0A1128">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="cluster-swatch w-2 h-2 rounded-full"></span>
                             <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Corporate Cover</span>
@@ -963,7 +976,9 @@
                         if (entry.isIntersecting) {
                             const activeId = entry.target.id;
                             railItems.forEach((item) => item.classList.remove('is-active'));
+                            clusters.forEach((cluster) => cluster.classList.remove('is-active'));
                             document.querySelector(`.railnav li[data-target="${activeId}"]`)?.classList.add('is-active');
+                            entry.target.classList.add('is-active');
                         }
                     });
                 }, { root: null, rootMargin: '-45% 0px -45% 0px', threshold: 0 });
