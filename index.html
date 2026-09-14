@@ -80,18 +80,19 @@
     /* --- Offerings: sticky rail with scroll-spy dot nav + reveal-on-scroll
          cards. Each cluster snaps into full view as you scroll to it
          (scroll-snap-align, proximity so it stays gentle rather than
-         trapping the scroll), and whichever cluster ISN'T the current one
-         gets a slight blur/dim so attention stays on what's in focus —
-         the same scroll-spy that lights up the rail dot also toggles this. --- */
-    .cluster {
-        scroll-snap-align: start;
-        transition: filter .7s cubic-bezier(0.22, 1, 0.36, 1), opacity .7s cubic-bezier(0.22, 1, 0.36, 1);
+         trapping the scroll). The blur/dim focus effect only applies to
+         the 2nd and 3rd clusters (.blur-cycle) — the first one (Corporate
+         Cover) is what greets you on arrival, so it stays sharp at rest
+         and is never blurred, no transition needed on it either. --- */
+    .cluster { scroll-snap-align: start; }
+    .cluster.blur-cycle {
+        transition: filter .9s cubic-bezier(0.16, 1, 0.3, 1), opacity .9s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .cluster:not(.is-active) { filter: blur(3px); opacity: .5; }
+    .cluster.blur-cycle:not(.is-active) { filter: blur(3px); opacity: .5; }
     @media (prefers-reduced-motion: reduce) {
         html { scroll-snap-type: none; }
-        .cluster { transition: none; }
-        .cluster:not(.is-active) { filter: none; opacity: 1; }
+        .cluster.blur-cycle { transition: none; }
+        .cluster.blur-cycle:not(.is-active) { filter: none; opacity: 1; }
     }
 
     .railnav li::before {
@@ -579,7 +580,7 @@
                         </div>
                     </div>
 
-                    <div id="cluster-benefits" class="cluster scroll-mt-[180px]" style="--accent:#E61C24">
+                    <div id="cluster-benefits" class="cluster blur-cycle scroll-mt-[180px]" style="--accent:#E61C24">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="cluster-swatch w-2 h-2 rounded-full"></span>
                             <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Employee Benefits</span>
@@ -646,7 +647,7 @@
                         </div>
                     </div>
 
-                    <div id="cluster-wellness" class="cluster scroll-mt-[180px]" style="--accent:#B45309">
+                    <div id="cluster-wellness" class="cluster blur-cycle scroll-mt-[180px]" style="--accent:#B45309">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="cluster-swatch w-2 h-2 rounded-full"></span>
                             <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Wellness &amp; Retail</span>
