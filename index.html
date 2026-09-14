@@ -78,10 +78,10 @@
     }
 
     /* --- Offerings: sticky rail with scroll-spy dot nav + reveal-on-scroll
-         cards. No scroll-snap — clusters scroll freely. The blur/dim focus
-         effect only applies to the 2nd and 3rd clusters (.blur-cycle) — the
-         first one (Corporate Cover) is what greets you on arrival, so it
-         stays sharp at rest and is never blurred. --- */
+         cards. No scroll-snap — clusters scroll freely. Just the blur/dim
+         focus effect (.blur-cycle, applied uniformly to all 3 clusters):
+         whichever one isn't current gets a slight blur, with a slow,
+         soft transition so the handoff between sections feels smooth. --- */
     .cluster.blur-cycle {
         transition: filter .9s cubic-bezier(0.16, 1, 0.3, 1), opacity .9s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -510,7 +510,7 @@
                 <!-- Right: clusters stay fully visible; cards fade/rise in on scroll -->
                 <div class="w-full md:w-[65%] flex flex-col gap-20">
 
-                    <div id="cluster-corp" class="cluster is-active scroll-mt-[180px]" style="--accent:#0A1128">
+                    <div id="cluster-corp" class="cluster blur-cycle is-active scroll-mt-[180px]" style="--accent:#0A1128">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="cluster-swatch w-2 h-2 rounded-full"></span>
                             <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Corporate Cover</span>
