@@ -35,7 +35,9 @@
                         redHover: '#CC1820',
                         white: '#FFFFFF',
                         offWhite: '#FAFAFA',
+                        grayBg: '#F8FAFC',
                         grayLight: '#F1F5F9',
+                        softGray: '#F1F5F9',
                         textMuted: '#64748B'
                     }
                 },
@@ -44,8 +46,9 @@
                     serif: ['Palatino', 'Georgia', 'serif'],
                 },
                 boxShadow: {
-                    'soft': '0 4px 20px -2px rgba(10, 17, 40, 0.05)',
+                    'soft': '0 10px 40px -10px rgba(10, 17, 40, 0.06)',
                     'hover': '0 20px 40px -10px rgba(10, 17, 40, 0.1)',
+                    'floating': '0 20px 50px -20px rgba(10, 17, 40, 0.15)',
                 }
             }
         }
@@ -54,7 +57,7 @@
 
 <style>
     html { overflow-x: hidden; }
-    body { background-color: #FAFAFA; color: #0A1128; }
+    body { background-color: #FFFFFF; color: #0A1128; }
 
     .bg-soft-gradient {
         background: radial-gradient(circle at top right, rgba(230, 28, 36, 0.05), transparent 50%),
@@ -163,7 +166,7 @@
 </head>
 <body class="antialiased selection:bg-rexa-red selection:text-white">
 
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100 transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="/" class="flex-shrink-0 cursor-pointer">
@@ -503,34 +506,43 @@
         </div>
     </section>
 
-    <footer class="bg-rexa-navy pt-16 pb-8 border-t border-gray-800">
+    <footer class="bg-rexa-navy pt-20 pb-10 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div class="md:col-span-1">
-                    <div class="text-2xl font-sans font-extrabold tracking-tighter text-white mb-4">
+                    <div class="text-3xl font-sans font-extrabold tracking-tighter text-white mb-4">
                         RE<span class="text-rexa-red relative -mx-0.5">X</span>A
                     </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Your Risk. Our Responsibility.<br>A strategic risk partner for Indian businesses.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Your Risk. Our Responsibility.<br>A strategic risk partner for growing Indian businesses.</p>
                     <div class="text-xs font-bold text-slate-500 border border-slate-700 inline-block px-3 py-1.5 rounded">
-                        IRDA Broker No. 611
+                        IRDA Broker License No. 611
                     </div>
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold mb-4 font-serif text-sm">Hubs</h4>
+                    <h4 class="text-white font-bold mb-4 font-serif">Popular Covers</h4>
                     <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Corporate Risk</a></li>
-                        <li><a href="/employee-benefits" class="hover:text-rexa-red transition-colors text-rexa-red">Employee Benefits</a></li>
-                        <li><a href="/wellness-and-value" class="hover:text-rexa-red transition-colors">Wellness Programs</a></li>
-                        <li><a href="/retail-insurance" class="hover:text-rexa-red transition-colors">Retail Insurance</a></li>
+                        <li><a href="/employee-benefits" class="hover:text-rexa-red transition-colors">Group Health (GMC)</a></li>
+                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Directors &amp; Officers</a></li>
+                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Cyber Liability</a></li>
+                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Fire &amp; Assets</a></li>
                     </ul>
                 </div>
 
                 <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="text-white font-bold mb-4 font-serif text-sm">Chennai (HQ)</h4>
+                        <h4 class="text-white font-bold mb-4 font-serif">Chennai (HQ)</h4>
                         <p class="text-sm text-slate-400 mb-1">G4, Swathi Court, T Nagar</p>
                         <p class="text-sm text-slate-400">Chennai – 600017</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4 font-serif">Bengaluru</h4>
+                        <p class="text-sm text-slate-400 mb-1">409, ITI Layout, Nayanda Halli</p>
+                        <p class="text-sm text-slate-400">Bengaluru – 560039</p>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">Email Us</h4>
+                        <a href="mailto:info@rexabroking.com" class="text-sm text-white hover:text-rexa-red">info@rexabroking.com</a>
                     </div>
                     <div>
                         <h4 class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">24x7 Claims Helpline</h4>
@@ -539,7 +551,7 @@
                 </div>
             </div>
 
-            <div class="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-slate-500 text-xs">© <span id="copyYear">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</p>
                 <div class="flex space-x-6 text-xs text-slate-400">
                     <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
@@ -558,10 +570,10 @@
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
                 navbar.classList.add('shadow-sm');
-                navbar.classList.replace('bg-white/80', 'bg-white/95');
+                navbar.classList.replace('bg-white/90', 'bg-white');
             } else {
                 navbar.classList.remove('shadow-sm');
-                navbar.classList.replace('bg-white/95', 'bg-white/80');
+                navbar.classList.replace('bg-white', 'bg-white/90');
             }
         });
 
