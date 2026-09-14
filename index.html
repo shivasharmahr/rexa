@@ -77,34 +77,48 @@
         .marquee-content { animation: none; overflow-x: auto; }
     }
 
-    /* --- Offerings: sticky scroll-spy nav + blur-focus content sections --- */
-    .content-section {
-        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                    filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        transform-origin: center center;
-        will-change: transform, opacity, filter;
+    /* --- Offerings: sticky rail with scroll-spy dot nav + reveal-on-scroll
+         cards. Unlike the previous version, content is never blurred/scaled
+         out — clusters stay fully visible and interactive at all times;
+         only the rail's active dot changes as you scroll past each one. --- */
+    .railnav li::before {
+        content: ""; position: absolute; left: 5px; top: 16px; bottom: -10px;
+        width: 2px; background: #E5E7EB;
     }
-    .content-section:not(.is-active) {
-        opacity: 0.3; filter: blur(4px); transform: scale(0.96);
-        pointer-events: none;
+    .railnav li:last-child::before { display: none; }
+    .railnav .dot {
+        position: absolute; left: 0; top: 3px; width: 12px; height: 12px;
+        border-radius: 50%; background: #fff; border: 2px solid #E5E7EB;
+        transition: border-color .35s ease, background .35s ease, transform .35s ease;
     }
-    @media (max-width: 767px) {
-        .content-section:not(.is-active) { opacity: 0.5; filter: blur(2px); transform: scale(0.98); }
+    .railnav li.is-active .dot { border-color: var(--accent); background: var(--accent); transform: scale(1.05); }
+    .railnav .nav-title { color: #94A3B8; transition: color .35s ease; }
+    .railnav li.is-active .nav-title { color: #0A1128; }
+    .railnav .nav-desc { color: #CBD5E1; transition: color .35s ease; }
+    .railnav li.is-active .nav-desc { color: #64748B; }
+
+    .cluster-swatch { background: var(--accent); }
+    .cluster-eyebrow { color: var(--accent); }
+    .offering-card {
+        border-top: 3px solid var(--accent);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    }
+    .offering-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(10, 17, 40, 0.1); }
+    .offering-icon { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+    .tag-chip {
+        background: color-mix(in srgb, var(--accent) 9%, transparent);
+        color: var(--accent);
     }
 
-    .desktop-nav-item.is-active .nav-indicator { border-color: #E61C24; }
-    .desktop-nav-item.is-active .nav-dot { background-color: #E61C24; }
-    .desktop-nav-item.is-active .nav-title { color: #0A1128; opacity: 1; }
-    .desktop-nav-item.is-active .nav-desc { color: #64748B; opacity: 1; }
-    .desktop-nav-item:not(.is-active) .nav-indicator { border-color: #E2E8F0; }
-    .desktop-nav-item:not(.is-active) .nav-dot { background-color: transparent; }
-    .desktop-nav-item:not(.is-active) .nav-title { color: #94A3B8; opacity: 0.7; }
-    .desktop-nav-item:not(.is-active) .nav-desc { color: #CBD5E1; opacity: 0.6; }
-
-    /* --- Bento Box Hover --- */
-    .bento-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; }
-    .bento-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(10, 17, 40, 0.1); }
+    .card-reveal {
+        opacity: 0; transform: translateY(22px);
+        transition: opacity .55s ease, transform .55s ease;
+        transition-delay: var(--delay, 0s);
+    }
+    .card-reveal.in-view { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+        .card-reveal { transition: none; transform: none; opacity: 1; }
+    }
 
     .text-rexa-red { color: #E61C24; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -425,97 +439,96 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row gap-12 items-start relative">
 
-                <!-- Sticky left scroll-spy nav -->
+                <!-- Sticky left rail: heading, proof stats, scroll-spy dot nav -->
                 <div class="w-full md:w-[35%] md:sticky md:top-[140px] z-10">
                     <h2 class="text-4xl md:text-5xl font-serif font-bold text-rexa-navy mb-4 leading-[1.1] max-w-[280px]">Everything your business needs.</h2>
-                    <p class="text-rexa-textMuted mb-12 max-w-xs">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
+                    <p class="text-rexa-textMuted mb-8 max-w-xs">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
 
-                    <div class="hidden md:block relative pl-1">
-                        <div class="absolute left-[13px] top-4 bottom-8 w-[1px] bg-gray-200 -z-10"></div>
-
-                        <div class="space-y-10">
-                            <a href="#section-corp" class="desktop-nav-item is-active flex items-start gap-6 group transition-all duration-300" data-target="section-corp">
-                                <div class="nav-indicator mt-1 w-[26px] h-[26px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
-                                    <div class="nav-dot w-2 h-2 rounded-full transition-all duration-300"></div>
-                                </div>
-                                <div>
-                                    <h4 class="nav-title text-xl font-bold transition-all duration-300">Corporate Cover</h4>
-                                    <p class="nav-desc text-xs mt-1 font-medium transition-all duration-300">Liability, Property &amp; Engineering</p>
-                                </div>
-                            </a>
-
-                            <a href="#section-benefits" class="desktop-nav-item flex items-start gap-6 group transition-all duration-300" data-target="section-benefits">
-                                <div class="nav-indicator mt-1 w-[26px] h-[26px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
-                                    <div class="nav-dot w-2 h-2 rounded-full transition-all duration-300"></div>
-                                </div>
-                                <div>
-                                    <h4 class="nav-title text-xl font-bold transition-all duration-300">Employee Benefits</h4>
-                                    <p class="nav-desc text-xs mt-1 font-medium transition-all duration-300">Health, Accident &amp; Term Life</p>
-                                </div>
-                            </a>
-
-                            <a href="#section-wellness" class="desktop-nav-item flex items-start gap-6 group transition-all duration-300" data-target="section-wellness">
-                                <div class="nav-indicator mt-1 w-[26px] h-[26px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
-                                    <div class="nav-dot w-2 h-2 rounded-full transition-all duration-300"></div>
-                                </div>
-                                <div>
-                                    <h4 class="nav-title text-xl font-bold transition-all duration-300">Wellness &amp; Retail</h4>
-                                    <p class="nav-desc text-xs mt-1 font-medium transition-all duration-300">Proactive Health &amp; Personal Cover</p>
-                                </div>
-                            </a>
+                    <div class="grid grid-cols-3 gap-4 mb-10 max-w-xs pb-8 border-b border-gray-100">
+                        <div>
+                            <div class="text-2xl font-bold text-rexa-navy font-sans">8</div>
+                            <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Coverage Lines</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-rexa-navy font-sans">3</div>
+                            <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Pillars</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-rexa-navy font-sans">50+</div>
+                            <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Insurers</div>
                         </div>
                     </div>
+
+                    <ul class="railnav hidden md:block relative pl-6 space-y-9">
+                        <li class="is-active relative cursor-pointer" data-target="cluster-corp" style="--accent:#0A1128">
+                            <span class="dot"></span>
+                            <h4 class="nav-title text-lg font-bold leading-snug">Corporate Cover</h4>
+                            <p class="nav-desc text-xs mt-1 font-medium">Liability, Property &amp; Engineering</p>
+                        </li>
+                        <li class="relative cursor-pointer" data-target="cluster-benefits" style="--accent:#E61C24">
+                            <span class="dot"></span>
+                            <h4 class="nav-title text-lg font-bold leading-snug">Employee Benefits</h4>
+                            <p class="nav-desc text-xs mt-1 font-medium">Health, Accident &amp; Term Life</p>
+                        </li>
+                        <li class="relative cursor-pointer" data-target="cluster-wellness" style="--accent:#B45309">
+                            <span class="dot"></span>
+                            <h4 class="nav-title text-lg font-bold leading-snug">Wellness &amp; Retail</h4>
+                            <p class="nav-desc text-xs mt-1 font-medium">Proactive Health &amp; Personal Cover</p>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Right: stacked content sections, blurred when not the active one -->
-                <div class="w-full md:w-[65%] flex flex-col gap-16">
+                <!-- Right: clusters stay fully visible; cards fade/rise in on scroll -->
+                <div class="w-full md:w-[65%] flex flex-col gap-20">
 
-                    <div id="section-corp" class="content-section is-active scroll-mt-[180px]">
+                    <div id="cluster-corp" class="cluster scroll-mt-[180px]" style="--accent:#0A1128">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="cluster-swatch w-2 h-2 rounded-full"></span>
+                            <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Corporate Cover</span>
+                        </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                            <a href="/corporate-risk" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2">
-                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                            <a href="/corporate-risk" class="offering-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2">
+                                <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6">
                                     <i class="fas fa-server"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Cyber &amp; Liability</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed max-w-2xl">Protect your board, digital infrastructure, and balance sheet from ransomware and regulatory threats.</p>
-                                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-y-4 mb-8">
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Directors &amp; Officers (D&amp;O)</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Cyber Liability</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Prof. Indemnity</li>
-                                </ul>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Directors &amp; Officers (D&amp;O)</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Cyber Liability</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Prof. Indemnity</span>
+                                </div>
                                 <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Liability <i class="fas fa-arrow-right ml-2 text-xs"></i>
                                 </span>
                             </a>
 
-                            <a href="/corporate-risk" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                            <a href="/corporate-risk" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s">
+                                <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6">
                                     <i class="fas fa-industry"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Property &amp; Assets</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Ironclad safeguards for your physical infrastructure, machinery, and global supply chains against unforeseen perils.</p>
-                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Fire &amp; Special Perils</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Marine &amp; Transit</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Business Interruption</li>
-                                </ul>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Fire &amp; Special Perils</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Marine &amp; Transit</span>
+                                </div>
                                 <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Property <i class="fas fa-arrow-right ml-2 text-xs"></i>
                                 </span>
                             </a>
 
-                            <a href="/corporate-risk" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                            <a href="/corporate-risk" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s">
+                                <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6">
                                     <i class="fas fa-hard-hat"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Engineering Risk</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Comprehensive coverage for complex construction, erection, and machinery breakdown scenarios.</p>
-                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Contractor's All Risk</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Erection All Risk</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Machinery Breakdown</li>
-                                </ul>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Contractor's All Risk</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Machinery Breakdown</span>
+                                </div>
                                 <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Engineering <i class="fas fa-arrow-right ml-2 text-xs"></i>
                                 </span>
@@ -523,52 +536,56 @@
                         </div>
                     </div>
 
-                    <div id="section-benefits" class="content-section scroll-mt-[180px]">
+                    <div id="cluster-benefits" class="cluster scroll-mt-[180px]" style="--accent:#E61C24">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="cluster-swatch w-2 h-2 rounded-full"></span>
+                            <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Employee Benefits</span>
+                        </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                            <a href="/employee-benefits" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2">
+                            <a href="/employee-benefits" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2" style="--delay:0s">
                                 <div class="flex flex-wrap items-center gap-3 mb-6">
-                                    <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                                    <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl">
                                         <i class="fas fa-heart"></i>
                                     </div>
                                     <span class="inline-block px-2.5 py-1 rounded bg-red-50 text-[10px] font-bold text-rexa-red uppercase tracking-widest border border-red-100">Most Chosen</span>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Group Health (GMC)</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed max-w-2xl">Attract and retain top talent with flexible, cost-optimized health programs designed for the modern workforce.</p>
-                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 mb-8">
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Day-1 Pre-existing Cover</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Maternity &amp; Dependents</li>
-                                </ul>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Day-1 Pre-existing Cover</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Maternity &amp; Dependents</span>
+                                </div>
                                 <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Design a Health Plan <i class="fas fa-arrow-right ml-2 text-xs"></i>
                                 </span>
                             </a>
 
-                            <a href="/employee-benefits" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                            <a href="/employee-benefits" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s">
+                                <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6">
                                     <i class="fas fa-user-shield"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Personal Accident (GPA)</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Worldwide, 24x7 protection for your employees against accidental death or disability.</p>
-                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Global Coverage</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Income Replacement</li>
-                                </ul>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Global Coverage</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Income Replacement</span>
+                                </div>
                                 <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore GPA <i class="fas fa-arrow-right ml-2 text-xs"></i>
                                 </span>
                             </a>
 
-                            <a href="/employee-benefits" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                            <a href="/employee-benefits" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s">
+                                <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6">
                                     <i class="fas fa-star"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Term Life &amp; Top-Ups</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Provide absolute financial security to your employees' families with corporate term life policies.</p>
-                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Group Term Life (GTL)</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Corporate Super Top-Ups</li>
-                                </ul>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Group Term Life (GTL)</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Corporate Super Top-Ups</span>
+                                </div>
                                 <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Explore Term Life <i class="fas fa-arrow-right ml-2 text-xs"></i>
                                 </span>
@@ -576,11 +593,15 @@
                         </div>
                     </div>
 
-                    <div id="section-wellness" class="content-section scroll-mt-[180px]">
+                    <div id="cluster-wellness" class="cluster scroll-mt-[180px]" style="--accent:#B45309">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="cluster-swatch w-2 h-2 rounded-full"></span>
+                            <span class="cluster-eyebrow text-xs font-bold uppercase tracking-widest">Wellness &amp; Retail</span>
+                        </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                            <a href="/wellness-and-value" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                            <a href="/wellness-and-value" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:0s">
+                                <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6">
                                     <i class="fas fa-stethoscope"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Wellness &amp; Value Additions</h3>
@@ -596,17 +617,17 @@
                                 </span>
                             </a>
 
-                            <a href="/retail-insurance" class="bento-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group">
-                                <div class="w-12 h-12 bg-red-50 text-rexa-red rounded-xl flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-red group-hover:text-white transition-colors">
+                            <a href="/retail-insurance" class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s">
+                                <div class="offering-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6">
                                     <i class="fas fa-home"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Individuals &amp; Families</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">Comprehensive protection for your personal life, assets, and loved ones outside the corporate sphere.</p>
-                                <ul class="grid grid-cols-1 gap-y-4 mb-8">
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Retail Health Insurance</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Motor &amp; Travel Insurance</li>
-                                    <li class="flex items-center text-xs font-bold text-rexa-navy"><i class="fas fa-check-circle text-rexa-red mr-2"></i> Home Insurance</li>
-                                </ul>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Retail Health</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Motor &amp; Travel</span>
+                                    <span class="tag-chip px-3 py-1.5 rounded-full text-xs font-bold">Home Insurance</span>
+                                </div>
                                 <span class="text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Enter Retail Portal <i class="fas fa-arrow-right ml-2 text-xs"></i>
                                 </span>
@@ -873,29 +894,53 @@
             mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
         }));
 
-        // --- Offerings: sticky scroll-spy nav ---
-        // As each stacked content section (#section-corp/benefits/wellness)
-        // crosses the trigger band, it gets full focus (.is-active removes
-        // the blur/scale/opacity applied to inactive ones) and the matching
-        // left-nav item lights up to match.
+        // --- Offerings: rail nav + reveal-on-scroll ---
+        // Unlike the old version, clusters are never blurred or hidden — all
+        // three stay fully visible and clickable at all times. The rail's
+        // dot nav just tracks which cluster is currently in view, and clicking
+        // a rail item jumps to that cluster. Cards themselves fade/rise in
+        // once as they enter the viewport (skipped entirely if the visitor
+        // prefers reduced motion).
         document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.content-section');
-            const navItems = document.querySelectorAll('.desktop-nav-item');
-            if (!sections.length) return;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const activeId = entry.target.id;
-                        sections.forEach((sec) => sec.classList.remove('is-active'));
-                        navItems.forEach((nav) => nav.classList.remove('is-active'));
-                        entry.target.classList.add('is-active');
-                        document.querySelector(`.desktop-nav-item[data-target="${activeId}"]`)?.classList.add('is-active');
-                    }
+            const clusters = document.querySelectorAll('.cluster');
+            const railItems = document.querySelectorAll('.railnav li');
+            if (clusters.length) {
+                railItems.forEach((item) => {
+                    item.addEventListener('click', () => {
+                        const target = document.getElementById(item.dataset.target);
+                        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
                 });
-            }, { root: null, rootMargin: '-25% 0px -40% 0px', threshold: 0 });
 
-            sections.forEach((sec) => observer.observe(sec));
+                const spy = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const activeId = entry.target.id;
+                            railItems.forEach((item) => item.classList.remove('is-active'));
+                            document.querySelector(`.railnav li[data-target="${activeId}"]`)?.classList.add('is-active');
+                        }
+                    });
+                }, { root: null, rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+                clusters.forEach((cluster) => spy.observe(cluster));
+            }
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const revealCards = document.querySelectorAll('.card-reveal');
+            if (revealCards.length && !reduceMotion) {
+                const reveal = new IntersectionObserver((entries, obs) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+                revealCards.forEach((card) => reveal.observe(card));
+            } else {
+                revealCards.forEach((card) => card.classList.add('in-view'));
+            }
         });
     </script>
 </body>
