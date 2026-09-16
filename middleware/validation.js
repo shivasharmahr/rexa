@@ -32,7 +32,7 @@ const validateContactForm = (req, res, next) => {
   }
 
   // Interest validation
-  const validInterests = ['general-insurance', 'life-insurance', 'employee-benefits', 'renewal', 'claim'];
+  const validInterests = ['general-insurance', 'life-insurance', 'employee-benefits', 'gap-analysis', 'renewal', 'claim'];
   if (!interest || !validInterests.includes(interest)) {
     errors.push('Please select a valid interest');
   }

@@ -19,6 +19,13 @@
 <!-- Tailwind CSS (this page only — other pages remain on styles.css) -->
 <script src="https://cdn.tailwindcss.com"></script>
 
+<!-- reCAPTCHA v3 for the on-page lead modal (same site key as /contact) -->
+<script src="https://www.google.com/recaptcha/api.js" onload="onRecaptchaLoad()" async defer></script>
+<script>
+    function onRecaptchaLoad() { window.recaptchaReady = true; }
+    setTimeout(() => { if (window.grecaptcha && !window.recaptchaReady) window.recaptchaReady = true; }, 2000);
+</script>
+
 <!-- FontAwesome for standard icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -172,6 +179,24 @@
     /* --- Mobile nav panel --- */
     #mobileMenu { display: none; }
     #mobileMenu.open { display: block; }
+
+    /* --- Lead modal (Request Gap Analysis / Design My Plan) --- */
+    #leadModal {
+        position: fixed; inset: 0; z-index: 100; display: none;
+        align-items: center; justify-content: center; padding: 1.25rem;
+        background: rgba(10, 17, 40, 0.6); backdrop-filter: blur(4px);
+    }
+    #leadModal.open { display: flex; }
+    .lead-field label { display: block; font-size: .75rem; font-weight: 700; color: #64748B; margin-bottom: .375rem; }
+    .lead-field input, .lead-field select, .lead-field textarea {
+        width: 100%; border: 1px solid #E5E7EB; border-radius: .75rem;
+        padding: .625rem .875rem; font-size: .875rem; color: #0A1128;
+        font-family: inherit; transition: border-color .2s ease;
+    }
+    .lead-field input:focus, .lead-field select:focus, .lead-field textarea:focus {
+        outline: none; border-color: #E61C24;
+    }
+    .lead-field textarea { resize: vertical; }
 </style>
 
 <script type="application/ld+json">
@@ -836,9 +861,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-rexa-navy mb-2">Finance &amp; Procurement</h3>
                     <p class="text-rexa-textMuted text-sm mb-8 h-10">Share your existing corporate policies for a free, confidential gap analysis and premium benchmark.</p>
-                    <a href="/contact?interest=gap-analysis" class="inline-flex items-center gap-2 text-rexa-red font-bold group-hover:text-rexa-redHover">
+                    <button type="button" class="open-lead-modal inline-flex items-center gap-2 text-rexa-red font-bold group-hover:text-rexa-redHover" data-interest="gap-analysis" data-title="Request a Gap Analysis">
                         Request Gap Analysis <i class="fas fa-arrow-right text-xs"></i>
-                    </a>
+                    </button>
                 </div>
 
                 <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-soft hover:shadow-xl transition-shadow group">
@@ -847,9 +872,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-rexa-navy mb-2">HR &amp; People Leaders</h3>
                     <p class="text-rexa-textMuted text-sm mb-8 h-10">Design a flexible health and wellness program that attracts talent and eliminates admin work.</p>
-                    <a href="/contact?interest=employee-benefits" class="inline-flex items-center gap-2 text-rexa-red font-bold group-hover:text-rexa-redHover">
+                    <button type="button" class="open-lead-modal inline-flex items-center gap-2 text-rexa-red font-bold group-hover:text-rexa-redHover" data-interest="employee-benefits" data-title="Design My Benefits Plan">
                         Design My Plan <i class="fas fa-arrow-right text-xs"></i>
-                    </a>
+                    </button>
                 </div>
 
             </div>
@@ -912,6 +937,73 @@
         </div>
     </footer>
 
+    <!-- LEAD MODAL: opened by the "Request Gap Analysis" / "Design My Plan"
+         cards so a visitor can send a request without leaving the homepage.
+         Posts to the exact same /api/contact endpoint + validation as the
+         standalone /contact page — this isn't a separate form/backend, just
+         a faster on-page path with the interest pre-selected. -->
+    <div id="leadModal">
+        <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-8 md:p-10 relative shadow-floating">
+            <button type="button" class="lead-modal-close absolute top-5 right-5 w-9 h-9 rounded-full bg-rexa-grayBg text-rexa-navy flex items-center justify-center hover:bg-rexa-red hover:text-white transition-colors" aria-label="Close">
+                <i class="fas fa-xmark"></i>
+            </button>
+
+            <h3 id="leadModalTitle" class="text-2xl font-serif font-bold text-rexa-navy mb-2">Talk to an Advisor</h3>
+            <p class="text-sm text-rexa-textMuted mb-8">A Rexa advisor will get back to you within one business day.</p>
+
+            <form id="leadForm" novalidate>
+                <div class="mb-7">
+                    <p class="text-xs font-bold text-rexa-red uppercase tracking-widest mb-4">1. Your details</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="lead-field sm:col-span-2">
+                            <label for="leadName">Full name</label>
+                            <input id="leadName" name="name" type="text" required minlength="2" placeholder="Your name">
+                        </div>
+                        <div class="lead-field">
+                            <label for="leadCompany">Company</label>
+                            <input id="leadCompany" name="company" type="text" placeholder="Company name">
+                        </div>
+                        <div class="lead-field">
+                            <label for="leadPhone">Phone</label>
+                            <input id="leadPhone" name="phone" type="tel" placeholder="+91">
+                        </div>
+                        <div class="lead-field sm:col-span-2">
+                            <label for="leadEmail">Work email</label>
+                            <input id="leadEmail" name="email" type="email" required placeholder="you@company.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-7">
+                    <p class="text-xs font-bold text-rexa-red uppercase tracking-widest mb-4">2. What are you looking for?</p>
+                    <div class="space-y-4">
+                        <div class="lead-field">
+                            <label for="leadInterest">Interest</label>
+                            <select id="leadInterest" name="interest" required>
+                                <option value="general-insurance">General insurance</option>
+                                <option value="life-insurance">Life insurance</option>
+                                <option value="employee-benefits">Employee benefits</option>
+                                <option value="gap-analysis">Corporate policy gap analysis</option>
+                                <option value="renewal">Renewing an existing policy</option>
+                                <option value="claim">Help with a claim</option>
+                            </select>
+                        </div>
+                        <div class="lead-field">
+                            <label for="leadMessage">Anything we should know?</label>
+                            <textarea id="leadMessage" name="message" rows="4" required minlength="10" placeholder="Team size, assets, current cover…"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="leadRecaptchaToken" name="recaptchaToken">
+                <button type="submit" id="leadSubmitBtn" class="w-full bg-rexa-red text-white rounded-full font-bold py-3.5 hover:bg-rexa-redHover transition-all flex items-center justify-center gap-2">
+                    Send Request <i class="fas fa-arrow-right text-sm"></i>
+                </button>
+                <p class="text-sm text-center mt-4" id="leadFormMessage" style="display:none;"></p>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.getElementById('copyYear').textContent = new Date().getFullYear();
 
@@ -956,6 +1048,107 @@
             mobileMenu.classList.remove('open');
             mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
         }));
+
+        // --- Lead modal: "Request Gap Analysis" / "Design My Plan" ---
+        // Same /api/contact endpoint + validation rules as the standalone
+        // /contact page (see contact.html) — this is just a faster on-page
+        // path, not a separate form/backend.
+        (function leadModal() {
+            const modal = document.getElementById('leadModal');
+            const form = document.getElementById('leadForm');
+            const titleEl = document.getElementById('leadModalTitle');
+            const interestEl = document.getElementById('leadInterest');
+            const messageEl = document.getElementById('leadMessage');
+            const submitBtn = document.getElementById('leadSubmitBtn');
+            const formMessage = document.getElementById('leadFormMessage');
+            if (!modal || !form) return;
+
+            // Pre-seeds what a broker actually needs to start, per interest —
+            // for gap-analysis specifically: there's no file upload here, so
+            // the hint tells people to email the policy copy separately
+            // rather than expecting an attach button that doesn't exist.
+            const messageHints = {
+                'gap-analysis': 'Current insurer: \nSum insured: \nRenewal date: \n\n(You can email your existing policy schedule to info@rexabroking.com once we\'re in touch — no need to attach it here.)',
+                'employee-benefits': 'Team size: \nCurrent provider (if any): \nWhat isn\'t working today: '
+            };
+
+            let lastFocused = null;
+
+            const openModal = (interest, title) => {
+                lastFocused = document.activeElement;
+                titleEl.textContent = title || 'Talk to an Advisor';
+                if (interest) interestEl.value = interest;
+                if (interest && messageHints[interest] && !messageEl.value) {
+                    messageEl.value = messageHints[interest];
+                }
+                formMessage.style.display = 'none';
+                modal.classList.add('open');
+                document.getElementById('leadName')?.focus();
+            };
+
+            const closeModal = () => {
+                modal.classList.remove('open');
+                lastFocused?.focus();
+            };
+
+            document.querySelectorAll('.open-lead-modal').forEach((btn) => {
+                btn.addEventListener('click', () => openModal(btn.dataset.interest, btn.dataset.title));
+            });
+            modal.querySelector('.lead-modal-close')?.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+                formMessage.style.display = 'none';
+
+                try {
+                    const isLocalhost = ['localhost', '127.0.0.1', '0.0.0.0'].includes(window.location.hostname)
+                        || window.location.hostname.startsWith('192.168');
+                    let token = 'test_token_localhost';
+
+                    if (!isLocalhost) {
+                        if (!window.grecaptcha) {
+                            for (let i = 0; i < 30 && !window.grecaptcha; i++) await new Promise((r) => setTimeout(r, 100));
+                        }
+                        if (!window.grecaptcha) throw new Error('reCAPTCHA is not loaded. Please refresh the page.');
+                        const siteKey = window.__RECAPTCHA_SITE_KEY__ || '6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7';
+                        token = await grecaptcha.execute(siteKey, { action: 'submit' });
+                        if (!token) throw new Error('reCAPTCHA verification failed. Please refresh and try again.');
+                    }
+                    document.getElementById('leadRecaptchaToken').value = token;
+
+                    const data = Object.fromEntries(new FormData(form));
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(data.email)) throw new Error('Please check your email address and try again.');
+
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    const result = await response.json();
+                    if (!response.ok) throw new Error(result.message || 'Failed to send your request. Please try again.');
+
+                    formMessage.textContent = '✓ Request sent — a Rexa advisor will get back to you within one business day.';
+                    formMessage.style.color = '#16A34A';
+                    formMessage.style.display = 'block';
+                    form.reset();
+                    setTimeout(closeModal, 1800);
+                } catch (err) {
+                    formMessage.innerHTML = `✗ ${err.message || 'Something went wrong.'} Or reach us directly at <a href="tel:+919945509306" class="underline">+91 9945 509306</a>.`;
+                    formMessage.style.color = '#E61C24';
+                    formMessage.style.display = 'block';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Send Request <i class="fas fa-arrow-right text-sm"></i>';
+                }
+            });
+        })();
 
         // --- Offerings: rail nav + reveal-on-scroll ---
         // Unlike the old version, clusters are never blurred or hidden — all
