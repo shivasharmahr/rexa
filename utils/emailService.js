@@ -25,7 +25,7 @@ const sendAdminEmail = async (contactData) => {
     <p><strong>Company:</strong> ${contactData.company || 'Not provided'}</p>
     <p><strong>Interest:</strong> ${contactData.interest}</p>
     <p><strong>Message:</strong></p>
-    <p>${contactData.message.replace(/\n/g, '<br>')}</p>
+    <p>${contactData.message ? contactData.message.replace(/\n/g, '<br>') : 'Not provided'}</p>
   `;
 
   const mailOptions = {

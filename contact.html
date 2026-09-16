@@ -1,52 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact — Rexa Insurance Broking</title>
-<meta name="description" content="Talk to a Rexa advisor about general insurance, life insurance and employee benefits. T Nagar, Chennai · 044 4867 8884.">
-<meta property="og:title" content="Contact — Rexa Insurance Broking">
-<meta property="og:description" content="Get in touch with Rexa for a free insurance review and quote">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Rexa Insurance Broking</title>
+<meta name="description" content="Get in touch with Rexa Insurance Broking. Request a gap analysis, talk to an advisor, or reach our 24x7 claims support team.">
+<meta property="og:title" content="Contact Us — Rexa Insurance Broking">
+<meta property="og:description" content="Get in touch with Rexa for a free insurance review and quote.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.rexabroking.com/contact">
 <link rel="canonical" href="https://www.rexabroking.com/contact">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,560;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- reCAPTCHA v3 -->
 <script src="https://www.google.com/recaptcha/api.js" onload="onRecaptchaLoad()" async defer></script>
 <script>
-  function onRecaptchaLoad() {
-    console.log('reCAPTCHA loaded successfully');
-    window.recaptchaReady = true;
-  }
-  // Timeout fallback
-  setTimeout(() => {
-    if (window.grecaptcha && !window.recaptchaReady) {
-      window.recaptchaReady = true;
-      console.log('reCAPTCHA available via timeout');
-    }
-  }, 2000);
+    function onRecaptchaLoad() { window.recaptchaReady = true; }
+    setTimeout(() => { if (window.grecaptcha && !window.recaptchaReady) window.recaptchaReady = true; }, 2000);
 </script>
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    rexa: {
+                        navy: '#0A1128',
+                        red: '#E61C24',
+                        redHover: '#CC1820',
+                        white: '#FFFFFF',
+                        offWhite: '#FAFAFA',
+                        grayBg: '#F8FAFC',
+                        grayLight: '#F1F5F9',
+                        softGray: '#F1F5F9',
+                        textMuted: '#64748B'
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    serif: ['Palatino', 'Georgia', 'serif'],
+                },
+                boxShadow: {
+                    'soft': '0 10px 40px -10px rgba(10, 17, 40, 0.06)',
+                    'hover': '0 20px 40px -10px rgba(10, 17, 40, 0.1)',
+                    'floating': '0 20px 50px -20px rgba(10, 17, 40, 0.15)',
+                }
+            }
+        }
+    }
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.rexabroking.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Contact",
-      "item": "https://www.rexabroking.com/contact.html"
-    }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.rexabroking.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.rexabroking.com/contact" }
   ]
 }
 </script>
@@ -71,252 +93,401 @@
   "@type": "EmergencyService",
   "name": "Rexa Insurance Claims Helpline",
   "description": "24×7 toll-free insurance claims support line for policyholders",
-  "areaServed": {
-    "@type": "Country",
-    "name": "India"
-  },
+  "areaServed": { "@type": "Country", "name": "India" },
   "telephone": "+91-7009670090",
   "availableLanguage": ["en", "hi"],
-  "serviceOperator": {
-    "@type": "Organization",
-    "name": "Rexa Insurance Broking Services"
-  },
+  "serviceOperator": { "@type": "Organization", "name": "Rexa Insurance Broking Services" },
   "hoursAvailable": "24/7",
-  "offeredBy": {
-    "@type": "Organization",
-    "name": "Rexa Insurance Broking Services",
-    "url": "https://www.rexabroking.com"
-  }
+  "offeredBy": { "@type": "Organization", "name": "Rexa Insurance Broking Services", "url": "https://www.rexabroking.com" }
 }
 </script>
+
+<style>
+    html { overflow-x: hidden; scroll-behavior: smooth; }
+    body { background-color: #F8FAFC; color: #0A1128; }
+
+    .form-input {
+        width: 100%; background-color: #F8FAFC; border: 1px solid #E2E8F0;
+        border-radius: .75rem; padding: .875rem 1rem; font-size: .875rem;
+        color: #0A1128; font-family: inherit; transition: all .2s ease;
+    }
+    .form-input:focus {
+        outline: none; border-color: #E61C24;
+        box-shadow: 0 0 0 3px rgba(230, 28, 36, 0.1); background-color: #FFFFFF;
+    }
+    .form-label {
+        display: block; font-size: .75rem; font-weight: 700; color: #0A1128;
+        margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    #mobileMenu { display: none; }
+    #mobileMenu.open { display: block; }
+</style>
 </head>
-<body>
+<body class="antialiased selection:bg-rexa-red selection:text-white">
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="/"><img src="assets/rexa-logo-transparent.png" alt="Rexa Insurance Broking" class="brand-logo"></a>
-    <nav class="nav-links">
-      <a href="/corporate-risk">Corporate Risk</a>
-      <a href="/employee-benefits">Employee Benefits</a>
-      <a href="/#solutions-wellness">Wellness &amp; Value</a>
-      <a href="/#solutions-retail">Retail</a>
-      <a href="/about">About Us</a>
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="flex-shrink-0 cursor-pointer">
+                    <span class="text-3xl font-sans font-extrabold tracking-tighter text-rexa-navy">RE<span class="text-rexa-red relative -mx-0.5">X</span>A</span>
+                </a>
+
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/corporate-risk" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Corporate Risk</a>
+                    <a href="/employee-benefits" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Employee Benefits</a>
+                    <a href="/wellness-and-value" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Wellness &amp; Value</a>
+                    <a href="/retail-insurance" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">Retail</a>
+                    <a href="/about" class="text-sm font-medium text-rexa-textMuted hover:text-rexa-navy transition-colors">About Us</a>
+                </div>
+
+                <div class="hidden md:flex items-center">
+                    <a href="/contact" class="px-5 py-2.5 rounded-full border-2 border-rexa-navy bg-rexa-navy text-white text-sm font-medium transition-all">
+                        Talk to an Advisor
+                    </a>
+                </div>
+
+                <button id="mobileMenuBtn" class="md:hidden text-rexa-navy text-xl p-2" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="md:hidden bg-white border-t border-gray-100 px-4 pb-6 pt-2">
+            <div class="flex flex-col space-y-1">
+                <a href="/corporate-risk" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Corporate Risk</a>
+                <a href="/employee-benefits" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Employee Benefits</a>
+                <a href="/wellness-and-value" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Wellness &amp; Value</a>
+                <a href="/retail-insurance" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Retail</a>
+                <a href="/about" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">About Us</a>
+            </div>
+        </div>
     </nav>
-    <div class="nav-cta">
-      <a href="#form" class="btn btn-primary">Message us</a>
-    </div>
-    <button class="nav-toggle" aria-label="Menu">☰</button>
-  </div>
-</header>
 
-<section class="page-head">
-  <div class="wrap reveal">
-    <div class="crumbs"><a href="/">Home</a> / Contact</div>
-    <span class="eyebrow" style="margin-top:1rem">Get in touch</span>
-    <h1>Tell us what you're protecting</h1>
-    <p class="lead">Share a few details and a Rexa advisor will come back with a clear, comparable quote within one business day.</p>
-  </div>
-</section>
+    <main>
+        <section class="pt-32 pb-12 md:pt-48 md:pb-16 bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl md:text-6xl font-serif font-bold text-rexa-navy mb-6 leading-tight">
+                        Let's talk about your risk.
+                    </h1>
+                    <p class="text-lg md:text-xl text-rexa-textMuted leading-relaxed">
+                        Whether you need a confidential audit of your current corporate policies, want to design a new employee benefits program, or require immediate claims assistance — our advisors are ready.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-<section class="section" id="form">
-  <div class="wrap contact-grid">
-    <div class="reveal">
-      <form id="contactForm">
-        <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" required placeholder="Your name" minlength="2"></div>
-        <div class="field"><label for="company">Company</label><input id="company" name="company" type="text" placeholder="Company name"></div>
-        <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" required placeholder="you@company.com"></div>
-        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="+91"></div>
-        <div class="field"><label for="interest">What are you looking for?</label>
-          <select id="interest" name="interest" required>
-            <option value="">Select an option</option>
-            <option value="general-insurance">General insurance</option>
-            <option value="life-insurance">Life insurance</option>
-            <option value="employee-benefits">Employee benefits</option>
-            <option value="gap-analysis">Corporate policy gap analysis</option>
-            <option value="renewal">Renewing an existing policy</option>
-            <option value="claim">Help with a claim</option>
-          </select>
+        <section class="py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+
+                    <div class="lg:col-span-5 order-2 lg:order-1 space-y-8">
+
+                        <!-- Direct Channels -->
+                        <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-bold text-rexa-navy mb-6">Direct Channels</h3>
+
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-red-50 text-rexa-red flex items-center justify-center flex-none mt-1">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-rexa-textMuted uppercase tracking-wider mb-1">General Inquiries</p>
+                                        <a href="mailto:info@rexabroking.com" class="text-lg font-medium text-rexa-navy hover:text-rexa-red transition-colors">info@rexabroking.com</a>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-red-50 text-rexa-red flex items-center justify-center flex-none mt-1">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-rexa-textMuted uppercase tracking-wider mb-1">24x7 Claims Helpline</p>
+                                        <a href="tel:+917009670090" class="text-lg font-bold text-rexa-red hover:text-rexa-redHover transition-colors">7009 670 090</a>
+                                        <p class="text-xs text-rexa-textMuted mt-1">Available for emergency support only.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Offices -->
+                        <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-bold text-rexa-navy mb-6">Our Offices</h3>
+
+                            <div class="space-y-8">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="fas fa-map-marker-alt text-rexa-red"></i>
+                                        <h4 class="text-base font-bold text-rexa-navy">Chennai (HQ)</h4>
+                                    </div>
+                                    <p class="text-sm text-rexa-textMuted leading-relaxed pl-5">
+                                        G4, Swathi Court, 22/43<br>
+                                        Vijayaraghava Road, T Nagar<br>
+                                        Chennai – 600017, Tamil Nadu
+                                    </p>
+                                    <p class="text-sm font-medium text-rexa-navy pl-5 mt-2 space-x-3">
+                                        <a href="tel:+914448678884" class="hover:text-rexa-red">+91 44 4867 8884</a>
+                                        <a href="tel:+917540071535" class="hover:text-rexa-red">+91 7540 071535</a>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="fas fa-map-marker-alt text-rexa-red"></i>
+                                        <h4 class="text-base font-bold text-rexa-navy">Bengaluru</h4>
+                                    </div>
+                                    <p class="text-sm text-rexa-textMuted leading-relaxed pl-5">
+                                        409, ITI Layout, Nayanda Halli<br>
+                                        Bengaluru – 560039, Karnataka
+                                    </p>
+                                    <p class="text-sm font-medium text-rexa-navy pl-5 mt-2 space-x-3">
+                                        <a href="tel:+919986969637" class="hover:text-rexa-red">+91 9986 969637</a>
+                                        <a href="tel:+919945509306" class="hover:text-rexa-red">+91 9945 509306</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="lg:col-span-7 order-1 lg:order-2">
+                        <div class="bg-white rounded-3xl p-8 md:p-10 border border-gray-200 shadow-soft">
+                            <h2 class="text-2xl font-bold text-rexa-navy mb-2">Request an Advisory Call</h2>
+                            <p class="text-sm text-rexa-textMuted mb-8">Fill out the form below and an underwriting specialist will contact you within 24 hours.</p>
+
+                            <form id="contactForm" novalidate>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" id="firstName" class="form-input" placeholder="John" required minlength="1">
+                                    </div>
+                                    <div>
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" id="lastName" class="form-input" placeholder="Doe">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label for="email" class="form-label">Work Email</label>
+                                        <input type="email" id="email" class="form-input" placeholder="john@company.com" required>
+                                    </div>
+                                    <div>
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210">
+                                    </div>
+                                </div>
+
+                                <div class="mb-6">
+                                    <label for="company" class="form-label">Company Name</label>
+                                    <input type="text" id="company" class="form-input" placeholder="Your Organization Ltd.">
+                                </div>
+
+                                <div class="mb-6">
+                                    <label for="interest" class="form-label">Primary Interest</label>
+                                    <select id="interest" class="form-input appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_1rem_center] bg-[length:0.65em_auto]" required>
+                                        <option value="" disabled selected>Select an option...</option>
+                                        <option value="corporate-risk">Corporate Risk (Liability, Property, Cyber)</option>
+                                        <option value="employee-benefits">Employee Benefits (GMC, GPA, Term Life)</option>
+                                        <option value="wellness-value">Wellness &amp; Value Programs</option>
+                                        <option value="retail-insurance">Retail Insurance (Individuals &amp; Families)</option>
+                                        <option value="gap-analysis">Corporate policy gap analysis / audit</option>
+                                        <option value="renewal">Renewing an existing policy</option>
+                                        <option value="claim">Help with a claim</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-8">
+                                    <label for="message" class="form-label">Message (Optional)</label>
+                                    <textarea id="message" rows="4" class="form-input resize-none" placeholder="Tell us briefly about your current requirements or challenges..."></textarea>
+                                </div>
+
+                                <input type="hidden" id="recaptchaToken" name="recaptchaToken">
+                                <button type="submit" id="submitBtn" class="w-full bg-rexa-red text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-rexa-red/20 hover:bg-rexa-redHover hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+                                    Send Message
+                                </button>
+                                <p class="form-msg text-sm text-center mt-4" id="formMessage" style="display:none;"></p>
+                                <p class="text-[11px] text-gray-400 text-center mt-4">By submitting this form, you agree to our <a href="/privacy" class="underline hover:text-rexa-navy">privacy policy</a>. Your data is strictly confidential.</p>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-rexa-navy pt-20 pb-10 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <div class="text-3xl font-sans font-extrabold tracking-tighter text-white mb-4">
+                        RE<span class="text-rexa-red relative -mx-0.5">X</span>A
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Your Risk. Our Responsibility.<br>A strategic risk partner for growing Indian businesses.</p>
+                    <div class="text-xs font-bold text-slate-500 border border-slate-700 inline-block px-3 py-1.5 rounded">
+                        IRDA Broker License No. 611
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 font-serif">Popular Covers</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="/employee-benefits" class="hover:text-rexa-red transition-colors">Group Health (GMC)</a></li>
+                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Directors &amp; Officers</a></li>
+                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Cyber Liability</a></li>
+                        <li><a href="/corporate-risk" class="hover:text-rexa-red transition-colors">Fire &amp; Assets</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-white font-bold mb-4 font-serif">Chennai (HQ)</h4>
+                        <p class="text-sm text-slate-400 mb-1">G4, Swathi Court, T Nagar</p>
+                        <p class="text-sm text-slate-400">Chennai – 600017</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4 font-serif">Bengaluru</h4>
+                        <p class="text-sm text-slate-400 mb-1">409, ITI Layout, Nayanda Halli</p>
+                        <p class="text-sm text-slate-400">Bengaluru – 560039</p>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">Email Us</h4>
+                        <a href="mailto:info@rexabroking.com" class="text-sm text-white hover:text-rexa-red">info@rexabroking.com</a>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">24x7 Claims Helpline</h4>
+                        <a href="tel:+917009670090" class="text-lg text-rexa-red font-bold">7009 670 090</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-xs">© <span id="copyYear">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</p>
+                <div class="flex space-x-6 text-xs text-slate-400">
+                    <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/terms" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="/grievance" class="hover:text-white transition-colors">Grievance Redressal</a>
+                </div>
+            </div>
         </div>
-        <div class="field"><label for="msg">Anything we should know?</label><textarea id="msg" name="message" rows="4" placeholder="Team size, assets, current cover…" minlength="10"></textarea></div>
-        <input type="hidden" id="recaptchaToken" name="recaptchaToken">
-        <button type="submit" id="submitBtn" class="btn btn-primary">Send request <span class="arr">→</span></button>
-        <p class="form-msg" id="formMessage" style="display:none;margin-top:1rem;font-weight:600"></p>
-      </form>
-    </div>
-    <div class="reveal" style="display:flex;flex-direction:column;gap:2rem">
-      <div class="contact-sidebar">
-        <div class="cs-item">
-          <h4><span style="font-size:1.2rem">📍</span>Head Office (Chennai)</h4>
-          <p>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017</p>
-          <p><a href="tel:+914448678884">+91 44 4867 8884</a></p>
-          <p><a href="tel:+917540071535">+91 7540 071535</a></p>
-        </div>
-        <div class="cs-item">
-          <h4><span style="font-size:1.2rem">📍</span>Branch (Bangalore)</h4>
-          <p>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039</p>
-          <p><a href="tel:+919986969637">+91 9986 969637</a></p>
-          <p><a href="tel:+919945509306">+91 9945 509306</a></p>
-        </div>
-        <div class="cs-item">
-          <h4><span style="font-size:1.2rem">✉️</span>Email</h4>
-          <p><a href="mailto:info@rexabroking.com">info@rexabroking.com</a></p>
-        </div>
-        <div class="cs-item" style="background:var(--brand);padding:1.5rem;border-radius:var(--r);border-color:var(--red)">
-          <h4 style="color:var(--gold);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem"><span>📞</span>Claims Helpline (IVR)</h4>
-          <p style="font-size:1.2rem;font-weight:700;color:#fff;margin:0.6rem 0"><a href="tel:+917009670090" style="color:#fff;text-decoration:none">7009670090</a></p>
-          <p style="font-size:0.9rem;color:rgba(255,255,255,0.85);margin-top:0.5rem">24×7 toll-free</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </footer>
 
-<footer class="footer">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="/"><img src="assets/rexa-logo-white.png" alt="Rexa Insurance Broking" class="brand-logo foot-logo"></a>
-        <p>A platform that deals in multifarious insurance categories — General Insurance & Life Insurance — for Indian businesses and their people.</p>
-        <div class="lic">IRDA Broking License No: 611 · Direct Broker (Life & General)</div>
-      </div>
-      <div><h4>General</h4><a href="/general">Property</a><a href="/general">Liability</a><a href="/general">Marine</a><a href="/general">Motor</a></div>
-      <div><h4>Life & People</h4><a href="/life">Group Health</a><a href="/life">Group Term Life</a><a href="/life">Personal Accident</a><a href="/life">Employee Benefits</a></div>
-      <div><h4>Company</h4><a href="/about">About</a><a href="/contact">Contact</a></div>
-    </div>
+    <script>
+        document.getElementById('copyYear').textContent = new Date().getFullYear();
 
+        // --- Navbar scroll effect ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm');
+                navbar.classList.replace('bg-white/90', 'bg-white');
+            } else {
+                navbar.classList.remove('shadow-sm');
+                navbar.classList.replace('bg-white', 'bg-white/90');
+            }
+        });
 
-    <div class="foot-bottom">
-      <span>© <span class="copy-year">2026</span> Rexa Insurance Broking Services. All rights reserved.</span>
-      <span>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai 600017 · 044 4867 8884</span>
-      <div class="foot-legal-links"><a href="/privacy">Privacy Policy</a><span class="sep">·</span><a href="/terms">Terms of Use</a><span class="sep">·</span><a href="/grievance">Grievance Redressal</a></div>
-    </div>
-  </div>
-</footer>
+        // --- Mobile menu toggle ---
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            mobileBtn.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }));
 
-<script src="app.js"></script>
-<script>
-// Pre-fill from a linking page's ?interest= param (e.g. the homepage's
-// "Request Gap Analysis" / "Design My Plan" cards) so a visitor lands with
-// context instead of a blank form. For gap-analysis specifically, there's no
-// file-upload on this site — Indian corporate clients typically share policy
-// schedules by email/WhatsApp with their broker rather than a web upload
-// (simpler, and avoids hosting sensitive sum-insured/employee health data) —
-// so the message is pre-seeded with exactly what a broker needs to start:
-// current insurer, sum insured, renewal date, and a note that the policy
-// copy can be emailed in reply.
-(function prefillFromQuery() {
-  const params = new URLSearchParams(window.location.search);
-  const interest = params.get('interest');
-  if (!interest) return;
+        // --- Pre-fill from a linking page's query params ---
+        // corporate-risk.html's "audit" form and retail-insurance.html's
+        // "quote" form (no backend of their own yet) redirect here with
+        // ?interest=&email=&phone=&cover= — without this, those leads landed
+        // on a blank form and had to retype everything they'd just entered.
+        (function prefillFromQuery() {
+            const params = new URLSearchParams(window.location.search);
+            const interest = params.get('interest');
+            const email = params.get('email');
+            const phone = params.get('phone');
+            const cover = params.get('cover');
 
-  const select = document.getElementById('interest');
-  if (select && [...select.options].some(o => o.value === interest)) {
-    select.value = interest;
-  }
+            const interestEl = document.getElementById('interest');
+            if (interest && interestEl && [...interestEl.options].some((o) => o.value === interest)) {
+                interestEl.value = interest;
+            }
+            if (email) document.getElementById('email').value = email;
+            if (phone) document.getElementById('phone').value = phone;
+            if (cover) {
+                const msg = document.getElementById('message');
+                msg.value = `Cover type requested: ${cover}`;
+            }
+        })();
 
-  const msg = document.getElementById('msg');
-  if (msg && !msg.value && interest === 'gap-analysis') {
-    msg.value = 'Team size / sum insured: \nCurrent insurer: \nRenewal date: \n\n(You can email your existing policy schedule to info@rexabroking.com or reply with it once we\'re in touch — no need to attach it here.)';
-  }
-})();
+        // --- Submit ---
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formMessage.style.display = 'none';
 
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const submitBtn = document.getElementById('submitBtn');
-  const formMessage = document.getElementById('formMessage');
+            try {
+                const isLocalhost = ['localhost', '127.0.0.1', '0.0.0.0'].includes(window.location.hostname)
+                    || window.location.hostname.startsWith('192.168');
+                let token = 'test_token_localhost';
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
-  formMessage.style.display = 'none';
+                if (!isLocalhost) {
+                    if (!window.grecaptcha) {
+                        for (let i = 0; i < 30 && !window.grecaptcha; i++) await new Promise((r) => setTimeout(r, 100));
+                    }
+                    if (!window.grecaptcha) throw new Error('reCAPTCHA is not loaded. Please refresh the page.');
+                    const siteKey = window.__RECAPTCHA_SITE_KEY__ || '6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7';
+                    token = await grecaptcha.execute(siteKey, { action: 'submit' });
+                    if (!token) throw new Error('reCAPTCHA verification failed. Please refresh and try again.');
+                }
+                document.getElementById('recaptchaToken').value = token;
 
-  try {
-    // Get reCAPTCHA token (skip on localhost for testing)
-    let token = '';
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '0.0.0.0' || window.location.hostname.startsWith('192.168');
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const data = {
+                    name: [firstName, lastName].filter(Boolean).join(' '),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    company: document.getElementById('company').value.trim(),
+                    interest: document.getElementById('interest').value,
+                    message: document.getElementById('message').value.trim(),
+                    recaptchaToken: token
+                };
 
-    console.log('🌐 Hostname:', window.location.hostname);
-    console.log('🔍 Is localhost?', isLocalhost);
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) throw new Error('Please check your email address and try again.');
+                if (!data.interest) throw new Error('Please select what you\'re looking for.');
 
-    if (isLocalhost) {
-      console.log('✓ Localhost detected - using test token');
-      token = 'test_token_localhost';
-    } else {
-      // Wait for reCAPTCHA to load if not ready
-      if (!window.grecaptcha) {
-        for (let i = 0; i < 30; i++) {
-          if (window.grecaptcha) break;
-          await new Promise(r => setTimeout(r, 100));
-        }
-      }
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Failed to send message. Please try again.');
 
-      if (!window.grecaptcha) {
-        throw new Error('reCAPTCHA is not loaded. Please refresh the page.');
-      }
-
-      // Get reCAPTCHA token
-      try {
-        console.log('📡 Calling grecaptcha.execute()...');
-        const siteKey = window.__RECAPTCHA_SITE_KEY__ || '6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7';
-        token = await grecaptcha.execute(siteKey, { action: 'submit' });
-        console.log('✓ Got reCAPTCHA token:', token?.substring(0, 20) + '...');
-        if (!token) {
-          throw new Error('Failed to get reCAPTCHA token.');
-        }
-      } catch (captchaError) {
-        console.error('❌ reCAPTCHA error:', captchaError);
-        throw new Error('reCAPTCHA verification failed. Please refresh the page and try again.');
-      }
-    }
-
-    document.getElementById('recaptchaToken').value = token;
-
-    // Prepare form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-      console.warn('⚠️ Invalid email format:', data.email);
-      throw new Error('Please check your email address and try again');
-    }
-
-    // Send to backend
-    const apiUrl = '/api/contact';
-
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      console.error('❌ API error:', response.status, result);
-      throw new Error(result.message || 'Failed to send message. Please try again.');
-    }
-
-    // Success
-    formMessage.textContent = '✓ Message sent successfully! We\'ll get back to you within 24 hours.';
-    formMessage.style.color = '#0EA472';
-    formMessage.style.display = 'block';
-    this.reset();
-
-  } catch (error) {
-    console.error('📋 Contact form error:', error);
-
-    // Show friendly error message instead of technical details
-    const friendlyMessage = 'We couldn\'t send your message right now. Please reach out directly:\n📞 +91 9945 509 306\n📧 info@rexabroking.com\n\nOr try again in a moment.';
-
-    formMessage.innerHTML = '✗ Something went wrong. Please contact us directly:<br><strong>📞 +91 9945 509 306</strong><br><strong>📧 info@rexabroking.com</strong><br><br>Our team will be happy to help!';
-    formMessage.style.color = '#CF1C22';
-    formMessage.style.display = 'block';
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Send request →';
-  }
-});
-</script>
+                formMessage.textContent = '✓ Message sent successfully! We\'ll get back to you within 24 hours.';
+                formMessage.style.color = '#16A34A';
+                formMessage.style.display = 'block';
+                this.reset();
+            } catch (error) {
+                formMessage.innerHTML = `✗ ${error.message || 'Something went wrong.'} Or reach us directly: <strong>+91 9945 509 306</strong> / <strong>info@rexabroking.com</strong>`;
+                formMessage.style.color = '#E61C24';
+                formMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
 </body>
 </html>

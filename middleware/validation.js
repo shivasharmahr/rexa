@@ -31,18 +31,26 @@ const validateContactForm = (req, res, next) => {
     errors.push('Company name must be less than 150 characters');
   }
 
-  // Interest validation
-  const validInterests = ['general-insurance', 'life-insurance', 'employee-benefits', 'gap-analysis', 'renewal', 'claim'];
+  // Interest validation. corporate-risk/wellness-value/retail-insurance
+  // match the site's real 4-pillar IA (see the hub pages); general-insurance
+  // and life-insurance are kept accepted (not offered in the dropdown
+  // anymore) purely for backward compatibility with any old link still
+  // pointing at them.
+  const validInterests = [
+    'corporate-risk', 'employee-benefits', 'wellness-value', 'retail-insurance',
+    'gap-analysis', 'renewal', 'claim',
+    'general-insurance', 'life-insurance'
+  ];
   if (!interest || !validInterests.includes(interest)) {
     errors.push('Please select a valid interest');
   }
 
-  // Message validation
-  if (!message || typeof message !== 'string') {
-    errors.push('Message is required');
-  } else if (message.trim().length < 10) {
-    errors.push('Message must be at least 10 characters');
-  } else if (message.length > 5000) {
+  // Message validation (optional — the contact form itself labels it
+  // "(Optional)", so name/email/company/interest alone must be enough for a
+  // valid submission).
+  if (message && typeof message !== 'string') {
+    errors.push('Message must be text');
+  } else if (message && message.length > 5000) {
     errors.push('Message must be less than 5000 characters');
   }
 
@@ -60,7 +68,7 @@ const validateContactForm = (req, res, next) => {
   req.body.email = validator.normalizeEmail(email.trim());
   req.body.phone = phone ? validator.escape(phone.trim()) : '';
   req.body.company = company ? validator.escape(company.trim()) : '';
-  req.body.message = validator.escape(message.trim());
+  req.body.message = message ? validator.escape(message.trim()) : '';
 
   next();
 };
