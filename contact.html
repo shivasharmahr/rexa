@@ -132,6 +132,7 @@
             <option value="general-insurance">General insurance</option>
             <option value="life-insurance">Life insurance</option>
             <option value="employee-benefits">Employee benefits</option>
+            <option value="gap-analysis">Corporate policy gap analysis</option>
             <option value="renewal">Renewing an existing policy</option>
             <option value="claim">Help with a claim</option>
           </select>
@@ -194,6 +195,31 @@
 
 <script src="app.js"></script>
 <script>
+// Pre-fill from a linking page's ?interest= param (e.g. the homepage's
+// "Request Gap Analysis" / "Design My Plan" cards) so a visitor lands with
+// context instead of a blank form. For gap-analysis specifically, there's no
+// file-upload on this site — Indian corporate clients typically share policy
+// schedules by email/WhatsApp with their broker rather than a web upload
+// (simpler, and avoids hosting sensitive sum-insured/employee health data) —
+// so the message is pre-seeded with exactly what a broker needs to start:
+// current insurer, sum insured, renewal date, and a note that the policy
+// copy can be emailed in reply.
+(function prefillFromQuery() {
+  const params = new URLSearchParams(window.location.search);
+  const interest = params.get('interest');
+  if (!interest) return;
+
+  const select = document.getElementById('interest');
+  if (select && [...select.options].some(o => o.value === interest)) {
+    select.value = interest;
+  }
+
+  const msg = document.getElementById('msg');
+  if (msg && !msg.value && interest === 'gap-analysis') {
+    msg.value = 'Team size / sum insured: \nCurrent insurer: \nRenewal date: \n\n(You can email your existing policy schedule to info@rexabroking.com or reply with it once we\'re in touch — no need to attach it here.)';
+  }
+})();
+
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const submitBtn = document.getElementById('submitBtn');
