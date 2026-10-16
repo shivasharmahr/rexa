@@ -125,8 +125,19 @@
     .railnav-mobile.is-stuck { box-shadow: 0 8px 24px -16px rgba(10,17,40,.25); }
     /* Edge-fade the scrollable pill row instead of letting it hard-clip at the
        viewport edge — makes "there's more, swipe" obvious instead of looking
-       like a layout bug. */
-    .railnav-pill-track {
+       like a layout bug. Only fades the side that actually has more to
+       scroll to (toggled by JS as .fade-left/.fade-right) — a static fade
+       on both sides ate into the first pill's label even at scrollLeft 0,
+       where there's nothing to the left to hint at. */
+    .railnav-pill-track.fade-left {
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 20px);
+        mask-image: linear-gradient(to right, transparent, #000 20px);
+    }
+    .railnav-pill-track.fade-right {
+        -webkit-mask-image: linear-gradient(to left, transparent, #000 28px);
+        mask-image: linear-gradient(to left, transparent, #000 28px);
+    }
+    .railnav-pill-track.fade-left.fade-right {
         -webkit-mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 28px), transparent);
         mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 28px), transparent);
     }
@@ -508,10 +519,10 @@
 
                 <!-- Sticky left rail: heading, proof stats, scroll-spy dot nav -->
                 <div class="w-full md:w-[35%] md:sticky md:top-[140px] z-10">
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-rexa-navy mb-4 leading-[1.1] max-w-[280px]">Everything your business needs.</h2>
-                    <p class="text-rexa-textMuted mb-8 max-w-xs">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-rexa-navy mb-4 leading-[1.1] md:max-w-[280px] text-center md:text-left">Everything your business needs.</h2>
+                    <p class="text-rexa-textMuted mb-8 max-w-xs mx-auto md:mx-0 text-center md:text-left">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
 
-                    <div class="grid grid-cols-3 gap-4 mb-6 md:mb-10 max-w-xs pb-5 md:pb-8 border-b border-gray-100">
+                    <div class="grid grid-cols-3 gap-4 mb-6 md:mb-10 max-w-xs mx-auto md:mx-0 pb-5 md:pb-8 border-b border-gray-100 text-center md:text-left">
                         <div>
                             <div class="text-2xl font-bold text-rexa-navy font-sans">8</div>
                             <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Coverage Lines</div>
@@ -1226,6 +1237,21 @@
                     stickyMobileNav.classList.toggle('is-stuck', !entry.isIntersecting);
                 }, { threshold: 0, rootMargin: '-81px 0px 0px 0px' });
                 stuckObserver.observe(navSentinel);
+            }
+
+            // Scroll-aware edge fade on the pill track: only fade the side
+            // that actually has more pills to reveal, so the active pill's
+            // label never gets chewed into at rest (scrollLeft 0).
+            const pillTrack = document.querySelector('.railnav-pill-track');
+            if (pillTrack) {
+                const updatePillFade = () => {
+                    const maxScroll = pillTrack.scrollWidth - pillTrack.clientWidth;
+                    pillTrack.classList.toggle('fade-left', pillTrack.scrollLeft > 4);
+                    pillTrack.classList.toggle('fade-right', pillTrack.scrollLeft < maxScroll - 4);
+                };
+                updatePillFade();
+                pillTrack.addEventListener('scroll', updatePillFade, { passive: true });
+                window.addEventListener('resize', updatePillFade);
             }
 
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
