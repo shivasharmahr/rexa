@@ -594,7 +594,7 @@
         document.getElementById('benefitsForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = encodeURIComponent(document.getElementById('hrEmail').value || '');
-            window.location.href = `contact.html?interest=employee-benefits&email=${email}`;
+            window.location.href = `/contact?interest=employee-benefits&email=${email}`;
         });
     </script>
 </body>
