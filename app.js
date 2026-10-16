@@ -2,6 +2,11 @@
    REXA — site interactions
    =========================================================== */
 
+// Footer copyright year — always current, no manual updates needed
+document.querySelectorAll('.copy-year').forEach(el => {
+  el.textContent = new Date().getFullYear();
+});
+
 // Mobile nav toggle
 document.addEventListener('click', e => {
   if (e.target.closest('.nav-toggle')) {
@@ -11,130 +16,206 @@ document.addEventListener('click', e => {
 
 // Scroll reveal — stagger-grid children fire simultaneously so CSS delay staggers them
 const io = new IntersectionObserver((entries) => {
-  entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('in');
+      if (window.ScrollDebugger?.enabled) {
+        console.log(`[REVEAL] Element visible at ${(en.intersectionRatio * 100).toFixed(0)}%`, {
+          element: en.target.className,
+          top: en.boundingClientRect.top,
+          bottom: en.boundingClientRect.bottom,
+          inViewport: en.boundingClientRect.top < window.innerHeight,
+        });
+      }
+      io.unobserve(en.target);
+    }
+  });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// Typewriter hero headline (R2) — characters type in on load, one line at a time.
-// .tw-measure (real text) reserves the correct height at any viewport/line-wrap;
-// it's hidden only once the animated overlay is ready, so there's never a gap.
+// Interactive Solution Matrix — tabbed panels (Corporate / Benefits / Wellness & Retail)
+(function solutionMatrix(){
+  const tabs = document.querySelectorAll('.matrix-tab');
+  const panels = document.querySelectorAll('.matrix-panel');
+  if (!tabs.length) return;
+
+  function activate(name) {
+    tabs.forEach(t => {
+      const on = t.dataset.tab === name;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => activate(tab.dataset.tab)));
+
+  // Deep link support: /#solutions-wellness, /#solutions-retail, /#solutions-benefits, /#solutions-corporate
+  const hash = window.location.hash.replace('#solutions-', '');
+  if (['corporate', 'benefits', 'wellness', 'retail'].includes(hash)) {
+    activate(hash === 'retail' ? 'wellness' : hash);
+    document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+})();
+
+// Industry cards highlight on scroll — same visual as :hover, triggered as each
+// card passes through the vertical center band of the viewport
+(function industryCardsHighlight(){
+  const cards = document.querySelectorAll('.ind-card');
+  if (!cards.length) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => en.target.classList.toggle('is-active', en.isIntersecting));
+  }, { rootMargin: '-30% 0px -50% 0px' });
+
+  cards.forEach(card => io.observe(card));
+})();
+
+// Client logos gain colour as they scroll into view, then stay coloured —
+// each card/logo turns from grayscale to full colour once, the first time it
+// crosses into the viewport, cascading left-to-right within a row via a CSS
+// transition-delay (see .cgrid-card / .fc-client rules in styles.css).
+(function logoColorReveal(){
+  const clientGrid = document.querySelector('.client-grid');
+  const featuredClients = document.querySelector('.featured-clients');
+  if (!clientGrid && !featuredClients) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('logo-in');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.35 });
+
+  clientGrid?.querySelectorAll('.cgrid-card').forEach(card => io.observe(card));
+  if (featuredClients) io.observe(featuredClients);
+})();
+
+// Hero headline (R2) — "More than a / broker." is static and fades/rises in
+// on load; "Your risk / partner." then types in, one line at a time. Both
+// halves use fixed, hardcoded line breaks (not natural word-wrap) so the
+// headline reads as the same four lines on every viewport, not just
+// whichever ones happen to fit a given column width. .tw-measure (real text)
+// reserves the correct height for the typed half; it's hidden only once the
+// animated overlay is ready, so there's never a gap.
 (function initTypewriter(){
+  const staticLine = document.getElementById('tw-static');
   const measure = document.querySelector('#hero-hl .tw-measure');
   const el = document.getElementById('tw-visible');
   if (!el || !measure) return;
+
+  // Respect prefers-reduced-motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   el.setAttribute('aria-hidden', 'true');
-  const lines = [
-    { text: 'More than a broker.', accent: false },
-    { text: 'Your risk partner.', accent: true }
-  ];
+
+  const lineTexts = ['Your risk', 'partner.'];
   const spans = [];
-  lines.forEach((line, i) => {
+  lineTexts.forEach((text, i) => {
     if (i > 0) el.appendChild(document.createElement('br'));
     const s = document.createElement('span');
-    if (line.accent) s.className = 'accent';
+    s.className = 'accent';
     el.appendChild(s);
-    spans.push({ s, text: line.text });
+    spans.push({ s, text });
   });
-  const cursor = document.createElement('span');
-  cursor.className = 'tw-cursor';
-  el.appendChild(cursor);
   measure.style.visibility = 'hidden';
+
+  // Lead paragraph, CTAs and social proof stay hidden until the headline
+  // is fully typed, then fade in together (staggered via CSS).
+  const followup = document.getElementById('hero-followup');
+  function revealFollowup() { followup?.classList.add('in'); }
+
+  if (prefersReducedMotion) {
+    // Show text instantly for accessibility
+    staticLine?.classList.add('in');
+    spans.forEach(({ s, text }) => s.textContent = text);
+    revealFollowup();
+    return;
+  }
+
+  staticLine?.classList.add('in');
+
   let li = 0, ci = 0;
+  const typewriterStart = performance.now();
+
   function tick(){
     if (li >= spans.length) return;
     const { s, text } = spans[li];
     if (ci < text.length) {
       s.textContent += text[ci++];
-      setTimeout(tick, 55);
+      const elapsed = performance.now() - typewriterStart;
+      if (window.ScrollDebugger?.enabled && (ci === 1 || ci % 5 === 0)) {
+        console.log(`[TYPEWRITER] Char ${ci} of ${text.length} at ${elapsed.toFixed(0)}ms`);
+      }
+      setTimeout(tick, 45);
     } else {
       li++; ci = 0;
-      if (li < spans.length) setTimeout(tick, 280);
-      else setTimeout(() => cursor.remove(), 900);
+      if (li < spans.length) {
+        if (window.ScrollDebugger?.enabled) {
+          console.log(`[TYPEWRITER] Line ${li} complete`);
+        }
+        setTimeout(tick, 180);
+      } else {
+        if (window.ScrollDebugger?.enabled) {
+          const totalTime = performance.now() - typewriterStart;
+          console.log(`[TYPEWRITER] Complete in ${totalTime.toFixed(0)}ms`);
+        }
+        revealFollowup();
+      }
     }
   }
-  setTimeout(tick, 200);
+  setTimeout(tick, 400);
 })();
 
-// Promo announcement bar + offer modal
-(function promoOffer(){
-  const bar     = document.getElementById('promoBar');
-  const modal   = document.getElementById('promoModal');
+// Promo announcement bar (will be populated by initRohini with active offers)
+function updatePromoBar() {
+  const bar = document.getElementById('promoBar');
+  const barText = document.getElementById('promoBarText');
+  if (!bar || !barText || OFFERS.length === 0) return;
+
+  const live = activeOffers();
+  if (live.length === 0) {
+    bar.style.display = 'none';
+    return;
+  }
+
+  const offer = live[0];
+  barText.innerHTML = `<span class="promo-emoji">${offer.icon}</span><strong>${offer.badge}:</strong> ${offer.teaser}`;
+
+  // Smooth fade-in transition
+  bar.style.display = 'block';
+  setTimeout(() => { bar.style.opacity = '1'; }, 10);
+
   const openBtn = document.getElementById('promoOpen');
   const dismiss = document.getElementById('promoDismiss');
-  if (!modal) return;
-
   const KEY = 'rexa_promo_dismissed';
-  try { if (bar && localStorage.getItem(KEY) === '1') bar.classList.add('is-hidden'); } catch(e){}
 
-  function open(){
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('modal-open');
-  }
-  function close(){
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('modal-open');
-  }
+  try { if (localStorage.getItem(KEY) === '1') bar.classList.add('is-hidden'); } catch(e){}
 
-  openBtn?.addEventListener('click', open);
-  dismiss?.addEventListener('click', () => {
-    bar?.classList.add('is-hidden');
-    try { localStorage.setItem(KEY, '1'); } catch(e){}
-  });
-  modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close));
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
-  });
-})();
-
-/* ---- Contact form -> email --------------------------------------------
-   Delivers submissions to Rexa's inbox via FormSubmit (formsubmit.co) —
-   a hosted form-to-email relay, so no backend server is needed.
-   One-time setup: the destination address (data-email on the form) must
-   click the confirmation link FormSubmit sends on the very first submit.
-   ------------------------------------------------------------------- */
-(function contactForm(){
-  const form = document.getElementById('contactForm');
-  if(!form) return;
-  const msg = form.querySelector('.form-msg');
-  const btn = form.querySelector('button[type="submit"]');
-  const endpoint = 'https://formsubmit.co/ajax/' + form.dataset.email;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-    const original = btn.innerHTML;
-    btn.innerHTML = 'Sending…';
-
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form))),
-      });
-      if (!res.ok) throw new Error('Request failed');
-
-      if (msg) {
-        msg.style.color = 'var(--brand)';
-        msg.textContent = "Thanks — a Rexa advisor will reach out within one business day.";
-        msg.style.display = 'block';
-      }
-      form.reset();
-      toast('Request sent. We’ll be in touch shortly.');
-    } catch (err) {
-      if (msg) {
-        msg.style.color = 'var(--red)';
-        msg.textContent = "Something went wrong sending your request — please call 044 4867 8884 or email info@rexabroking.com directly.";
-        msg.style.display = 'block';
-      }
-      toast('Could not send — please try again or call us.');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = original;
+  openBtn?.addEventListener('click', () => {
+    if (window.rohiniWidget) {
+      document.body.classList.add('roh-open');
+      setTimeout(() => document.getElementById('rohInput')?.focus(), 260);
     }
   });
-})();
+
+  dismiss?.addEventListener('click', () => {
+    bar.style.opacity = '0';
+    setTimeout(() => bar.classList.add('is-hidden'), 600);
+    try { localStorage.setItem(KEY, '1'); } catch(e){}
+  });
+}
+
+/* ---- Contact form -> API backend ----------------------------------------
+   Now handled by contact.html with reCAPTCHA v3 bot protection.
+   Form submission is intercepted in contact.html with complete
+   validation, sanitization, rate limiting, and email sending.
+   ------------------------------------------------------------------- */
 
 // Toast helper
 function toast(text){
@@ -349,81 +430,40 @@ function toast(text){
    Injects its own markup so it works unchanged on every page
    that loads app.js.
    =========================================================== */
-(function rohini(){
+
+// Offers configuration
+let OFFERS = [];
+
+const mmdd = s => (+s.slice(0,2)) * 100 + (+s.slice(3,5));
+function offerLive(o) {
+  if (o.active === false) return false;
+  const now = new Date();
+  const today = (now.getMonth() + 1) * 100 + now.getDate();
+  const from = mmdd(o.window[0]), to = mmdd(o.window[1]);
+  return from <= to ? (today >= from && today <= to) : (today >= from || today <= to);
+}
+const activeOffers = () => OFFERS.filter(offerLive);
+
+// Load offers then initialize Raksha
+async function initOffers() {
+  try {
+    const r = await fetch('offers.json');
+    OFFERS = await r.json();
+  } catch (e) {
+    try {
+      const offersEnv = window.__OFFERS_CONFIG__ || '[]';
+      OFFERS = JSON.parse(offersEnv);
+    } catch (err) {
+      OFFERS = [];
+    }
+  }
+  initRohini();
+}
+
+function initRohini() {
 
   const TEL = 'tel:+914448678884';
   const MAIL = 'mailto:info@rexabroking.com';
-
-  /* ---- Seasonal / themed offers -------------------------------------------
-     Each offer has a `window: ['MM-DD','MM-DD']` that RECURS every year, so a
-     themed promo (e.g. World Environment Day) automatically switches itself on
-     during those dates and off afterwards — no code change each year.
-     To run an offer, add it here. To pause one, set `active:false`.
-     ------------------------------------------------------------------------- */
-  const OFFERS = [
-    {
-      id: 'env-day',
-      icon: '🌱',
-      title: 'World Environment Day — Green Cover',
-      badge: 'World Environment Day',
-      window: ['06-01', '06-15'],
-      teaser: "15% off EV, solar & green-business cover for World Environment Day 🌱",
-      short: '15% off EV, rooftop-solar & green-business cover',
-      lines: [
-        "Happy World Environment Day! 🌍 To back businesses going green, we're running a special this fortnight.",
-        "You get <strong>15% off the first-year premium</strong> on EV &amp; fleet cover, rooftop-solar / renewable-asset policies, and our green-building property cover.",
-        "Want me to line up a quote with the discount applied? A licensed Rexa advisor confirms the final premium after underwriting.",
-      ],
-      links: [
-        { href:'contact.html', label:'Talk to an advisor →' },
-      ],
-    },
-    {
-      id: 'monsoon-motor',
-      icon: '🌧️',
-      title: 'Monsoon Motor Shield',
-      badge: 'Monsoon offer',
-      window: ['07-01', '07-31'],
-      teaser: "10% off motor & fleet cover + free roadside assistance this monsoon 🌧️",
-      short: '10% off motor + free 24×7 roadside assistance',
-      lines: [
-        "Monsoon's here 🌧️ — the season when motor claims spike. Good time to make sure you're properly covered.",
-        "This month: <strong>10% off comprehensive motor &amp; fleet policies</strong>, and we'll add <strong>free 24×7 roadside assistance</strong> for the first year.",
-        "Shall I start a motor quote for you? It takes about two minutes.",
-      ],
-      links: [
-        { href:'contact.html', label:'Talk to an advisor →' },
-      ],
-    },
-    {
-      id: 'indep-health',
-      icon: '🇮🇳',
-      title: 'Independence Day Health Boost',
-      badge: 'Independence Day',
-      window: ['08-08', '08-20'],
-      teaser: "a free ₹5L top-up on group health cover for Independence Day 🇮🇳",
-      short: 'Free ₹5L super top-up on group health',
-      lines: [
-        "For Independence Day, we're helping teams get more protection for less. 🇮🇳",
-        "Add a Super Top-up to your group-health plan this fortnight and get an <strong>extra ₹5,00,000 of cover with no added premium</strong> in year one.",
-        "Want me to loop in a benefits advisor to size it for your team?",
-      ],
-      links: [
-        { href:'contact.html', label:'Talk to a benefits advisor →' },
-      ],
-    },
-  ];
-
-  const mmdd = s => (+s.slice(0,2)) * 100 + (+s.slice(3,5));
-  function offerLive(o) {
-    if (o.active === false) return false;
-    const now = new Date();
-    const today = (now.getMonth() + 1) * 100 + now.getDate();
-    const from = mmdd(o.window[0]), to = mmdd(o.window[1]);
-    return from <= to ? (today >= from && today <= to)   // normal window
-                      : (today >= from || today <= to);  // wraps year-end (e.g. Dec→Jan)
-  }
-  const activeOffers = () => OFFERS.filter(offerLive);
 
   /* ---- Decision tree ---- */
   const TREE = {
@@ -431,7 +471,6 @@ function toast(text){
       crumb: 'Home',
       bot: ["Hi, I'm Raksha 👋 What are you trying to do today?"],
       options: [
-        { icon:'📋', label:'File or track a claim', hint:'Health, motor, life & property claims', to:'claim_type' },
         { icon:'🗂️', label:'Explore our products', hint:'See everything we cover', to:'products_menu' },
         { icon:'🏢', label:'About Rexa', hint:'Who we are & how we work', to:'about_rexa' },
         { icon:'🎧', label:'Talk to a human advisor', hint:'Call, email or message our team', to:'contact_advisor' },
@@ -505,11 +544,19 @@ function toast(text){
     },
     contact_advisor: {
       crumb: 'Talk to an advisor', parent: 'root',
-      bot: "Here's the fastest way to reach a human: call our T Nagar office, email us, or fill in the contact form and we'll respond within one business day. Our claims helpline is 24×7 with WhatsApp support.",
+      bot: [
+        "📍 <b>Head Office (Chennai)</b><br>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017",
+        "📞 +91 44 4867 8884 · +91 7540 071535",
+        "📍 <b>Branch (Bangalore)</b><br>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039",
+        "📞 +91 9986 969637 · +91 9945 509306",
+        "✉️ <b>Email:</b> info@rexabroking.com | <b>Claims Helpline (24×7):</b> 7009670090"
+      ],
       links: [
-        { href:TEL, label:'📞 044 – 4867 8884' },
-        { href:MAIL, label:'✉️ info@rexabroking.com' },
-        { href:'contact.html', label:'Open contact form →' },
+        { href:TEL, label:'📞 Call Chennai Head Office' },
+        { href:'tel:+919945509306', label:'📞 Call Bangalore Branch' },
+        { href:'tel:+917009670090', label:'📞 Claims Helpline (24×7)' },
+        { href:MAIL, label:'✉️ Email us' },
+        { href:'contact.html', label:'📝 Fill contact form →' },
       ],
       options: [],
     },
@@ -517,7 +564,6 @@ function toast(text){
       crumb: 'Search results', parent: 'root',
       bot: "I didn't quite catch that — but here's what I can help with right now:",
       options: [
-        { icon:'📋', label:'File or track a claim', to:'claim_type' },
         { icon:'🎧', label:'Talk to a human advisor', to:'contact_advisor' },
       ],
     },
@@ -613,7 +659,8 @@ function toast(text){
   }
 
   /* ---- Build widget markup ---- */
-  const FACE = '<span class="roh-face"><span class="roh-mouth"></span></span>';
+  const FACE = '<span class="roh-face"><img src="assets/raksha-avatar-face.png" alt="Raksha" class="roh-face-img"></span>';
+  const LAUNCHER_FIGURE = '<img src="assets/raksha-avatar.png" alt="Raksha" class="roh-launcher-img">';
   const wrap = document.createElement('div');
   wrap.id = 'rohiniWidget';
   const liveOffers = activeOffers();
@@ -623,8 +670,7 @@ function toast(text){
   wrap.innerHTML = `
     <button class="roh-teaser" id="rohTeaser">${teaserText}</button>
     <button class="roh-launcher" id="rohLauncher" aria-label="Ask Raksha">
-      ${FACE}
-      <span class="roh-launcher-ring"></span>
+      ${LAUNCHER_FIGURE}
       <span class="roh-launcher-dot"></span>
       ${liveOffers.length ? '<span class="roh-launcher-badge">🎁</span>' : ''}
     </button>`;
@@ -639,7 +685,7 @@ function toast(text){
         ${FACE}
         <div class="roh-mh-info">
           <div class="roh-mh-name">Raksha</div>
-          <div class="roh-mh-sub"><span class="dot"></span>Rexa Assistant · Here to help you find your way</div>
+          <div class="roh-mh-sub"><span class="dot"></span>Rexa Assistant · Here to give you suraksha</div>
         </div>
         <div class="roh-mh-actions">
           <button id="rohHome" aria-label="Start over" title="Start over">⌂</button>
@@ -792,7 +838,7 @@ function toast(text){
   }
 
   /* ---- Auto-open once the visitor has genuinely scrolled through the page ---- */
-  const SCROLL_TRIGGER = 0.55;
+  const SCROLL_TRIGGER = 0.35;
   let scrollArmed = true;
   window.addEventListener('scroll', () => {
     if (!scrollArmed) return;
@@ -808,4 +854,46 @@ function toast(text){
     }
   }, { passive: true });
 
+  // Populate promo bar with active offers
+  updatePromoBar();
+}
+
+// Initialize Raksha
+initOffers();
+
+// Bio Modal functionality
+(function initBioModal() {
+  const modal = document.getElementById('bioModal');
+  if (!modal) return;
+
+  const closeBtn = modal.querySelector('.bio-modal-close');
+  const readMoreButtons = document.querySelectorAll('.team-read-more');
+
+  const openBio = (bioId) => {
+    document.querySelectorAll('.bio-content').forEach(el => el.style.display = 'none');
+    const bioContent = document.getElementById('bio' + bioId);
+    if (bioContent) {
+      bioContent.style.display = 'block';
+      modal.classList.add('open');
+    }
+  };
+
+  const closeBio = () => {
+    modal.classList.remove('open');
+  };
+
+  readMoreButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const bioId = btn.closest('[data-bio]')?.getAttribute('data-bio');
+      if (bioId === 'manish') openBio('Manish');
+      if (bioId === 'sathya') openBio('Sathya');
+    });
+  });
+
+  closeBtn.addEventListener('click', closeBio);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeBio();
+  });
 })();
