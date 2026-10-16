@@ -323,7 +323,7 @@
                     <p class="text-slate-400">Decades of combined experience across insurance, government, and corporate sectors — all working for you.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div class="reveal bg-white/5 rounded-3xl border border-white/10 p-8 backdrop-blur-sm">
                         <img src="assets/team/r-chitra.jpg" alt="R. Chitra, Director and Principal Officer at Rexa" loading="lazy" class="w-20 h-20 rounded-full object-cover border-2 border-white/10 mb-5">
                         <h3 class="text-lg font-bold text-white">R. Chitra</h3>
@@ -347,6 +347,15 @@
                         <p class="text-sm text-rexa-red font-medium mb-3">Key Management Person</p>
                         <p class="text-xs text-slate-400 mb-1"><span class="text-white font-bold">20+</span> Years Experience</p>
                         <p class="text-xs text-slate-500 mb-4">ICICI Lombard &middot; Bharti AXA GIC</p>
+                        <button class="team-read-more text-xs font-bold text-white underline underline-offset-4 decoration-rexa-red hover:text-rexa-red transition-colors" type="button">Read More</button>
+                    </div>
+
+                    <div class="reveal bg-white/5 rounded-3xl border border-white/10 p-8 backdrop-blur-sm" data-bio="moulieswara">
+                        <img src="assets/team/v-c-moulieswara-reddy.jpg" alt="V C Moulieswara Reddy, Key Management Person at Rexa" loading="lazy" class="w-20 h-20 rounded-full object-cover border-2 border-white/10 mb-5">
+                        <h3 class="text-lg font-bold text-white">V C Moulieswara Reddy</h3>
+                        <p class="text-sm text-rexa-red font-medium mb-3">Key Management Person</p>
+                        <p class="text-xs text-slate-400 mb-1"><span class="text-white font-bold">18+</span> Years Experience</p>
+                        <p class="text-xs text-slate-500 mb-4">ICICI Lombard &middot; Bharti AXA &middot; HDFC ERGO</p>
                         <button class="team-read-more text-xs font-bold text-white underline underline-offset-4 decoration-rexa-red hover:text-rexa-red transition-colors" type="button">Read More</button>
                     </div>
                 </div>
@@ -454,6 +463,21 @@
                     <p class="text-sm text-rexa-textMuted leading-relaxed mb-4">Sathyanarayana brings extensive expertise in risk assessment and customer relationship management. Throughout his career, he has been instrumental in building robust operational frameworks, enhancing customer experience, and implementing best-in-class insurance practices across multiple insurance verticals.</p>
                     <p class="text-sm text-rexa-textMuted leading-relaxed mb-4">Recognized for his strategic thinking, Sathyanarayana combines deep functional knowledge with a customer-centric approach. His experience in managing complex insurance portfolios and navigating regulatory compliance makes him an invaluable asset in steering organizational strategy and excellence.</p>
                     <p class="text-sm text-rexa-textMuted leading-relaxed">As KMP, Sathyanarayana K contributes significantly to the company's vision and long-term objectives, bringing data-driven insights and industry best practices to enhance stakeholder value while upholding the highest standards of operational integrity and professional ethics.</p>
+                </div>
+                <div id="bioMoulieswara" class="bio-content" style="display:none;">
+                    <h2 class="text-2xl font-serif font-bold text-rexa-navy mb-1">V C Moulieswara Reddy</h2>
+                    <p class="text-sm text-rexa-red font-bold mb-5">Key Management Person</p>
+                    <p class="text-sm text-rexa-textMuted leading-relaxed mb-4">With over 18 years in the General Insurance industry, V C Moulieswara Reddy brings deep expertise and a customer-first approach to every policy and every client conversation.</p>
+                    <p class="text-sm text-rexa-textMuted leading-relaxed mb-4">He specialises in retail insurance, particularly motor and retail health, and understands what individuals and families need from their cover: clear advice, fair pricing and support when it matters most. His experience spans both sales and operations, so he knows how to win a customer's trust and how to make sure the policy, servicing and claims experience lives up to the promise.</p>
+                    <p class="text-sm text-rexa-textMuted leading-relaxed mb-4">Beyond retail, he brings expertise in handling large motor fleets, comprehensive insurance solutions for educational institutions, and event and film insurance.</p>
+                    <p class="text-sm text-rexa-textMuted leading-relaxed mb-5">He has worked with some of India's leading insurers, giving Rexa a broad market view and strong insurer relationships, so clients find the right protection without confusion or compromise.</p>
+                    <blockquote class="border-l-2 border-rexa-red pl-4 italic text-rexa-navy text-sm font-medium mb-5">"Our approach is simple: understand your needs, recommend what truly fits, and stay with you long after the policy is issued."</blockquote>
+                    <p class="text-[11px] font-bold text-rexa-textMuted uppercase tracking-widest mb-2">Experience With Leading Insurers</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs font-bold text-rexa-navy bg-rexa-grayBg border border-gray-200 px-3 py-1.5 rounded-full">ICICI Lombard</span>
+                        <span class="text-xs font-bold text-rexa-navy bg-rexa-grayBg border border-gray-200 px-3 py-1.5 rounded-full">Bharti AXA</span>
+                        <span class="text-xs font-bold text-rexa-navy bg-rexa-grayBg border border-gray-200 px-3 py-1.5 rounded-full">HDFC ERGO</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -581,6 +605,7 @@
                     const bioId = btn.closest('[data-bio]')?.getAttribute('data-bio');
                     if (bioId === 'manish') openBio('Manish');
                     if (bioId === 'sathya') openBio('Sathya');
+                    if (bioId === 'moulieswara') openBio('Moulieswara');
                 });
             });
             closeBtn.addEventListener('click', closeBio);
