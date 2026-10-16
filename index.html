@@ -123,6 +123,13 @@
     }
     .railnav-pill:active { transform: scale(.97); }
     .railnav-mobile.is-stuck { box-shadow: 0 8px 24px -16px rgba(10,17,40,.25); }
+    /* Edge-fade the scrollable pill row instead of letting it hard-clip at the
+       viewport edge — makes "there's more, swipe" obvious instead of looking
+       like a layout bug. */
+    .railnav-pill-track {
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 28px), transparent);
+        mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 28px), transparent);
+    }
 
     .cluster-swatch { background: var(--accent); }
     .cluster-eyebrow { color: var(--accent); }
@@ -378,8 +385,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
                 <div class="max-w-xl">
-                    <h1 class="text-4xl md:text-6xl font-serif font-bold text-rexa-navy leading-tight mb-6">
-                        Risk moves fast.<br>Your protection should too.
+                    <h1 class="text-4xl md:text-6xl font-serif font-bold text-rexa-navy leading-[1.1] mb-6">
+                        Risk moves fast. Your <span class="text-rexa-red">protection</span> should too.
                     </h1>
                     <p class="text-lg text-rexa-textMuted mb-8 leading-relaxed">
                         The modern insurance platform for growing Indian businesses. We combine custom underwriting with dedicated support to optimize benefits, secure physical assets, and keep your teams healthy.
@@ -504,7 +511,7 @@
                     <h2 class="text-4xl md:text-5xl font-serif font-bold text-rexa-navy mb-4 leading-[1.1] max-w-[280px]">Everything your business needs.</h2>
                     <p class="text-rexa-textMuted mb-8 max-w-xs">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
 
-                    <div class="grid grid-cols-3 gap-4 mb-10 max-w-xs pb-8 border-b border-gray-100">
+                    <div class="grid grid-cols-3 gap-4 mb-6 md:mb-10 max-w-xs pb-5 md:pb-8 border-b border-gray-100">
                         <div>
                             <div class="text-2xl font-bold text-rexa-navy font-sans">8</div>
                             <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Coverage Lines</div>
@@ -547,14 +554,14 @@
                      the few pixels of the rail block's own height. -->
                 <div id="railnavMobileSentinel" class="md:hidden h-px"></div>
                 <div class="railnav-mobile md:hidden sticky top-20 z-20 -mx-4 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-shadow duration-300">
-                    <div class="flex gap-2 overflow-x-auto hide-scrollbar">
-                        <button type="button" class="railnav-pill is-active flex items-center gap-1.5 flex-none px-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-corp" style="--accent:#0A1128">
+                    <div class="railnav-pill-track flex gap-2 overflow-x-auto hide-scrollbar pr-6">
+                        <button type="button" class="railnav-pill is-active flex items-center gap-1 flex-none pl-3.5 pr-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-corp" style="--accent:#0A1128">
                             <i class="fas fa-building text-[11px]"></i> Corporate Cover
                         </button>
-                        <button type="button" class="railnav-pill flex items-center gap-1.5 flex-none px-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-benefits" style="--accent:#E61C24">
+                        <button type="button" class="railnav-pill flex items-center gap-1 flex-none pl-3.5 pr-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-benefits" style="--accent:#E61C24">
                             <i class="fas fa-heart-pulse text-[11px]"></i> Employee Benefits
                         </button>
-                        <button type="button" class="railnav-pill flex items-center gap-1.5 flex-none px-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-wellness" style="--accent:#B45309">
+                        <button type="button" class="railnav-pill flex items-center gap-1 flex-none pl-3.5 pr-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-wellness" style="--accent:#B45309">
                             <i class="fas fa-leaf text-[11px]"></i> Wellness &amp; Retail
                         </button>
                     </div>
