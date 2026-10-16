@@ -110,8 +110,19 @@
     .railnav .nav-desc { color: #CBD5E1; transition: color .35s ease; }
     .railnav li.is-active .nav-desc { color: #64748B; }
 
-    .railnav-pill { background: #fff; color: #64748B; border-color: #E5E7EB; }
-    .railnav-pill.is-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .railnav-pill {
+        background: color-mix(in srgb, var(--accent) 7%, white);
+        color: var(--accent);
+        border-color: color-mix(in srgb, var(--accent) 22%, white);
+        transition: background .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease, transform .2s ease;
+    }
+    .railnav-pill.is-active {
+        background: var(--accent); color: #fff; border-color: var(--accent);
+        box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--accent) 65%, transparent);
+        transform: translateY(-1px);
+    }
+    .railnav-pill:active { transform: scale(.97); }
+    .railnav-mobile.is-stuck { box-shadow: 0 8px 24px -16px rgba(10,17,40,.25); }
 
     .cluster-swatch { background: var(--accent); }
     .cluster-eyebrow { color: var(--accent); }
@@ -486,7 +497,7 @@
 
     <section id="offerings" class="pt-24 pb-32 bg-white relative scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row gap-12 items-start relative">
+            <div class="flex flex-col md:flex-row gap-0 md:gap-12 items-start relative">
 
                 <!-- Sticky left rail: heading, proof stats, scroll-spy dot nav -->
                 <div class="w-full md:w-[35%] md:sticky md:top-[140px] z-10">
@@ -525,22 +536,32 @@
                             <p class="nav-desc text-xs mt-1 font-medium">Proactive Health &amp; Personal Cover</p>
                         </li>
                     </ul>
+                </div>
 
-                    <!-- Mobile quick-jump: the dot-rail above is desktop-only, so
-                         without this a phone would just be a blind scroll past
-                         9 stacked cards. Sticky row of pills to jump straight
-                         to a category instead. -->
-                    <div class="railnav-mobile md:hidden sticky top-20 z-20 -mx-4 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-                        <div class="flex gap-2 overflow-x-auto hide-scrollbar">
-                            <button type="button" class="railnav-pill is-active flex-none px-4 py-2 rounded-full text-xs font-bold border transition-colors" data-target="cluster-corp" style="--accent:#0A1128">Corporate Cover</button>
-                            <button type="button" class="railnav-pill flex-none px-4 py-2 rounded-full text-xs font-bold border transition-colors" data-target="cluster-benefits" style="--accent:#E61C24">Employee Benefits</button>
-                            <button type="button" class="railnav-pill flex-none px-4 py-2 rounded-full text-xs font-bold border transition-colors" data-target="cluster-wellness" style="--accent:#B45309">Wellness &amp; Retail</button>
-                        </div>
+                <!-- Mobile quick-jump: the dot-rail above is desktop-only, so without
+                     this a phone would just be a blind scroll past 9 stacked cards.
+                     Lives as a sibling of the clusters below (not nested inside the
+                     short rail block above) so its sticky containing block spans the
+                     full offerings section — it stays pinned under the header for as
+                     long as any cluster card is still scrolling past, not just for
+                     the few pixels of the rail block's own height. -->
+                <div id="railnavMobileSentinel" class="md:hidden h-px"></div>
+                <div class="railnav-mobile md:hidden sticky top-20 z-20 -mx-4 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-shadow duration-300">
+                    <div class="flex gap-2 overflow-x-auto hide-scrollbar">
+                        <button type="button" class="railnav-pill is-active flex items-center gap-1.5 flex-none px-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-corp" style="--accent:#0A1128">
+                            <i class="fas fa-building text-[11px]"></i> Corporate Cover
+                        </button>
+                        <button type="button" class="railnav-pill flex items-center gap-1.5 flex-none px-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-benefits" style="--accent:#E61C24">
+                            <i class="fas fa-heart-pulse text-[11px]"></i> Employee Benefits
+                        </button>
+                        <button type="button" class="railnav-pill flex items-center gap-1.5 flex-none px-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-wellness" style="--accent:#B45309">
+                            <i class="fas fa-leaf text-[11px]"></i> Wellness &amp; Retail
+                        </button>
                     </div>
                 </div>
 
                 <!-- Right: clusters stay fully visible; cards fade/rise in on scroll -->
-                <div class="w-full md:w-[65%] flex flex-col gap-20">
+                <div class="w-full md:w-[65%] flex flex-col gap-20 mt-6 md:mt-0">
 
                     <div id="cluster-corp" class="cluster is-active scroll-mt-[180px]" style="--accent:#0A1128">
                         <div class="flex items-center gap-2 mb-6">
@@ -1185,6 +1206,19 @@
                 }, { root: null, rootMargin: '-45% 0px -45% 0px', threshold: 0 });
 
                 clusters.forEach((cluster) => spy.observe(cluster));
+            }
+
+            // Sticky mobile pill bar: add a lifted shadow once it's actually
+            // pinned under the header, using a 1px sentinel placed just above
+            // it — once that scrolls out from under the fixed nav, the bar is
+            // "stuck" rather than still flowing in place.
+            const stickyMobileNav = document.querySelector('.railnav-mobile');
+            const navSentinel = document.getElementById('railnavMobileSentinel');
+            if (stickyMobileNav && navSentinel) {
+                const stuckObserver = new IntersectionObserver(([entry]) => {
+                    stickyMobileNav.classList.toggle('is-stuck', !entry.isIntersecting);
+                }, { threshold: 0, rootMargin: '-81px 0px 0px 0px' });
+                stuckObserver.observe(navSentinel);
             }
 
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
