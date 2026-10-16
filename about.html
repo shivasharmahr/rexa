@@ -351,7 +351,7 @@
                     </div>
 
                     <div class="reveal bg-white/5 rounded-3xl border border-white/10 p-8 backdrop-blur-sm" data-bio="moulieswara">
-                        <img src="assets/team/v-c-moulieswara-reddy.jpg" alt="V C Moulieswara Reddy, Key Management Person at Rexa" loading="lazy" class="w-20 h-20 rounded-full object-cover border-2 border-white/10 mb-5">
+                        <img src="assets/team/v-c-moulieswara-reddy.jpg" alt="V C Moulieswara Reddy, Key Management Person at Rexa" loading="lazy" class="w-20 h-20 rounded-full object-cover object-top border-2 border-white/10 mb-5">
                         <h3 class="text-lg font-bold text-white">V C Moulieswara Reddy</h3>
                         <p class="text-sm text-rexa-red font-medium mb-3">Key Management Person</p>
                         <p class="text-xs text-slate-400 mb-1"><span class="text-white font-bold">18+</span> Years Experience</p>
@@ -567,31 +567,51 @@
         }));
 
         // --- Scroll reveal (fade + rise, once) ---
+        // Kept in its own DOMContentLoaded listener, deliberately separate
+        // from the bio modal below: if anything here ever throws (an older
+        // browser without IntersectionObserver, an extension shimming
+        // matchMedia, etc.) it must not be able to take the Read More
+        // buttons down with it — a thrown error aborts only the rest of
+        // *this* callback, not other listeners registered for the same event.
         document.addEventListener('DOMContentLoaded', () => {
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const revealEls = document.querySelectorAll('.reveal');
-            if (revealEls.length && !reduceMotion) {
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('in-view');
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-                revealEls.forEach((el) => observer.observe(el));
-            } else {
-                revealEls.forEach((el) => el.classList.add('in-view'));
+            try {
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const revealEls = document.querySelectorAll('.reveal');
+                if (revealEls.length && !reduceMotion && 'IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries, obs) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('in-view');
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+                    revealEls.forEach((el) => observer.observe(el));
+                } else {
+                    revealEls.forEach((el) => el.classList.add('in-view'));
+                }
+            } catch (err) {
+                // Fail safe: if the reveal animation can't run, just show
+                // everything rather than leaving it stuck at opacity 0.
+                document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'));
+                console.error('Scroll-reveal setup failed:', err);
             }
+        });
 
-            // --- Bio modal ---
+        // --- Bio modal (Read More on each KMP card) ---
+        document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('bioModal');
+            if (!modal) return;
             const closeBtn = modal.querySelector('.bio-modal-close');
             const readMoreButtons = document.querySelectorAll('.team-read-more');
 
+            // bioId is capitalized to match each bio panel's element id
+            // (data-bio="manish" -> #bioManish) — adding a new KMP with a
+            // Read More button only needs a matching #bio<Name> panel, no
+            // JS change here.
             const openBio = (bioId) => {
                 document.querySelectorAll('.bio-content').forEach((el) => { el.style.display = 'none'; });
-                const bioContent = document.getElementById('bio' + bioId);
+                const bioContent = document.getElementById('bio' + bioId.charAt(0).toUpperCase() + bioId.slice(1));
                 if (bioContent) {
                     bioContent.style.display = 'block';
                     modal.classList.add('open');
@@ -603,13 +623,12 @@
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     const bioId = btn.closest('[data-bio]')?.getAttribute('data-bio');
-                    if (bioId === 'manish') openBio('Manish');
-                    if (bioId === 'sathya') openBio('Sathya');
-                    if (bioId === 'moulieswara') openBio('Moulieswara');
+                    if (bioId) openBio(bioId);
                 });
             });
-            closeBtn.addEventListener('click', closeBio);
+            closeBtn?.addEventListener('click', closeBio);
             modal.addEventListener('click', (e) => { if (e.target === modal) closeBio(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBio(); });
         });
     </script>
 </body>
