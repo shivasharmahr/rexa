@@ -548,12 +548,12 @@ function initRohini() {
         "📍 <b>Head Office (Chennai)</b><br>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017",
         "📞 +91 44 4867 8884 · +91 7540 071535",
         "📍 <b>Branch (Bangalore)</b><br>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039",
-        "📞 +91 9986 969637 · +91 9945 509306",
+        "📞 +91 9986 969637",
         "✉️ <b>Email:</b> info@rexabroking.com | <b>Claims Helpline (24×7):</b> 7009670090"
       ],
       links: [
         { href:TEL, label:'📞 Call Chennai Head Office' },
-        { href:'tel:+919945509306', label:'📞 Call Bangalore Branch' },
+        { href:'tel:+919986969637', label:'📞 Call Bangalore Branch' },
         { href:'tel:+917009670090', label:'📞 Claims Helpline (24×7)' },
         { href:MAIL, label:'✉️ Email us' },
         { href:'contact.html', label:'📝 Fill contact form →' },

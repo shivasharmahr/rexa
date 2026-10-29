@@ -41,7 +41,9 @@ app.use(helmet({
       baseUri: ["'self'"],
       formAction: ["'self'"],
       frameAncestors: ["'self'"],
-      upgradeInsecureRequests: []
+      // Only upgrade to https in production; on http://localhost it makes
+      // browsers request CSS/JS over https and the pages render unstyled.
+      upgradeInsecureRequests: process.env.NODE_ENV === 'production' || process.env.VERCEL ? [] : null
     }
   }
 }));
