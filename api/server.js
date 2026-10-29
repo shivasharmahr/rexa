@@ -17,6 +17,9 @@ const baseDir = path.resolve(__dirname, '..');
 // Initialize email service
 initializeEmailService();
 
+// Behind Vercel's proxy: trust X-Forwarded-For so rate limiting is per visitor, not per proxy
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet({
   permissionsPolicy: {
@@ -30,7 +33,10 @@ app.use(helmet({
       // 'unsafe-inline' is needed because pages are served as static HTML
       // (no templating/nonce support); cdn.tailwindcss.com powers the
       // Tailwind-based homepage, which generates its CSS via this script.
-      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com'],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://www.google.com', 'https://www.gstatic.com'],
+      // reCAPTCHA v3 loads a hidden iframe and posts to google.com
+      frameSrc: ['https://www.google.com', 'https://recaptcha.google.com'],
+      connectSrc: ["'self'", 'https://www.google.com'],
       // helmet defaults this to 'none', which silently breaks onclick="" and
       // the onerror="" logo-fallback handlers used throughout every page.
       scriptSrcAttr: ["'unsafe-inline'"],
