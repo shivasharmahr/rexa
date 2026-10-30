@@ -1,63 +1,40 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
 const { validateContactForm } = require('../middleware/validation');
 const { sendAdminEmail, sendConfirmationEmail } = require('../utils/emailService');
-
-const verifyRecaptcha = async (token) => {
-  try {
-    const response = await axios.post(
-      'https://www.google.com/recaptcha/api/siteverify',
-      null,
-      {
-        params: {
-          secret: process.env.RECAPTCHA_SECRET_KEY,
-          response: token
-        }
-      }
-    );
-
-    return {
-      success: response.data.success,
-      score: response.data.score || 0
-    };
-  } catch (error) {
-    console.error('reCAPTCHA verification error:', error.message);
-    throw new Error('Failed to verify reCAPTCHA');
-  }
-};
+const { checkRecaptcha } = require('../utils/recaptcha');
+const { appendToSheet } = require('../utils/googleSheet');
 
 router.post('/', validateContactForm, async (req, res) => {
   try {
-    const { recaptchaToken } = req.body;
-
-    const recaptchaResult = process.env.NODE_ENV === 'development'
-      ? { success: true, score: 0.9 }
-      : await verifyRecaptcha(recaptchaToken);
-
-    // Check if reCAPTCHA verification was successful
-    if (!recaptchaResult.success) {
-      return res.status(400).json({
-        success: false,
-        message: 'reCAPTCHA verification failed'
-      });
+    const captchaError = await checkRecaptcha(req.body.recaptchaToken);
+    if (captchaError) {
+      return res.status(400).json({ success: false, message: captchaError });
     }
 
-    // Check reCAPTCHA score (0.0 - 1.0)
-    const scoreThreshold = parseFloat(process.env.RECAPTCHA_SCORE_THRESHOLD || 0.5);
-    if (recaptchaResult.score < scoreThreshold) {
-      return res.status(400).json({
-        success: false,
-        message: 'Verification failed. Please try again.'
-      });
+    const { name, email, phone, company, interest, message } = req.body;
+
+    // Save to Google Sheets and send emails; the enquiry counts as received
+    // if at least one of them worked, so nothing is silently lost.
+    const [saved, adminSent] = await Promise.all([
+      appendToSheet({
+        timestamp: new Date().toISOString(),
+        source: req.body.source || 'contact-form',
+        name, email, phone, company, interest, message
+      }),
+      sendAdminEmail(req.body).then(() => true).catch((e) => {
+        console.error('Admin email failed:', e.message);
+        return false;
+      })
+    ]);
+
+    if (!saved && !adminSent) {
+      throw new Error('Neither Google Sheet nor admin email succeeded');
     }
 
-    // Send emails
-    console.log('📧 Sending admin email to:', process.env.ADMIN_EMAIL);
-    await sendAdminEmail(req.body);
-
-    console.log('📧 Sending confirmation email to:', req.body.email);
-    await sendConfirmationEmail(req.body);
+    await sendConfirmationEmail(req.body).catch((e) => {
+      console.error('Confirmation email failed:', e.message);
+    });
 
     return res.status(200).json({
       success: true,

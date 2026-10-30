@@ -63,12 +63,13 @@ const validateContactForm = (req, res, next) => {
     });
   }
 
-  // Sanitize data
-  req.body.name = validator.escape(name.trim());
+  // Sanitize data (HTML-escaping happens where values are rendered, in the
+  // email templates, so the Google Sheet stores the text as typed)
+  req.body.name = name.trim();
   req.body.email = validator.normalizeEmail(email.trim());
-  req.body.phone = phone ? validator.escape(phone.trim()) : '';
-  req.body.company = company ? validator.escape(company.trim()) : '';
-  req.body.message = message ? validator.escape(message.trim()) : '';
+  req.body.phone = phone ? phone.trim() : '';
+  req.body.company = company ? company.trim() : '';
+  req.body.message = message ? message.trim() : '';
 
   next();
 };

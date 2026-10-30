@@ -145,6 +145,8 @@
   ]
 }
 </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7" async defer></script>
+    <script src="lead-form.js" defer></script>
 </head>
 <body class="antialiased selection:bg-rexa-red selection:text-white">
 
@@ -523,10 +525,11 @@
 
         // Wellness consult form -> routes through to the real contact form
         // (this page has no backend of its own to receive the lead yet)
-        document.getElementById('wellnessForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = encodeURIComponent(document.getElementById('hrEmail').value || '');
-            window.location.href = `/contact?interest=employee-benefits&email=${email}`;
+        wireLeadForm({
+            formId: 'wellnessForm',
+            source: 'wellness-upgrade',
+            getChoice: () => document.getElementById('interestArea').value,
+            getEmail: () => document.getElementById('hrEmail').value.trim()
         });
     </script>
 </body>

@@ -70,7 +70,25 @@ const sendConfirmationEmail = async (contactData) => {
   return transporter.sendMail(mailOptions);
 };
 
+const sendLeadAdminEmail = async (lead) => {
+  if (!transporter) initializeEmailService();
+
+  return transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: process.env.ADMIN_EMAIL,
+    subject: `New Rexa Lead: ${lead.interest}`,
+    html: `
+      <h2>New Quick-Form Lead</h2>
+      <p><strong>Form:</strong> ${escapeHtml(lead.interest)}</p>
+      <p><strong>Selection:</strong> ${escapeHtml(lead.message)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(lead.email) || 'Not provided'}</p>
+      <p><strong>Mobile:</strong> ${escapeHtml(lead.phone) || 'Not provided'}</p>
+    `
+  });
+};
+
 module.exports = {
+  sendLeadAdminEmail,
   initializeEmailService,
   sendAdminEmail,
   sendConfirmationEmail

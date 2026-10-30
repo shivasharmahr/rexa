@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const { contactRateLimiter } = require('../middleware/rateLimit');
 const { initializeEmailService } = require('../utils/emailService');
 const contactRoutes = require('../routes/contact');
+const leadRoutes = require('../routes/lead');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -151,6 +152,7 @@ app.get('/grievance/', serveFile('grievance.html'));
 
 // Contact form API with rate limiting
 app.use('/api/contact', contactRateLimiter, contactRoutes);
+app.use('/api/lead', contactRateLimiter, leadRoutes);
 
 // 404 handler
 app.use((req, res) => {
