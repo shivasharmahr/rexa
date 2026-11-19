@@ -3,24 +3,26 @@
   "version": 2,
   "functions": {
     "api/server.js": {
-      "includeFiles": "{*.html,*.css,*.js,assets/**,logos/**,robots.txt,sitemap.xml}"
+      "includeFiles": "{*.html,*.css,*.js,assets/**,logos/**,robots.txt,llms.txt,sitemap.xml}"
     }
   },
   "routes": [
     {
-      "src": "/(.*\\.html)$",
-      "dest": "/$1"
+      "src": "/general(\\.html)?/?",
+      "status": 301,
+      "headers": {
+        "Location": "/corporate-risk"
+      }
     },
     {
-      "src": "/(.*\\.css)$",
-      "dest": "/$1"
+      "src": "/life(\\.html)?/?",
+      "status": 301,
+      "headers": {
+        "Location": "/employee-benefits"
+      }
     },
     {
-      "src": "/(.*\\.js)$",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|webp|ico|json|xml|txt|woff|woff2|ttf|eot))$",
+      "src": "/(assets/.*|logos/.*|styles\\.css|app\\.js|lead-form\\.js|offers\\.json|robots\\.txt|sitemap\\.xml|llms\\.txt)$",
       "dest": "/$1"
     },
     {
