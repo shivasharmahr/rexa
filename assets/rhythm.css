@@ -1,0 +1,347 @@
+/* ==========================================================================
+   Rexa page rhythm (assets/rhythm.css + assets/rhythm.js)
+   Gives a page alternating "rooms" (dark / tint / white / gradient), shaped dividers,
+   the Rexa X as a background motif, an X loader, scroll progress, count-up numbers,
+   pointer tilt and parallax. Currently used by index.html.
+   Safety: every hidden "before" state is either a CSS keyframe's from-state or only
+   applied when JS has marked the element; reduced-motion + print show final states.
+   ========================================================================== */
+
+:root { --rx-navy: #0A1128; --rx-navy2: #141B40; --rx-red: #E61C24; --rx-gold: #F0A830; --rx-tint: #EEF1FA; --rx-warm: #FFF7F0; }
+
+/* ---------- X loader: hidden by default; only appears if a page is still loading after ~0.5s ---------- */
+#rxLoader { position: fixed; inset: 0; z-index: 100000; display: none; pointer-events: none; opacity: 1; transition: opacity .4s ease; }
+html.rx-loading #rxLoader { display: block; }
+html.rx-loaded #rxLoader { opacity: 0; }
+#rxLoader .rx-panel { position: absolute; inset: 0; background: var(--rx-navy); }
+#rxLoader .rx-panel.bot { display: none; }
+#rxLoader .rx-mark { position: absolute; left: 50%; top: 50%; width: 96px; height: 96px; margin: -48px 0 0 -48px; }
+#rxLoader .rx-mark svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 16px rgba(230,28,36,.5)); }
+#rxLoader .rx-arm { fill: var(--rx-red); transform-box: fill-box; transform-origin: center; animation: rxArmIn .55s cubic-bezier(.2,.9,.25,1.15) both, rxBreathe 1.6s ease-in-out .7s infinite; }
+#rxLoader .a1 { --fx: -70px; --fy: 0px;   animation-delay: 0s, .7s }
+#rxLoader .a2 { --fx: 0px;   --fy: -70px; animation-delay: .06s, .7s }
+#rxLoader .a3 { --fx: 0px;   --fy: 70px;  animation-delay: .12s, .7s }
+#rxLoader .a4 { --fx: 70px;  --fy: 0px;   animation-delay: .18s, .7s }
+@keyframes rxArmIn { from { opacity: 0; transform: translate(var(--fx), var(--fy)) scale(.5) rotate(25deg) } to { opacity: 1; transform: none } }
+@keyframes rxBreathe { 0%, 100% { opacity: 1 } 50% { opacity: .55 } }
+#rxLoader .rx-ring { position: absolute; left: 50%; top: 50%; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%; border: 2px solid rgba(230,28,36,.55); opacity: 0; animation: rxRing 1.6s ease-out .3s infinite; }
+@keyframes rxRing { 0% { opacity: .8; transform: scale(.8) } 100% { opacity: 0; transform: scale(3) } }
+
+
+/* ---------- The Rexa X as a background motif ---------- */
+.rx-x { position: absolute; pointer-events: none; z-index: 0; color: var(--rx-red); opacity: .07; transform: translate3d(0, var(--py, 0px), 0) rotate(var(--rot, 0deg)); will-change: transform; }
+.rx-x svg, svg.rx-x { display: block; }
+.rx-sec { position: relative; isolation: isolate; }
+.rx-sec > .max-w-7xl, .rx-sec > .max-w-5xl, .rx-sec > .rx-inner { position: relative; z-index: 2; }
+
+/* ---------- Shaped dividers ---------- */
+.rx-div { position: absolute; left: 0; right: 0; line-height: 0; pointer-events: none; z-index: 1; }
+.rx-div svg { display: block; width: 100%; height: 64px; }
+.rx-div.bottom { bottom: -1px; }
+.rx-div.top { top: -1px; }
+@media (min-width: 768px) { .rx-div svg { height: 90px; } }
+
+/* ---------- 1. Hero (dark, mesh + dots + X) ---------- */
+.rx-hero { background: var(--rx-navy); color: #fff; padding-bottom: 7.5rem; --mx: 70%; --my: 30%; }
+.rx-hero > .absolute.inset-0.-z-10 { display: none; }
+.rx-hero .rx-mesh { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(520px circle at var(--mx) var(--my), rgba(230,28,36,.16), transparent 62%),
+    radial-gradient(640px 640px at 8% 105%, rgba(70,90,220,.30), transparent 65%),
+    radial-gradient(520px 520px at 100% 0%, rgba(230,28,36,.22), transparent 65%); }
+.rx-hero .rx-dots { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .7;
+  background-image: radial-gradient(rgba(255,255,255,.08) 1.2px, transparent 1.3px); background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 95%); mask-image: linear-gradient(180deg, #000 30%, transparent 95%); }
+.rx-hero .rx-x { opacity: .05; color: #fff; }
+.rx-hero > .max-w-7xl { position: relative; z-index: 2; }
+.rx-hero h1 { color: #fff; }
+.rx-hero h1 .text-rexa-red { color: #FF5158; }
+.rx-hero p.text-rexa-textMuted { color: #B8C0DA; }
+.rx-hero .rx-hero-panel { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.16); box-shadow: 0 40px 80px -30px rgba(0,0,0,.6); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.rx-hero .rx-hero-panel > .absolute { border-color: rgba(255,255,255,.08); }
+
+/* ---------- 2. Logo band (cool tint) ---------- */
+.rx-logos { background: var(--rx-tint); border: 0; padding-top: 1rem; }
+.rx-logos .marquee-container { -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+
+/* ---------- 3. Offerings (white + colour blobs + X) ---------- */
+.rx-offer { overflow-x: clip; }
+.rx-blob { position: absolute; z-index: 0; border-radius: 50%; pointer-events: none; transform: translate3d(0, var(--py, 0px), 0); will-change: transform; }
+.rx-blob-a { width: 520px; height: 520px; left: -200px; top: 120px; background: radial-gradient(circle, rgba(99,102,241,.10), rgba(99,102,241,0) 68%); }
+.rx-blob-b { width: 480px; height: 480px; right: -180px; top: 45%; background: radial-gradient(circle, rgba(230,28,36,.07), rgba(230,28,36,0) 68%); }
+.rx-blob-c { width: 460px; height: 460px; left: 20%; bottom: -120px; background: radial-gradient(circle, rgba(14,165,233,.07), rgba(14,165,233,0) 68%); }
+.rx-offer .rx-x { width: 420px; height: 420px; right: -90px; top: 70px; }
+/* cards: staggered, not a flat grid; pointer tilt */
+
+.rx-offer .offering-card:hover { box-shadow: 0 24px 44px -18px rgba(10,17,40,.18); }
+
+/* ---------- 5. Claims (navy; X lattice drifts) ---------- */
+.rx-claims { padding-top: 8rem; }
+.rx-claims > .absolute.inset-0.opacity-5 { opacity: .04; }
+@keyframes rxDrift { to { transform: translate(40px, 40px) } }
+.rx-claims .rx-glow { position: absolute; z-index: 0; width: 560px; height: 560px; border-radius: 50%; pointer-events: none; left: -180px; top: -140px; background: radial-gradient(circle, rgba(230,28,36,.16), rgba(230,28,36,0) 65%); }
+
+
+/* ---------- 6. CTA: a calm, light closing room; red is reserved for the action buttons ---------- */
+.rx-cta { background: linear-gradient(180deg, #EEF1FA 0%, #E4E9F6 100%); padding-top: 8rem; padding-bottom: 8.5rem; overflow: hidden; }
+.rx-cta h2 { color: var(--rx-navy); }
+.rx-cta .max-w-5xl > p { color: #475569; }
+.rx-cta .rx-ask { position: relative; display: flex; flex-direction: column; cursor: pointer; border: 1px solid rgba(10,17,40,.08); border-top: 4px solid var(--ask, var(--rx-navy));
+  box-shadow: 0 24px 50px -30px rgba(10,17,40,.35); transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s; }
+.rx-cta .rx-ask:hover { transform: translateY(-5px); box-shadow: 0 32px 60px -28px rgba(10,17,40,.4); }
+.rx-cta .rx-ask p { height: auto; margin-bottom: 1.75rem; flex: 1; }
+.rx-cta .rx-ask .bg-gray-50 { background: color-mix(in srgb, var(--ask) 9%, white); color: var(--ask); }
+.rx-cta .rx-ask:hover .bg-gray-50 { background: var(--ask); color: #fff; }
+.rx-cta .rx-ask .open-lead-modal { align-self: flex-start; background: var(--rx-red); color: #fff; padding: .85rem 1.5rem; border-radius: 999px; min-height: 44px; box-shadow: 0 14px 26px -14px rgba(230,28,36,.8); transition: background .2s, transform .2s; }
+.rx-cta .rx-ask .open-lead-modal:hover, .rx-cta .rx-ask:hover .open-lead-modal { background: var(--rx-red-hov, #CC1820); color: #fff; }
+.rx-cta .rx-ask .open-lead-modal i { transition: transform .2s; }
+.rx-cta .rx-ask:hover .open-lead-modal i { transform: translateX(3px); }
+@media (max-width: 767px) { .rx-cta .rx-ask .open-lead-modal { align-self: stretch; justify-content: center; } }
+
+/* ---------- reveals: slide-in from the sides for variety ---------- */
+.js .rx-from-left { opacity: 0; transform: translateX(-20px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+.js .rx-from-right { opacity: 0; transform: translateX(20px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+.js .rx-from-left.in-view, .js .rx-from-right.in-view, .js .rx-from-left.in, .js .rx-from-right.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  #rxLoader { display: none !important; }
+  .rx-x, .rx-blob { transform: none !important; }
+  .rx-claims > .absolute.inset-0.opacity-5 { animation: none; }
+  .rx-offer .offering-card, .js .rx-offer .offering-card:hover, .rx-offer .offering-card:hover { transform: none; }
+  .js .rx-from-left, .js .rx-from-right { opacity: 1; transform: none; transition: none; }
+}
+@media print { #rxLoader, .rx-x, .rx-blob { display: none !important; } }
+
+/* nav stays a clean white bar over the dark hero (no muddy grey) */
+#navbar { background: rgba(255,255,255,.97); }
+/* give the overlapped "Dedicated Manager" card room so its title isn't tucked under the claim card */
+.rx-claims .float-b > div { padding-top: 4.5rem; }
+
+/* ==========================================================================
+   Inner pages (corporate-risk, employee-benefits, wellness-and-value, retail-insurance)
+   Same rhythm as the homepage: dark hero, alternating section grounds, shaped joins,
+   a calm light closing room. Hero decoration from the old light design is retired.
+   ========================================================================== */
+.rx-hero > .absolute:not(.rx-mesh):not(.rx-dots):not(.rx-div):not(.rx-x) { display: none; }
+.rx-hero .-z-10 { display: none; }
+.rx-hero .inline-flex.rounded-full.uppercase { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); color: #E6EAF8; }
+.rx-hero .inline-flex.rounded-full.uppercase i { color: var(--rx-gold); }
+.rx-hero .text-rexa-red { color: #FF5158; }
+.rx-hero .rx-mesh { pointer-events: none; }
+.rx-hero .shadow-2xl, .rx-hero .shadow-xl { box-shadow: 0 40px 80px -30px rgba(0,0,0,.55); }
+
+.rx-bg-tint { background: var(--rx-tint); border-color: transparent; }
+.rx-bg-white { background: #fff; border-color: transparent; }
+.rx-bg-navy { border-color: transparent; }
+.rx-wv { padding-top: 7.5rem; }
+.rx-bg-tint, .rx-bg-white { border-top: 0; border-bottom: 0; }
+.rx-close { background: linear-gradient(180deg, #EEF1FA 0%, #E4E9F6 100%); padding-bottom: 8.5rem; }
+.rx-sec > .max-w-3xl, .rx-sec > .max-w-4xl, .rx-sec > .max-w-6xl { position: relative; z-index: 2; }
+.rx-sec > .rx-blob { z-index: 0; }
+/* inner-page heroes: ease the glow into the navy so the next section's wave joins without a seam */
+.rx-hero:not(:has(.rx-div))::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 180px; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(10,17,40,0), #0A1128); }
+
+/* centered text heroes (About): light-on-dark overrides, scoped so product-page hero cards keep their dark text */
+.rx-hero-center { border-bottom: 0; padding-bottom: 6rem; }
+.rx-hero-center .text-rexa-navy { color: #fff; }
+.rx-hero-center .text-rexa-textMuted, .rx-hero-center a.hover\:text-rexa-navy { color: #B8C0DA; }
+.rx-hero-center .hover\:text-rexa-navy:hover { color: #fff; }
+.rx-hero-center .border-gray-200 { border-color: rgba(255,255,255,.14); }
+.rx-hero-center h4.text-rexa-red { color: #FF6B70; }
+
+
+/* ==========================================================================
+   Page transitions + smoother in-page motion
+   ========================================================================== */
+/* --- page-to-page: the old page fades out quickly, the new one fades in (the X only shows if loading is genuinely slow) --- */
+html.rx-leaving body { opacity: 0; transition: opacity .18s ease; }
+html.rx-arrive body { animation: rxPageIn .45s ease both; }
+@keyframes rxPageIn { from { opacity: 0 } to { opacity: 1 } }
+
+/* --- page entrance: hero content rises in, in order, after the curtain --- */
+html { --rx-d0: .1s; }
+@keyframes rxRise { from { opacity: 0; transform: translateY(26px) } to { opacity: 1; transform: none } }
+@keyframes rxFadeScale { from { opacity: 0; transform: translateY(34px) scale(.97) } to { opacity: 1; transform: none } }
+.rx-hero .grid > div:first-child > *, .rx-hero-center .max-w-7xl > * { animation: rxRise .85s cubic-bezier(.22,1,.36,1) backwards; animation-delay: calc(var(--rx-d0) + var(--i, 0) * .09s); }
+.rx-hero .grid > div:first-child > :nth-child(1) { --i: 0 } .rx-hero .grid > div:first-child > :nth-child(2) { --i: 1 }
+.rx-hero .grid > div:first-child > :nth-child(3) { --i: 2 } .rx-hero .grid > div:first-child > :nth-child(4) { --i: 3 }
+.rx-hero .grid > div:first-child > :nth-child(5) { --i: 4 }
+.rx-hero .grid > div:last-child { animation: rxFadeScale 1s cubic-bezier(.22,1,.36,1) backwards; animation-delay: calc(var(--rx-d0) + .25s); }
+.rx-hero-center .max-w-7xl > :nth-child(1) { --i: 0 } .rx-hero-center .max-w-7xl > :nth-child(2) { --i: 1 }
+.rx-hero-center .max-w-7xl > :nth-child(3) { --i: 2 } .rx-hero-center .max-w-7xl > :nth-child(4) { --i: 3 }
+.rx-hero-center .max-w-7xl > :nth-child(5) { --i: 5 }
+
+/* --- scroll reveals added by rhythm.js: longer, softer, staggered (only ever hidden when JS has marked them) --- */
+.js .rx-rv { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); transition-delay: var(--rd, 0s); will-change: opacity, transform; }
+.js .rx-rv.rx-in { opacity: 1; transform: none; will-change: auto; }
+.js .rx-rv.rx-instant { transition: none; }
+.js .rx-rv.rx-rv-scale { transform: translateY(34px) scale(.965); }
+.js .rx-rv.rx-rv-scale.rx-in { transform: none; }
+
+/* --- section joins: waves glide in slightly slower than the content for depth --- */
+
+/* --- buttons + links: a bit of tactile feedback --- */
+a.bg-rexa-red, button.bg-rexa-red, .rx-ask .open-lead-modal { transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, background-color .2s ease; }
+a.bg-rexa-red:hover, button.bg-rexa-red:hover { transform: translateY(-2px); box-shadow: 0 16px 28px -12px rgba(230,28,36,.65); }
+a.bg-rexa-red:active, button.bg-rexa-red:active { transform: translateY(0) scale(.98); }
+.rx-pl { transform: translate3d(0, var(--py, 0px), 0); will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.rx-leaving body, html.rx-arrive body { opacity: 1; transition: none; animation: none; }
+  .rx-hero .grid > div, .rx-hero .grid > div > *, .rx-hero-center .max-w-7xl > * { animation: none !important; }
+  .js .rx-rv { opacity: 1; transform: none; transition: none; }
+}
+
+
+/* ==========================================================================
+   Contact + legal pages
+   ========================================================================== */
+.rx-hero { border-bottom: 0; }
+.rx-hero .max-w-3xl > * { animation: rxRise .85s cubic-bezier(.22,1,.36,1) backwards; animation-delay: calc(var(--rx-d0) + var(--i, 0) * .09s); }
+.rx-hero .max-w-3xl > :nth-child(2) { --i: 1; }
+/* legal pages: the same dark header, with the long-form text kept plain and readable below */
+.rx-hero-legal { background: var(--rx-navy); color: #fff; padding: 7rem 0 5.5rem; border-bottom: 0; }
+.rx-hero-legal .wrap { position: relative; z-index: 2; }
+.rx-hero-legal .crumbs, .rx-hero-legal .crumbs a { color: #B8C0DA; }
+.rx-hero-legal .crumbs a:hover { color: #fff; }
+.rx-hero-legal .eyebrow { color: #FF6B70; }
+.rx-hero-legal h1 { color: #fff; }
+.rx-hero-legal .lead { color: #CBD5E1; }
+.rx-hero-legal .wrap > * { animation: rxRise .85s cubic-bezier(.22,1,.36,1) backwards; animation-delay: calc(var(--rx-d0) + var(--i, 0) * .09s); }
+.rx-hero-legal .wrap > :nth-child(2) { --i: 1 } .rx-hero-legal .wrap > :nth-child(3) { --i: 2 } .rx-hero-legal .wrap > :nth-child(4) { --i: 3 }
+.rx-legal-body { padding-top: 5rem; padding-bottom: 6rem; }
+@media (prefers-reduced-motion: reduce) { .rx-hero .max-w-3xl > *, .rx-hero-legal .wrap > * { animation: none !important; } }
+.rx-hero { overflow-x: clip; }
+
+/* accessibility: skip link, visible focus, comfortable minimum sizes */
+.rx-skip { position: fixed; left: 12px; top: -64px; z-index: 100001; background: #0A1128; color: #fff; padding: 12px 18px; border-radius: 10px; font-weight: 600; text-decoration: none; transition: top .2s; }
+.rx-skip:focus { top: 12px; outline: 3px solid #FF5158; outline-offset: 2px; }
+:focus-visible { outline: 3px solid rgba(230,28,36,.7); outline-offset: 3px; border-radius: 6px; }
+.rx-hero :focus-visible, .rx-claims :focus-visible, #team :focus-visible { outline-color: #fff; }
+main { scroll-margin-top: 90px; }
+
+/* client logos: each on a clean white tile so mixed-quality artwork reads as one consistent set */
+.rx-logos .marquee-content img { height: 56px !important; width: auto; padding: 10px 18px; margin-inline: .55rem !important; background: #fff; border-radius: 14px; mix-blend-mode: normal !important; filter: grayscale(1); opacity: .85 !important; box-shadow: 0 6px 18px -12px rgba(10,17,40,.25); transition: filter .3s ease, opacity .3s ease, transform .3s ease; }
+.rx-logos .marquee-content img:hover { filter: none; opacity: 1 !important; transform: translateY(-2px); }
+@media (max-width: 767px) { .rx-logos .marquee-content img { height: 48px !important; padding: 8px 14px; } }
+.rx-sec { overflow-x: clip; }
+
+/* hero stat card: one figure at a time. The outgoing figure fades first, the next one waits its turn (no ghosted overlap). */
+.hero-stat-item { transition: opacity .3s ease, transform .3s ease; }
+.hero-stat-item[data-active="true"] { transition-delay: .32s; }
+
+/* ==========================================================================
+   Page identities: one design system, five colour worlds.
+   <html data-theme="..."> sets the accent, the hero's deep tone, the light-section tint and the
+   hero background pattern, so arriving on a new page is felt immediately. Buttons stay brand red.
+   ========================================================================== */
+html[data-theme="corporate"] { --th-a: #6366F1; --th-b: #3B82F6; --th-light: #A5B4FC; --th-deep: #0B1230; --th-tint: #EEF0FF; --th-ink: #4F46E5; }
+html[data-theme="benefits"]  { --th-a: #E61C24; --th-b: #C026D3; --th-light: #FF8A90; --th-deep: #1A0E2B; --th-tint: #FFF1F3; --th-ink: #C8151D; }
+html[data-theme="wellness"]  { --th-a: #F2683C; --th-b: #F5A524; --th-light: #FFB38A; --th-deep: #2A130F; --th-tint: #FFF1EA; --th-ink: #C2410C; }
+html[data-theme="retail"]    { --th-a: #0EA5E9; --th-b: #14B8A6; --th-light: #7DD3FC; --th-deep: #071D36; --th-tint: #E7F5FD; --th-ink: #0369A1; }
+html[data-theme="about"]     { --th-a: #F0A830; --th-b: #E61C24; --th-light: #F8CE80; --th-deep: #0A1128; --th-tint: #FAF6EC; --th-ink: #A8570A; }
+html[data-theme="contact"]   { --th-a: #E61C24; --th-b: #4659DC; --th-light: #FF8A90; --th-deep: #0A1128; --th-tint: #EEF1FA; --th-ink: #C8151D; }
+html[data-theme="legal"]     { --th-a: #94A3B8; --th-b: #4659DC; --th-light: #CBD5E1; --th-deep: #0F172A; --th-tint: #F1F5F9; --th-ink: #475569; }
+
+/* hero: deep tone, accent glows, accent X */
+html[data-theme]:not([data-theme="home"]) .rx-hero { background: var(--th-deep); }
+html[data-theme]:not([data-theme="home"]) .rx-hero .rx-mesh {
+  background:
+    radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), color-mix(in srgb, var(--th-a) 26%, transparent), transparent 62%),
+    radial-gradient(640px 640px at 6% 108%, color-mix(in srgb, var(--th-b) 34%, transparent), transparent 65%),
+    radial-gradient(520px 520px at 100% 0%, color-mix(in srgb, var(--th-a) 22%, transparent), transparent 65%);
+}
+html[data-theme]:not([data-theme="home"]) .rx-hero .rx-x { color: var(--th-light); opacity: .08; }
+html[data-theme]:not([data-theme="home"]) .rx-hero .text-rexa-red,
+html[data-theme]:not([data-theme="home"]) .rx-hero-legal .eyebrow { color: var(--th-light); }
+html[data-theme]:not([data-theme="home"]) .rx-hero .inline-flex.rounded-full.uppercase { border-color: color-mix(in srgb, var(--th-light) 45%, transparent); }
+html[data-theme]:not([data-theme="home"]) .rx-hero .inline-flex.rounded-full.uppercase i { color: var(--th-light); }
+html[data-theme]:not([data-theme="home"]) .rx-hero:not(:has(.rx-div))::after { background: linear-gradient(180deg, color-mix(in srgb, var(--th-deep) 0%, transparent), var(--th-deep)); }
+/* a different texture on each page */
+html[data-theme="corporate"] .rx-hero .rx-dots { background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size: 56px 56px; }
+html[data-theme="benefits"]  .rx-hero .rx-dots { background-image: radial-gradient(circle at 78% 40%, transparent 0 120px, rgba(255,255,255,.07) 121px 122px, transparent 123px 200px, rgba(255,255,255,.055) 201px 202px, transparent 203px 290px, rgba(255,255,255,.04) 291px 292px, transparent 293px); background-size: auto; }
+html[data-theme="wellness"]  .rx-hero .rx-dots { background-image: radial-gradient(rgba(255,190,150,.16) 1.6px, transparent 1.7px); background-size: 34px 34px; }
+html[data-theme="retail"]    .rx-hero .rx-dots { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 1px, transparent 1px 22px); background-size: auto; }
+html[data-theme="about"]     .rx-hero .rx-dots { background-image: radial-gradient(rgba(240,168,48,.18) 1.3px, transparent 1.4px); background-size: 28px 28px; }
+
+/* light sections follow the page tint; waves follow too */
+html[data-theme]:not([data-theme="home"]) .rx-bg-tint { background: var(--th-tint); }
+html[data-theme]:not([data-theme="home"]) .rx-close { background: linear-gradient(180deg, var(--th-tint), color-mix(in srgb, var(--th-tint) 82%, #9fb0e8)); }
+html[data-theme]:not([data-theme="home"]) .rx-bg-navy { background: var(--th-deep); }
+html[data-theme]:not([data-theme="home"]) .rx-div path[fill="#EEF1FA"] { fill: var(--th-tint); }
+html[data-theme]:not([data-theme="home"]) .rx-div.top path[fill="#0A1128"] { fill: var(--th-deep); }
+html[data-theme]:not([data-theme="home"]) .rx-sec:not(.rx-hero) .text-rexa-red.uppercase { color: var(--th-ink); }
+
+/* wayfinding accent: a coloured hairline under the header */
+html[data-theme]:not([data-theme="home"]) #navbar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--th-a), var(--th-b)); pointer-events: none; }
+
+/* shorter heroes: the content starts sooner */
+html[data-theme]:not([data-theme="home"]) .rx-hero:not(.rx-hero-legal):not(.rx-hero-center) { padding-top: 7.5rem; padding-bottom: 5rem; }
+@media (min-width: 768px) { html[data-theme]:not([data-theme="home"]) .rx-hero:not(.rx-hero-legal):not(.rx-hero-center) { padding-top: 9rem; padding-bottom: 6rem; } }
+html[data-theme] .rx-hero-center { padding-top: 7.5rem; padding-bottom: 4.5rem; }
+@media (min-width: 768px) { html[data-theme] .rx-hero-center { padding-top: 9rem; } }
+
+/* "On this page" bar: appears once the hero has scrolled away, highlights the section you're in */
+.rx-subnav { position: fixed; left: 0; right: 0; top: 80px; z-index: 45; background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(10,17,40,.08); box-shadow: 0 10px 24px -20px rgba(10,17,40,.35);
+  opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .25s ease, transform .25s ease; }
+.rx-subnav.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.rx-subnav-in { max-width: 80rem; margin: 0 auto; padding: 0 1rem; display: flex; align-items: center; gap: .5rem; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.rx-subnav-in::-webkit-scrollbar { display: none; }
+@media (min-width: 640px) { .rx-subnav-in { padding: 0 1.5rem; } } @media (min-width: 1024px) { .rx-subnav-in { padding: 0 2rem; } }
+.rx-subnav-lbl { flex: none; font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #94A3B8; padding-right: .5rem; }
+.rx-subnav a { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 .9rem; font-size: .8125rem; font-weight: 600; color: #475569; text-decoration: none; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.rx-subnav a:hover { color: #0A1128; }
+.rx-subnav a[aria-current="true"] { color: var(--th-ink, #0A1128); border-bottom-color: var(--th-a, #E61C24); }
+[data-nav] { scroll-margin-top: 140px; }
+@media (max-width: 639px) { .rx-subnav-lbl { display: none; } }
+@media (prefers-reduced-motion: reduce) { .rx-subnav { transition: none; } }
+@media print { .rx-subnav { display: none !important; } }
+
+/* phones: the floating-chip hero illustrations on these two pages get cramped, so let the words lead */
+@media (max-width: 639px) {
+  html[data-theme="wellness"] .rx-hero .grid > div:last-child,
+  html[data-theme="benefits"] .rx-hero .grid > div:last-child { display: none; }
+  html[data-theme] .rx-hero:not(.rx-hero-legal):not(.rx-hero-center) { padding-bottom: 4rem; }
+}
+
+/* wellness: even the "improvement" figures use the page colour (no stray green) */
+html[data-theme="wellness"] .text-green-600 { color: var(--th-ink); }
+html[data-theme="wellness"] .bg-green-500 { background-color: var(--th-a); }
+html[data-theme="wellness"] .bg-green-50 { background-color: color-mix(in srgb, var(--th-a) 12%, #fff); }
+
+/* ==========================================================================
+   Mobile menu: a plain three-line hamburger, and a quiet dropdown in the page's own colour
+   ========================================================================== */
+.rx-burger { position: relative; flex: none; width: 44px; height: 44px; border: 0; border-radius: 10px; background: linear-gradient(#0A1128, #0A1128) 11px 21px / 22px 2px no-repeat; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-size .2s ease; }
+.rx-burger i { display: none; }
+.rx-burger::before, .rx-burger::after { content: ""; position: absolute; left: 11px; width: 22px; height: 2px; border-radius: 2px; background: #0A1128; transition: transform .3s cubic-bezier(.2,.8,.2,1), top .3s cubic-bezier(.2,.8,.2,1); }
+.rx-burger::before { top: 14px; } .rx-burger::after { top: 28px; }
+.rx-burger.is-open { background-size: 0 2px; }
+.rx-burger.is-open::before { top: 21px; transform: rotate(45deg); }
+.rx-burger.is-open::after { top: 21px; transform: rotate(-45deg); }
+.rx-burger:focus-visible { outline: 3px solid rgba(230,28,36,.6); outline-offset: 2px; }
+
+@media (max-width: 767px) {
+  html.rx-menu-open { overflow: hidden; }
+  html #navbar #mobileMenu { display: none; position: absolute; left: 0; right: 0; top: 100%; max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px); overflow-y: auto; overscroll-behavior: contain;
+    background: var(--th-deep, #0A1128); color: #fff; padding: 0; border: 0; border-radius: 0 0 20px 20px; box-shadow: 0 24px 40px -20px rgba(10,17,40,.5); }
+  html #navbar #mobileMenu.open { display: block; animation: rxMenuIn .28s ease both; }
+  @keyframes rxMenuIn { from { opacity: 0; transform: translateY(-8px) } to { opacity: 1; transform: none } }
+  .rx-menu-in { padding: .5rem 1.25rem 1.5rem; }
+  .rx-menu-links a { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: .5rem 0; color: #fff; text-decoration: none; font-size: 1.0625rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .rx-menu-links a:hover { color: var(--th-light, #fff); }
+  .rx-menu-links a[aria-current="page"] { color: var(--th-light, #FF8A90); font-weight: 600; }
+  .rx-menu-links a[aria-current="page"]::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--th-light, #FF8A90); }
+  .rx-menu-cta { display: flex; align-items: center; justify-content: center; min-height: 50px; margin-top: 1.25rem; border-radius: 999px; background: #E61C24; color: #fff; font-weight: 600; text-decoration: none; }
+}
+@media (prefers-reduced-motion: reduce) { html #navbar #mobileMenu.open { animation: none; } .rx-burger, .rx-burger::before, .rx-burger::after { transition: none; } }
+/* Raksha steps aside while the menu is open */
+html.rx-menu-open #rohiniWidget .roh-dock { opacity: 0; pointer-events: none; transform: translateY(12px); }
+
+
+/* popups: fade the backdrop in and let the panel rise, instead of snapping open */
+@keyframes rxBackdropIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes rxPanelIn { from { opacity: 0; transform: translateY(22px) scale(.97) } to { opacity: 1; transform: none } }
+#bioModal.open, #leadModal.open { animation: rxBackdropIn .28s ease both; }
+#bioModal.open > div, #leadModal.open > div { animation: rxPanelIn .42s cubic-bezier(.22,1,.36,1) .04s both; }
+@media (prefers-reduced-motion: reduce) { #bioModal.open, #leadModal.open, #bioModal.open > div, #leadModal.open > div { animation: none; } }

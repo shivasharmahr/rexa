@@ -1,0 +1,26 @@
+/* Illustrated product cards, shared with the homepage offering cards (same banner + icon-overlap treatment).
+   Colours come from each card's own --accent. Used on the four product pages. */
+.bento-card.offering-card { position: relative; overflow: hidden; border-top: 3px solid var(--accent); }
+.offering-card:hover { box-shadow: 0 20px 40px -15px rgba(10, 17, 40, 0.12); }
+.offering-art {
+  --a: var(--accent);
+  --s: color-mix(in srgb, var(--accent) 32%, white);
+  --t: color-mix(in srgb, var(--accent) 12%, white);
+  position: relative; height: 140px; margin: -2rem -2rem 0;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background: linear-gradient(135deg, var(--t), color-mix(in srgb, var(--accent) 3%, white));
+}
+.offering-card.p-10 > .offering-art { margin: -2.5rem -2.5rem 0; }
+.offering-art::before { content: ""; position: absolute; width: 170px; height: 170px; border-radius: 50%; background: var(--s); opacity: .45; top: -80px; right: -50px; }
+.offering-art::after { content: ""; position: absolute; left: 0; bottom: 0; width: 120px; height: 72px; opacity: .8;
+  background-image: radial-gradient(var(--s) 1.6px, transparent 1.7px); background-size: 14px 14px; }
+.offering-art svg { position: relative; z-index: 1; width: 140px; height: 115px; transition: transform .35s ease; }
+.offering-card:hover .offering-art svg { transform: scale(1.07) rotate(-2deg); }
+/* the icon badge / header row overlaps the banner edge */
+.offering-card .art-next { position: relative; z-index: 2; margin-top: -2.5rem; }
+.offering-card .art-next[class*="w-12"], .offering-card .art-next[class*="w-14"], .offering-card .art-next > [class*="w-14"] {
+  box-shadow: 0 0 0 5px #fff, 0 10px 22px -10px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.offering-card .art-next[class*="w-12"], .offering-card .art-next[class*="w-14"] { background: color-mix(in srgb, var(--accent) 10%, white); color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .offering-art svg, .offering-card:hover .offering-art svg { transition: none; transform: none; } }
+.offering-card:hover .art-next[class*="w-12"], .offering-card:hover .art-next[class*="w-14"] { background: var(--accent); color: #fff; }
