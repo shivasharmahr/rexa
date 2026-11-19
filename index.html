@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en-IN" class="scroll-smooth" data-theme="home">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rexa Insurance Broking — Beyond Insurance. Building Resilience.</title>
-<meta name="description" content="Rexa Insurance Broking — your strategic insurance & risk partner. IRDA Licensed Broker No. 611. 500+ corporate clients, 100K+ lives covered, 98% client retention across India.">
+<title>Rexa Insurance Broking | Corporate Risk &amp; Employee Benefits</title>
+<meta name="description" content="IRDA-licensed insurance broker (No. 611) in Chennai. Corporate risk, group health and employee benefits for 500+ Indian businesses. Get a free gap analysis.">
 <meta property="og:title" content="Rexa Insurance Broking — Beyond Insurance. Building Resilience.">
 <meta property="og:description" content="Strategic insurance & risk partner for Indian businesses. Employee benefits, general insurance, claims expertise.">
 <meta property="og:type" content="business.business">
@@ -12,15 +12,24 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rexa Insurance Broking">
 <meta name="twitter:description" content="Strategic insurance & risk partner for Indian businesses">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Rexa Insurance Broking","alternateName":"Rexa Insurance Broking Services Pvt. Ltd.","url":"https://www.rexabroking.com/","inLanguage":"en-IN","publisher":{"@type":"Organization","name":"Rexa Insurance Broking Services Pvt. Ltd.","url":"https://www.rexabroking.com/"}}</script>
 <link rel="canonical" href="https://www.rexabroking.com/">
+<meta property="og:image" content="https://www.rexabroking.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Rexa Insurance Broking">
+<meta property="og:site_name" content="Rexa Insurance Broking">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:image" content="https://www.rexabroking.com/assets/og-image.png">
+<meta name="theme-color" content="#0A1128">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 
 <!-- Tailwind CSS (this page only — other pages remain on styles.css) -->
-<script src="https://cdn.tailwindcss.com"></script>
 
 <!-- reCAPTCHA v3 for the on-page lead modal (same site key as /contact) -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7" onload="onRecaptchaLoad()" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdXvWYtAAAAAJTgwmAsaS_09eKosqeFRaT-uMxx" onload="onRecaptchaLoad()" async defer></script>
 <script>
     function onRecaptchaLoad() { window.recaptchaReady = true; }
     setTimeout(() => { if (window.grecaptcha && !window.recaptchaReady) window.recaptchaReady = true; }, 2000);
@@ -30,40 +39,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- Google Fonts: Inter (sans for UI). Serif headers fall back to system Palatino/Georgia. -->
+<link rel="stylesheet" href="assets/tailwind.css">
+<link rel="stylesheet" href="assets/motion.css?v=20261201">
+<link rel="stylesheet" href="assets/rhythm.css?v=20261203">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    rexa: {
-                        navy: '#0A1128',
-                        red: '#E61C24',
-                        redHover: '#CC1820',
-                        white: '#FFFFFF',
-                        offWhite: '#FAFAFA',
-                        grayBg: '#F8FAFC',
-                        grayLight: '#F1F5F9',
-                        softGray: '#F1F5F9',
-                        textMuted: '#64748B'
-                    }
-                },
-                fontFamily: {
-                    sans: ['Inter', 'sans-serif'],
-                    serif: ['Palatino', 'Georgia', 'serif'],
-                },
-                boxShadow: {
-                    'soft': '0 10px 40px -10px rgba(10, 17, 40, 0.06)',
-                    'hover': '0 20px 40px -10px rgba(10, 17, 40, 0.1)',
-                    'floating': '0 20px 50px -20px rgba(10, 17, 40, 0.15)',
-                }
-            }
-        }
-    }
-</script>
 
 <style>
     html { overflow-x: hidden; scroll-behavior: smooth; }
@@ -72,13 +54,13 @@
     /* --- Marquee (seamless: two identical sets, shift by exactly one set's width) --- */
     .marquee-container {
         display: flex; overflow: hidden; user-select: none;
-        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     }
     .marquee-content {
         display: flex; flex-shrink: 0; align-items: center;
         width: max-content;
-        animation: scroll 70s linear infinite;
+        animation: scroll 55s linear infinite;
     }
     @keyframes scroll {
         0% { transform: translateX(0); }
@@ -122,7 +104,18 @@
         transform: translateY(-1px);
     }
     .railnav-pill:active { transform: scale(.97); }
+    /* Proof figures: one ink colour, the same serif as the headings, hairline dividers, labels that never wrap. */
+    .proof-stats > div { padding: 0 .75rem; }
+    .proof-stats > div + div { border-left: 1px solid #E5E7EB; }
+    @media (min-width: 768px) { .proof-stats > div:first-child { padding-left: 0; } }
+    .proof-num { font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 2rem; line-height: 1; letter-spacing: -.01em; color: #0A1128; font-variant-numeric: lining-nums tabular-nums; }
+    .proof-label { margin-top: .5rem; font-size: .75rem; line-height: 1.25; color: #64748B; letter-spacing: .01em; white-space: nowrap; }
     .railnav-mobile.is-stuck { box-shadow: 0 8px 24px -16px rgba(10,17,40,.25); }
+    /* Edge to edge and solid, like the header above it: no gutters at the sides and nothing showing through.
+       The pill row keeps the page's side margin as its own padding, so the pills still line up with the text. */
+    .railnav-mobile { background: #fff; margin-inline: calc(50% - 50vw); padding-inline: 0; align-self: stretch; width: auto; max-width: none; }
+    .railnav-pill-track { padding-left: 1rem; }
+    @media (min-width: 640px) { .railnav-pill-track { padding-left: 1.5rem; padding-right: 1.5rem; } }
     /* Edge-fade the scrollable pill row instead of letting it hard-clip at the
        viewport edge — makes "there's more, swipe" obvious instead of looking
        like a layout bug. Only fades the side that actually has more to
@@ -160,37 +153,55 @@
     .offering-icon {
         position: relative; overflow: hidden; color: var(--accent);
         background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, white), color-mix(in srgb, var(--accent) 6%, white));
-        opacity: 0; transform: scale(0.45) rotate(-10deg);
         transition: opacity .5s ease, transform .6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+    .js .offering-icon { opacity: 0; transform: scale(0.45) rotate(-10deg); }
     /* Icons pop in the moment they scroll into view (see IntersectionObserver
        below) — independent of whether their card also fades/rises, so the
        animation reads clearly even for the featured card that has no
        card-reveal wrapper. Settles into the idle motifPulse once visible. */
-    .offering-icon.icon-in { opacity: 1; transform: scale(1) rotate(0deg); }
+    .js .offering-icon.icon-in { opacity: 1; transform: scale(1) rotate(0deg); }
     .offering-icon i { position: relative; z-index: 1; transition: transform 0.3s ease; }
     .offering-icon svg { position: absolute; color: var(--accent); animation: motifPulse 3.6s ease-in-out infinite; transform-origin: center; }
     .offering-card:hover .offering-icon i { transform: scale(1.12) rotate(-4deg); }
     @keyframes motifPulse { 50% { opacity: 0.08; transform: scale(0.92); } }
     @media (prefers-reduced-motion: reduce) {
-        .offering-icon { opacity: 1; transform: none; transition: none; }
+        .js .offering-icon { opacity: 1; transform: none; transition: none; }
         .offering-icon svg { animation: none; }
         .offering-card:hover .offering-icon i { transform: none; }
     }
+
+    /* Illustrated banner on every offering card: colours come from the card's own --accent */
+    .offering-card { overflow: hidden; }
+    .offering-art {
+        --a: var(--accent);
+        --s: color-mix(in srgb, var(--accent) 32%, white);
+        --t: color-mix(in srgb, var(--accent) 12%, white);
+        position: relative; height: 140px; margin: -2rem -2rem 0;
+        display: flex; align-items: center; justify-content: center; overflow: hidden;
+        background: linear-gradient(135deg, var(--t), color-mix(in srgb, var(--accent) 3%, white));
+    }
+    .offering-art::before { content: ""; position: absolute; width: 170px; height: 170px; border-radius: 50%; background: var(--s); opacity: .45; top: -80px; right: -50px; }
+    .offering-art::after { content: ""; position: absolute; left: 0; bottom: 0; width: 120px; height: 72px; opacity: .8;
+        background-image: radial-gradient(var(--s) 1.6px, transparent 1.7px); background-size: 14px 14px; }
+    .offering-art svg { position: relative; z-index: 1; width: 140px; height: 115px; transition: transform .35s ease; }
+    .offering-card:hover .offering-art svg { transform: scale(1.07) rotate(-2deg); }
+    @media (min-width: 640px) {
+        .offering-card.sm\:col-span-2 .offering-art { justify-content: flex-end; padding-right: 12%; height: 150px; }
+        .offering-card.sm\:col-span-2 .offering-art svg { width: 160px; height: 131px; }
+    }
+    /* the existing icon badge now overlaps the banner edge */
+    .offering-art + * { position: relative; z-index: 2; margin-top: -2.5rem; }
+    .offering-art + .offering-icon, .offering-art + div .offering-icon {
+        box-shadow: 0 0 0 5px #fff, 0 10px 22px -10px color-mix(in srgb, var(--accent) 55%, transparent);
+    }
+    @media (prefers-reduced-motion: reduce) { .offering-art svg, .offering-card:hover .offering-art svg { transition: none; transform: none; } }
     .tag-chip {
         background: color-mix(in srgb, var(--accent) 9%, transparent);
         color: var(--accent);
     }
 
-    .card-reveal {
-        opacity: 0; transform: translateY(22px);
-        transition: opacity .55s ease, transform .55s ease;
-        transition-delay: var(--delay, 0s);
-    }
-    .card-reveal.in-view { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) {
-        .card-reveal { transition: none; transform: none; opacity: 1; }
-    }
+    /* .card-reveal scroll reveal: see assets/motion.css */
 
     .text-rexa-red { color: #E61C24; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -346,14 +357,22 @@
   "offeredBy": { "@type": "Organization", "name": "Rexa Insurance Broking Services", "url": "https://www.rexabroking.com" }
 }
 </script>
+<script>document.documentElement.classList.add('js');(function(){var h=document.documentElement;try{if(sessionStorage.getItem('rx_nav')){sessionStorage.removeItem('rx_nav');h.classList.add('rx-arrive')}}catch(e){}var t=setTimeout(function(){if(document.readyState!=='complete')h.classList.add('rx-loading')},500);function done(){clearTimeout(t);if(h.classList.contains('rx-loading')){h.classList.add('rx-loaded');setTimeout(function(){h.classList.remove('rx-loading','rx-loaded')},450)}}window.addEventListener('load',done);setTimeout(done,9000)})()</script>
+<link rel="stylesheet" href="assets/raksha.css?v=20261202">
+<link rel="preload" as="image" href="assets/raksha-figure-v2.webp" type="image/webp" fetchpriority="low">
 </head>
 <body class="antialiased selection:bg-rexa-red selection:text-white">
+    <a class="rx-skip" href="#main">Skip to content</a>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="rxX" viewBox="0 0 100 100"><path d="M0 9.2 0 26.1 23.9 49.8 15.4 58.7 15.8 75.1 41.1 49.5Z"/><path d="M91 0.4 73.5 0 50.4 23.5 41.3 15.4 24.9 15.5 50.4 41.1Z"/><path d="M83.5 25.2 58.8 50.7 99.9 91.1 99.9 73.9 76.4 50.7 84.6 41.3Z"/><path d="M75.1 83.8 49.5 58.8 8.8 99.9 25.7 99.9 49.2 76.4 59.3 84.6Z"/></symbol></defs></svg>
+    <div id="rxLoader" aria-hidden="true"><div class="rx-panel top"></div><div class="rx-panel bot"></div><div class="rx-ring"></div><div class="rx-mark"><svg viewBox="0 0 100 100" focusable="false"><path class="rx-arm a1" d="M0 9.2 0 26.1 23.9 49.8 15.4 58.7 15.8 75.1 41.1 49.5Z"/><path class="rx-arm a2" d="M91 0.4 73.5 0 50.4 23.5 41.3 15.4 24.9 15.5 50.4 41.1Z"/><path class="rx-arm a3" d="M75.1 83.8 49.5 58.8 8.8 99.9 25.7 99.9 49.2 76.4 59.3 84.6Z"/><path class="rx-arm a4" d="M83.5 25.2 58.8 50.7 99.9 91.1 99.9 73.9 76.4 50.7 84.6 41.3Z"/></svg></div></div>
+    
 
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
+    <!-- @header -->
+    <nav class="fixed top-0 inset-x-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar" aria-label="Primary">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="/" class="flex-shrink-0 cursor-pointer">
-                    <img src="assets/rexa-logo-transparent.png" alt="Rexa Insurance Broking" class="h-10 w-auto">
+                    <img src="assets/rexa-wordmark.webp" alt="Rexa Insurance Broking" width="434" height="122" style="display:block;width:128px;height:auto">
                 </a>
 
                 <div class="hidden md:flex space-x-8 items-center">
@@ -370,50 +389,54 @@
                     </a>
                 </div>
 
-                <button id="mobileMenuBtn" class="md:hidden text-rexa-navy text-xl p-2" aria-label="Menu">
+                <button id="mobileMenuBtn" class="md:hidden rx-burger" aria-label="Menu" aria-controls="mobileMenu" aria-expanded="false">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile menu -->
-        <div id="mobileMenu" class="md:hidden bg-white border-t border-gray-100 px-4 pb-6 pt-2">
-            <div class="flex flex-col space-y-1">
-                <a href="/corporate-risk" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Corporate Risk</a>
-                <a href="/employee-benefits" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Employee Benefits</a>
-                <a href="/wellness-and-value" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Wellness &amp; Value</a>
-                <a href="/retail-insurance" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">Retail</a>
-                <a href="/about" class="py-3 text-sm font-medium text-rexa-navy border-b border-gray-50">About Us</a>
-                <a href="/contact" class="mt-4 text-center px-5 py-3 rounded-full bg-rexa-navy text-white text-sm font-medium">Talk to an Advisor</a>
+        <div id="mobileMenu" class="md:hidden rx-menu">
+            <div class="rx-menu-in">
+                <div class="rx-menu-links">
+                    <a href="/corporate-risk" style="--i:0">Corporate Risk</a>
+                    <a href="/employee-benefits" style="--i:1">Employee Benefits</a>
+                    <a href="/wellness-and-value" style="--i:2">Wellness &amp; Value</a>
+                    <a href="/retail-insurance" style="--i:3">Retail</a>
+                    <a href="/about" style="--i:4">About Us</a>
+                </div>
+                <a href="/contact" class="rx-menu-cta" style="--i:5">Talk to an Advisor</a>
             </div>
-        </div>
-    </nav>
+        </div></nav>
+    <main id="main">
+    <!-- @/header -->
 
-    <section class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden relative">
+    <section class="rx-hero rx-sec pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden relative">
+        <div class="rx-mesh" aria-hidden="true"></div><div class="rx-dots" aria-hidden="true"></div>
+        <svg class="rx-x" style="width:560px;height:560px;right:-120px;top:70px" data-rx-par="-.12" aria-hidden="true" focusable="false"><use href="#rxX" fill="currentColor"/></svg>
+        
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white -z-10"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-                <div class="max-w-xl">
+                <div class="max-w-xl mx-auto text-center md:mx-0 md:text-left">
                     <h1 class="text-4xl md:text-6xl font-serif font-bold text-rexa-navy leading-[1.1] mb-6">
                         Risk moves fast. Your <span class="text-rexa-red">protection</span> should too.
                     </h1>
                     <p class="text-lg text-rexa-textMuted mb-8 leading-relaxed">
                         The modern insurance platform for growing Indian businesses. We combine custom underwriting with dedicated support to optimize benefits, secure physical assets, and keep your teams healthy.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                        <a href="/contact" class="px-8 py-3.5 bg-rexa-red text-white rounded-full font-medium shadow-lg shadow-rexa-red/30 hover:bg-rexa-redHover hover:shadow-rexa-red/40 transition-all flex items-center gap-2">
+                    <div>
+                        <a href="/contact" class="px-8 py-3.5 bg-rexa-red text-white rounded-full font-medium shadow-lg shadow-rexa-red/30 hover:bg-rexa-redHover hover:shadow-rexa-red/40 transition-all inline-flex items-center gap-2">
                             Audit My Current Policy <i class="fas fa-arrow-right text-sm"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="relative w-full bg-rexa-grayBg rounded-3xl border border-gray-100 overflow-hidden shadow-floating p-6 md:p-8">
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] border border-blue-50 rounded-full pointer-events-none"></div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] border border-blue-50 rounded-full pointer-events-none"></div>
+                <div class="rx-hero-panel relative w-full bg-rexa-grayBg rounded-3xl border border-gray-100 overflow-hidden shadow-floating p-4 sm:p-6 md:p-8">
+                    
 
-                    <div class="relative z-10 bg-white rounded-2xl border border-gray-100 shadow-xl p-6">
+                    <div class="relative z-10 bg-white rounded-2xl border border-gray-100 shadow-xl p-5 sm:p-6">
                         <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
                             <div>
                                 <p class="text-sm font-bold text-rexa-navy">Rexa Impact</p>
@@ -421,12 +444,12 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start justify-between mb-6">
+                        <div class="flex flex-wrap items-start justify-between gap-y-3 mb-6">
                             <div>
                                 <p class="text-xs font-bold text-rexa-textMuted uppercase tracking-wider">Premium Managed</p>
                                 <div class="flex items-baseline gap-2 mt-1">
-                                    <p class="text-3xl font-black text-rexa-navy">₹100 Cr+</p>
-                                    <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">▲ 24%</span>
+                                    <p class="text-3xl font-black text-rexa-navy whitespace-nowrap">₹100 Cr+</p>
+                                    <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full whitespace-nowrap">▲ 24%</span>
                                 </div>
                             </div>
                             <span class="text-xs font-semibold text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full whitespace-nowrap">Last 6 yrs</span>
@@ -456,101 +479,98 @@
                                 <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
                             </div>
                         </div>
-
-                        <div class="flex flex-wrap gap-2 mt-5">
-                            <span class="text-[11px] font-bold text-white bg-rexa-navy px-2.5 py-1 rounded-full">IRDA Licensed &middot; No. 611</span>
-                            <span class="text-[11px] font-bold text-green-600 bg-green-50 border border-green-100 px-2.5 py-1 rounded-full">98% Retention</span>
-                            <span class="text-[11px] font-bold text-rexa-red bg-red-50 border border-red-100 px-2.5 py-1 rounded-full">Est. 2017</span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="rx-div bottom" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 90V48C240 12 480 84 720 52 960 20 1200 -6 1440 34V90Z" fill="#EEF1FA"/></svg></div>
     </section>
 
-    <section class="py-12 bg-rexa-softGray border-y border-gray-200">
+    <section class="rx-logos py-12 bg-rexa-softGray border-y border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
             <p class="text-center text-xs font-bold text-rexa-textMuted uppercase tracking-widest">Trusted by 500+ Organisations Across India</p>
         </div>
         <div class="marquee-container">
             <div class="marquee-content items-center">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/yulu.bike.png" alt="Yulu" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Yulu</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/indo-mim.com.png" alt="Indo-MIM" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Indo-MIM</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/indusschool.com.png" alt="Indus International School" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Indus Int&apos;l School</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/bangalorecitycoopbank.png" alt="Bangalore City Co-operative Bank" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Bangalore City Co-op Bank</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/asianet.co.in.png" alt="Asianet" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Asianet</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/finthrive.com.png" alt="FinThrive" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>FinThrive</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/nttftrg.com.png" alt="NTTF" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>NTTF</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/ecom-ex.com.png" alt="ECOM" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>ECOM</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/kmfnandini.coop.png" alt="Nandini" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Nandini</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/dkms.org.png" alt="DKMS" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>DKMS</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/chrysalishigh.com.png" alt="Chrysalis High" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Chrysalis High</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/intralox.com.png" alt="Intralox" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Intralox</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/bangalore-turf-club.avif" alt="Bangalore Turf Club" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Bangalore Turf Club</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/agilysys.com.png" alt="agilysys" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>agilysys</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/navins.png" alt="Navin's" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Navin&apos;s</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/quantratech.com.png" alt="QuantraTech" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>QuantraTech</div>'">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition" src="logos/mobiveil.com.png" alt="Mobiveil" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Mobiveil</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/yulu.bike.webp" width="120" height="120" alt="Yulu" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Yulu</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/indo-mim.com.webp" width="120" height="120" alt="Indo-MIM" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Indo-MIM</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/indusschool.com.webp" width="120" height="120" alt="Indus International School" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Indus Int&apos;l School</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/bangalorecitycoopbank.webp" width="120" height="120" alt="Bangalore City Co-operative Bank" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Bangalore City Co-op Bank</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/asianet.co.in.webp" width="120" height="120" alt="Asianet" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Asianet</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/finthrive.com.webp" width="120" height="120" alt="FinThrive" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>FinThrive</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/nttftrg.com.webp" width="340" height="104" alt="NTTF" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>NTTF</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/ecom-ex.com.webp" width="120" height="120" alt="ECOM" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>ECOM</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/kmfnandini.coop.webp" width="120" height="120" alt="Nandini" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Nandini</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/dkms.org.webp" width="120" height="120" alt="DKMS" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>DKMS</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/chrysalishigh.com.webp" width="120" height="120" alt="Chrysalis High" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Chrysalis High</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/intralox.com.webp" width="120" height="120" alt="Intralox" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Intralox</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/bangalore-turf-club.avif" alt="Bangalore Turf Club" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Bangalore Turf Club</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/agilysys.com.webp" width="120" height="120" alt="agilysys" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>agilysys</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/navins.webp" width="120" height="120" alt="Navin's" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Navin&apos;s</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/quantratech.com.webp" width="120" height="120" alt="QuantraTech" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>QuantraTech</div>'">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80 hover:grayscale-0 hover:opacity-100 transition" src="logos/mobiveil.com.webp" width="120" height="120" alt="Mobiveil" onerror="this.outerHTML='<div class=\'mx-8 text-lg font-bold text-gray-400\'>Mobiveil</div>'">
                 <!-- duplicate set for seamless loop -->
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/yulu.bike.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/indo-mim.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/indusschool.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/bangalorecitycoopbank.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/asianet.co.in.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/finthrive.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/nttftrg.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/ecom-ex.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/kmfnandini.coop.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/dkms.org.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/chrysalishigh.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/intralox.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/bangalore-turf-club.avif" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/agilysys.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/navins.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/quantratech.com.png" onerror="this.remove()">
-                <img class="mx-8 h-8 w-auto object-contain grayscale opacity-60" aria-hidden="true" alt="" src="logos/mobiveil.com.png" onerror="this.remove()">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/yulu.bike.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/indo-mim.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/indusschool.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/bangalorecitycoopbank.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/asianet.co.in.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/finthrive.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/nttftrg.com.webp" onerror="this.remove()" width="340" height="104">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/ecom-ex.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/kmfnandini.coop.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/dkms.org.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/chrysalishigh.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/intralox.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/bangalore-turf-club.avif" onerror="this.remove()">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/agilysys.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/navins.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/quantratech.com.webp" onerror="this.remove()" width="120" height="120">
+                <img loading="lazy" decoding="async"  class="mx-6 md:mx-10 h-9 md:h-11 w-auto object-contain grayscale contrast-125 mix-blend-multiply opacity-80" aria-hidden="true" alt="" src="logos/mobiveil.com.webp" onerror="this.remove()" width="120" height="120">
             </div>
         </div>
     </section>
 
-    <section id="offerings" class="pt-24 pb-32 bg-white relative scroll-mt-20">
+    <section id="offerings" class="rx-offer rx-sec pt-24 pb-32 bg-white relative scroll-mt-20">
+        <div class="rx-blob rx-blob-a" aria-hidden="true"></div><div class="rx-blob rx-blob-b" aria-hidden="true"></div><div class="rx-blob rx-blob-c" aria-hidden="true"></div>
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row gap-0 md:gap-12 items-start relative">
 
                 <!-- Sticky left rail: heading, proof stats, scroll-spy dot nav -->
                 <div class="w-full md:w-[35%] md:sticky md:top-[140px] z-10">
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-rexa-navy mb-4 leading-[1.1] md:max-w-[280px] text-center md:text-left">Everything your business needs.</h2>
+                    <h2 class="text-4xl md:text-[2.75rem] font-serif font-bold text-rexa-navy mb-4 leading-[1.1] text-center md:text-left">Everything your business needs.</h2>
                     <p class="text-rexa-textMuted mb-8 max-w-xs mx-auto md:mx-0 text-center md:text-left">One trusted partner. From employee benefits to property protection, we architect coverages that leave no gaps.</p>
 
-                    <div class="grid grid-cols-3 gap-4 mb-6 md:mb-10 max-w-xs mx-auto md:mx-0 pb-5 md:pb-8 border-b border-gray-100 text-center md:text-left">
+                    <div class="proof-stats grid grid-cols-3 mb-6 md:mb-10 max-w-xs mx-auto md:mx-0 pb-5 md:pb-8 border-b border-gray-100 text-center md:text-left">
                         <div>
-                            <div class="text-2xl font-bold text-rexa-navy font-sans">8</div>
-                            <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Coverage Lines</div>
+                            <div class="proof-num">8</div>
+                            <div class="proof-label">Coverage lines</div>
                         </div>
                         <div>
-                            <div class="text-2xl font-bold text-rexa-navy font-sans">3</div>
-                            <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Pillars</div>
+                            <div class="proof-num">3</div>
+                            <div class="proof-label">Pillars</div>
                         </div>
                         <div>
-                            <div class="text-2xl font-bold text-rexa-navy font-sans">50+</div>
-                            <div class="text-[11px] font-semibold text-rexa-textMuted uppercase tracking-wide leading-tight mt-0.5">Insurers</div>
+                            <div class="proof-num">50+</div>
+                            <div class="proof-label">Insurers</div>
                         </div>
                     </div>
 
                     <ul class="railnav hidden md:block relative space-y-9">
                         <li class="is-active relative pl-8 cursor-pointer" data-target="cluster-corp" style="--accent:#0A1128">
                             <span class="dot"></span>
-                            <h4 class="nav-title text-lg font-bold leading-snug">Corporate Cover</h4>
+                            <h3 class="nav-title text-lg font-bold leading-snug">Corporate Cover</h3>
                             <p class="nav-desc text-xs mt-1 font-medium">Liability, Property &amp; Engineering</p>
                         </li>
                         <li class="relative pl-8 cursor-pointer" data-target="cluster-benefits" style="--accent:#E61C24">
                             <span class="dot"></span>
-                            <h4 class="nav-title text-lg font-bold leading-snug">Employee Benefits</h4>
+                            <h3 class="nav-title text-lg font-bold leading-snug">Employee Benefits</h3>
                             <p class="nav-desc text-xs mt-1 font-medium">Health, Accident &amp; Term Life</p>
                         </li>
                         <li class="relative pl-8 cursor-pointer" data-target="cluster-wellness" style="--accent:#B45309">
                             <span class="dot"></span>
-                            <h4 class="nav-title text-lg font-bold leading-snug">Wellness &amp; Retail</h4>
+                            <h3 class="nav-title text-lg font-bold leading-snug">Wellness &amp; Retail</h3>
                             <p class="nav-desc text-xs mt-1 font-medium">Proactive Health &amp; Personal Cover</p>
                         </li>
                     </ul>
@@ -564,16 +584,16 @@
                      long as any cluster card is still scrolling past, not just for
                      the few pixels of the rail block's own height. -->
                 <div id="railnavMobileSentinel" class="md:hidden h-px"></div>
-                <div class="railnav-mobile md:hidden sticky top-20 z-20 -mx-4 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-shadow duration-300">
-                    <div class="railnav-pill-track flex gap-2 overflow-x-auto hide-scrollbar pr-6">
+                <div class="railnav-mobile min-w-0 md:hidden sticky top-20 z-20 py-3 border-b border-gray-100 transition-shadow duration-300">
+                    <div class="railnav-pill-track min-w-0 flex gap-2 overflow-x-auto hide-scrollbar pr-6">
                         <button type="button" class="railnav-pill is-active flex items-center gap-1 flex-none pl-3.5 pr-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-corp" style="--accent:#0A1128">
-                            <i class="fas fa-building text-[11px]"></i> Corporate Cover
+                            <i class="fas fa-building text-xs"></i> Corporate Cover
                         </button>
                         <button type="button" class="railnav-pill flex items-center gap-1 flex-none pl-3.5 pr-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-benefits" style="--accent:#E61C24">
-                            <i class="fas fa-heart-pulse text-[11px]"></i> Employee Benefits
+                            <i class="fas fa-heart-pulse text-xs"></i> Employee Benefits
                         </button>
                         <button type="button" class="railnav-pill flex items-center gap-1 flex-none pl-3.5 pr-4 py-2.5 rounded-full text-xs font-bold border" data-target="cluster-wellness" style="--accent:#B45309">
-                            <i class="fas fa-leaf text-[11px]"></i> Wellness &amp; Retail
+                            <i class="fas fa-leaf text-xs"></i> Wellness &amp; Retail
                         </button>
                     </div>
                 </div>
@@ -589,6 +609,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                             <div class="offering-card bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2" style="--accent:#6366F1">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><path d="M56 8 90 20v26c0 20-14 32-34 40C36 78 22 66 22 46V20z" fill="var(--s)"/><path d="M56 14 84 24v22c0 16-11 26-28 33C39 72 28 62 28 46V24z" fill="#fff" stroke="var(--a)" stroke-width="3"/><rect x="44" y="42" width="24" height="20" rx="4" fill="var(--a)"/><path d="M49 42v-6a7 7 0 0 1 14 0v6" fill="none" stroke="#0A1128" stroke-width="3.5" stroke-linecap="round"/><circle cx="56" cy="52" r="3" fill="#fff"/><circle cx="96" cy="24" r="4" fill="var(--a)"/><path d="M96 24 84 30M96 24l8 12" stroke="var(--a)" stroke-width="2" opacity=".6"/><circle cx="104" cy="36" r="3" fill="var(--s)"/></svg></div>
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <circle cx="24" cy="8" r="2"/><circle cx="16" cy="16" r="2"/><circle cx="26" cy="21" r="2"/>
@@ -609,6 +630,7 @@
                             </div>
 
                             <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#0EA5E9">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><rect x="60" y="42" width="28" height="40" rx="3" fill="var(--s)"/><rect x="26" y="22" width="38" height="60" rx="3" fill="var(--a)"/><g fill="#fff"><rect x="32" y="30" width="7" height="8"/><rect x="43" y="30" width="7" height="8"/><rect x="54" y="30" width="5" height="8"/><rect x="32" y="44" width="7" height="8"/><rect x="43" y="44" width="7" height="8"/><rect x="54" y="44" width="5" height="8"/><rect x="32" y="58" width="7" height="8"/><rect x="66" y="50" width="7" height="8"/><rect x="77" y="50" width="7" height="8"/><rect x="66" y="64" width="7" height="8"/><rect x="77" y="64" width="7" height="8"/></g><rect x="44" y="68" width="10" height="14" rx="1.5" fill="#0A1128"/><rect x="14" y="82" width="84" height="3" rx="1.5" fill="#0A1128" opacity=".25"/><path d="M96 14c-5 6-1 9 0 13 4-3 6-8 0-13z" fill="#F59E0B"/></svg></div>
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <rect x="18" y="4" width="5" height="5" rx="1"/><rect x="25" y="4" width="5" height="5" rx="1"/>
@@ -628,6 +650,7 @@
                             </div>
 
                             <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s; --accent:#475569">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><path d="M24 58a32 32 0 0 1 64 0z" fill="var(--a)"/><rect x="49" y="28" width="14" height="30" fill="var(--s)"/><rect x="44" y="20" width="24" height="8" rx="3" fill="#0A1128" opacity=".15"/><rect x="16" y="58" width="80" height="9" rx="4.5" fill="#0A1128"/><circle cx="94" cy="24" r="9" fill="var(--s)" stroke="var(--a)" stroke-width="3"/><circle cx="94" cy="24" r="3" fill="var(--a)"/><path d="M14 80h84" stroke="var(--a)" stroke-width="3" stroke-dasharray="6 6" stroke-linecap="round" opacity=".5"/></svg></div>
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <line x1="20" y1="2" x2="30" y2="12"/><line x1="16" y1="6" x2="26" y2="16"/><line x1="12" y1="10" x2="22" y2="20"/>
@@ -655,6 +678,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                             <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group sm:col-span-2" style="--delay:0s">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><path d="M56 80C30 62 18 48 18 34a17 17 0 0 1 38-6 17 17 0 0 1 38 6c0 14-12 28-38 46z" fill="var(--a)"/><path d="M30 32a10 10 0 0 1 10-10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/><path d="M26 48h12l7-14 11 28 7-14h13" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="100" cy="22" r="9" fill="#fff" stroke="var(--s)" stroke-width="3"/><path d="M100 17v10M95 22h10" stroke="var(--a)" stroke-width="3" stroke-linecap="round"/></svg></div>
                                 <div class="flex flex-wrap items-center gap-3 mb-6">
                                     <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl">
                                         <svg class="bottom-0 left-0 w-full h-5 opacity-30" viewBox="0 0 56 16" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -662,7 +686,7 @@
                                         </svg>
                                         <i class="fas fa-heart"></i>
                                     </div>
-                                    <span class="inline-block px-2.5 py-1 rounded bg-red-50 text-[10px] font-bold text-rexa-red uppercase tracking-widest border border-red-100">Most Chosen</span>
+                                    <span class="inline-block px-2.5 py-1 rounded bg-red-50 text-xs font-bold text-rexa-red uppercase tracking-widest border border-red-100">Most Chosen</span>
                                 </div>
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Group Health (GMC)</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed max-w-2xl">Attract and retain top talent with flexible, cost-optimized health programs designed for the modern workforce.</p>
@@ -676,6 +700,7 @@
                             </div>
 
                             <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#F97316">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><circle cx="20" cy="70" r="4" fill="var(--s)"/><circle cx="94" cy="64" r="5" fill="var(--s)"/><path d="M14 50a42 36 0 0 1 84 0q-7 9-14 0q-7 9-14 0q-7 9-14 0q-7 9-14 0q-7 9-14 0q-7 9-14 0z" fill="var(--a)"/><path d="M56 16V50M35 22 42 50M77 22 70 50" stroke="#fff" stroke-width="2.5" opacity=".5"/><path d="M56 50v26a6 6 0 0 1-12 0" fill="none" stroke="#0A1128" stroke-width="4.5" stroke-linecap="round"/><circle cx="56" cy="14" r="3.5" fill="#0A1128"/></svg></div>
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="inset-0 w-full h-full opacity-20" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1">
                                         <circle cx="28" cy="28" r="22"/><circle cx="28" cy="28" r="15"/>
@@ -694,6 +719,7 @@
                             </div>
 
                             <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.1s; --accent:#8B5CF6">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><circle cx="40" cy="32" r="10" fill="#0A1128"/><path d="M22 80V64a18 18 0 0 1 36 0v16z" fill="var(--a)"/><circle cx="74" cy="34" r="9" fill="var(--s)"/><path d="M57 80V66a17 17 0 0 1 34 0v14z" fill="var(--a)" opacity=".6"/><circle cx="56" cy="54" r="7" fill="#fff" stroke="var(--a)" stroke-width="3"/><path d="M45 82v-8a11 11 0 0 1 22 0v8z" fill="#fff" stroke="var(--a)" stroke-width="3"/><path d="M56 12c-5-6-14-1-9 6l9 8 9-8c5-7-4-12-9-6z" fill="var(--a)"/></svg></div>
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-30" viewBox="0 0 32 32" fill="currentColor">
                                         <path d="M22 4l1.2 2.6L26 8l-2.8 1.4L22 12l-1.2-2.6L18 8l2.8-1.4z"/>
@@ -721,7 +747,8 @@
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:0s; --accent:#16A34A">
+                            <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:0s; --accent:#EA580C">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><path d="M24 74C20 40 44 16 90 16c4 40-18 66-52 62-6-1-10-3-14-4z" fill="var(--a)"/><path d="M34 68C50 52 66 40 84 24" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="28" cy="30" r="14" fill="#fff" stroke="var(--s)" stroke-width="3"/><path d="M28 23v14M21 30h14" stroke="var(--a)" stroke-width="4" stroke-linecap="round"/></svg></div>
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-bottom-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path d="M8 28C8 16 16 8 28 8"/><path d="M12 24C14 18 18 14 24 12"/>
@@ -731,10 +758,10 @@
                                 <h3 class="text-xl font-bold text-rexa-navy mb-3">Wellness &amp; Value Additions</h3>
                                 <p class="text-rexa-textMuted text-sm mb-6 flex-grow leading-relaxed">A proactive approach to health management to reduce overall claims and absenteeism.</p>
                                 <div class="grid grid-cols-2 gap-3 mb-8">
-                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-video text-rexa-red"></i> Telemedicine</div>
-                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-campground text-rexa-red"></i> Health Camps</div>
-                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-clinic-medical text-rexa-red"></i> OHC Setup</div>
-                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-[11px] font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-headset text-rexa-red"></i> 24x7 Support</div>
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-xs font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-video text-rexa-red"></i> Telemedicine</div>
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-xs font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-campground text-rexa-red"></i> Health Camps</div>
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-xs font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-clinic-medical text-rexa-red"></i> OHC Setup</div>
+                                    <div class="bg-rexa-grayBg p-2.5 rounded-lg text-xs font-bold text-rexa-navy flex items-center gap-2"><i class="fas fa-headset text-rexa-red"></i> 24x7 Support</div>
                                 </div>
                                 <a href="/wellness-and-value" class="card-link text-sm font-bold text-rexa-navy group-hover:text-rexa-red transition-colors flex items-center mt-auto w-max">
                                     Discover Wellness Programs <i class="fas fa-arrow-right ml-2 text-xs"></i>
@@ -742,6 +769,7 @@
                             </div>
 
                             <div class="offering-card card-reveal bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full group" style="--delay:.05s; --accent:#0D9488">
+                                <div class="offering-art" aria-hidden="true"><svg viewBox="0 0 112 92" focusable="false"><circle cx="52" cy="48" r="34" fill="var(--s)"/><circle cx="52" cy="48" r="26" fill="#fff"/><path d="M46 30h12v12h12v12H58v12H46V54H34V42h12z" fill="var(--a)"/><path d="M90 22c-4-5-11-1-7 5l7 6 7-6c4-6-3-10-7-5z" fill="var(--a)"/><rect x="82" y="58" width="24" height="16" rx="4" fill="var(--a)" opacity=".85"/><path d="M88 58v-3a6 6 0 0 1 12 0v3" fill="none" stroke="#0A1128" stroke-width="2.5"/></svg></div>
                                 <div class="offering-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
                                     <svg class="-top-1 -right-1 w-10 h-10 opacity-25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path d="M6 18L16 8l10 10"/><path d="M9 15v9h14v-9"/>
@@ -767,7 +795,11 @@
         </div>
     </section>
 
-    <section class="py-24 bg-rexa-navy relative overflow-hidden">
+
+    <section class="rx-claims rx-sec py-24 bg-rexa-navy relative overflow-hidden">
+        <div class="rx-div top" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 0H1440V48C1200 84 960 6 720 38 480 70 240 90 0 44Z" fill="#FFFFFF"/></svg></div>
+        <div class="rx-glow" aria-hidden="true"></div>
+        
         <div class="absolute inset-0 opacity-5">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -782,7 +814,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-                <div>
+                <div class="rx-from-left reveal">
                     <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-6">We don't just place policies. <span class="text-rexa-red">We enforce them.</span></h2>
                     <p class="text-lg text-slate-300 mb-10 leading-relaxed font-light">
                         Insurance is only as good as the claim experience. Our dedicated in-house team fights for your maximum settlement, ensuring strict adherence to Turn-Around-Times (TAT). We handle the paperwork so your HR and Finance teams don't have to.
@@ -804,82 +836,30 @@
                     </a>
                 </div>
 
-                <div class="relative h-[400px]">
-                    <div class="absolute top-0 right-0 w-64 bg-white rounded-2xl p-5 shadow-2xl z-20 animate-pulse" style="animation-duration: 4s;">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm"><i class="fas fa-check"></i></div>
-                            <div>
-                                <p class="text-xs font-bold text-gray-500">Claim Status</p>
-                                <p class="text-sm font-bold text-rexa-navy">Approved</p>
+                <div class="rx-from-right reveal relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
+                    <div class="float-a relative z-20">
+                        <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-2xl">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm"><i class="fas fa-check"></i></div>
+                                <div>
+                                    <p class="text-xs font-bold text-gray-500">Claim Status</p>
+                                    <p class="text-sm font-bold text-rexa-navy">Approved</p>
+                                </div>
                             </div>
+                            <p class="text-3xl font-bold text-rexa-navy">₹8,40,000</p>
+                            <p class="text-xs text-gray-500 mt-1">Settled in 3 business days</p>
                         </div>
-                        <p class="text-2xl font-bold text-rexa-navy">₹8,40,000</p>
-                        <p class="text-xs text-gray-400 mt-1">Settled in 3 business days</p>
                     </div>
 
-                    <div class="absolute bottom-10 left-0 w-72 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl z-10">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-10 h-10 rounded-full bg-rexa-red/20 text-rexa-red flex items-center justify-center text-lg"><i class="fas fa-user-shield"></i></div>
-                            <div>
-                                <p class="text-sm font-bold text-white">Dedicated Manager</p>
-                                <p class="text-xs text-slate-300">Single point of contact</p>
+                    <div class="float-b relative z-10 -mt-8 mx-4 sm:mx-6">
+                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 pt-14 border border-white/20 shadow-2xl">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-rexa-red/20 text-rexa-red flex items-center justify-center text-lg flex-none"><i class="fas fa-user-shield"></i></div>
+                                <div>
+                                    <p class="text-sm font-bold text-white">Dedicated Manager</p>
+                                    <p class="text-xs text-slate-300">Single point of contact</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="w-full bg-white/10 rounded-full h-2 mb-2">
-                            <div class="bg-rexa-red h-2 rounded-full w-[98%]"></div>
-                        </div>
-                        <p class="text-xs text-slate-300 text-right">98% Client Retention</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-sm font-bold text-rexa-red tracking-widest uppercase mb-3">Client Stories</h2>
-                <h3 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-4">Don't just take our word for it.</h3>
-                <div class="flex items-center justify-center gap-2 text-sm text-rexa-textMuted">
-                    <span class="text-yellow-400 tracking-widest">★★★★★</span>
-                    <span><b class="text-rexa-navy">4.9/5</b> based on feedback from the businesses we protect</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-rexa-offWhite rounded-3xl p-8 border border-gray-100">
-                    <div class="text-yellow-400 mb-4 tracking-widest">★★★★★</div>
-                    <blockquote class="text-rexa-navy font-medium leading-relaxed mb-6">"Rexa has consistently provided proactive service, practical advice, and seamless support throughout our insurance journey."</blockquote>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-rexa-navy text-white flex items-center justify-center font-bold text-sm flex-none">AJ</div>
-                        <div>
-                            <p class="text-sm font-bold text-rexa-navy">Akshay Jain <i class="fas fa-circle-check text-rexa-red text-xs ml-0.5"></i></p>
-                            <p class="text-xs text-rexa-textMuted">Yulu</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-rexa-offWhite rounded-3xl p-8 border border-gray-100">
-                    <div class="text-yellow-400 mb-4 tracking-widest">★★★★★</div>
-                    <blockquote class="text-rexa-navy font-medium leading-relaxed mb-6">"Rexa's proactive approach, strong sense of ownership, and commitment to delivering practical insurance solutions have made them a trusted extension of our team."</blockquote>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-rexa-navy text-white flex items-center justify-center font-bold text-sm flex-none">K</div>
-                        <div>
-                            <p class="text-sm font-bold text-rexa-navy">Kashinath <i class="fas fa-circle-check text-rexa-red text-xs ml-0.5"></i></p>
-                            <p class="text-xs text-rexa-textMuted">CEO &middot; Chrysalis High</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-rexa-offWhite rounded-3xl p-8 border border-gray-100">
-                    <div class="text-yellow-400 mb-4 tracking-widest">★★★★★</div>
-                    <blockquote class="text-rexa-navy font-medium leading-relaxed mb-6">"Rexa has earned our confidence through consistent execution, transparent communication, and a genuine commitment to our success."</blockquote>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-rexa-navy text-white flex items-center justify-center font-bold text-sm flex-none">A</div>
-                        <div>
-                            <p class="text-sm font-bold text-rexa-navy">Anisha <i class="fas fa-circle-check text-rexa-red text-xs ml-0.5"></i></p>
-                            <p class="text-xs text-rexa-textMuted">SAI 360</p>
                         </div>
                     </div>
                 </div>
@@ -887,14 +867,16 @@
         </div>
     </section>
 
-    <section class="py-24 bg-white">
+    <section class="rx-cta rx-sec py-24 bg-white">
+        <div class="rx-div top" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 0H1440V30L0 90Z" fill="#0A1128"/></svg></div>
+        
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl md:text-5xl font-serif font-bold text-rexa-navy mb-4">Let's build a safer future together.</h2>
             <p class="text-rexa-textMuted text-lg mb-12">Select your objective to connect with the right specialist advisory team.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
 
-                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-soft hover:shadow-xl transition-shadow group">
+                <div class="rx-ask bg-white rounded-2xl p-8 border border-gray-200 shadow-soft hover:shadow-xl transition-shadow group" style="--ask:#0A1128">
                     <div class="w-12 h-12 bg-gray-50 text-rexa-navy rounded-full flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-navy group-hover:text-white transition-colors">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -905,7 +887,7 @@
                     </button>
                 </div>
 
-                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-soft hover:shadow-xl transition-shadow group">
+                <div class="rx-ask bg-white rounded-2xl p-8 border border-gray-200 shadow-soft hover:shadow-xl transition-shadow group" style="--ask:#E61C24">
                     <div class="w-12 h-12 bg-gray-50 text-rexa-navy rounded-full flex items-center justify-center text-xl mb-6 group-hover:bg-rexa-navy group-hover:text-white transition-colors">
                         <i class="fas fa-users-cog"></i>
                     </div>
@@ -918,64 +900,70 @@
 
             </div>
         </div>
+        <div class="rx-div bottom" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 90H1440V0L0 64Z" fill="#0A1128"/></svg></div>
     </section>
 
+    </main>
+    <!-- @footer -->
     <footer class="bg-rexa-navy pt-20 pb-10 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                <div>
-                    <a href="/" class="inline-block mb-4"><img src="assets/rexa-logo-white-tagline.png" alt="Rexa Insurance Broking" class="h-20 w-auto"></a>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 md:gap-12 mb-12 md:mb-16">
+                <div class="col-span-2 md:col-span-1">
+                    <a href="/" class="inline-block mb-4"><img src="assets/rexa-logo-white-tagline.webp" alt="Rexa Insurance Broking" class="h-20 w-auto" width="652" height="300"></a>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">A strategic insurance &amp; risk partner for Indian businesses — protecting people, optimising benefits, and delivering confidence since 2017.</p>
-                    <div class="text-xs font-bold text-slate-500 border border-slate-700 inline-block px-3 py-1.5 rounded">
+                    <div class="text-xs font-bold text-slate-400 border border-slate-700 inline-block px-3 py-1.5 rounded">
                         IRDA Broker License No. 611 · Direct Broker (Life &amp; General)
                     </div>
                 </div>
 
                 <div>
                     <h4 class="text-white font-bold mb-4 font-serif">Corporate Products</h4>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="/employee-benefits#group-health" class="hover:text-rexa-red transition-colors">Group Health Insurance</a></li>
-                        <li><a href="/corporate-risk#fire-assets" class="hover:text-rexa-red transition-colors">Property Insurance</a></li>
-                        <li><a href="/corporate-risk#engineering" class="hover:text-rexa-red transition-colors">Engineering Insurance</a></li>
-                        <li><a href="/corporate-risk#marine" class="hover:text-rexa-red transition-colors">Marine Insurance</a></li>
-                        <li><a href="/corporate-risk#directors-officers" class="hover:text-rexa-red transition-colors">Liability Insurance</a></li>
-                        <li><a href="/employee-benefits#group-accident" class="hover:text-rexa-red transition-colors">Workmen Compensation</a></li>
+                    <ul class="list-none m-0 p-0 text-sm text-slate-400">
+                        <li><a href="/employee-benefits#group-health" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Group Health Insurance</a></li>
+                        <li><a href="/corporate-risk#fire-assets" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Property Insurance</a></li>
+                        <li><a href="/corporate-risk#engineering" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Engineering Insurance</a></li>
+                        <li><a href="/corporate-risk#marine" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Marine Insurance</a></li>
+                        <li><a href="/corporate-risk#directors-officers" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Liability Insurance</a></li>
+                        <li><a href="/employee-benefits#group-accident" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Workmen Compensation</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-white font-bold mb-4 font-serif">Retail Products</h4>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="/retail-insurance#motor" class="hover:text-rexa-red transition-colors">Motor Insurance</a></li>
-                        <li><a href="/retail-insurance#health" class="hover:text-rexa-red transition-colors">Health Insurance</a></li>
-                        <li><a href="/retail-insurance#travel" class="hover:text-rexa-red transition-colors">Travel Insurance</a></li>
-                        <li><a href="/retail-insurance#home" class="hover:text-rexa-red transition-colors">Home Insurance</a></li>
-                        <li><a href="/retail-insurance#rooftop-solar" class="hover:text-rexa-red transition-colors">Rooftop Solar Insurance</a></li>
-                        <li><a href="/retail-insurance#rooftop-solar" class="hover:text-rexa-red transition-colors">Loan Protect Insurance</a></li>
+                    <ul class="list-none m-0 p-0 text-sm text-slate-400">
+                        <li><a href="/retail-insurance#motor" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Motor Insurance</a></li>
+                        <li><a href="/retail-insurance#health" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Health Insurance</a></li>
+                        <li><a href="/retail-insurance#travel" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Travel Insurance</a></li>
+                        <li><a href="/retail-insurance#home" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Home Insurance</a></li>
+                        <li><a href="/retail-insurance#rooftop-solar" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Rooftop Solar Insurance</a></li>
+                        <li><a href="/retail-insurance#rooftop-solar" class="block py-2.5 md:py-1.5 hover:text-rexa-red transition-colors">Loan Protect Insurance</a></li>
                     </ul>
                 </div>
 
-                <div>
+                <div class="col-span-2 md:col-span-1">
                     <h4 class="text-white font-bold mb-4 font-serif">Contact</h4>
                     <div class="space-y-4 text-sm text-slate-400">
-                        <p><strong class="text-white">Head Office (Chennai)</strong><br>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017<br><a href="tel:+914448678884" class="hover:text-rexa-red">+91 44 4867 8884</a> &nbsp; <a href="tel:+917540071535" class="hover:text-rexa-red">+91 7540 071535</a></p>
-                        <p><strong class="text-white">Branch (Bangalore)</strong><br>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039<br><a href="tel:+919986969637" class="hover:text-rexa-red">+91 9986 969637</a></p>
-                        <p><strong class="text-white">Email</strong><br><a href="mailto:info@rexabroking.com" class="hover:text-rexa-red">info@rexabroking.com</a></p>
-                        <p><strong class="text-white">Claims Helpline (IVR)</strong><br>24×7 toll-free<br><a href="tel:+917009670090" class="text-rexa-red font-bold">7009670090</a></p>
+                        <p><strong class="text-white">Head Office (Chennai)</strong><br>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017<br><a href="tel:+914448678884" class="inline-block py-1.5 hover:text-rexa-red">+91 44 4867 8884</a> &nbsp; <a href="tel:+917540071535" class="inline-block py-1.5 hover:text-rexa-red">+91 7540 071535</a></p>
+                        <p><strong class="text-white">Branch (Bangalore)</strong><br>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039<br><a href="tel:+919986969637" class="inline-block py-1.5 hover:text-rexa-red">+91 9986 969637</a></p>
+                        <p><strong class="text-white">Email</strong><br><a href="mailto:info@rexabroking.com" class="inline-block py-1.5 hover:text-rexa-red">info@rexabroking.com</a></p>
+                        <p><strong class="text-white">Claims Helpline (IVR)</strong><br>24×7 toll-free<br><a href="tel:+917009670090" class="inline-block py-1.5 text-rexa-red font-bold">7009 670 090</a></p>
                     </div>
                 </div>
             </div>
 
             <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-slate-500 text-xs">© <span id="copyYear">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</p>
-                <div class="flex space-x-6 text-xs text-slate-400">
-                    <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="/terms" class="hover:text-white transition-colors">Terms of Use</a>
-                    <a href="/grievance" class="hover:text-white transition-colors">Grievance Redressal</a>
+                <p class="text-slate-400 text-xs">© <span id="copyYear">2026</span> Rexa Insurance Broking Services Pvt. Ltd. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-slate-400">
+                    <a href="/privacy" class="inline-block py-2.5 md:py-2 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/terms" class="inline-block py-2.5 md:py-2 hover:text-white transition-colors">Terms of Use</a>
+                    <a href="/grievance" class="inline-block py-2.5 md:py-2 hover:text-white transition-colors">Grievance Redressal</a>
+                    <button type="button" data-consent-settings class="hidden py-2.5 md:py-2 bg-transparent cursor-pointer hover:text-white transition-colors [font:inherit] text-slate-400">Cookie &amp; analytics settings</button>
                 </div>
             </div>
+            <p class="mt-6 text-center md:text-left text-xs leading-relaxed text-slate-500">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="underline hover:text-white">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="underline hover:text-white">Terms of Service</a> apply.</p>
         </div>
     </footer>
+    <!-- @/footer -->
 
     <!-- LEAD MODAL: opened by the "Request Gap Analysis" / "Design My Plan"
          cards so a visitor can send a request without leaving the homepage.
@@ -1157,7 +1145,7 @@
                             for (let i = 0; i < 30 && !window.grecaptcha; i++) await new Promise((r) => setTimeout(r, 100));
                         }
                         if (!window.grecaptcha) throw new Error('reCAPTCHA is not loaded. Please refresh the page.');
-                        const siteKey = window.__RECAPTCHA_SITE_KEY__ || '6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7';
+                        const siteKey = window.__RECAPTCHA_SITE_KEY__ || '6LdXvWYtAAAAAJTgwmAsaS_09eKosqeFRaT-uMxx';
                         await new Promise((r) => grecaptcha.ready(r));
                     token = await grecaptcha.execute(siteKey, { action: 'submit' });
                         if (!token) throw new Error('reCAPTCHA verification failed. Please refresh and try again.');
@@ -1174,7 +1162,7 @@
                         body: JSON.stringify(data)
                     });
                     const result = await response.json();
-                    if (!response.ok) throw new Error(result.message || 'Failed to send your request. Please try again.');
+                    if (!response.ok) throw new Error((result.errors && result.errors.length ? result.errors.join('. ') : result.message) || 'Failed to send your request. Please try again.');
 
                     formMessage.textContent = '✓ Request sent — a Rexa advisor will get back to you within one business day.';
                     formMessage.style.color = '#16A34A';
@@ -1221,6 +1209,19 @@
                             clusters.forEach((cluster) => cluster.classList.remove('is-active'));
                             document.querySelectorAll(`[data-target="${activeId}"]`).forEach((item) => item.classList.add('is-active'));
                             entry.target.classList.add('is-active');
+                            // Phone: slide the pill row sideways so the active pill is fully
+                            // visible (it can sit past the right edge, under the fade). Only the
+                            // row scrolls, never the page, and only when the pill is cut off.
+                            const pill = document.querySelector(`.railnav-pill[data-target="${activeId}"]`);
+                            const track = pill?.closest('.railnav-pill-track');
+                            if (pill && track) {
+                                const pr = pill.getBoundingClientRect();
+                                const tr = track.getBoundingClientRect();
+                                if (pr.left < tr.left + 8 || pr.right > tr.right - 8) {
+                                    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                                    track.scrollTo({ left: track.scrollLeft + (pr.left + pr.width / 2) - (tr.left + tr.width / 2), behavior: calm ? 'auto' : 'smooth' });
+                                }
+                            }
                         }
                     });
                 }, { root: null, rootMargin: '-45% 0px -45% 0px', threshold: 0 });
@@ -1256,43 +1257,12 @@
                 window.addEventListener('resize', updatePillFade);
             }
 
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const revealCards = document.querySelectorAll('.card-reveal');
-            if (revealCards.length && !reduceMotion) {
-                const reveal = new IntersectionObserver((entries, obs) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('in-view');
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-
-                revealCards.forEach((card) => reveal.observe(card));
-            } else {
-                revealCards.forEach((card) => card.classList.add('in-view'));
-            }
-
-            // Icon badges pop in on their own trigger — independent of the
-            // card-reveal above, so the featured/first card in each cluster
-            // (which has no fade-up wrapper) still gets a visible scroll-in
-            // moment for its icon.
-            const offeringIcons = document.querySelectorAll('.offering-icon');
-            if (offeringIcons.length && !reduceMotion) {
-                const iconReveal = new IntersectionObserver((entries, obs) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('icon-in');
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.4, rootMargin: '0px 0px -10% 0px' });
-
-                offeringIcons.forEach((icon) => iconReveal.observe(icon));
-            } else {
-                offeringIcons.forEach((icon) => icon.classList.add('icon-in'));
-            }
+            // Scroll reveals (.card-reveal) and the .offering-icon pop are handled by assets/motion.js
         });
     </script>
+<script src="assets/motion.js?v=20261201" defer></script>
+<script src="assets/rhythm.js?v=20261201" defer></script>
+<script src="assets/raksha.js?v=20261203" defer></script>
+<script src="assets/analytics.js" defer></script>
 </body>
 </html>

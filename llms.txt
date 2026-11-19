@@ -1,0 +1,16 @@
+# Rexa Insurance Broking Services Pvt. Ltd.
+
+> IRDA-licensed direct insurance broker (Licence No. 611) based in Chennai, India. Rexa advises Indian businesses on corporate risk, employee benefits and claims, and helps individuals and families with retail insurance.
+
+## Services
+- [Corporate Risk & Liability](https://www.rexabroking.com/corporate-risk): Property, liability, cyber and engineering insurance for businesses.
+- [Employee Benefits](https://www.rexabroking.com/employee-benefits): Group health (GMC), group personal accident, term life and super top-ups.
+- [Wellness & Value Additions](https://www.rexabroking.com/wellness-and-value): Occupational health centres, ambulance services, health camps, mental wellness.
+- [Retail Insurance](https://www.rexabroking.com/retail-insurance): Health, motor, travel, home and personal accident cover for individuals.
+
+## Company
+- [About Us](https://www.rexabroking.com/about)
+- [Contact](https://www.rexabroking.com/contact)
+- [Grievance Redressal](https://www.rexabroking.com/grievance)
+- [Privacy Policy](https://www.rexabroking.com/privacy)
+- [Terms of Use](https://www.rexabroking.com/terms)
