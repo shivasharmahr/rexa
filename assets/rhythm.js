@@ -168,6 +168,9 @@
         document.documentElement.classList.toggle('rx-menu-open', open);
         if (open) { var first = menu.querySelector('a'); }
       }
+      var scrim = document.createElement('div'); scrim.className = 'rx-scrim'; scrim.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(scrim);
+      scrim.addEventListener('click', function () { if (menu.classList.contains('open')) { btn.click(); } });   // tap the dimmed page to close the menu
       new MutationObserver(sync).observe(menu, { attributes: true, attributeFilter: ['class'] });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('open')) { btn.click(); btn.focus(); } });
       window.addEventListener('resize', function () { if (window.innerWidth >= 768 && menu.classList.contains('open')) btn.click(); });

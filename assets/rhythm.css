@@ -323,18 +323,24 @@ html[data-theme="wellness"] .bg-green-50 { background-color: color-mix(in srgb, 
 
 @media (max-width: 767px) {
   html.rx-menu-open { overflow: hidden; }
+  /* the page behind the menu is dimmed and softly blurred, so it is obviously "not the menu" */
+  .rx-scrim { position: fixed; inset: 0; z-index: 49; background: rgba(10,17,40,.62); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+  html.rx-menu-open .rx-scrim { opacity: 1; pointer-events: auto; }
+  /* header + menu read as one white sheet floating above the dimmed page */
+  html.rx-menu-open #navbar { background: #fff; }
   html #navbar #mobileMenu { display: none; position: absolute; left: 0; right: 0; top: 100%; max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px); overflow-y: auto; overscroll-behavior: contain;
-    background: var(--th-deep, #0A1128); color: #fff; padding: 0; border: 0; border-radius: 0 0 20px 20px; box-shadow: 0 24px 40px -20px rgba(10,17,40,.5); }
+    background: #fff; color: var(--rx-navy); padding: 0; border: 0; border-top: 1px solid rgba(10,17,40,.08); border-radius: 0 0 22px 22px; box-shadow: 0 36px 60px -24px rgba(10,17,40,.55); }
   html #navbar #mobileMenu.open { display: block; animation: rxMenuIn .28s ease both; }
   @keyframes rxMenuIn { from { opacity: 0; transform: translateY(-8px) } to { opacity: 1; transform: none } }
   .rx-menu-in { padding: .5rem 1.25rem 1.5rem; }
-  .rx-menu-links a { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: .5rem 0; color: #fff; text-decoration: none; font-size: 1.0625rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .rx-menu-links a:hover { color: var(--th-light, #fff); }
-  .rx-menu-links a[aria-current="page"] { color: var(--th-light, #FF8A90); font-weight: 600; }
-  .rx-menu-links a[aria-current="page"]::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--th-light, #FF8A90); }
+  .rx-menu-links a { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: .5rem 0; color: var(--rx-navy); text-decoration: none; font-size: 1.0625rem; font-weight: 500; border-bottom: 1px solid rgba(10,17,40,.08); }
+  .rx-menu-links a:hover { color: var(--th-ink, var(--rx-red)); }
+  .rx-menu-links a[aria-current="page"] { color: var(--th-ink, var(--rx-red)); font-weight: 600; }
+  .rx-menu-links a[aria-current="page"]::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--th-a, var(--rx-red)); }
   .rx-menu-cta { display: flex; align-items: center; justify-content: center; min-height: 50px; margin-top: 1.25rem; border-radius: 999px; background: #E61C24; color: #fff; font-weight: 600; text-decoration: none; }
 }
-@media (prefers-reduced-motion: reduce) { html #navbar #mobileMenu.open { animation: none; } .rx-burger, .rx-burger::before, .rx-burger::after { transition: none; } }
+@media (min-width: 768px) { .rx-scrim { display: none; } }
+@media (prefers-reduced-motion: reduce) { .rx-scrim { transition: none; } html #navbar #mobileMenu.open { animation: none; } .rx-burger, .rx-burger::before, .rx-burger::after { transition: none; } }
 /* Raksha steps aside while the menu is open */
 html.rx-menu-open #rohiniWidget .roh-dock { opacity: 0; pointer-events: none; transform: translateY(12px); }
 
