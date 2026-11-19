@@ -34,16 +34,17 @@ app.use(helmet({
       // 'unsafe-inline' is needed because pages are served as static HTML
       // (no templating/nonce support); cdn.tailwindcss.com powers the
       // Tailwind-based homepage, which generates its CSS via this script.
-      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://www.google.com', 'https://www.gstatic.com'],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://www.google.com', 'https://www.gstatic.com', 'https://www.googletagmanager.com'],
       // reCAPTCHA v3 loads a hidden iframe and posts to google.com
       frameSrc: ['https://www.google.com', 'https://recaptcha.google.com'],
-      connectSrc: ["'self'", 'https://www.google.com'],
+      // GA4 (assets/analytics.js) sends events to these hosts
+      connectSrc: ["'self'", 'https://www.google.com', 'https://*.google-analytics.com', 'https://*.analytics.google.com', 'https://*.googletagmanager.com'],
       // helmet defaults this to 'none', which silently breaks onclick="" and
       // the onerror="" logo-fallback handlers used throughout every page.
       scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
       fontSrc: ["'self'", 'https:', 'data:'],
-      imgSrc: ["'self'", 'data:'],
+      imgSrc: ["'self'", 'data:', 'https://*.google-analytics.com', 'https://*.googletagmanager.com'],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
       formAction: ["'self'"],
@@ -60,6 +61,7 @@ const corsOptions = {
   origin: function(origin, callback) {
     const allowedOrigins = [
       process.env.CORS_ORIGIN || 'https://www.rexabroking.com',
+      (process.env.CORS_ORIGIN || 'https://www.rexabroking.com').replace('://www.', '://'),
       'http://localhost:3000',
       'http://localhost:8000',
       'http://127.0.0.1:8000',
@@ -69,20 +71,52 @@ const corsOptions = {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      const err = new Error('Not allowed by CORS');
+      err.status = 403;
+      callback(err);
     }
   },
   optionsSuccessStatus: 200,
-  credentials: true
+  credentials: false // the site uses no cookies or sessions, so credentialed cross-origin requests are never needed
 };
 app.use(cors(corsOptions));
 
 // Body parser middleware
 app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ limit: '10kb', extended: true }));
+app.use(express.urlencoded({ limit: '10kb', extended: false })); // simple parser: no nested-object (qs) parsing surface
 
-// Serve static files (CSS, images, logos, robots.txt, sitemap.xml, etc.)
-app.use(express.static(baseDir));
+// API responses are never cached
+app.use('/api', (req, res, next) => { res.setHeader('Cache-Control', 'no-store'); next(); });
+
+// RFC 9116: where to report a security problem
+app.get('/.well-known/security.txt', (req, res) => {
+  res.type('text/plain').send('Contact: mailto:info@rexabroking.com\nExpires: 2027-11-30T00:00:00.000Z\nPreferred-Languages: en\nCanonical: https://www.rexabroking.com/.well-known/security.txt\n');
+});
+
+// Don't serve the error pages as 200s if someone requests them directly
+app.get(['/404', '/404.html'], (req, res) => res.status(404).sendFile(path.join(baseDir, '404.html')));
+app.get(['/500', '/500.html'], (req, res) => res.status(500).sendFile(path.join(baseDir, '500.html')));
+
+// Serve ONLY public files. The project root holds server source, docs and
+// config, so it must never be served wholesale.
+const cacheHeaders = (res, filePath) => {
+  if (/\.(png|jpe?g|webp|avif|svg|ico|woff2?)$/i.test(filePath)) {
+    res.setHeader('Cache-Control', 'public, max-age=2592000');
+  } else if (/\.(css|js)$/i.test(filePath)) {
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+  }
+};
+const PUBLIC_ROOT_FILES = new Set([
+  'styles.css', 'app.js', 'lead-form.js', 'offers.json',
+  'robots.txt', 'sitemap.xml', 'llms.txt'
+]);
+app.use('/assets', express.static(path.join(baseDir, 'assets'), { setHeaders: cacheHeaders }));
+app.use('/logos', express.static(path.join(baseDir, 'logos'), { setHeaders: cacheHeaders }));
+app.get('/:file', (req, res, next) => {
+  if (!PUBLIC_ROOT_FILES.has(req.params.file)) return next();
+  cacheHeaders(res, req.params.file);
+  res.sendFile(path.join(baseDir, req.params.file));
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -105,10 +139,7 @@ const serveFile = (filename) => {
     const filepath = path.join(baseDir, filename);
 
     if (!fs.existsSync(filepath)) {
-      return res.status(404).json({
-        success: false,
-        message: 'Page not found'
-      });
+      return res.status(404).sendFile(path.join(baseDir, '404.html'));
     }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -120,8 +151,8 @@ const serveFile = (filename) => {
 app.get('/contact', serveFile('contact.html'));
 app.get('/contact/', serveFile('contact.html'));
 
-app.get('/general', serveFile('general.html'));
-app.get('/general/', serveFile('general.html'));
+// Retired pages (see docs/removed-pages.md) — keep old links and search results working
+app.get(['/general', '/general/', '/general.html'], (req, res) => res.redirect(301, '/corporate-risk'));
 
 app.get('/corporate-risk', serveFile('corporate-risk.html'));
 app.get('/corporate-risk/', serveFile('corporate-risk.html'));
@@ -135,8 +166,7 @@ app.get('/wellness-and-value/', serveFile('wellness-and-value.html'));
 app.get('/retail-insurance', serveFile('retail-insurance.html'));
 app.get('/retail-insurance/', serveFile('retail-insurance.html'));
 
-app.get('/life', serveFile('life.html'));
-app.get('/life/', serveFile('life.html'));
+app.get(['/life', '/life/', '/life.html'], (req, res) => res.redirect(301, '/employee-benefits'));
 
 app.get('/about', serveFile('about.html'));
 app.get('/about/', serveFile('about.html'));
@@ -154,19 +184,31 @@ app.get('/grievance/', serveFile('grievance.html'));
 app.use('/api/contact', contactRateLimiter, contactRoutes);
 app.use('/api/lead', contactRateLimiter, leadRoutes);
 
-// 404 handler
+// 404 handler: real 404 status (never redirect to the homepage — that creates soft-404s).
+// API calls get JSON, missing assets get a bare 404, pages get the branded fallback.
 app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'Endpoint not found'
-  });
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ success: false, message: 'Endpoint not found' });
+  }
+  if (/\.[a-z0-9]{2,5}$/i.test(req.path) && !/\.html$/i.test(req.path)) {
+    return res.status(404).type('text/plain').send('Not found');
+  }
+  res.status(404).sendFile(path.join(baseDir, '404.html'));
 });
 
-// Error handler
+// Error handler: honours client-error statuses (bad JSON, body too large,
+// CORS) instead of reporting them as 500s.
 app.use((err, req, res, next) => {
-  res.status(500).json({
+  if (res.headersSent) return next(err);
+  const status = Number.isInteger(err.status) && err.status >= 400 && err.status < 500 ? err.status : 500;
+  const wantsJson = req.path.startsWith('/api/') || req.accepts(['html', 'json']) === 'json';
+  if (status === 500 && !wantsJson) {
+    return res.status(500).sendFile(path.join(baseDir, '500.html'));
+  }
+  const messages = { 400: 'Invalid request', 403: 'Request not allowed', 413: 'Request too large' };
+  return res.status(status).json({
     success: false,
-    message: 'Internal server error'
+    message: status === 500 ? 'Internal server error' : (messages[status] || 'Invalid request')
   });
 });
 

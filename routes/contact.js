@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { validateContactForm } = require('../middleware/validation');
+const { honeypot } = require('../middleware/honeypot');
 const { sendAdminEmail, sendConfirmationEmail } = require('../utils/emailService');
 const { checkRecaptcha } = require('../utils/recaptcha');
 const { appendToSheet } = require('../utils/googleSheet');
 
-router.post('/', validateContactForm, async (req, res) => {
+router.post('/', honeypot, validateContactForm, async (req, res) => {
   try {
     const captchaError = await checkRecaptcha(req.body.recaptchaToken);
     if (captchaError) {

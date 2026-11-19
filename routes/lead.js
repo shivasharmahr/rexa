@@ -1,8 +1,9 @@
 const express = require('express');
 const validator = require('validator');
 const router = express.Router();
-const { sendLeadAdminEmail } = require('../utils/emailService');
+const { sendLeadAdminEmail, sendLeadConfirmationEmail } = require('../utils/emailService');
 const { checkRecaptcha } = require('../utils/recaptcha');
+const { honeypot } = require('../middleware/honeypot');
 const { appendToSheet } = require('../utils/googleSheet');
 
 // Quick forms on the product pages: one choice plus an email or a mobile.
@@ -13,12 +14,12 @@ const SOURCES = {
   'wellness-upgrade': 'Wellness & Value: Upgrade Plan'
 };
 
-router.post('/', async (req, res) => {
+router.post('/', honeypot, async (req, res) => {
   try {
     const { source, choice, email, phone, recaptchaToken } = req.body || {};
     const errors = [];
 
-    if (!SOURCES[source]) errors.push('Unknown form');
+    if (typeof source !== 'string' || !Object.prototype.hasOwnProperty.call(SOURCES, source)) errors.push('Unknown form');
     if (typeof choice !== 'string' || choice.length > 200) errors.push('Invalid selection');
 
     const cleanEmail = typeof email === 'string' ? email.trim() : '';
@@ -56,6 +57,10 @@ router.post('/', async (req, res) => {
     ]);
 
     if (!saved && !mailed) throw new Error('Neither Google Sheet nor admin email succeeded');
+
+    await sendLeadConfirmationEmail(lead).catch((e) => {
+      console.error('Lead confirmation email failed:', e.message);
+    });
 
     return res.status(200).json({
       success: true,

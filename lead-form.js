@@ -2,7 +2,7 @@
 // email or mobile to /api/lead, protected by reCAPTCHA v3 (the page must load
 // api.js?render=<site key>).
 (function () {
-  var SITE_KEY = window.__RECAPTCHA_SITE_KEY__ || '6LetjGYtAAAAAM0OZde-yhJIyHmXiIQ1GTeS8Lm7';
+  var SITE_KEY = window.__RECAPTCHA_SITE_KEY__ || '6LdXvWYtAAAAAJTgwmAsaS_09eKosqeFRaT-uMxx';
 
   function isLocal() {
     var h = window.location.hostname;
@@ -39,6 +39,13 @@
     msg.hidden = true;
     form.appendChild(msg);
 
+    // bot trap (see middleware/honeypot.js): hidden from people, tempting to scripts
+    var hp = document.createElement('div');
+    hp.className = 'rx-hp'; hp.setAttribute('aria-hidden', 'true');
+    hp.style.cssText = 'position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden';
+    hp.innerHTML = '<label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>';
+    form.appendChild(hp);
+
     function show(text, ok) {
       msg.textContent = text;
       msg.style.color = ok ? '#16A34A' : '#DC2626';
@@ -61,7 +68,8 @@
               choice: opts.getChoice(),
               email: opts.getEmail ? opts.getEmail() : '',
               phone: opts.getPhone ? opts.getPhone() : '',
-              recaptchaToken: token
+              recaptchaToken: token,
+              website: (hp.querySelector('input') || {}).value || ''
             })
           });
         })
@@ -76,6 +84,7 @@
         })
         .then(function (body) {
           show('✓ ' + body.message, true);
+          if (window.rexaTrack) window.rexaTrack('generate_lead', { source: opts.source }); // no PII
           form.reset();
           btn.textContent = 'Request received';
         })

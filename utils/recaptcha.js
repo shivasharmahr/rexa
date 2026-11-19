@@ -3,7 +3,8 @@ const axios = require('axios');
 // Verifies a reCAPTCHA v3 token. In development the check is skipped so
 // forms can be tested locally without a token.
 const verifyRecaptcha = async (token) => {
-  if (process.env.NODE_ENV === 'development') {
+  // Skipped only for local development, and never on Vercel, even if NODE_ENV is mis-set there.
+  if (process.env.NODE_ENV === 'development' && !process.env.VERCEL) {
     return { success: true, score: 0.9 };
   }
 

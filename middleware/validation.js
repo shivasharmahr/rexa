@@ -1,9 +1,22 @@
 const validator = require('validator');
 
 const validateContactForm = (req, res, next) => {
-  const { name, email, phone, company, interest, message } = req.body;
+  const body = req.body && typeof req.body === 'object' && !Array.isArray(req.body) ? req.body : {};
+  // Only plain strings are accepted; anything else is treated as missing.
+  const str = (v) => (typeof v === 'string' ? v : undefined);
+  const name = str(body.name);
+  const email = str(body.email);
+  const company = str(body.company);
+  const interest = str(body.interest);
+  const message = body.message === undefined || body.message === null ? undefined : body.message;
+  // Accept common Indian formats such as "+91 98765 43210" or "98765-43210".
+  const phone = str(body.phone) !== undefined ? body.phone.replace(/[\s().-]/g, '') : undefined;
+  req.body = body;
 
   const errors = [];
+  for (const f of ['phone', 'company']) {
+    if (body[f] !== undefined && body[f] !== null && typeof body[f] !== 'string') errors.push(`${f} must be text`);
+  }
 
   // Name validation
   if (!name || typeof name !== 'string') {
