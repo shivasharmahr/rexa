@@ -663,7 +663,6 @@
     function linkIcon(href) { return /^tel:/.test(href) ? 'phone' : /^mailto:/.test(href) ? 'mail' : 'arrow'; }
     function cleanLabel(l) { return String(l).replace(/^[\s‍️←-⇿☀-➿\u{1F000}-\u{1FFFF}]+/u, '').replace(/\s*[→›»]\s*$/, ''); }
 
-    var AV = assetUrl('raksha-avatar-sm.webp'), AV_PNG = assetUrl('raksha-avatar-sm.png');
     var FACE_W = assetUrl('raksha-face-v2.webp'), FACE_PNG = assetUrl('raksha-face-v2.png');
     function face() {
       return '<span class="roh-face" aria-hidden="true"><picture><source srcset="' + FACE_W + '" type="image/webp"><img src="' + FACE_PNG + '" alt="" width="176" height="254" loading="lazy" decoding="async"></picture></span>';
