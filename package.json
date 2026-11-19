@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node api/server.js",
     "dev": "nodemon api/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -c tailwind.config.js -i src/tailwind.css -o assets/tailwind.css --minify && tailwindcss -c tailwind.config.js -i src/tailwind-utilities.css -o assets/tailwind-utilities.css --minify",
+    "build:pages": "node scripts/build-pages.js",
+    "build": "npm run build:css && npm run build:pages"
   },
   "keywords": [
     "rexa",
@@ -22,10 +25,11 @@
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
-    "nodemailer": "^9.0.3",
+    "nodemailer": "^10.6.0",
     "validator": "^13.11.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "tailwindcss": "^3.4.17"
   }
 }

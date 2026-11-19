@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.grecaptcha-badge { visibility: hidden !important; }
+
+/* Comfortable touch targets for inline card links and small controls */
+@media (pointer: coarse) {
+  .card-link, .team-read-more, .railnav-pill { min-height: 44px; display: inline-flex; align-items: center; }
+}

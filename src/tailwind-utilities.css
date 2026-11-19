@@ -1,0 +1,4 @@
+/* Same utilities, no preflight: styles.css already resets. Borders need a default style/colour. */
+*, ::before, ::after { border-width: 0; border-style: solid; border-color: #e5e7eb; }
+@tailwind components;
+@tailwind utilities;
