@@ -16,13 +16,20 @@ both the Sheet and the email fail.
 4. **Deploy > New deployment > type: Web app**:
    - Execute as: **Me**
    - Who has access: **Anyone**
-   Authorise when asked, then copy the **Web app URL** (ends in `/exec`).
+   Authorise when asked (it will ask for permission to send email as you), then copy the **Web app URL** (ends in `/exec`).
 5. In Vercel (Project > Settings > Environment Variables, Production) add:
    - `GOOGLE_SHEET_WEBHOOK_URL` = the Web app URL
    - `GOOGLE_SHEET_SECRET` = the same string as `SHEET_SECRET`
 6. Redeploy (`npx vercel --prod`).
 
 The same two variables can go in your local `.env` to test locally.
+
+## Gmail notification (optional)
+
+The website already emails the team a branded notification and sends the visitor
+an acknowledgement (see `utils/emailService.js`), so the script does **not** email
+by default. To also get a plain copy from the script, add a script property
+`NOTIFY_EMAIL` with the address. A mail failure never stops the row being saved.
 
 ## Columns
 
