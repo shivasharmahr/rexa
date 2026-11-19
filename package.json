@@ -8,8 +8,7 @@
     "dev": "nodemon api/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "tailwindcss -c tailwind.config.js -i src/tailwind.css -o assets/tailwind.css --minify && tailwindcss -c tailwind.config.js -i src/tailwind-utilities.css -o assets/tailwind-utilities.css --minify",
-    "build:pages": "node scripts/build-pages.js",
-    "build": "npm run build:css && npm run build:pages"
+    "build:pages": "node scripts/build-pages.js"
   },
   "keywords": [
     "rexa",

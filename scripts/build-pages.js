@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+// SAFETY GUARD: this generator predates the themed page design (data-theme heroes, <main id="main">,
+// the 'On this page' markers, preload hints). Running it now would overwrite hand-maintained markup.
+// Edit pages directly. Only run with --force after bringing this script and partials/ back in sync.
+if (!process.argv.includes('--force')) {
+  console.error('build-pages.js is disabled: it would overwrite the current page markup. Pass --force only if you have synced it first.');
+  process.exit(1);
+}
 /**
  * Keeps the shared chrome (head assets, header/nav, footer) identical on every page.
  * Edit partials/footer.html or the NAV list below, then run `npm run build:pages`.
@@ -23,6 +30,8 @@ const ACTIVE = {
   'retail-insurance.html': '/retail-insurance',
   'about.html': '/about',
 };
+// standalone pages: own minimal layout, no shared header/footer
+const STANDALONE = new Set(['404.html', '500.html']);
 // pages that use styles.css (own reset) instead of the Tailwind preflight build
 const STYLES_CSS_PAGES = new Set(['grievance.html', 'privacy.html', 'terms.html']);
 
@@ -77,7 +86,7 @@ function swap(html, markerName, legacyRe, replacement, file) {
   throw new Error(`${file}: no ${markerName} block found`);
 }
 
-for (const file of fs.readdirSync(root).filter(f => f.endsWith('.html'))) {
+for (const file of fs.readdirSync(root).filter(f => f.endsWith('.html') && !STANDALONE.has(f))) {
   const p = path.join(root, file);
   let html = fs.readFileSync(p, 'utf8');
   const isB = STYLES_CSS_PAGES.has(file);
@@ -97,11 +106,16 @@ for (const file of fs.readdirSync(root).filter(f => f.endsWith('.html'))) {
   if (isB) html = html.replace(/(<link rel="stylesheet" href="styles\.css">)/, `$1\n<link rel="stylesheet" href="${cssHref}">`);
   else html = html.replace(/(<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com">)/, `<link rel="stylesheet" href="${cssHref}">\n$1`);
 
+  // keep whatever ?v= each shared asset already carries, so a rebuild never downgrades a cache-bust
+  const ver = (re, dflt) => { const m = html.match(re); return m && m[1] ? m[1] : dflt; };
+  const vMotionCss = ver(/assets\/motion\.css(\?v=\d+)/, '?v=20261201'), vMotionJs = ver(/assets\/motion\.js(\?v=\d+)/, '?v=20261201');
+  const vRakshaCss = ver(/assets\/raksha\.css(\?v=\d+)/, '?v=20261204'), vRakshaJs = ver(/assets\/raksha\.js(\?v=\d+)/, '?v=20261204');
+
   // 2b. shared motion system (assets/motion.css + assets/motion.js), identical on every page
   html = html.replace(/[ \t]*<link rel="stylesheet" href="assets\/motion\.css[^"]*">\n?/, '');
-  html = html.replace(/(<link rel="stylesheet" href="assets\/tailwind(?:-utilities)?\.css">)/, '$1\n<link rel="stylesheet" href="assets/motion.css?v=20261201">');
+  html = html.replace(/(<link rel="stylesheet" href="assets\/tailwind(?:-utilities)?\.css">)/, '$1\n<link rel="stylesheet" href="assets/motion.css' + vMotionCss + '">');
   html = html.replace(/[ \t]*<script src="assets\/motion\.js[^"]*" defer><\/script>\n?/, '');
-  html = html.replace('</body>', '<script src="assets/motion.js?v=20261201" defer></script>\n</body>');
+  html = html.replace('</body>', '<script src="assets/motion.js' + vMotionJs + '" defer></script>\n</body>');
 
   // 2b2. illustrated product cards (assets/product-art.css), only on the four product pages
   html = html.replace(/[ \t]*<link rel="stylesheet" href="assets\/product-art\.css">\n?/, '');
@@ -109,9 +123,9 @@ for (const file of fs.readdirSync(root).filter(f => f.endsWith('.html'))) {
 
   // 2c. Raksha assistant (assets/raksha.css + assets/raksha.js), self-contained, on every page
   html = html.replace(/[ \t]*<link rel="stylesheet" href="assets\/raksha\.css[^"]*">\n?/, '');
-  html = html.replace('</head>', '<link rel="stylesheet" href="assets/raksha.css?v=%s">\n</head>'.replace('%s','20261119'));
+  html = html.replace('</head>', '<link rel="stylesheet" href="assets/raksha.css' + vRakshaCss + '">\n</head>');
   html = html.replace(/[ \t]*<script src="assets\/raksha\.js[^"]*" defer><\/script>\n?/, '');
-  html = html.replace('</body>', '<script src="assets/raksha.js?v=%s" defer></script>\n</body>'.replace('%s','20261119'));
+  html = html.replace('</body>', '<script src="assets/raksha.js' + vRakshaJs + '" defer></script>\n</body>');
 
   // 3. one font request everywhere (Inter + Source Serif 4)
   html = html.replace(/<link href="https:\/\/fonts\.googleapis\.com\/css2\?[^"]*" rel="stylesheet">/, `<link href="${FONTS}" rel="stylesheet">`);
