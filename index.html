@@ -29,7 +29,7 @@
 <!-- Tailwind CSS (this page only — other pages remain on styles.css) -->
 
 <!-- reCAPTCHA v3 for the on-page lead modal (same site key as /contact) -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LdXvWYtAAAAAJTgwmAsaS_09eKosqeFRaT-uMxx" onload="onRecaptchaLoad()" async defer></script>
+<script src="/recaptcha-config.js"></script>
 <script>
     function onRecaptchaLoad() { window.recaptchaReady = true; }
     setTimeout(() => { if (window.grecaptcha && !window.recaptchaReady) window.recaptchaReady = true; }, 2000);
@@ -1173,7 +1173,7 @@
                             for (let i = 0; i < 30 && !window.grecaptcha; i++) await new Promise((r) => setTimeout(r, 100));
                         }
                         if (!window.grecaptcha) throw new Error('reCAPTCHA is not loaded. Please refresh the page.');
-                        const siteKey = window.__RECAPTCHA_SITE_KEY__ || '6LdXvWYtAAAAAJTgwmAsaS_09eKosqeFRaT-uMxx';
+                        const siteKey = window.__RECAPTCHA_SITE_KEY__ || '';
                         await new Promise((r) => grecaptcha.ready(r));
                     token = await grecaptcha.execute(siteKey, { action: 'submit' });
                         if (!token) throw new Error('reCAPTCHA verification failed. Please refresh and try again.');

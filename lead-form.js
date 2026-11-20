@@ -2,7 +2,7 @@
 // email or mobile to /api/lead, protected by reCAPTCHA v3 (the page must load
 // api.js?render=<site key>).
 (function () {
-  var SITE_KEY = window.__RECAPTCHA_SITE_KEY__ || '6LdXvWYtAAAAAJTgwmAsaS_09eKosqeFRaT-uMxx';
+  var SITE_KEY = window.__RECAPTCHA_SITE_KEY__ || '';
 
   function isLocal() {
     var h = window.location.hostname;

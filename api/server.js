@@ -112,6 +112,25 @@ const PUBLIC_ROOT_FILES = new Set([
 ]);
 app.use('/assets', express.static(path.join(baseDir, 'assets'), { setHeaders: cacheHeaders }));
 app.use('/logos', express.static(path.join(baseDir, 'logos'), { setHeaders: cacheHeaders }));
+// reCAPTCHA site key comes from the RECAPTCHA_SITE_KEY env var (no key is hard-coded in the pages).
+// This script sets window.__RECAPTCHA_SITE_KEY__ and loads Google's api.js with that same key,
+// so the browser and the server secret always come from the same key pair.
+const cleanSiteKey = (v) => String(v || '').trim().replace(/^["']+|["']+$/g, '').trim();
+app.get('/recaptcha-config.js', (req, res) => {
+  const key = cleanSiteKey(process.env.RECAPTCHA_SITE_KEY);
+  res.type('application/javascript').set('Cache-Control', 'no-cache');
+  if (!/^6L[A-Za-z0-9_-]{30,60}$/.test(key)) {
+    console.error('[recaptcha] RECAPTCHA_SITE_KEY is missing or malformed; the forms cannot load reCAPTCHA');
+    return res.send('console.error("reCAPTCHA is not configured");');
+  }
+  const k = JSON.stringify(key);
+  res.send(
+    `window.__RECAPTCHA_SITE_KEY__=${k};` +
+    `(function(){var s=document.createElement('script');` +
+    `s.src='https://www.google.com/recaptcha/api.js?render='+encodeURIComponent(${k});` +
+    `s.async=true;s.onload=function(){window.recaptchaReady=true;};document.head.appendChild(s);})();`
+  );
+});
 app.get('/:file', (req, res, next) => {
   if (!PUBLIC_ROOT_FILES.has(req.params.file)) return next();
   cacheHeaders(res, req.params.file);
