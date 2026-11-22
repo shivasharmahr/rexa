@@ -160,8 +160,13 @@
     '.rx-consent .rx-decline:hover{border-color:#fff}',
     '@media (prefers-reduced-motion:no-preference){.rx-consent{animation:rxConsentIn .35s ease-out both}',
     '@keyframes rxConsentIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}}',
-    '@media (max-width:640px){.rx-consent{left:0;right:0;bottom:0;width:100%;max-width:none;border-radius:16px 16px 0 0;',
-    'padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}}',
+    '.rx-consent .rx-short{display:none}',
+    /* phones: a slim bar, short text, no heading, so it takes little of the screen */
+    '@media (max-width:640px){.rx-consent{left:0;right:0;bottom:0;width:100%;max-width:none;border-radius:14px 14px 0 0;',
+    'padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 24px -12px rgba(10,17,40,.5)}',
+    '.rx-consent h2{display:none}.rx-consent p{margin:0 0 10px;font-size:12.5px;line-height:1.45}',
+    '.rx-consent .rx-long{display:none}.rx-consent .rx-short{display:inline}',
+    '.rx-consent-row{gap:8px;flex-wrap:nowrap}.rx-consent button{min-height:42px;font-size:13.5px;padding:0 12px}}',
     /* keep the Raksha launcher clear of the banner on phones */
     '@media (max-width:640px){html.consent-open #rohiniWidget{bottom:calc(var(--consent-h,120px) + 12px)}}'
   ].join('');
@@ -231,9 +236,10 @@
         'Read our <a href="/privacy">Privacy Policy</a>.';
       first = btn('rx-decline', 'OK', function () { closeBanner(true); });
     } else {
-      p.innerHTML = 'With your permission we use Google Analytics to see which pages are visited and which buttons are clicked. ' +
-        'It is anonymised and never includes what you type into forms or chat. See our <a href="/privacy">Privacy Policy</a>.';
-      first = btn('rx-accept', 'Accept analytics', function () { applyConsent('granted'); closeBanner(manual); });
+      p.innerHTML = '<span class="rx-long">With your permission we use Google Analytics to see which pages are visited and which buttons are clicked. ' +
+        'It is anonymised and never includes what you type into forms or chat. See our <a href="/privacy">Privacy Policy</a>.</span>' +
+        '<span class="rx-short">Allow anonymous analytics to help us improve this site? <a href="/privacy">Privacy</a></span>';
+      first = btn('rx-accept', 'Accept', function () { applyConsent('granted'); closeBanner(manual); });
       btn('rx-decline', 'Decline', function () { applyConsent('denied'); closeBanner(manual); });
     }
     banner.hidden = false;

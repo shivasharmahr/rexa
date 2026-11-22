@@ -13,7 +13,7 @@ Consent-gated GA4. Everything lives in `assets/analytics.js` (loaded at the end 
 > The privacy policy (section 5) already describes GA4. Publish the ID and the policy together.
 
 ## How consent works (India / DPDP-friendly)
-- Google Consent Mode v2: `analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization` all start **denied** (pushed to `dataLayer` before `gtag.js` is requested). Nothing is stored until the visitor clicks **Accept analytics** (`analytics_storage` → `granted`).
+- Google Consent Mode v2: `analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization` all start **denied** (pushed to `dataLayer` before `gtag.js` is requested). Nothing is stored until the visitor clicks **Accept** (`analytics_storage` → `granted`).
 - Choice is remembered in `localStorage` key `rexa_consent_v1` (`granted` / `denied`). The banner shows on the first visit only, and appears once the visitor has scrolled about a third of a screen or been on the page for 10 s (whichever is first), so the first view stays clean.
 - Footer link **Cookie & analytics settings** (any element with `[data-consent-settings]`, or `rexaOpenConsent()`) re-opens the banner to change/withdraw.
 - Browser Do Not Track or Global Privacy Control = decline: analytics stays off and the banner shows only an informational "OK".
