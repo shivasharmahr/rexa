@@ -252,7 +252,21 @@
     showSettingsLinks();
     // Show on first visit only. If storage is blocked we cannot remember a choice, so treat as
     // declined and stay quiet (no nagging on every page); the settings link still works.
-    if (!optedOutByBrowser && storageOK && readChoice() === null) showBanner(false);
+    // The banner waits until the visitor has actually started reading (scrolled about a third of a screen)
+    // or has been on the page for 10 s, whichever comes first, so the first view stays clean. Nothing is
+    // collected before consent either way.
+    if (!optedOutByBrowser && storageOK && readChoice() === null) {
+      var shown = false, timer;
+      var onScroll = function () { if ((window.pageYOffset || 0) > (window.innerHeight || 700) * 0.3) reveal(); };
+      var reveal = function () {
+        if (shown) return;
+        shown = true; clearTimeout(timer);
+        window.removeEventListener('scroll', onScroll);
+        showBanner(false);
+      };
+      timer = setTimeout(reveal, 10000);
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
 
     document.addEventListener('click', function (e) {
       var t = e.target && e.target.closest ? e.target.closest('[data-consent-settings]') : null;
