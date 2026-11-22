@@ -22,7 +22,7 @@
   'use strict';
 
   /* ===================== CONFIG ===================== */
-  var GA_MEASUREMENT_ID = ''; // e.g. 'G-ABC123XYZ9'
+  var GA_MEASUREMENT_ID = 'G-DH0FSK1LC5'; // e.g. 'G-ABC123XYZ9'
   /* ================================================== */
 
   var STORAGE_KEY = 'rexa_consent_v1';
