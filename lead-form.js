@@ -13,12 +13,13 @@
     if (isLocal()) return Promise.resolve('test_token_localhost');
     return new Promise(function (resolve, reject) {
       var tries = 0;
+      if (window.__loadRecaptcha) window.__loadRecaptcha();
       (function wait() {
         if (window.grecaptcha && window.grecaptcha.ready) {
           window.grecaptcha.ready(function () {
             window.grecaptcha.execute(SITE_KEY, { action: 'submit' }).then(resolve, reject);
           });
-        } else if (++tries > 30) {
+        } else if (++tries > 100) {
           reject(new Error('reCAPTCHA is not loaded. Please refresh the page.'));
         } else {
           setTimeout(wait, 100);

@@ -124,11 +124,19 @@ app.get('/recaptcha-config.js', (req, res) => {
     return res.send('console.error("reCAPTCHA is not configured");');
   }
   const k = JSON.stringify(key);
+  // Google's api.js is heavy, so it loads only when it is needed: on the first interaction
+  // (scroll, touch, key, pointer), a form submit (the form code calls window.__loadRecaptcha),
+  // or after a long idle fallback. window.__RECAPTCHA_SITE_KEY__ is available immediately.
   res.send(
     `window.__RECAPTCHA_SITE_KEY__=${k};` +
-    `(function(){var s=document.createElement('script');` +
+    `(function(){var done=false;function load(){if(done)return;done=true;` +
+    `['scroll','touchstart','pointerdown','keydown','focusin'].forEach(function(e){window.removeEventListener(e,load,true);});` +
+    `var s=document.createElement('script');` +
     `s.src='https://www.google.com/recaptcha/api.js?render='+encodeURIComponent(${k});` +
-    `s.async=true;s.onload=function(){window.recaptchaReady=true;};document.head.appendChild(s);})();`
+    `s.async=true;s.onload=function(){window.recaptchaReady=true;};document.head.appendChild(s);}` +
+    `window.__loadRecaptcha=load;` +
+    `['scroll','touchstart','pointerdown','keydown','focusin'].forEach(function(e){window.addEventListener(e,load,{capture:true,once:true,passive:true});});` +
+    `setTimeout(load,15000);})();`
   );
 });
 app.get('/:file', (req, res, next) => {
