@@ -108,7 +108,8 @@ const cacheHeaders = (res, filePath) => {
 };
 const PUBLIC_ROOT_FILES = new Set([
   'styles.css', 'app.js', 'lead-form.js', 'offers.json',
-  'robots.txt', 'sitemap.xml', 'llms.txt'
+  'robots.txt', 'sitemap.xml', 'llms.txt',
+  'google7b9bbef9b114b15d.html' // Google Search Console ownership file: keep it, removing it un-verifies the site
 ]);
 app.use('/assets', express.static(path.join(baseDir, 'assets'), { setHeaders: cacheHeaders }));
 app.use('/logos', express.static(path.join(baseDir, 'logos'), { setHeaders: cacheHeaders }));
