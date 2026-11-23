@@ -53,6 +53,12 @@
       msg.hidden = false;
     }
 
+    var started = false;
+    form.addEventListener('focusin', function () {
+      if (started) return; started = true;
+      if (window.rexaTrack) window.rexaTrack('form_start', { source: opts.source }); // no PII
+    });
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       msg.hidden = true;

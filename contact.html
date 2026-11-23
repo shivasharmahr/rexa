@@ -458,6 +458,15 @@
             }
         })();
 
+        // --- Form started (once, on first interaction; sends the form name only) ---
+        (function () {
+            var started = false;
+            document.getElementById('contactForm').addEventListener('focusin', function () {
+                if (started) return; started = true;
+                if (window.rexaTrack) window.rexaTrack('form_start', { source: 'contact' }); // no PII
+            });
+        })();
+
         // --- Submit ---
         document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();

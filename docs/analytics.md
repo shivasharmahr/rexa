@@ -33,6 +33,7 @@ Sent through `rexaTrack(name, params)`; params that look like an email or phone 
 | `nav_click` | other links in the header | `label`, `destination` |
 | `outbound_click` | link to another domain | `link_domain`, `link_url` (no query string) |
 | `scroll_depth` | 25 / 50 / 75 / 90 % once per page (pages that fit one screen are skipped) | `percent`, `location` |
+| `form_start` | visitor first clicks into an enquiry/lead form (once per page view; compare with `generate_lead` to see drop-off) | `source` (same values as `generate_lead`) |
 | `generate_lead` | enquiry/lead form success (`lead-form.js`, `contact.html`) | `source` (e.g. `contact`, `corporate-risk-audit`) |
 | `raksha_open`, `raksha_option`, `raksha_link_click`, `raksha_search` | Raksha assistant | topic ids / link targets only; search sends the matched topic id or `no_match`, never the typed text |
 | `raksha_persona` | visitor picks who they are in Raksha | `persona` (`business`, `hr`, `individual`, `customer`), `source` (`picker` or `remembered`) |
