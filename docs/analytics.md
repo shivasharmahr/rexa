@@ -4,7 +4,7 @@ Consent-gated GA4. Everything lives in `assets/analytics.js` (loaded at the end 
 
 ## Turn it on
 1. In GA4 → Admin → Data streams → your web stream, copy the **Measurement ID** (`G-XXXXXXXXXX`).
-2. Paste it into the single config line at the top of `assets/analytics.js`:
+2. Paste it into the single config line at the top of `assets/analytics.js` (then run `npm run build:min`, since pages load `assets/analytics.min.js`):
    ```js
    var GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
    ```

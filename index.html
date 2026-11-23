@@ -41,8 +41,8 @@
 
 <!-- Google Fonts: Inter (sans for UI). Serif headers fall back to system Palatino/Georgia. -->
 <link rel="stylesheet" href="assets/tailwind.css">
-<link rel="stylesheet" href="assets/motion.css?v=20261201">
-<link rel="stylesheet" href="assets/rhythm.css?v=20261123">
+<link rel="stylesheet" href="assets/motion.min.css?v=20261201">
+<link rel="stylesheet" href="assets/rhythm.min.css?v=20261123">
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 
@@ -362,13 +362,41 @@
   "@context": "https://schema.org",
   "@type": "EmergencyService",
   "name": "Rexa Insurance Claims Helpline",
-  "description": "24×7 toll-free insurance claims support line for policyholders",
-  "areaServed": { "@type": "Country", "name": "India" },
+  "description": "24x7 insurance claims support line for policyholders",
+  "url": "https://www.rexabroking.com/",
+  "image": "https://www.rexabroking.com/assets/rexa-logo.png",
   "telephone": "+91-7009670090",
-  "availableLanguage": ["en", "hi"],
-  "serviceOperator": { "@type": "Organization", "name": "Rexa Insurance Broking Services" },
-  "hoursAvailable": "24/7",
-  "offeredBy": { "@type": "Organization", "name": "Rexa Insurance Broking Services", "url": "https://www.rexabroking.com" }
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar",
+    "addressLocality": "Chennai",
+    "addressRegion": "TN",
+    "postalCode": "600017",
+    "addressCountry": "IN"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Rexa Insurance Broking Services",
+    "url": "https://www.rexabroking.com"
+  }
 }
 </script>
 <script>document.documentElement.classList.add('js');(function(){var h=document.documentElement;try{if(sessionStorage.getItem('rx_nav')){sessionStorage.removeItem('rx_nav');h.classList.add('rx-arrive')}}catch(e){}var t=setTimeout(function(){if(document.readyState==='loading')h.classList.add('rx-loading')},500);function done(){clearTimeout(t);if(h.classList.contains('rx-loading')){h.classList.add('rx-loaded');setTimeout(function(){h.classList.remove('rx-loading','rx-loaded')},450)}}document.addEventListener('DOMContentLoaded',function(){setTimeout(done,120)});window.addEventListener('load',done);setTimeout(done,2500)})()</script>
@@ -1321,16 +1349,16 @@
             // Scroll reveals (.card-reveal) and the .offering-icon pop are handled by assets/motion.js
         });
     </script>
-<script src="assets/motion.js?v=20261201" defer></script>
-<script src="assets/rhythm.js?v=20261123" defer></script>
+<script src="assets/motion.min.js?v=20261201" defer></script>
+<script src="assets/rhythm.min.js?v=20261123" defer></script>
 <script>
 /* Raksha (the on-site assistant) is not needed for the first paint: load it after the page has settled,
    or sooner on the first interaction. Nothing else on the page depends on it. */
-(function(){var d=0,ev=['scroll','touchstart','pointerdown','keydown'];function go(){if(d)return;d=1;ev.forEach(function(e){removeEventListener(e,go,true)});var l=document.createElement('link');l.rel='stylesheet';l.href='/assets/raksha.css?v=20261202';function js(){var s=document.createElement('script');s.src='/assets/raksha.js?v=20261204';document.body.appendChild(s)}l.onload=l.onerror=js;document.head.appendChild(l)}
+(function(){var d=0,ev=['scroll','touchstart','pointerdown','keydown'];function go(){if(d)return;d=1;ev.forEach(function(e){removeEventListener(e,go,true)});var l=document.createElement('link');l.rel='stylesheet';l.href='/assets/raksha.min.css?v=20261202';function js(){var s=document.createElement('script');s.src='/assets/raksha.min.js?v=20261204';document.body.appendChild(s)}l.onload=l.onerror=js;document.head.appendChild(l)}
 ev.forEach(function(e){addEventListener(e,go,{capture:true,once:true,passive:true})});
 function later(){setTimeout(function(){(window.requestIdleCallback||function(f){f()})(go,{timeout:2000})},3000)}
 if(document.readyState==='complete')later();else addEventListener('load',later)})();
 </script>
-<script src="assets/analytics.js" defer></script>
+<script src="assets/analytics.min.js" defer></script>
 </body>
 </html>

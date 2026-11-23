@@ -30,9 +30,9 @@
 
 <!-- Google Fonts: Inter (Sans). Serif headers fall back to system Palatino/Georgia. -->
 <link rel="stylesheet" href="assets/tailwind.css">
-<link rel="stylesheet" href="assets/motion.css?v=20261201">
-<link rel="stylesheet" href="assets/rhythm.css?v=20261123">
-<link rel="stylesheet" href="assets/product-art.css?v=20261201">
+<link rel="stylesheet" href="assets/motion.min.css?v=20261201">
+<link rel="stylesheet" href="assets/rhythm.min.css?v=20261123">
+<link rel="stylesheet" href="assets/product-art.min.css?v=20261201">
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 
@@ -130,7 +130,7 @@
 }
 </script>
     <script src="/recaptcha-config.js"></script>
-    <script src="lead-form.js" defer></script>
+    <script src="assets/lead-form.min.js" defer></script>
 <script>document.documentElement.classList.add('js');(function(){var h=document.documentElement;try{if(sessionStorage.getItem('rx_nav')){sessionStorage.removeItem('rx_nav');h.classList.add('rx-arrive')}}catch(e){}var t=setTimeout(function(){if(document.readyState==='loading')h.classList.add('rx-loading')},500);function done(){clearTimeout(t);if(h.classList.contains('rx-loading')){h.classList.add('rx-loaded');setTimeout(function(){h.classList.remove('rx-loading','rx-loaded')},450)}}document.addEventListener('DOMContentLoaded',function(){setTimeout(done,120)});window.addEventListener('load',done);setTimeout(done,2500)})()</script>
 </head>
 <body class="antialiased selection:bg-rexa-red selection:text-white">
@@ -627,16 +627,16 @@
             });
         });
     </script>
-<script src="assets/motion.js?v=20261201" defer></script>
-<script src="assets/rhythm.js?v=20261123" defer></script>
+<script src="assets/motion.min.js?v=20261201" defer></script>
+<script src="assets/rhythm.min.js?v=20261123" defer></script>
 <script>
 /* Raksha (the on-site assistant) is not needed for the first paint: load it after the page has settled,
    or sooner on the first interaction. Nothing else on the page depends on it. */
-(function(){var d=0,ev=['scroll','touchstart','pointerdown','keydown'];function go(){if(d)return;d=1;ev.forEach(function(e){removeEventListener(e,go,true)});var l=document.createElement('link');l.rel='stylesheet';l.href='/assets/raksha.css?v=20261202';function js(){var s=document.createElement('script');s.src='/assets/raksha.js?v=20261204';document.body.appendChild(s)}l.onload=l.onerror=js;document.head.appendChild(l)}
+(function(){var d=0,ev=['scroll','touchstart','pointerdown','keydown'];function go(){if(d)return;d=1;ev.forEach(function(e){removeEventListener(e,go,true)});var l=document.createElement('link');l.rel='stylesheet';l.href='/assets/raksha.min.css?v=20261202';function js(){var s=document.createElement('script');s.src='/assets/raksha.min.js?v=20261204';document.body.appendChild(s)}l.onload=l.onerror=js;document.head.appendChild(l)}
 ev.forEach(function(e){addEventListener(e,go,{capture:true,once:true,passive:true})});
 function later(){setTimeout(function(){(window.requestIdleCallback||function(f){f()})(go,{timeout:2000})},3000)}
 if(document.readyState==='complete')later();else addEventListener('load',later)})();
 </script>
-<script src="assets/analytics.js" defer></script>
+<script src="assets/analytics.min.js" defer></script>
 </body>
 </html>

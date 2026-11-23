@@ -29,7 +29,7 @@ Set each for **Production**, and for **Preview** too if you want forms to work o
 
 ## Other places to configure
 - **reCAPTCHA admin:** the key's allowed domains must include `rexabroking.com`, `www.rexabroking.com` (and the `*.vercel.app` preview host if you test forms there).
-- **Google Analytics:** paste the Measurement ID into `assets/analytics.js`, commit, deploy (`docs/analytics.md`).
+- **Google Analytics:** paste the Measurement ID into `assets/analytics.js`, run `npm run build:min`, commit (including the `.min` files), deploy (`docs/analytics.md`).
 - **Email DNS:** SPF, DKIM and DMARC for the sending domain.
 - **Search Console:** submit `https://www.rexabroking.com/sitemap.xml`; request indexing for `/`.
 - **Google Business Profile:** claim/verify Chennai and Bengaluru.
@@ -46,3 +46,6 @@ Vercel → Deployments → previous good deployment → **Instant Rollback** (or
 
 ## Cache-busting
 Shared assets are linked with `?v=YYYYMMDD…`. When you change `rhythm.css/js`, `raksha.css/js`, `motion.*`, `team.css` or `product-art.css`, bump the number on every page so browsers refetch.
+
+## Minified CSS/JS
+Pages load `*.min.css` / `*.min.js` (in `assets/`), generated from the readable sources by `npm run build:min` (`scripts/build-min.js`). After editing any source listed in that script, run it and commit the `.min` files too: Vercel does not run a build for this project. Tailwind output is built separately with `npm run build:css`.
