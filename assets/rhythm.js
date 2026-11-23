@@ -201,3 +201,17 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+
+/* Email links: the address is written as "info [at] rexabroking.com" in the HTML so scrapers that read page
+   source do not collect it. Here it becomes a normal mailto: link with the real address for visitors. */
+(function () {
+  function fix() {
+    var els = document.querySelectorAll('a[data-mail]');
+    for (var i = 0; i < els.length; i++) {
+      var a = els[i], addr = a.getAttribute('data-mail') + '@' + 'rexabroking.com';
+      a.setAttribute('href', 'mailto:' + addr);
+      if (/\[at\]/.test(a.textContent)) a.textContent = addr;
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
+})();

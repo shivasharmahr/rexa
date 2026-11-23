@@ -42,11 +42,8 @@
 <!-- Google Fonts: Inter (sans for UI). Serif headers fall back to system Palatino/Georgia. -->
 <link rel="stylesheet" href="assets/tailwind.css">
 <link rel="stylesheet" href="assets/motion.css?v=20261201">
-<link rel="stylesheet" href="assets/rhythm.css?v=20261122">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="assets/rhythm.css?v=20261123">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 
 <style>
@@ -290,7 +287,7 @@
     "addressCountry": "IN"
   },
   "telephone": "+91-4448678884",
-  "email": "info@rexabroking.com",
+  "email": "info\u0040rexabroking.com",
   "priceRange": "$$",
   "areaServed": ["IN"],
   "serviceType": ["General Insurance", "Life Insurance", "Employee Benefits"],
@@ -374,9 +371,7 @@
   "offeredBy": { "@type": "Organization", "name": "Rexa Insurance Broking Services", "url": "https://www.rexabroking.com" }
 }
 </script>
-<script>document.documentElement.classList.add('js');(function(){var h=document.documentElement;try{if(sessionStorage.getItem('rx_nav')){sessionStorage.removeItem('rx_nav');h.classList.add('rx-arrive')}}catch(e){}var t=setTimeout(function(){if(document.readyState!=='complete')h.classList.add('rx-loading')},500);function done(){clearTimeout(t);if(h.classList.contains('rx-loading')){h.classList.add('rx-loaded');setTimeout(function(){h.classList.remove('rx-loading','rx-loaded')},450)}}window.addEventListener('load',done);setTimeout(done,9000)})()</script>
-<link rel="stylesheet" href="assets/raksha.css?v=20261202">
-<link rel="preload" as="image" href="assets/raksha-figure-v2.webp" type="image/webp" fetchpriority="low">
+<script>document.documentElement.classList.add('js');(function(){var h=document.documentElement;try{if(sessionStorage.getItem('rx_nav')){sessionStorage.removeItem('rx_nav');h.classList.add('rx-arrive')}}catch(e){}var t=setTimeout(function(){if(document.readyState==='loading')h.classList.add('rx-loading')},500);function done(){clearTimeout(t);if(h.classList.contains('rx-loading')){h.classList.add('rx-loaded');setTimeout(function(){h.classList.remove('rx-loading','rx-loaded')},450)}}document.addEventListener('DOMContentLoaded',function(){setTimeout(done,120)});window.addEventListener('load',done);setTimeout(done,2500)})()</script>
 </head>
 <body class="antialiased selection:bg-rexa-red selection:text-white">
     <a class="rx-skip" href="#main">Skip to content</a>
@@ -1010,7 +1005,7 @@
                     <div class="space-y-4 text-sm text-slate-400">
                         <address><strong class="text-white">Head Office (Chennai)</strong><br>G4, Swathi Court, 22/43 Vijayaraghava Road, T Nagar, Chennai – 600017<br><a href="tel:+914448678884" class="inline-block py-1.5 hover:text-rexa-red">+91 44 4867 8884</a> &nbsp; <a href="tel:+917540071535" class="inline-block py-1.5 hover:text-rexa-red">+91 7540 071535</a></address>
                         <address><strong class="text-white">Branch (Bangalore)</strong><br>2nd Floor, 409, ITI Layout 3rd Phase, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560039<br><a href="tel:+919986969637" class="inline-block py-1.5 hover:text-rexa-red">+91 9986 969637</a></address>
-                        <p><strong class="text-white">Email</strong><br><a href="mailto:info@rexabroking.com" class="inline-block py-1.5 hover:text-rexa-red">info@rexabroking.com</a></p>
+                        <p><strong class="text-white">Email</strong><br><a href="/contact" data-mail="info" class="inline-block py-1.5 hover:text-rexa-red">info [at] rexabroking.com</a></p>
                         <p><strong class="text-white">Claims Helpline (IVR)</strong><br>24×7 toll-free<br><a href="tel:+917009670090" class="inline-block py-1.5 text-rexa-red font-bold">+91 7009 670 090</a></p>
                     </div>
                 </div>
@@ -1162,7 +1157,7 @@
             // the hint tells people to email the policy copy separately
             // rather than expecting an attach button that doesn't exist.
             const messageHints = {
-                'gap-analysis': 'Current insurer: \nSum insured: \nRenewal date: \n\n(You can email your existing policy schedule to info@rexabroking.com once we\'re in touch — no need to attach it here.)',
+                'gap-analysis': 'Current insurer: \nSum insured: \nRenewal date: \n\n(You can email your existing policy schedule to info\x40rexabroking.com once we\'re in touch — no need to attach it here.)',
                 'employee-benefits': 'Team size: \nCurrent provider (if any): \nWhat isn\'t working today: '
             };
 
@@ -1327,8 +1322,15 @@
         });
     </script>
 <script src="assets/motion.js?v=20261201" defer></script>
-<script src="assets/rhythm.js?v=202611197" defer></script>
-<script src="assets/raksha.js?v=20261204" defer></script>
+<script src="assets/rhythm.js?v=20261123" defer></script>
+<script>
+/* Raksha (the on-site assistant) is not needed for the first paint: load it after the page has settled,
+   or sooner on the first interaction. Nothing else on the page depends on it. */
+(function(){var d=0,ev=['scroll','touchstart','pointerdown','keydown'];function go(){if(d)return;d=1;ev.forEach(function(e){removeEventListener(e,go,true)});var l=document.createElement('link');l.rel='stylesheet';l.href='/assets/raksha.css?v=20261202';function js(){var s=document.createElement('script');s.src='/assets/raksha.js?v=20261204';document.body.appendChild(s)}l.onload=l.onerror=js;document.head.appendChild(l)}
+ev.forEach(function(e){addEventListener(e,go,{capture:true,once:true,passive:true})});
+function later(){setTimeout(function(){(window.requestIdleCallback||function(f){f()})(go,{timeout:2000})},3000)}
+if(document.readyState==='complete')later();else addEventListener('load',later)})();
+</script>
 <script src="assets/analytics.js" defer></script>
 </body>
 </html>
